@@ -1,4 +1,22 @@
 import { setHue, saturate } from 'polished';
+import dracula from '@theme-ui/prism/presets/dracula.json';
+import duotoneDark from '@theme-ui/prism/presets/duotone-dark.json';
+import duotoneLight from '@theme-ui/prism/presets/duotone-light.json';
+import github from '@theme-ui/prism/presets/github.json';
+import nightOwl from '@theme-ui/prism/presets/night-owl.json';
+import nightOwlLight from '@theme-ui/prism/presets/night-owl-light.json';
+import oceanicNext from '@theme-ui/prism/presets/oceanic-next.json';
+import prism from '@theme-ui/prism/presets/prism.json';
+import prismCoy from '@theme-ui/prism/presets/prism-coy.json';
+import prismDark from '@theme-ui/prism/presets/prism-dark.json';
+import prismFunky from '@theme-ui/prism/presets/prism-funky.json';
+import prismOkaidia from '@theme-ui/prism/presets/prism-okaidia.json';
+import prismSolarizedlight from '@theme-ui/prism/presets/prism-solarizedlight.json';
+import prismTomorrow from '@theme-ui/prism/presets/prism-tomorrow.json';
+import prismTwilight from '@theme-ui/prism/presets/prism-twilight.json';
+import shadesOfPurple from '@theme-ui/prism/presets/shades-of-purple.json';
+import ultramin from '@theme-ui/prism/presets/ultramin.json';
+import vsDark from '@theme-ui/prism/presets/vs-dark.json';
 const heading = {
   fontFamily: 'heading',
   lineHeight: 'heading',
@@ -108,8 +126,25 @@ export const theme = {
       },
     },
     code: {
-      fontFamily: 'monospace',
-      fontSize: 'inherit',
+      nightOwl,
+      dracula,
+      duotoneDark,
+      duotoneLight,
+      github,
+      nightOwlLight,
+      oceanicNext,
+      prism,
+      prismCoy,
+      prismDark,
+      prismFunky,
+      prismOkaidia,
+      prismSolarizedlight,
+      prismTomorrow,
+      prismTwilight,
+      shadesOfPurple,
+      ultramin,
+      vsDark,
+      // ...nightOwl,
     },
     table: {
       width: '100%',
