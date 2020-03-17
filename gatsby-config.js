@@ -1,12 +1,32 @@
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby + Netlify CMS Starter',
+    title: 'Nikola Rusakov',
     description:
-      'This repo contains an example business website that is built with Gatsby, and Netlify CMS.It follows the JAMstack architecture by using Git as a single source of truth, and Netlify for continuous deployment, and CDN distribution.',
+      'Rusakov Web Page',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sass',
+    `gatsby-plugin-typescript`,
+    'gatsby-plugin-offline',
+    'gatsby-plugin-theme-ui',
+    /*{
+      resolve: 'gatsby-plugin-react-axe',
+      options: {
+        showInProduction: false,
+        // Options to pass to axe-core.
+        // See: https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
+        axeOptions: {
+          // Your axe-core options.
+        },
+      },
+    },*/
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/theme/typography`,
+      },
+    },
+    /*
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
       resolve: 'gatsby-source-filesystem',
@@ -28,10 +48,52 @@ module.exports = {
         path: `${__dirname}/src/img`,
         name: 'images',
       },
-    },
+    },*/
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `about`,
+        path: `${__dirname}/src/pages/about`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: `${__dirname}/src/pages/about`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        extensions: [`.mdx`, `.md`],
+        defaultLayouts: {
+          about: require.resolve('./src/layouts/about-layout.tsx'),
+          // highlights: require.resolve('./src/components/highlights-layout.js'),
+          // posts: require.resolve('./src/components/posts-layout.js'),
+          // default: require.resolve('./src/components/default-page-layout.js'),
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-google-fonts',
+      options: {
+        fonts: ['Work+Sans', 'Quattrocento+Sans:400,400i,700'],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-svgr',
+      options: {
+        prettier: true, // use prettier to format JS code output (default)
+        svgo: true, // use svgo to optimize SVGs (default)
+        svgoConfig: {
+          removeViewBox: true, // remove viewBox when possible (default)
+          cleanupIDs: true, // remove unused IDs and minify remaining IDs (default)
+        },
+      },
+    },
+    /*{
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
@@ -58,20 +120,6 @@ module.exports = {
           },
         ],
       },
-    },
-    {
-      resolve: 'gatsby-plugin-netlify-cms',
-      options: {
-        modulePath: `${__dirname}/src/cms/cms.js`,
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-purgecss', // purges all unused/unreferenced css rules
-      options: {
-        develop: true, // Activates purging in npm run develop
-        purgeOnly: ['/all.sass'], // applies purging only on the bulma css file
-      },
-    }, // must be after other CSS plugins
-    'gatsby-plugin-netlify', // make sure to keep it last in the array
+    }*/
   ],
-}
+};
