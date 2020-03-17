@@ -1,22 +1,5 @@
 import { setHue, saturate } from 'polished';
-import dracula from '@theme-ui/prism/presets/dracula.json';
-import duotoneDark from '@theme-ui/prism/presets/duotone-dark.json';
-import duotoneLight from '@theme-ui/prism/presets/duotone-light.json';
-import github from '@theme-ui/prism/presets/github.json';
-import nightOwl from '@theme-ui/prism/presets/night-owl.json';
-import nightOwlLight from '@theme-ui/prism/presets/night-owl-light.json';
-import oceanicNext from '@theme-ui/prism/presets/oceanic-next.json';
-import prism from '@theme-ui/prism/presets/prism.json';
-import prismCoy from '@theme-ui/prism/presets/prism-coy.json';
-import prismDark from '@theme-ui/prism/presets/prism-dark.json';
-import prismFunky from '@theme-ui/prism/presets/prism-funky.json';
-import prismOkaidia from '@theme-ui/prism/presets/prism-okaidia.json';
-import prismSolarizedlight from '@theme-ui/prism/presets/prism-solarizedlight.json';
-import prismTomorrow from '@theme-ui/prism/presets/prism-tomorrow.json';
-import prismTwilight from '@theme-ui/prism/presets/prism-twilight.json';
-import shadesOfPurple from '@theme-ui/prism/presets/shades-of-purple.json';
-import ultramin from '@theme-ui/prism/presets/ultramin.json';
-import vsDark from '@theme-ui/prism/presets/vs-dark.json';
+
 const heading = {
   fontFamily: 'heading',
   lineHeight: 'heading',
@@ -64,7 +47,7 @@ export const theme = {
   },
   colors: {
     text: '#292929',
-    background: '#FCFCFC',
+    background: '#00b0f0',
     primary: '#00b0f0',
     secondary: '#008BBE',
     accent: '#006d95',
@@ -79,12 +62,6 @@ export const theme = {
         primary: '#0cf',
         secondary: '#09c',
         muted: '#111',
-      },
-      papaya: {
-        // this color mode will fallback to the root color object
-        // for values not defined here
-        text: '#433',
-        background: 'papayawhip',
       },
     },
   },
@@ -125,27 +102,77 @@ export const theme = {
         color: 'inherit',
       },
     },
-    code: {
-      nightOwl,
-      dracula,
-      duotoneDark,
-      duotoneLight,
-      github,
-      nightOwlLight,
-      oceanicNext,
-      prism,
-      prismCoy,
-      prismDark,
-      prismFunky,
-      prismOkaidia,
-      prismSolarizedlight,
-      prismTomorrow,
-      prismTwilight,
-      shadesOfPurple,
-      ultramin,
-      vsDark,
-      // ...nightOwl,
-    },
+    // code: {
+    //   // ...dracula,
+    //   ...nightOwl,
+    // },
+    // code: {
+    //   ...nightOwl,
+    //   dracula,
+    //   duotoneDark,
+    //   duotoneLight,
+    //   github,
+    //   nightOwlLight,
+    //   oceanicNext,
+    //   prism,
+    //   prismCoy,
+    //   prismDark,
+    //   prismFunky,
+    //   prismOkaidia,
+    //   prismSolarizedlight,
+    //   prismTomorrow,
+    //   prismTwilight,
+    //   shadesOfPurple,
+    //   ultramin,
+    //   vsDark,
+    //   // ...nightOwl,
+    // },
+    /*    prism: {
+          [[
+            '.comment',
+            '.prolog',
+            '.doctype',
+            '.cdata',
+            '.punctuation',
+            '.operator',
+            '.entity',
+            '.url',
+          ]]: {
+            color: 'gray',
+          },
+          '.comment': {
+            fontStyle: 'italic',
+          },
+          [[
+            '.property',
+            '.tag',
+            '.boolean',
+            '.number',
+            '.constant',
+            '.symbol',
+            '.deleted',
+            '.function',
+            '.class-name',
+            '.regex',
+            '.important',
+            '.variable',
+          ]]: {
+            color: 'purple',
+          },
+          [['.atrule', '.attr-value', '.keyword']]: {
+            color: 'primary',
+          },
+          [[
+            '.selector',
+            '.attr-name',
+            '.string',
+            '.char',
+            '.builtin',
+            '.inserted',
+          ]]: {
+            color: 'secondary',
+          },
+        },*/
     table: {
       width: '100%',
       borderCollapse: 'separate',
@@ -164,7 +191,7 @@ export const theme = {
       fontStyle: 'italic',
       borderBottomStyle: 'solid',
     },
-  },
+  }
 };
 
 export default theme;

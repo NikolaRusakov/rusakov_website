@@ -1,18 +1,27 @@
-import React from 'react';
-import { Message, ThemeProvider } from 'theme-ui';
-import ThemeUIPrism from '@theme-ui/prism';
-import PrismCore from 'prismjs/components/prism-core';
-import theme from '../theme';
+/** @jsx jsx */
+import { jsx, useColorMode, Checkbox } from 'theme-ui';
+import { ThemeProvider, Styled } from 'theme-ui';
 
-const components = {
-  Message,
-  pre: props => props.children,
-  code: props => <ThemeUIPrism {...props} Prism={PrismCore} />,
-};
+import theme from '../gatsby-plugin-theme-ui/index';
 
 // @ts-ignore
-export default ({ children }) => (
-  <ThemeProvider theme={theme} components={components}>
-    {children}
-  </ThemeProvider>
-);
+const AboutLayout = ({ children }) => {
+  const [mode, setMode] = useColorMode();
+
+  return (
+    <ThemeProvider theme={theme}>
+      <label>
+        {mode}
+        <Checkbox
+          onClick={() => {
+            const next = mode === 'dark' ? 'light' : 'dark';
+            setMode(next);
+          }}
+        />
+      </label>
+      <Styled.root>{children}</Styled.root>
+    </ThemeProvider>
+  );
+};
+
+export default AboutLayout;
