@@ -1,0 +1,19 @@
+diff --git a/node_modules/typography-design-tools/dist/DesignTool.js b/node_modules/typography-design-tools/dist/DesignTool.js
+index ad0aaac..fcba1dc 100644
+--- a/node_modules/typography-design-tools/dist/DesignTool.js
++++ b/node_modules/typography-design-tools/dist/DesignTool.js
+@@ -85,10 +85,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function"
+ var requireThemes = require.context("../../", true, /^\.\/typography-theme.*\/src\/index.js$/);
+ var themeRegistry = [];
+ _lodash2.default.each(_themes2.default, function (theme) {
+-  themeRegistry.push({
++    import jsonImport from (`${theme.requireStr}`)
++
++    themeRegistry.push({
+     name: theme.name,
+     title: theme.title,
+-    module: requireThemes(theme.requireStr)
++    module: jsonImport
+   });
+ });
+ 
