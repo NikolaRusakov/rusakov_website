@@ -1,19 +1,219 @@
 diff --git a/node_modules/typography-design-tools/dist/DesignTool.js b/node_modules/typography-design-tools/dist/DesignTool.js
-index ad0aaac..fcba1dc 100644
+index ad0aaac..69db3f8 100644
 --- a/node_modules/typography-design-tools/dist/DesignTool.js
 +++ b/node_modules/typography-design-tools/dist/DesignTool.js
-@@ -85,10 +85,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function"
+@@ -81,14 +81,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
+ function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+ 
+ function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+-
++const typographyThemeAlton= require('../../typography-theme-alton/src/index.js');
++const typographyThemeGithub= require('../../typography-theme-github/src/index.js');
++const typoConf=[{
++    "name": "typography-theme-alton",
++    "title": "Alton",
++    "requireStr": typographyThemeAlton
++},
++{
++    "name": "typography-theme-github",
++    "title": "Github",
++    "requireStr": typographyThemeGithub
++},]
  var requireThemes = require.context("../../", true, /^\.\/typography-theme.*\/src\/index.js$/);
  var themeRegistry = [];
- _lodash2.default.each(_themes2.default, function (theme) {
--  themeRegistry.push({
-+    import jsonImport from (`${theme.requireStr}`)
-+
-+    themeRegistry.push({
+-_lodash2.default.each(_themes2.default, function (theme) {
++_lodash2.default.each(typoConf, function (theme) {
+   themeRegistry.push({
      name: theme.name,
      title: theme.title,
 -    module: requireThemes(theme.requireStr)
-+    module: jsonImport
++    module: theme.requireStr
    });
  });
  
+diff --git a/node_modules/typography-design-tools/dist/index.js b/node_modules/typography-design-tools/dist/index.js
+index c2231d5..3aedfc5 100644
+--- a/node_modules/typography-design-tools/dist/index.js
++++ b/node_modules/typography-design-tools/dist/index.js
+@@ -21,6 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
+ var node = void 0;
+ var wrapTypography = function wrapTypography(typography) {
+   if (typeof window !== "undefined") {
++    console.log(window);
+     if (!node) {
+       node = document.createElement("div");
+       node.id = "typography-design-tools";
+diff --git a/node_modules/typography-design-tools/themes.json b/node_modules/typography-design-tools/themes.json
+index 3fd14a4..b939114 100644
+--- a/node_modules/typography-design-tools/themes.json
++++ b/node_modules/typography-design-tools/themes.json
+@@ -1 +1,167 @@
+-[{"name":"typography-theme-alton","title":"Alton","requireStr":"./typography-theme-alton/src/index.js"},{"name":"typography-theme-bootstrap","title":"Bootstrap","requireStr":"./typography-theme-bootstrap/src/index.js"},{"name":"typography-theme-de-young","title":"de Young","requireStr":"./typography-theme-de-young/src/index.js"},{"name":"typography-theme-doelger","title":"Doelger","requireStr":"./typography-theme-doelger/src/index.js"},{"name":"typography-theme-elk-glen","title":"Elk Glen","requireStr":"./typography-theme-elk-glen/src/index.js"},{"name":"typography-theme-fairy-gates","title":"Fairy Gates","requireStr":"./typography-theme-fairy-gates/src/index.js"},{"name":"typography-theme-funston","title":"Funston","requireStr":"./typography-theme-funston/src/index.js"},{"name":"typography-theme-github","title":"Github","requireStr":"./typography-theme-github/src/index.js"},{"name":"typography-theme-grand-view","title":"Grand View","requireStr":"./typography-theme-grand-view/src/index.js"},{"name":"typography-theme-irving","title":"Irving","requireStr":"./typography-theme-irving/src/index.js"},{"name":"typography-theme-judah","title":"Judah","requireStr":"./typography-theme-judah/src/index.js"},{"name":"typography-theme-kirkham","title":"Kirkham","requireStr":"./typography-theme-kirkham/src/index.js"},{"name":"typography-theme-lawton","title":"Lawton","requireStr":"./typography-theme-lawton/src/index.js"},{"name":"typography-theme-lincoln","title":"Lincoln","requireStr":"./typography-theme-lincoln/src/index.js"},{"name":"typography-theme-moraga","title":"Moraga","requireStr":"./typography-theme-moraga/src/index.js"},{"name":"typography-theme-noriega","title":"Noriega","requireStr":"./typography-theme-noriega/src/index.js"},{"name":"typography-theme-ocean-beach","title":"Ocean Beach","requireStr":"./typography-theme-ocean-beach/src/index.js"},{"name":"typography-theme-parnassus","title":"Parnassus","requireStr":"./typography-theme-parnassus/src/index.js"},{"name":"typography-theme-st-annes","title":"St. Annes","requireStr":"./typography-theme-st-annes/src/index.js"},{"name":"typography-theme-stern-grove","title":"Stern Grove","requireStr":"./typography-theme-stern-grove/src/index.js"},{"name":"typography-theme-stow-lake","title":"Stow Lake","requireStr":"./typography-theme-stow-lake/src/index.js"},{"name":"typography-theme-sutro","title":"Sutro","requireStr":"./typography-theme-sutro/src/index.js"},{"name":"typography-theme-twin-peaks","title":"Twin Peaks","requireStr":"./typography-theme-twin-peaks/src/index.js"},{"name":"typography-theme-us-web-design-standards","title":"US Web Design Standards","requireStr":"./typography-theme-us-web-design-standards/src/index.js"},{"name":"typography-theme-Wikipedia","title":"Wikipedia","requireStr":"./typography-theme-wikipedia/src/index.js"},{"name":"typography-theme-wordpress-2010","title":"Wordpress Theme 2010","requireStr":"./typography-theme-wordpress-2010/src/index.js"},{"name":"typography-theme-wordpress-2011","title":"Wordpress Theme 2011","requireStr":"./typography-theme-wordpress-2011/src/index.js"},{"name":"typography-theme-wordpress-2012","title":"Wordpress Theme 2012","requireStr":"./typography-theme-wordpress-2012/src/index.js"},{"name":"typography-theme-wordpress-2013","title":"Wordpress Theme 2013","requireStr":"./typography-theme-wordpress-2013/src/index.js"},{"name":"typography-theme-wordpress-2014","title":"Wordpress Theme 2014","requireStr":"./typography-theme-wordpress-2014/src/index.js"},{"name":"typography-theme-wordpress-2015","title":"Wordpress Theme 2015","requireStr":"./typography-theme-wordpress-2015/src/index.js"},{"name":"typography-theme-wordpress-2016","title":"Wordpress Theme 2016","requireStr":"./typography-theme-wordpress-2016/src/index.js"},{"name":"typography-theme-wordpress-kubrick","title":"Wordpress Kubrick","requireStr":"./typography-theme-wordpress-kubrick/src/index.js"}]
+\ No newline at end of file
++[
++  {
++    "name": "typography-theme-alton",
++    "title": "Alton",
++    "requireStr": "./typography-theme-alton/src/index.js"
++  },
++  {
++    "name": "typography-theme-bootstrap",
++    "title": "Bootstrap",
++    "requireStr": "./typography-theme-bootstrap/src/index.js"
++  },
++  {
++    "name": "typography-theme-de-young",
++    "title": "de Young",
++    "requireStr": "./typography-theme-de-young/src/index.js"
++  },
++  {
++    "name": "typography-theme-doelger",
++    "title": "Doelger",
++    "requireStr": "./typography-theme-doelger/src/index.js"
++  },
++  {
++    "name": "typography-theme-elk-glen",
++    "title": "Elk Glen",
++    "requireStr": "./typography-theme-elk-glen/src/index.js"
++  },
++  {
++    "name": "typography-theme-fairy-gates",
++    "title": "Fairy Gates",
++    "requireStr": "./typography-theme-fairy-gates/src/index.js"
++  },
++  {
++    "name": "typography-theme-funston",
++    "title": "Funston",
++    "requireStr": "./typography-theme-funston/src/index.js"
++  },
++  {
++    "name": "typography-theme-github",
++    "title": "Github",
++    "requireStr": "./typography-theme-github/src/index.js"
++  },
++  {
++    "name": "typography-theme-grand-view",
++    "title": "Grand View",
++    "requireStr": "./typography-theme-grand-view/src/index.js"
++  },
++  {
++    "name": "typography-theme-irving",
++    "title": "Irving",
++    "requireStr": "./typography-theme-irving/src/index.js"
++  },
++  {
++    "name": "typography-theme-judah",
++    "title": "Judah",
++    "requireStr": "./typography-theme-judah/src/index.js"
++  },
++  {
++    "name": "typography-theme-kirkham",
++    "title": "Kirkham",
++    "requireStr": "./typography-theme-kirkham/src/index.js"
++  },
++  {
++    "name": "typography-theme-lawton",
++    "title": "Lawton",
++    "requireStr": "./typography-theme-lawton/src/index.js"
++  },
++  {
++    "name": "typography-theme-lincoln",
++    "title": "Lincoln",
++    "requireStr": "./typography-theme-lincoln/src/index.js"
++  },
++  {
++    "name": "typography-theme-moraga",
++    "title": "Moraga",
++    "requireStr": "./typography-theme-moraga/src/index.js"
++  },
++  {
++    "name": "typography-theme-noriega",
++    "title": "Noriega",
++    "requireStr": "./typography-theme-noriega/src/index.js"
++  },
++  {
++    "name": "typography-theme-ocean-beach",
++    "title": "Ocean Beach",
++    "requireStr": "./typography-theme-ocean-beach/src/index.js"
++  },
++  {
++    "name": "typography-theme-parnassus",
++    "title": "Parnassus",
++    "requireStr": "./typography-theme-parnassus/src/index.js"
++  },
++  {
++    "name": "typography-theme-st-annes",
++    "title": "St. Annes",
++    "requireStr": "./typography-theme-st-annes/src/index.js"
++  },
++  {
++    "name": "typography-theme-stern-grove",
++    "title": "Stern Grove",
++    "requireStr": "./typography-theme-stern-grove/src/index.js"
++  },
++  {
++    "name": "typography-theme-stow-lake",
++    "title": "Stow Lake",
++    "requireStr": "./typography-theme-stow-lake/src/index.js"
++  },
++  {
++    "name": "typography-theme-sutro",
++    "title": "Sutro",
++    "requireStr": "./typography-theme-sutro/src/index.js"
++  },
++  {
++    "name": "typography-theme-twin-peaks",
++    "title": "Twin Peaks",
++    "requireStr": "./typography-theme-twin-peaks/src/index.js"
++  },
++  {
++    "name": "typography-theme-us-web-design-standards",
++    "title": "US Web Design Standards",
++    "requireStr": "./typography-theme-us-web-design-standards/src/index.js"
++  },
++  {
++    "name": "typography-theme-Wikipedia",
++    "title": "Wikipedia",
++    "requireStr": "./typography-theme-wikipedia/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-2010",
++    "title": "Wordpress Theme 2010",
++    "requireStr": "./typography-theme-wordpress-2010/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-2011",
++    "title": "Wordpress Theme 2011",
++    "requireStr": "./typography-theme-wordpress-2011/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-2012",
++    "title": "Wordpress Theme 2012",
++    "requireStr": "./typography-theme-wordpress-2012/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-2013",
++    "title": "Wordpress Theme 2013",
++    "requireStr": "./typography-theme-wordpress-2013/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-2014",
++    "title": "Wordpress Theme 2014",
++    "requireStr": "./typography-theme-wordpress-2014/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-2015",
++    "title": "Wordpress Theme 2015",
++    "requireStr": "./typography-theme-wordpress-2015/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-2016",
++    "title": "Wordpress Theme 2016",
++    "requireStr": "./typography-theme-wordpress-2016/src/index.js"
++  },
++  {
++    "name": "typography-theme-wordpress-kubrick",
++    "title": "Wordpress Kubrick",
++    "requireStr": "./typography-theme-wordpress-kubrick/src/index.js"
++  }
++]

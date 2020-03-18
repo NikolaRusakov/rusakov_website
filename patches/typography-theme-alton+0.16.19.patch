@@ -1,0 +1,16 @@
+diff --git a/node_modules/typography-theme-alton/src/index.js b/node_modules/typography-theme-alton/src/index.js
+index 03e9e36..25e35b2 100644
+--- a/node_modules/typography-theme-alton/src/index.js
++++ b/node_modules/typography-theme-alton/src/index.js
+@@ -1,10 +1,9 @@
+ // @flow
+ import gray from "gray-percentage"
+-import type { OptionsType } from "Types"
+ import { MOBILE_MEDIA_QUERY } from "typography-breakpoint-constants"
+ import verticalRhythm from "compass-vertical-rhythm"
+ 
+-const theme: OptionsType = {
++const theme = {
+   title: "Alton",
+   baseFontSize: "18px",
+   baseLineHeight: 1.45,

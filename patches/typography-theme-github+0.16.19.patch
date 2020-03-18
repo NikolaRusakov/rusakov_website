@@ -1,0 +1,14 @@
+diff --git a/node_modules/typography-theme-github/src/index.js b/node_modules/typography-theme-github/src/index.js
+index 80bc856..11c4a0b 100644
+--- a/node_modules/typography-theme-github/src/index.js
++++ b/node_modules/typography-theme-github/src/index.js
+@@ -1,8 +1,7 @@
+ // @flow
+ import gray from "gray-percentage"
+-import type { OptionsType } from "Types"
+ 
+-const theme: OptionsType = {
++const theme = {
+   title: "GitHub",
+   baseFontSize: "16px",
+   baseLineHeight: 1.625,
