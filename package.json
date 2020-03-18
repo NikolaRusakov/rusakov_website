@@ -65,7 +65,8 @@
     "format": "prettier --write '**/*.tsx'",
     "storybook": "start-storybook -p 6006",
     "build:storybook": "build-storybook",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
