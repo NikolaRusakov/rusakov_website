@@ -1,0 +1,130 @@
+diff --git a/node_modules/react-autosuggest/dist/Autosuggest.js b/node_modules/react-autosuggest/dist/Autosuggest.js
+index 37b3821..5564a00 100644
+--- a/node_modules/react-autosuggest/dist/Autosuggest.js
++++ b/node_modules/react-autosuggest/dist/Autosuggest.js
+@@ -10,6 +10,8 @@ var _createClass = function () { function defineProperties(target, props) { for
+ 
+ var _react = require('react');
+ 
++var propTypes = require('prop-types');
++
+ var _react2 = _interopRequireDefault(_react);
+ 
+ var _reactRedux = require('react-redux');
+@@ -453,34 +455,34 @@ var Autosuggest = function (_Component) {
+ }(_react.Component);
+ 
+ Autosuggest.propTypes = {
+-  suggestions: _react.PropTypes.array.isRequired,
+-  onSuggestionsUpdateRequested: _react.PropTypes.func.isRequired,
+-  getSuggestionValue: _react.PropTypes.func.isRequired,
+-  renderSuggestion: _react.PropTypes.func.isRequired,
+-  inputProps: _react.PropTypes.object.isRequired,
+-  shouldRenderSuggestions: _react.PropTypes.func.isRequired,
+-  onSuggestionSelected: _react.PropTypes.func.isRequired,
+-  multiSection: _react.PropTypes.bool.isRequired,
+-  renderSectionTitle: _react.PropTypes.func.isRequired,
+-  getSectionSuggestions: _react.PropTypes.func.isRequired,
+-  focusInputOnSuggestionClick: _react.PropTypes.bool.isRequired,
+-  focusFirstSuggestion: _react.PropTypes.bool.isRequired,
+-  theme: _react.PropTypes.object.isRequired,
+-  id: _react.PropTypes.string.isRequired,
+-  inputRef: _react.PropTypes.func.isRequired,
+-
+-  isFocused: _react.PropTypes.bool.isRequired,
+-  isCollapsed: _react.PropTypes.bool.isRequired,
+-  focusedSectionIndex: _react.PropTypes.number,
+-  focusedSuggestionIndex: _react.PropTypes.number,
+-  valueBeforeUpDown: _react.PropTypes.string,
+-  lastAction: _react.PropTypes.string,
+-
+-  inputFocused: _react.PropTypes.func.isRequired,
+-  inputBlurred: _react.PropTypes.func.isRequired,
+-  inputChanged: _react.PropTypes.func.isRequired,
+-  updateFocusedSuggestion: _react.PropTypes.func.isRequired,
+-  revealSuggestions: _react.PropTypes.func.isRequired,
+-  closeSuggestions: _react.PropTypes.func.isRequired
++  suggestions: propTypes.PropTypes.array.isRequired,
++  onSuggestionsUpdateRequested: propTypes.PropTypes.func.isRequired,
++  getSuggestionValue: propTypes.PropTypes.func.isRequired,
++  renderSuggestion: propTypes.PropTypes.func.isRequired,
++  inputProps: propTypes.PropTypes.object.isRequired,
++  shouldRenderSuggestions: propTypes.PropTypes.func.isRequired,
++  onSuggestionSelected: propTypes.PropTypes.func.isRequired,
++  multiSection: propTypes.PropTypes.bool.isRequired,
++  renderSectionTitle: propTypes.PropTypes.func.isRequired,
++  getSectionSuggestions: propTypes.PropTypes.func.isRequired,
++  focusInputOnSuggestionClick: propTypes.PropTypes.bool.isRequired,
++  focusFirstSuggestion: propTypes.PropTypes.bool.isRequired,
++  theme: propTypes.PropTypes.object.isRequired,
++  id: propTypes.PropTypes.string.isRequired,
++  inputRef: propTypes.PropTypes.func.isRequired,
++
++  isFocused: propTypes.PropTypes.bool.isRequired,
++  isCollapsed: propTypes.PropTypes.bool.isRequired,
++  focusedSectionIndex: propTypes.PropTypes.number,
++  focusedSuggestionIndex: propTypes.PropTypes.number,
++  valueBeforeUpDown: propTypes.PropTypes.string,
++  lastAction: propTypes.PropTypes.string,
++
++  inputFocused: propTypes.PropTypes.func.isRequired,
++  inputBlurred: propTypes.PropTypes.func.isRequired,
++  inputChanged: propTypes.PropTypes.func.isRequired,
++  updateFocusedSuggestion: propTypes.PropTypes.func.isRequired,
++  revealSuggestions: propTypes.PropTypes.func.isRequired,
++  closeSuggestions: propTypes.PropTypes.func.isRequired
+ };
+ exports.default = (0, _reactRedux.connect)(mapStateToProps, _reducerAndActions.actionCreators)(Autosuggest);
+diff --git a/node_modules/react-autosuggest/dist/AutosuggestContainer.js b/node_modules/react-autosuggest/dist/AutosuggestContainer.js
+index 2cec973..a6537b3 100644
+--- a/node_modules/react-autosuggest/dist/AutosuggestContainer.js
++++ b/node_modules/react-autosuggest/dist/AutosuggestContainer.js
+@@ -8,6 +8,8 @@ var _createClass = function () { function defineProperties(target, props) { for
+ 
+ var _react = require('react');
+ 
++var propTypes = require('prop-types');
++
+ var _react2 = _interopRequireDefault(_react);
+ 
+ var _redux = require('redux');
+@@ -143,10 +145,10 @@ var AutosuggestContainer = function (_Component) {
+ }(_react.Component);
+ 
+ AutosuggestContainer.propTypes = {
+-  suggestions: _react.PropTypes.array.isRequired,
+-  onSuggestionsUpdateRequested: _react.PropTypes.func,
+-  getSuggestionValue: _react.PropTypes.func.isRequired,
+-  renderSuggestion: _react.PropTypes.func.isRequired,
++  suggestions: propTypes.PropTypes.array.isRequired,
++  onSuggestionsUpdateRequested: propTypes.PropTypes.func,
++  getSuggestionValue: propTypes.PropTypes.func.isRequired,
++  renderSuggestion: propTypes.PropTypes.func.isRequired,
+   inputProps: function inputProps(props, propName) {
+     var inputProps = props[propName];
+ 
+@@ -158,15 +160,15 @@ AutosuggestContainer.propTypes = {
+       throw new Error('\'inputProps\' must have \'onChange\'.');
+     }
+   },
+-  shouldRenderSuggestions: _react.PropTypes.func,
+-  onSuggestionSelected: _react.PropTypes.func,
+-  multiSection: _react.PropTypes.bool,
+-  renderSectionTitle: _react.PropTypes.func,
+-  getSectionSuggestions: _react.PropTypes.func,
+-  focusInputOnSuggestionClick: _react.PropTypes.bool,
+-  focusFirstSuggestion: _react.PropTypes.bool,
+-  theme: _react.PropTypes.object,
+-  id: _react.PropTypes.string
++  shouldRenderSuggestions: propTypes.PropTypes.func,
++  onSuggestionSelected: propTypes.PropTypes.func,
++  multiSection: propTypes.PropTypes.bool,
++  renderSectionTitle: propTypes.PropTypes.func,
++  getSectionSuggestions: propTypes.PropTypes.func,
++  focusInputOnSuggestionClick: propTypes.PropTypes.bool,
++  focusFirstSuggestion: propTypes.PropTypes.bool,
++  theme: propTypes.PropTypes.object,
++  id: propTypes.PropTypes.string
+ };
+ AutosuggestContainer.defaultProps = {
+   onSuggestionsUpdateRequested: noop,

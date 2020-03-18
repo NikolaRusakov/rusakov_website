@@ -1,0 +1,151 @@
+diff --git a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Autowhatever.js b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Autowhatever.js
+index 5c2ddbd..163b658 100644
+--- a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Autowhatever.js
++++ b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Autowhatever.js
+@@ -12,6 +12,8 @@ var _createClass = function () { function defineProperties(target, props) { for
+ 
+ var _react = require('react');
+ 
++var propTypes = require('prop-types');
++
+ var _react2 = _interopRequireDefault(_react);
+ 
+ var _sectionIterator = require('section-iterator');
+@@ -317,20 +319,20 @@ var Autowhatever = function (_Component) {
+ }(_react.Component);
+ 
+ Autowhatever.propTypes = {
+-  id: _react.PropTypes.string, // Used in aria-* attributes. If multiple Autowhatever's are rendered on a page, they must have unique ids.
+-  multiSection: _react.PropTypes.bool, // Indicates whether a multi section layout should be rendered.
+-  items: _react.PropTypes.array.isRequired, // Array of items or sections to render.
+-  renderItem: _react.PropTypes.func, // This function renders a single item.
+-  renderItemData: _react.PropTypes.object, // Arbitrary data that will be passed to renderItem()
+-  shouldRenderSection: _react.PropTypes.func, // This function gets a section and returns whether it should be rendered, or not.
+-  renderSectionTitle: _react.PropTypes.func, // This function gets a section and renders its title.
+-  getSectionItems: _react.PropTypes.func, // This function gets a section and returns its items, which will be passed into `renderItem` for rendering.
+-  inputProps: _react.PropTypes.object, // Arbitrary input props
+-  itemProps: _react.PropTypes.oneOfType([// Arbitrary item props
+-  _react.PropTypes.object, _react.PropTypes.func]),
+-  focusedSectionIndex: _react.PropTypes.number, // Section index of the focused item
+-  focusedItemIndex: _react.PropTypes.number, // Focused item index (within a section)
+-  theme: _react.PropTypes.object // Styles. See: https://github.com/markdalgleish/react-themeable
++  id: propTypes.PropTypes.string, // Used in aria-* attributes. If multiple Autowhatever's are rendered on a page, they must have unique ids.
++  multiSection: propTypes.PropTypes.bool, // Indicates whether a multi section layout should be rendered.
++  items: propTypes.PropTypes.array.isRequired, // Array of items or sections to render.
++  renderItem: propTypes.PropTypes.func, // This function renders a single item.
++  renderItemData: propTypes.PropTypes.object, // Arbitrary data that will be passed to renderItem()
++  shouldRenderSection: propTypes.PropTypes.func, // This function gets a section and returns whether it should be rendered, or not.
++  renderSectionTitle: propTypes.PropTypes.func, // This function gets a section and renders its title.
++  getSectionItems: propTypes.PropTypes.func, // This function gets a section and returns its items, which will be passed into `renderItem` for rendering.
++  inputProps: propTypes.PropTypes.object, // Arbitrary input props
++  itemProps: propTypes.PropTypes.oneOfType([// Arbitrary item props
++  propTypes.PropTypes.object, propTypes.PropTypes.func]),
++  focusedSectionIndex: propTypes.PropTypes.number, // Section index of the focused item
++  focusedItemIndex: propTypes.PropTypes.number, // Focused item index (within a section)
++  theme: propTypes.PropTypes.object // Styles. See: https://github.com/markdalgleish/react-themeable
+ };
+ Autowhatever.defaultProps = {
+   id: '1',
+diff --git a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Item.js b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Item.js
+index f3cdac1..052c3c1 100644
+--- a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Item.js
++++ b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/Item.js
+@@ -10,6 +10,8 @@ var _createClass = function () { function defineProperties(target, props) { for
+ 
+ var _react = require('react');
+ 
++var propTypes = require('prop-types');
++
+ var _react2 = _interopRequireDefault(_react);
+ 
+ var _compareObjects = require('./compareObjects');
+@@ -135,14 +137,14 @@ var Item = function (_Component) {
+ }(_react.Component);
+ 
+ Item.propTypes = {
+-  sectionIndex: _react.PropTypes.number,
+-  itemIndex: _react.PropTypes.number.isRequired,
+-  item: _react.PropTypes.any.isRequired,
+-  renderItem: _react.PropTypes.func.isRequired,
+-  renderItemData: _react.PropTypes.object.isRequired,
+-  onMouseEnter: _react.PropTypes.func,
+-  onMouseLeave: _react.PropTypes.func,
+-  onMouseDown: _react.PropTypes.func,
+-  onClick: _react.PropTypes.func
++  sectionIndex: propTypes.PropTypes.number,
++  itemIndex: propTypes.PropTypes.number.isRequired,
++  item: propTypes.PropTypes.any.isRequired,
++  renderItem: propTypes.PropTypes.func.isRequired,
++  renderItemData: propTypes.PropTypes.object.isRequired,
++  onMouseEnter: propTypes.PropTypes.func,
++  onMouseLeave: propTypes.PropTypes.func,
++  onMouseDown: propTypes.PropTypes.func,
++  onClick: propTypes.PropTypes.func
+ };
+ exports.default = Item;
+diff --git a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/ItemsList.js b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/ItemsList.js
+index eb1aadf..966dd5c 100644
+--- a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/ItemsList.js
++++ b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/ItemsList.js
+@@ -10,6 +10,8 @@ var _createClass = function () { function defineProperties(target, props) { for
+ 
+ var _react = require('react');
+ 
++var propTypes = require('prop-types');
++
+ var _react2 = _interopRequireDefault(_react);
+ 
+ var _Item = require('./Item');
+@@ -154,16 +156,16 @@ var ItemsList = function (_Component) {
+ }(_react.Component);
+ 
+ ItemsList.propTypes = {
+-  id: _react.PropTypes.string.isRequired,
+-  items: _react.PropTypes.array.isRequired,
+-  itemProps: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
+-  renderItem: _react.PropTypes.func.isRequired,
+-  renderItemData: _react.PropTypes.object.isRequired,
+-  sectionIndex: _react.PropTypes.number,
+-  focusedItemIndex: _react.PropTypes.number,
+-  getItemId: _react.PropTypes.func.isRequired,
+-  theme: _react.PropTypes.func.isRequired,
+-  keyPrefix: _react.PropTypes.string.isRequired
++  id: propTypes.PropTypes.string.isRequired,
++  items: propTypes.PropTypes.array.isRequired,
++  itemProps: propTypes.PropTypes.oneOfType([propTypes.PropTypes.object, propTypes.PropTypes.func]),
++  renderItem: propTypes.PropTypes.func.isRequired,
++  renderItemData: propTypes.PropTypes.object.isRequired,
++  sectionIndex: propTypes.PropTypes.number,
++  focusedItemIndex: propTypes.PropTypes.number,
++  getItemId: propTypes.PropTypes.func.isRequired,
++  theme: propTypes.PropTypes.func.isRequired,
++  keyPrefix: propTypes.PropTypes.string.isRequired
+ };
+ ItemsList.defaultProps = {
+   sectionIndex: null
+diff --git a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/SectionTitle.js b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/SectionTitle.js
+index 95b955a..0487bab 100644
+--- a/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/SectionTitle.js
++++ b/node_modules/react-autosuggest/node_modules/react-autowhatever/dist/SectionTitle.js
+@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", {
+ var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+ 
+ var _react = require('react');
++var propTypes = require('prop-types');
+ 
+ var _react2 = _interopRequireDefault(_react);
+ 
+@@ -63,9 +64,9 @@ var SectionTitle = function (_Component) {
+ }(_react.Component);
+ 
+ SectionTitle.propTypes = {
+-  section: _react.PropTypes.any.isRequired,
+-  renderSectionTitle: _react.PropTypes.func.isRequired,
+-  theme: _react.PropTypes.func.isRequired,
+-  sectionKeyPrefix: _react.PropTypes.string.isRequired
++  section: propTypes.PropTypes.any.isRequired,
++  renderSectionTitle: propTypes.PropTypes.func.isRequired,
++  theme: propTypes.PropTypes.func.isRequired,
++  sectionKeyPrefix: propTypes.PropTypes.string.isRequired
+ };
+ exports.default = SectionTitle;
