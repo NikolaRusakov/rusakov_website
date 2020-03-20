@@ -1,0 +1,49 @@
+{
+  "name": "typography-picker",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.2",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "aphrodite": "^2.4.0",
+    "fp-ts": "^2.5.3",
+    "io-ts": "^2.1.2",
+    "polished": "^3.4.4",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-number-editor": "^4.0.3",
+    "react-scripts": "3.4.0",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "start:app": "react-scripts start",
+    "start": "npx styleguidist server",
+    "build": "npx styleguidist build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build:app": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "react-styleguidist": "^11.0.3"
+  }
+}
