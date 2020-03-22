@@ -20,7 +20,7 @@
     "format": "prettier --write '**/*.tsx'",
     "storybook": "start-storybook -p 6006",
     "build:storybook": "build-storybook",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
@@ -86,6 +86,9 @@
     "babel-plugin-styled-components": "^1.10.7",
     "babel-preset-gatsby": "^0.2.35",
     "babel-preset-react-app": "^9.1.1",
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
     "graphql": "^14.6.0",
     "graphql-cli": "^3.0.14",
     "nodemon": "^2.0.1",
