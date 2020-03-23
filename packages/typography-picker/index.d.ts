@@ -32,3 +32,9 @@ export type OptionsType = {
   ) => Object;
   plugins?: any[];
 };
+
+export interface FontList {
+  category: string;
+  family: string;
+  weights: string[];
+}
