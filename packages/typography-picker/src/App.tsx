@@ -18,6 +18,7 @@ import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
 import themes from './themes.json';
 import fontList from './fontList.json';
+import wrapTypography from "./components/designToolWrapper";
 
 // const requireThemes = require.context(
 //   // '../../',
@@ -161,6 +162,7 @@ function App() {
         <style id="typography.js">{typo.toString()}</style>
         {injectFonts(typo)}
       </Helmet>
+        <div id="typography-design-tools" />
       <div
         style={{
           fontFamily: typo?.options?.headerFontFamily?.toString(),
@@ -175,8 +177,9 @@ function App() {
           right: 0,
           // @ts-ignore
           WebkitFontSmoothing: 'auto',
-        }}>
-        <Section>
+        }}
+      >
+       {/* <Section>
           <div
             style={{
               color: 'rgba(255,255,255,0.95)',
@@ -265,8 +268,9 @@ function App() {
             });
           }}
         />
-        <br />
+        <br />*/}
       </div>
+        {wrapTypography(typo)}
       <div className="App">
         <header className="App-header">
           <h1>Here We GO ! ! !</h1>
