@@ -2,14 +2,14 @@ import React, { useEffect, useState, useLayoutEffect } from 'react';
 import fontList from '../../fontList.json';
 import { css, StyleSheet } from 'aphrodite';
 import Autosuggest from 'react-autosuggest';
-import { FontList, OptionsType } from '../..';
+import { FontList, TypographyOptions } from '../../..';
 import { lighten } from 'polished';
 
 interface FontSelectToolProps {
   type: 'header' | 'body';
-  options: OptionsType;
+  options: TypographyOptions;
   onSelectChange: (
-    options: OptionsType,
+    options: TypographyOptions,
     family: { category: string; family: string; weights: string[] },
   ) => void;
 }
@@ -68,10 +68,9 @@ const pickBoldStyle = (name: string) => (
   const family = fontList.find(({ family }) => family === name);
 
   let weights = family?.weights
-    .map(weight => (weight === 'regular' ? 400 : parseInt(weight, 10)))
+    ?.map(weight => (weight === 'regular' ? 400 : parseInt(weight, 10)))
     .sort()
     .filter(weight => Number.isFinite(weight));
-  console.log(weights?.includes(700) ? 700 : weights?.slice(-1)[0]);
   return weights?.includes(700) ? 700 : weights?.slice(-1)[0];
 };
 
@@ -125,7 +124,7 @@ const FontSelectTool: React.FC<FontSelectToolProps> = ({
       value: select.value,
       suggestions: select.suggestions,
     });
-  },[select.value]);
+  }, [select.value, select.suggestions]);
 
   const onChange = (
     event: React.FormEvent<any>,
@@ -136,11 +135,10 @@ const FontSelectTool: React.FC<FontSelectToolProps> = ({
       suggestions: select.suggestions,
     });
 
-    const family = fontList.find(font => font.family === value);
-    const boldStyle = pickBoldStyle(value)(fontList);
+    const family = fontList.find(font => font.family === value) || fontList[0];
+    const boldStyle = (pickBoldStyle(value)(fontList) || 400).toString();
 
-    // @ts-ignore
-    const newOpts: OptionsType = {
+    const newOpts: TypographyOptions = {
       ...opts,
       ...(family &&
         type === 'header' && {
@@ -168,21 +166,21 @@ const FontSelectTool: React.FC<FontSelectToolProps> = ({
           ].filter(font => font.name !== opts?.bodyFontFamily?.[0]),
         }),
     };
-    // @ts-ignore
     return onSelectChange(newOpts, family);
   };
 
   const inputProps = {
     // placeholder: 'Type font family',
     value: select.value,
-    // @ts-ignore
-    onChange: (e, ee) => onChange(e, ee),
+    onChange: (
+      value: React.FormEvent<any>,
+      changeEvt: Autosuggest.ChangeEvent,
+    ) => onChange(value, changeEvt),
   };
   return (
     <Autosuggest
       shouldRenderSuggestions={() => true}
       suggestions={select.suggestions}
-      // onSuggestionsUpdateRequested={onSuggestionsUpdateRequested}
       onSuggestionsFetchRequested={onSuggestionsUpdateRequested}
       getSuggestionValue={getSuggestionValue}
       renderSuggestion={renderSuggestion}

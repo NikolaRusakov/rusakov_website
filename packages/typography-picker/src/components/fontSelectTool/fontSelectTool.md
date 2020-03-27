@@ -2,25 +2,23 @@
 import { useState } from 'react';
 import Typography from 'typography';
 import altonTheme from 'typography-theme-alton';
-import { TypographyStyle, GoogleFont } from 'react-typography';
+import injectFonts from '../../injectFonts';
 
 const typography = new Typography(altonTheme);
 const [typo, setTypo] = useState(typography);
-console.log(typo.options.bodyFontFamily);
+typo.injectStyles();
 
 <html>
   <head>
-    <TypographyStyle typography={typo} />
-    <GoogleFont typography={typo} />
+    <style id="typography.js">{typo.toString()}</style>
+    {injectFonts(typo)}
   </head>
-{/*{typo.toString()}*/}
   <body>
     <FontSelectTool
       type="body"
       options={typo.options}
       onSelectChange={(options, headerFamily) => {
-          setTypo({ ...typography, options: options });
-        console.log(typo);
+        setTypo(new Typography(options || typo));
       }}
     />
 

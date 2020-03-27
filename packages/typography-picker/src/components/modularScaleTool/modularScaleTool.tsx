@@ -4,7 +4,7 @@ import SectionTool from '../sectionTool/sectionTool';
 import msToRatio from '../msToRatio/msToRatio';
 
 const ModularScaleTool: React.FC<{
-  scaleRatio: string;
+  scaleRatio: string | number;
   onChange: (val: number) => void;
 }> = props => (
   <SectionTool title="Scale Ratio">

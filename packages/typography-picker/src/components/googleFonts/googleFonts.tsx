@@ -1,7 +1,7 @@
 import React from 'react';
-import { OptionsType, GoogleFontsType } from '../..';
+import { TypographyOptions, GoogleFont } from '../../..';
 
-const Font = ({ font }: { font: GoogleFontsType }) => (
+const Font = ({ font }: { font: GoogleFont }) => (
   <div
     style={{
       marginBottom: 7.5,
@@ -10,7 +10,7 @@ const Font = ({ font }: { font: GoogleFontsType }) => (
   </div>
 );
 
-const GoogleFontsTool: React.FC<{ options: OptionsType }> = ({ options }) => (
+const GoogleFontsTool: React.FC<{ options: TypographyOptions }> = ({ options }) => (
   <div>
     {options?.googleFonts?.map(font => (
       <Font font={font} />

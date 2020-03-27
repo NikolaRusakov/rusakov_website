@@ -1,6 +1,6 @@
 import React from 'react';
 import { parseUnit } from '../../util/parseUnit';
-import { OptionsType, GoogleFontsType } from '../..';
+import { TypographyOptions, GoogleFont } from '../../..';
 import { contramap, getMonoid, ordNumber } from 'fp-ts/lib/Ord';
 import { sort } from 'fp-ts/lib/Array';
 import { fold } from 'fp-ts/lib/Monoid';
@@ -10,9 +10,9 @@ import Select from '../select/select';
 interface FontWeightToolsProps {
   type: 'header' | 'body' | 'bold';
   family: { category: string; family: string; weights: string[] };
-  weight: Pick<OptionsType, 'headerWeight' | 'bodyWeight' | 'boldWeight'>;
-  options: OptionsType;
-  onChange: (options: OptionsType) => void;
+  weight: Pick<TypographyOptions, 'headerWeight' | 'bodyWeight' | 'boldWeight'>;
+  options: TypographyOptions;
+  onChange: (options: TypographyOptions) => void;
   filterOutItalics?: boolean;
 }
 
@@ -48,7 +48,7 @@ const pickFamilyWeightValue = ({
   filterOutItalics = true,
 }: {
   weights: string[];
-  weight: Pick<OptionsType, 'headerWeight' | 'bodyWeight' | 'boldWeight'>;
+  weight: Pick<TypographyOptions, 'headerWeight' | 'bodyWeight' | 'boldWeight'>;
   filterOutItalics?: boolean;
 }) =>
   prepareFamilyWeights({ weights, filterOutItalics }).indexOf(
@@ -61,14 +61,14 @@ const onChange = (value: string) => (props: FontWeightToolsProps) => {
     filterOutItalics: props.filterOutItalics,
   });
   const newWeight = weights[+value];
-  const newOptions: OptionsType = {
+  const newOptions: TypographyOptions = {
     ...props.options,
     ...(props.type && {
       [`${props.type}Weight`]: isNaN(+newWeight) ? newWeight : +newWeight,
     }),
   };
 
-  const googleFont: GoogleFontsType = newOptions.googleFonts?.find(
+  const googleFont: GoogleFont = newOptions.googleFonts?.find(
     font => font.name === props.family.family,
   ) || { name: '', styles: [] };
 

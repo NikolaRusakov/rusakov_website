@@ -1,7 +1,16 @@
 {
   "name": "typography-picker",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start:app": "react-scripts start",
+    "start": "npx styleguidist server",
+    "build": "npx styleguidist build",
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "app:start": "react-scripts start",
+    "build:app": "react-scripts build"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -12,12 +21,14 @@
     "@types/react-dom": "^16.9.5",
     "aphrodite": "^2.4.0",
     "fp-ts": "^2.5.3",
+    "gray-percentage": "^2.0.0",
     "io-ts": "^2.1.2",
     "monocle-ts": "^2.1.0",
     "polished": "^3.4.4",
     "react": "^16.13.0",
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.13.0",
+    "react-helmet": "^5.2.1",
     "react-number-editor": "^4.0.3",
     "react-scripts": "3.4.0",
     "react-typography": "^0.16.19",
@@ -26,14 +37,14 @@
     "typography-theme-alton": "^0.16.19",
     "typography-theme-github": "^0.16.19"
   },
-  "scripts": {
-    "start:app": "react-scripts start",
-    "start": "npx styleguidist server",
-    "build": "npx styleguidist build",
-    "test": "jest",
-    "eject": "react-scripts eject",
-    "app:start": "react-scripts start",
-    "build:app": "react-scripts build"
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/react-autosuggest": "^9.3.13",
+    "@types/react-helmet": "^5.0.15",
+    "@types/typography": "^0.16.3",
+    "jest": "^25.1.0",
+    "react-styleguidist": "^11.0.3",
+    "ts-jest": "^25.2.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,12 +60,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/jest": "^25.1.4",
-    "@types/react-autosuggest": "^9.3.13",
-    "jest": "^25.1.0",
-    "react-styleguidist": "^11.0.3",
-    "ts-jest": "^25.2.1"
   }
 }
