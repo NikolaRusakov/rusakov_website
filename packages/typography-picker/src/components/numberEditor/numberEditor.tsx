@@ -26,11 +26,13 @@ const NumberEditor: React.FC<{
   step: number;
   decimals: number;
   onValueChange: (value: any) => void;
-}> = props => (
+  ref?: React.Ref<any>;
+}> = React.forwardRef(props => (
   // TODO wrap onChange and if value isn't a number, set to minimum value.
   <div>
     <ReactNumberEditor
       {...props}
+      ref={props.ref}
       className={css(styles.editor)}
       style={{
         backgroundColor: saturate(10, '#F0F'),
@@ -54,6 +56,6 @@ const NumberEditor: React.FC<{
       {props.unit}
     </div>
   </div>
-);
+));
 
 export default NumberEditor;

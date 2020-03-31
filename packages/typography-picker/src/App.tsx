@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useMemo, useReducer } from 'react';
 import { Helmet } from 'react-helmet';
 import logo from './logo.svg';
 import './App.css';
@@ -16,37 +16,11 @@ import { FontList, TypographyOptions } from '../index';
 // @ts-ignore
 import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
-import themes from './themes.json';
+import { themes } from './themes';
 import fontList from './fontList.json';
-import wrapTypography from "./components/designToolWrapper";
 
-// const requireThemes = require.context(
-//   // '../../',
-//   '',
-//   true,
-//   /^\.\/typography-theme.*\/src\/index.js$/,
-// );
-// const themeRegistry: { name: string; title: string; module: any; }[] = []
-let themeNames: string[] = [];
-// @ts-ignore
-const themeRegistry = themes.map(
-  async (theme: { name: string; title: string; requireStr: string }) => {
-    try {
-      import(theme.requireStr);
-    } catch {
-      return;
-    }
-
-    themeNames = [...themeNames, theme.name];
-    console.log(theme.requireStr);
-    return {
-      name: theme.name,
-      title: theme.title,
-      module: React.lazy(() => import(theme.requireStr)),
-      // module: requireThemes(theme.requireStr),
-    };
-  },
-);
+//fixme to be extracted into plugin
+let themeNames: string[] = themes.map(theme => theme.name);
 
 interface AppState {
   theme: number;
@@ -75,35 +49,22 @@ const SectionRow: React.FC = ({ children }) => (
     {children}
   </div>
 );
-
-const SectionHeader: React.FC = ({ children }) => (
-  <div
-    style={{
-      background: gray(17),
-      borderBottom: '1px solid',
-      borderColor: gray(50, 0, true),
-      fontSize: 13,
-      paddingLeft: 7.5,
-      marginLeft: -7.5,
-      marginRight: -7.5,
-      marginBottom: 3.75,
-    }}>
-    {children}
-  </div>
-);
-
-type PayloadType<T> = {
-  [P in keyof T]: T[P];
-} & {
-  action?: 'append' | 'prepend' | 'remove' | 'sortBy';
-  sortBy?: [...string[]];
-  keys: [T];
-};
-
-type ActionType<T> = {
-  action: keyof T;
-  payload: PayloadType<T>;
-};
+//
+// const SectionHeader: React.FC = ({ children }) => (
+//   <div
+//     style={{
+//       background: gray(17),
+//       borderBottom: '1px solid',
+//       borderColor: gray(50, 0, true),
+//       fontSize: 13,
+//       paddingLeft: 7.5,
+//       marginLeft: -7.5,
+//       marginRight: -7.5,
+//       marginBottom: 3.75,
+//     }}>
+//     {children}
+//   </div>
+// );
 
 type ActionThemeType = {
   action: 'newTheme';
@@ -112,27 +73,17 @@ type ActionThemeType = {
 
 type ActionOptionsType = {
   action: 'modifyOptions';
-  payload: TypographyOptions;
-};
-
-type ActionOptionType = {
-  action: 'modifyOption';
   payload: { [P in keyof TypographyOptions]: TypographyOptions[P] };
 };
 
 function reducer(
   state: AppState,
-  action: ActionThemeType | ActionOptionsType | ActionOptionType,
+  action: ActionThemeType | ActionOptionsType,
 ): AppState {
   switch (action.action) {
     case 'newTheme':
       return { ...state, ...action.payload };
     case 'modifyOptions':
-      return Lens.fromPath<AppState>()(['typography', 'options']).modify(s => ({
-        ...s,
-        ...action.payload,
-      }))(state);
-    case 'modifyOption':
       return Lens.fromPath<AppState>()(['typography', 'options']).modify(s => ({
         ...s,
         ...action.payload,
@@ -144,7 +95,6 @@ function reducer(
 
 function App() {
   const typography = new Typography(altonTheme);
-  const [typo, setTypo] = useState(typography);
   const [state, dispatch] = useReducer(reducer, {
     typography,
     theme: 0,
@@ -152,20 +102,25 @@ function App() {
     headerFamily: fontList[0],
   });
 
-  typo.injectStyles();
+  const currentTypography = new Typography(state.typography.options);
+  const injectRecentFont = useMemo(() => injectFonts(currentTypography), [
+    state.typography.options.headerFontFamily,
+    state.typography.options.bodyFontFamily,
+  ]);
+
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Rusakov Website</title>
         <link rel="canonical" href="http://rusakov.website/" />
-        <style id="typography.js">{typo.toString()}</style>
-        {injectFonts(typo)}
+        <style id="typography.js">{currentTypography.toString()}</style>
+        {injectRecentFont}
       </Helmet>
-        <div id="typography-design-tools" />
+
       <div
         style={{
-          fontFamily: typo?.options?.headerFontFamily?.toString(),
+          fontFamily: state.typography?.options?.headerFontFamily?.toString(),
           fontWeight: 300,
           fontSize: 10,
           lineHeight: 1.5,
@@ -177,19 +132,18 @@ function App() {
           right: 0,
           // @ts-ignore
           WebkitFontSmoothing: 'auto',
-        }}
-      >
-       {/* <Section>
+        }}>
+        <Section>
           <div
             style={{
               color: 'rgba(255,255,255,0.95)',
-              fontFamily: typo?.options?.headerFontFamily?.toString(),
+              fontFamily: state.typography?.options?.headerFontFamily?.toString(),
               fontSize: 15,
               fontWeight: 300,
               marginBottom: 0,
               marginTop: 10,
             }}>
-            Typography.js
+            Page Typography
           </div>
           <SectionRow>
             <div
@@ -201,18 +155,14 @@ function App() {
               Pick theme
             </div>
             <Select
-              options={themeNames.map(theme => theme)}
+              options={themeNames}
               value={state.theme}
               style={{
                 width: '100%',
               }}
               onChange={async value => {
-                console.log(value);
-                console.log(+value);
-                const newTheme = await new Typography(
-                  // (themeRegistry && themeRegistry?.[+value]?.module) ||
-                  altonTheme,
-                );
+                const createTheme = await themes[+value].requireStr();
+                const newTheme = await new Typography(createTheme.default);
                 let newBodyFamily: FontList =
                   fontList.find(font => font.family === value) || fontList[0];
 
@@ -232,45 +182,52 @@ function App() {
             />
           </SectionRow>
         </Section>
+
         <FontSelectTool
           type="body"
-          options={typo.options}
+          options={state.typography.options}
           onSelectChange={(options, headerFamily) => {
-            setTypo(new Typography(options || typo));
+            dispatch({
+              action: 'modifyOptions',
+              payload: options,
+            });
           }}
         />
         <ModularScaleTool
           key="scale"
-          scaleRatio={typo.options.scaleRatio || ''}
-          // onChange={newScale => {
-          //   setTimeout(() => setScale(newScale));
-          // }}
-          // scaleRatio={this.state.options.scaleRatio}
-          onChange={newScale => {
-            const newOptions = { ...typo.options };
-            newOptions.scaleRatio = newScale;
-            console.log(newOptions.scaleRatio);
-            setTypo(new Typography(newOptions));
-          }}
+          scaleRatio={state.typography.options.scaleRatio || ''}
+          onChange={newScale =>
+            setTimeout(() => {
+              dispatch({
+                action: 'modifyOptions',
+                payload: {
+                  scaleRatio: newScale,
+                },
+              });
+            })
+          }
         />
 
         <NumberEditor
           unit="px"
-          value={parseUnit(typo.options.baseFontSize || '')[0]}
+          value={parseUnit(state.typography.options.baseFontSize || '')[0]}
           min={9}
           max={100}
           step={0.25}
           decimals={2}
-          onValueChange={value => {
+          onValueChange={baseFontSize =>
             setTimeout(() => {
-              const opts = { ...typo.options, baseFontSize: `${value}px` };
-              setTypo(new Typography(opts));
-            });
-          }}
+              dispatch({
+                action: 'modifyOptions',
+                payload: {
+                  baseFontSize,
+                },
+              });
+            })
+          }
         />
-        <br />*/}
+        <br />
       </div>
-        {wrapTypography(typo)}
       <div className="App">
         <header className="App-header">
           <h1>Here We GO ! ! !</h1>

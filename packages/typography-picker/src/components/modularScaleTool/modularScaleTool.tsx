@@ -2,7 +2,11 @@ import React from 'react';
 import NumberEditor from '../numberEditor/numberEditor';
 import SectionTool from '../sectionTool/sectionTool';
 import msToRatio from '../msToRatio/msToRatio';
-
+/*
+TODO: onValueChange
+- throttle + limit callback call with RxJS operators
+- ex: ...pipe(AuditTime(30),distinctUntilChanges(),map(...))
+ */
 const ModularScaleTool: React.FC<{
   scaleRatio: string | number;
   onChange: (val: number) => void;
