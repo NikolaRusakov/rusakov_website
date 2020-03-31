@@ -18,6 +18,8 @@ import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
 import { themes } from './themes';
 import fontList from './fontList.json';
+import SectionTool from './components/sectionTool/sectionTool';
+import FontWeightTool from './components/fontWeightTool/fontWeightTool';
 
 //fixme to be extracted into plugin
 let themeNames: string[] = themes.map(theme => theme.name);
@@ -49,26 +51,35 @@ const SectionRow: React.FC = ({ children }) => (
     {children}
   </div>
 );
-//
-// const SectionHeader: React.FC = ({ children }) => (
-//   <div
-//     style={{
-//       background: gray(17),
-//       borderBottom: '1px solid',
-//       borderColor: gray(50, 0, true),
-//       fontSize: 13,
-//       paddingLeft: 7.5,
-//       marginLeft: -7.5,
-//       marginRight: -7.5,
-//       marginBottom: 3.75,
-//     }}>
-//     {children}
-//   </div>
-// );
+
+const SectionHeader: React.FC = ({ children }) => (
+  <div
+    style={{
+      background: gray(17),
+      borderBottom: '1px solid',
+      borderColor: gray(50, 0, true),
+      fontSize: 13,
+      paddingLeft: 7.5,
+      marginLeft: -7.5,
+      marginRight: -7.5,
+      marginBottom: 3.75,
+    }}>
+    {children}
+  </div>
+);
 
 type ActionThemeType = {
-  action: 'newTheme';
+  action: 'changeState';
   payload: Partial<AppState>;
+};
+
+type ActionFontType = {
+  action: 'changeFont';
+  payload: {
+    options: Typography;
+    headerFamily?: FontList;
+    bodyFamily?: FontList;
+  };
 };
 
 type ActionOptionsType = {
@@ -78,11 +89,22 @@ type ActionOptionsType = {
 
 function reducer(
   state: AppState,
-  action: ActionThemeType | ActionOptionsType,
+  action: ActionThemeType | ActionOptionsType | ActionFontType,
 ): AppState {
   switch (action.action) {
-    case 'newTheme':
+    case 'changeState':
       return { ...state, ...action.payload };
+    case 'changeFont':
+      return {
+        ...state,
+        ...(action.payload.headerFamily && {
+          headerFamily: action.payload.headerFamily,
+        }),
+        ...(action.payload.bodyFamily && {
+          bodyFamily: action.payload.bodyFamily,
+        }),
+        typography: action.payload.options,
+      };
     case 'modifyOptions':
       return Lens.fromPath<AppState>()(['typography', 'options']).modify(s => ({
         ...s,
@@ -162,18 +184,17 @@ function App() {
               }}
               onChange={async value => {
                 const createTheme = await themes[+value].requireStr();
-                const newTheme = await new Typography(createTheme.default);
+                const changeState = await new Typography(createTheme.default);
                 let newBodyFamily: FontList =
                   fontList.find(font => font.family === value) || fontList[0];
 
                 let newHeaderFamily: FontList =
                   fontList.find(font => font.family === value) || fontList[0];
-
                 dispatch({
-                  action: 'newTheme',
+                  action: 'changeState',
                   payload: {
                     theme: parseInt(value, 10),
-                    typography: newTheme,
+                    typography: changeState,
                     bodyFamily: newBodyFamily,
                     headerFamily: newHeaderFamily,
                   },
@@ -182,51 +203,92 @@ function App() {
             />
           </SectionRow>
         </Section>
+        <Section>
+          <SectionHeader>Base sizes</SectionHeader>
+          <SectionRow>
+            <SectionTool title="Font size">
+              <ModularScaleTool
+                key="scale"
+                scaleRatio={state.typography.options.scaleRatio || ''}
+                onChange={newScale =>
+                  setTimeout(() => {
+                    dispatch({
+                      action: 'modifyOptions',
+                      payload: {
+                        scaleRatio: newScale,
+                      },
+                    });
+                  })
+                }
+              />
 
-        <FontSelectTool
-          type="body"
-          options={state.typography.options}
-          onSelectChange={(options, headerFamily) => {
-            dispatch({
-              action: 'modifyOptions',
-              payload: options,
-            });
-          }}
-        />
-        <ModularScaleTool
-          key="scale"
-          scaleRatio={state.typography.options.scaleRatio || ''}
-          onChange={newScale =>
-            setTimeout(() => {
-              dispatch({
-                action: 'modifyOptions',
-                payload: {
-                  scaleRatio: newScale,
-                },
-              });
-            })
-          }
-        />
+              <NumberEditor
+                unit="px"
+                value={
+                  parseUnit(state.typography.options.baseFontSize || '')[0]
+                }
+                min={9}
+                max={100}
+                step={0.25}
+                decimals={2}
+                onValueChange={baseFontSize =>
+                  setTimeout(() => {
+                    dispatch({
+                      action: 'modifyOptions',
+                      payload: {
+                        baseFontSize,
+                      },
+                    });
+                  })
+                }
+              />
+            </SectionTool>
+          </SectionRow>
+        </Section>
 
-        <NumberEditor
-          unit="px"
-          value={parseUnit(state.typography.options.baseFontSize || '')[0]}
-          min={9}
-          max={100}
-          step={0.25}
-          decimals={2}
-          onValueChange={baseFontSize =>
-            setTimeout(() => {
-              dispatch({
-                action: 'modifyOptions',
-                payload: {
-                  baseFontSize,
-                },
-              });
-            })
-          }
-        />
-        <br />
+        <Section>
+          <SectionHeader>Body</SectionHeader>
+          <SectionRow>
+            <div>Typeface</div>
+            <FontSelectTool
+              type="body"
+              options={state.typography.options}
+              onSelectChange={(options, bodyFamily) =>
+                dispatch({
+                  action: 'changeFont',
+                  payload: {
+                    options: new Typography(options),
+                    bodyFamily,
+                  },
+                })
+              }
+            />
+          </SectionRow>
+          <SectionRow>
+            <SectionTool title="Body Weight">
+              <FontWeightTool
+                type="body"
+                family={state.bodyFamily}
+                weight={state.typography.options.bodyWeight || 0}
+                options={state.typography.options}
+                onChange={newOptions =>
+                  dispatch({ action: 'modifyOptions', payload: newOptions })
+                }
+              />
+            </SectionTool>
+            <SectionTool title="Bold Weight">
+              <FontWeightTool
+                type="bold"
+                family={state.bodyFamily || {}}
+                weight={state.typography.options.boldWeight || 0}
+                options={state.typography.options}
+                onChange={newOptions =>
+                  dispatch({ action: 'modifyOptions', payload: newOptions })
+                }
+              />
+            </SectionTool>
+          </SectionRow>
+        </Section>
       </div>
       <div className="App">
         <header className="App-header">

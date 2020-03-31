@@ -23,7 +23,7 @@ const Select = ({
   onChange,
 }: {
   options: string[];
-  value: number;
+  value: number | string;
   style: { [key: string]: string };
   onChange: (e: string) => void;
 }) => {
@@ -58,7 +58,7 @@ const Select = ({
       value={value}
       onChange={e => onChange(e.target.value)}
       onKeyDown={e => {
-          const valueInt = value;
+        const valueInt = +value;
         let change = false;
         let newValue = 0;
         if (e.which === 40 || e.which === 38) {

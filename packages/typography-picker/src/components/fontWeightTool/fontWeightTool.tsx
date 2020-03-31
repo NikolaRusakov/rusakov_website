@@ -1,6 +1,6 @@
 import React from 'react';
 import { parseUnit } from '../../util/parseUnit';
-import { TypographyOptions, GoogleFont } from '../../..';
+import { TypographyOptions, GoogleFont, FontList } from '../../..';
 import { contramap, getMonoid, ordNumber } from 'fp-ts/lib/Ord';
 import { sort } from 'fp-ts/lib/Array';
 import { fold } from 'fp-ts/lib/Monoid';
@@ -9,8 +9,8 @@ import Select from '../select/select';
 
 interface FontWeightToolsProps {
   type: 'header' | 'body' | 'bold';
-  family: { category: string; family: string; weights: string[] };
-  weight: Pick<TypographyOptions, 'headerWeight' | 'bodyWeight' | 'boldWeight'>;
+  family: FontList;
+  weight: number | string;
   options: TypographyOptions;
   onChange: (options: TypographyOptions) => void;
   filterOutItalics?: boolean;
@@ -27,7 +27,7 @@ export const prepareFamilyWeights = ({
   weights = [],
   filterOutItalics = true,
 }: {
-  weights: string[];
+  weights?: string[];
   filterOutItalics?: boolean;
 }): string[] => {
   const newWeights = weights
@@ -47,8 +47,8 @@ const pickFamilyWeightValue = ({
   weight,
   filterOutItalics = true,
 }: {
-  weights: string[];
-  weight: Pick<TypographyOptions, 'headerWeight' | 'bodyWeight' | 'boldWeight'>;
+  weights?: string[];
+  weight: number | string;
   filterOutItalics?: boolean;
 }) =>
   prepareFamilyWeights({ weights, filterOutItalics }).indexOf(
@@ -72,19 +72,12 @@ const onChange = (value: string) => (props: FontWeightToolsProps) => {
     font => font.name === props.family.family,
   ) || { name: '', styles: [] };
 
-  const newGoogleFonts = [
-    ...googleFont?.styles,
-    newWeight,
-    ...(props.type === 'body' || props.type === 'bold'
-      ? [`${newWeight}i`]
-      : []),
-  ].filter(style => parseUnit(style)[0].toString() !== props.weight.toString());
-
   props.onChange({
     ...newOptions,
     googleFonts: [
-      ...newOptions?.googleFonts?.filter(font => font.name !== googleFont.name),
-      { ...googleFont, styles: [...new Set(newGoogleFonts)] },
+      ...newOptions?.googleFonts?.filter(
+        font => font.name !== googleFont.name && font.name !== '',
+      ),
     ],
   });
 };
