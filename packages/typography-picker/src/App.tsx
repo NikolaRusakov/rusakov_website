@@ -247,6 +247,39 @@ function App() {
         </Section>
 
         <Section>
+          <SectionHeader>Headers</SectionHeader>
+          <SectionRow>
+            <div>Typeface</div>
+            <FontSelectTool
+              type="header"
+              options={state.typography.options}
+              onSelectChange={(options, headerFamily) =>
+                dispatch({
+                  action: 'changeFont',
+                  payload: {
+                    options: new Typography(options),
+                    headerFamily,
+                  },
+                })
+              }
+            />
+          </SectionRow>
+          <SectionRow>
+            <SectionTool title="Weight">
+              <FontWeightTool
+                type="header"
+                family={state.headerFamily}
+                weight={state.typography.options.headerWeight ?? 400}
+                options={state.typography.options}
+                onChange={newOptions =>
+                  dispatch({ action: 'modifyOptions', payload: newOptions })
+                }
+              />
+            </SectionTool>
+          </SectionRow>
+        </Section>
+
+        <Section>
           <SectionHeader>Body</SectionHeader>
           <SectionRow>
             <div>Typeface</div>
