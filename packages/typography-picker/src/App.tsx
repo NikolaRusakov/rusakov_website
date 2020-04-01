@@ -206,22 +206,7 @@ function App() {
         <Section>
           <SectionHeader>Base sizes</SectionHeader>
           <SectionRow>
-            <SectionTool title="Font size">
-              <ModularScaleTool
-                key="scale"
-                scaleRatio={state.typography.options.scaleRatio || ''}
-                onChange={newScale =>
-                  setTimeout(() => {
-                    dispatch({
-                      action: 'modifyOptions',
-                      payload: {
-                        scaleRatio: newScale,
-                      },
-                    });
-                  })
-                }
-              />
-
+            <SectionTool title="Font Size">
               <NumberEditor
                 unit="px"
                 value={
@@ -243,6 +228,56 @@ function App() {
                 }
               />
             </SectionTool>
+            <SectionTool title="Line height">
+              <NumberEditor
+                unit="number"
+                value={state.typography.options.baseLineHeight ?? 1}
+                min={1}
+                max={2.5}
+                step={0.01}
+                decimals={2}
+                onValueChange={value => {
+                  dispatch({
+                    action: 'modifyOptions',
+                    payload: {
+                      baseLineHeight: value,
+                    },
+                  });
+                }}
+              />
+            </SectionTool>
+          </SectionRow>
+          <SectionRow>
+            <SectionTool title="Paragraph Spacing">
+              <NumberEditor
+                unit="rhythm"
+                value={state.typography.options.blockMarginBottom ?? 0}
+                min={0.25}
+                max={3}
+                step={0.1}
+                decimals={2}
+                onValueChange={value =>
+                  dispatch({
+                    action: 'modifyOptions',
+                    payload: {
+                      blockMarginBottom: parseFloat(value),
+                    },
+                  })
+                }
+              />
+            </SectionTool>
+            <ModularScaleTool
+              key="scale"
+              scaleRatio={state.typography.options.scaleRatio || ''}
+              onChange={newScale =>
+                dispatch({
+                  action: 'modifyOptions',
+                  payload: {
+                    scaleRatio: newScale,
+                  },
+                })
+              }
+            />
           </SectionRow>
         </Section>
 
