@@ -12,7 +12,7 @@ import ModularScaleTool from './components/modularScaleTool/modularScaleTool';
 import { parseUnit } from './util/parseUnit';
 import NumberEditor from './components/numberEditor/numberEditor';
 import Select from './components/select/select';
-import { FontList, TypographyOptions } from '../index';
+import {FontList, TypographyOptions, TypographyState} from '../index';
 // @ts-ignore
 import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
@@ -23,13 +23,6 @@ import FontWeightTool from './components/fontWeightTool/fontWeightTool';
 
 //fixme to be extracted into plugin
 let themeNames: string[] = themes.map(theme => theme.name);
-
-interface AppState {
-  theme: number;
-  typography: Typography;
-  bodyFamily: FontList;
-  headerFamily: FontList;
-}
 
 const Section: React.FC = ({ children }) => (
   <div
@@ -70,7 +63,7 @@ const SectionHeader: React.FC = ({ children }) => (
 
 type ActionThemeType = {
   action: 'changeState';
-  payload: Partial<AppState>;
+  payload: Partial<TypographyState>;
 };
 
 type ActionFontType = {
@@ -88,9 +81,9 @@ type ActionOptionsType = {
 };
 
 function reducer(
-  state: AppState,
+  state: TypographyState,
   action: ActionThemeType | ActionOptionsType | ActionFontType,
-): AppState {
+): TypographyState {
   switch (action.action) {
     case 'changeState':
       return { ...state, ...action.payload };
@@ -106,7 +99,7 @@ function reducer(
         typography: action.payload.options,
       };
     case 'modifyOptions':
-      return Lens.fromPath<AppState>()(['typography', 'options']).modify(s => ({
+      return Lens.fromPath<TypographyState>()(['typography', 'options']).modify(s => ({
         ...s,
         ...action.payload,
       }))(state);
@@ -140,8 +133,7 @@ function App() {
         {injectRecentFont}
       </Helmet>
 
-      <div
-        style={{
+      <div style={{
           fontFamily: state.typography?.options?.headerFontFamily?.toString(),
           fontWeight: 300,
           fontSize: 10,
@@ -183,7 +175,7 @@ function App() {
                 width: '100%',
               }}
               onChange={async value => {
-                const createTheme = await themes[+value].requireStr();
+                const createTheme = await themes[+value].requireTheme();
                 const changeState = await new Typography(createTheme.default);
                 let newBodyFamily: FontList =
                   fontList.find(font => font.family === value) || fontList[0];

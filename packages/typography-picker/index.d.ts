@@ -65,6 +65,14 @@ declare class Typography {
   establishBaseline: VerticalRhythm["establishBaseline"];
 }
 
+
+export interface TypographyState {
+  theme: number;
+  typography: Typography;
+  bodyFamily: FontList;
+  headerFamily: FontList;
+}
+
 export default Typography;
 
 
