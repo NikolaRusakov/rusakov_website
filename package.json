@@ -17,7 +17,7 @@
     "start:lerna": "lerna run start --stream",
     "clean": "gatsby clean",
     "start": "yarn develop",
-    "build": "yarn clean && gatsby build",
+    "build": "yarn clean && prestart && gatsby build",
     "develop": "yarn clean && gatsby develop",
     "format": "prettier --write '**/*.tsx'",
     "storybook": "start-storybook -p 6006",
@@ -35,6 +35,7 @@
     "deepmerge": "^4.2.2",
     "gatsby": "^2.19.43",
     "gatsby-image": "^2.0.23",
+    "@saltit/typography-picker": "0.0.1",
     "gatsby-plugin-aphrodite": "^2.0.5",
     "gatsby-plugin-emotion": "^4.1.24",
     "gatsby-plugin-google-fonts": "^1.0.1",
@@ -69,7 +70,7 @@
     "theme-ui-typography": "^0.1.7",
     "typescript": "^3.8.3",
     "typography": "^0.16.19",
-    "typography-theme-alton": "latest",
+    "typography-theme-alton": "^0.16.19",
     "uuid": "^7.0.2"
   },
   "devDependencies": {

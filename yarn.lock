@@ -22273,7 +22273,7 @@ typography-theme-Wikipedia@^0.15.10:
   resolved "https://registry.yarnpkg.com/typography-theme-Wikipedia/-/typography-theme-Wikipedia-0.15.10.tgz#eec476928c265b0d1ce58cff959e54764780263d"
   integrity sha1-7sR2kowmWw0c5Yz/lZ5UdkeAJj0=
 
-typography-theme-alton@^0.16.19, typography-theme-alton@latest:
+typography-theme-alton@^0.16.19:
   version "0.16.19"
   resolved "https://registry.yarnpkg.com/typography-theme-alton/-/typography-theme-alton-0.16.19.tgz#0204ae473e159f4a66c76f3f8a6edd98e4d63625"
   integrity sha512-nM10HyJdc86aJXcagGX4Ifa+jOVQadL1nbNDhBR7QkBlpXBzmDT+QaxlPrtDr0qgUxh3kfpjZU82tjy7ezuVcA==
