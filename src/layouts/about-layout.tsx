@@ -6,7 +6,7 @@ import theme from '../gatsby-plugin-theme-ui/index';
 import DesignTool from '@saltit/typography-picker/dist/components/designTool/designTool';
 // @ts-ignore
 import altonTheme from 'typography-theme-alton';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Typography from 'typography';
 import merge from 'deepmerge';
 import injectFonts from '@saltit/typography-picker/dist/util/injectFonts';
@@ -14,6 +14,12 @@ import injectFonts from '@saltit/typography-picker/dist/util/injectFonts';
 const AboutLayout: React.FC = ({ children }) => {
   const [mode, setMode] = useColorMode();
   const [curTheme, setTheme] = useState<Typography>(altonTheme);
+
+  const injectRecentFont = useMemo(() => injectFonts(curTheme), [
+    curTheme?.options?.headerFontFamily,
+    curTheme?.options?.bodyFontFamily,
+  ]);
+
   return (
     <div>
       <Helmet defer={false}>
@@ -21,7 +27,7 @@ const AboutLayout: React.FC = ({ children }) => {
         <title>Rusakov Website</title>
         <link rel="canonical" href="http://rusakov.website/" />
         <style id="typography.js">{curTheme.toString()}</style>
-        {curTheme.options !== undefined && injectFonts(curTheme)}
+        {injectRecentFont}
       </Helmet>
       <ThemeProvider theme={merge(curTheme, theme)}>
         <label>

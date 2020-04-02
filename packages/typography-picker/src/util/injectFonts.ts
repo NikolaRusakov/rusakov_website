@@ -1,47 +1,47 @@
 // TODO: make it SSR friendly and handle errors gracefully + add typings
 //@ts-ignore
-function injectFonts(typography) {
+import Typography from '@saltit/typography-picker';
+
+//Injection can be improved by font list memoization, thus preventing unnecessary refetching
+function injectFonts(typography: Typography): void {
   const fontsStr = getFontsStr(typography);
-  if (fontsStr) {
+
+  if (fontsStr !== '') {
     const link = getFontsLink(fontsStr);
-    injectLink(link);
+    if (document != null) {
+      injectLink(link);
+    }
   } else {
+    // Fallback action if defined?
   }
 }
-//@ts-ignore
-function injectLink(link) {
+function injectLink(link: string) {
   const typoElt = document.getElementById('typography.js');
   if (typoElt) {
     typoElt.insertAdjacentHTML('afterend', link);
   } else {
+    // Fallback action if defined?
   }
 }
-//@ts-ignore
-function getFontsStr(typography) {
-  let fontsStr = '';
-  if (typography.options.googleFonts) {
-//@ts-ignore
-    const fonts = typography.options.googleFonts.map(font => {
-      let str = '';
-      str += font.name.split(' ').join('+');
-      str += ':';
-      str += font.styles.join(',');
 
-      return str;
-    });
+// Can be extended into custom domain +
+const getFontsStr = (typography: Typography): string =>
+  typography?.options?.googleFonts != null
+    ? typography.options.googleFonts
+        .map(
+          font => `${font.name.split(' ').join('+')}:${font.styles.join(',')}`,
+        )
+        .join('|')
+    : '';
 
-    fontsStr = fonts.join('|');
-  }
-  return fontsStr;
-}
-//@ts-ignore
-function getFontsLink(str) {
-  /*
-  TODO: 
-   - [href] be extended with custom domain for self hosted fonts
-   - [href] may be compatible with local font assets
-   */
-  return `<link href="http://fonts.googleapis.com/css?family=${str}" rel="stylesheet" type="text/css" />`;
-}
+/*
+ TODO: 
+  - [href] be extended with custom domain for self hosted fonts
+  - [href] may be compatible with local font assets
+  */
+const getFontsLink = (
+  str: string,
+  domain = 'https://fonts.googleapis.com/css?family=',
+): string => `<link href="${domain}${str}" rel="stylesheet" type="text/css" />`;
 
 export default injectFonts;
