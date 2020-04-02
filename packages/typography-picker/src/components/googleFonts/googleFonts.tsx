@@ -1,5 +1,5 @@
 import React from 'react';
-import { TypographyOptions, GoogleFont } from '../../..';
+import {GoogleFont, TypographyOptions} from '@saltit/typography-picker';
 
 const Font = ({ font }: { font: GoogleFont }) => (
   <div

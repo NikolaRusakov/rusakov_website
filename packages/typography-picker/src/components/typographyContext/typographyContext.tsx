@@ -1,9 +1,9 @@
 import React from 'react';
 // @ts-ignore
 import altonTheme from 'typography-theme-alton';
-import Typography from '../../../index';
+import Typography from '@saltit/typography-picker';
 
-const {
+export const {
   Provider: TypographyProvider,
   Consumer: TypographyConsumer,
 } = React.createContext<{ theme: Typography; injectFont: () => void }>({
@@ -11,4 +11,3 @@ const {
   injectFont: () => undefined,
 });
 
-export default { TypographyConsumer, TypographyProvider };

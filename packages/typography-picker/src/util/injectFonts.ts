@@ -1,5 +1,5 @@
-// TODO: make it SSR friendly and handle errors gracefully
-
+// TODO: make it SSR friendly and handle errors gracefully + add typings
+//@ts-ignore
 function injectFonts(typography) {
   const fontsStr = getFontsStr(typography);
   if (fontsStr) {
@@ -8,7 +8,7 @@ function injectFonts(typography) {
   } else {
   }
 }
-
+//@ts-ignore
 function injectLink(link) {
   const typoElt = document.getElementById('typography.js');
   if (typoElt) {
@@ -16,10 +16,11 @@ function injectLink(link) {
   } else {
   }
 }
-
+//@ts-ignore
 function getFontsStr(typography) {
   let fontsStr = '';
   if (typography.options.googleFonts) {
+//@ts-ignore
     const fonts = typography.options.googleFonts.map(font => {
       let str = '';
       str += font.name.split(' ').join('+');
@@ -33,7 +34,7 @@ function getFontsStr(typography) {
   }
   return fontsStr;
 }
-
+//@ts-ignore
 function getFontsLink(str) {
   /*
   TODO: 

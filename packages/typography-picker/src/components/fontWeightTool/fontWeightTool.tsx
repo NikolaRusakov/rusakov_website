@@ -1,11 +1,12 @@
 import React from 'react';
 import { parseUnit } from '../../util/parseUnit';
-import { TypographyOptions, GoogleFont, FontList } from '../../..';
 import { contramap, getMonoid, ordNumber } from 'fp-ts/lib/Ord';
 import { sort } from 'fp-ts/lib/Array';
 import { fold } from 'fp-ts/lib/Monoid';
 import { pipe } from 'fp-ts/lib/pipeable';
 import Select from '../select/select';
+import { TypographyOptions } from 'typography';
+import { FontList, GoogleFont } from '@saltit/typography-picker';
 
 interface FontWeightToolsProps {
   type: 'header' | 'body' | 'bold';
@@ -69,14 +70,14 @@ const onChange = (value: string) => (props: FontWeightToolsProps) => {
   };
 
   const googleFont: GoogleFont = newOptions.googleFonts?.find(
-    font => font.name === props.family.family,
+    (font: GoogleFont) => font.name === props.family.family,
   ) || { name: '', styles: [] };
 
   props.onChange({
     ...newOptions,
     googleFonts: [
       ...newOptions?.googleFonts?.filter(
-        font => font.name !== googleFont.name && font.name !== '',
+        (font: GoogleFont) => font.name !== googleFont.name && font.name !== '',
       ),
     ],
   });

@@ -7,12 +7,11 @@ import FontSelectTool from './components/fontSelectTool/fontSelectTool';
 import Typography from 'typography';
 // @ts-ignore
 import altonTheme from 'typography-theme-alton';
-import injectFonts from './injectFonts';
+import injectFonts from './util/injectFonts';
 import ModularScaleTool from './components/modularScaleTool/modularScaleTool';
 import { parseUnit } from './util/parseUnit';
 import NumberEditor from './components/numberEditor/numberEditor';
 import Select from './components/select/select';
-import {FontList, TypographyOptions, TypographyState} from '../index';
 // @ts-ignore
 import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
@@ -20,6 +19,7 @@ import { themes } from './themes';
 import fontList from './fontList.json';
 import SectionTool from './components/sectionTool/sectionTool';
 import FontWeightTool from './components/fontWeightTool/fontWeightTool';
+import { TypographyState, TypographyOptions, FontList } from '@saltit/typography-picker';
 
 //fixme to be extracted into plugin
 let themeNames: string[] = themes.map(theme => theme.name);
@@ -99,10 +99,12 @@ function reducer(
         typography: action.payload.options,
       };
     case 'modifyOptions':
-      return Lens.fromPath<TypographyState>()(['typography', 'options']).modify(s => ({
-        ...s,
-        ...action.payload,
-      }))(state);
+      return Lens.fromPath<TypographyState>()(['typography', 'options']).modify(
+        s => ({
+          ...s,
+          ...action.payload,
+        }),
+      )(state);
     default:
       throw new Error();
   }
@@ -133,7 +135,8 @@ function App() {
         {injectRecentFont}
       </Helmet>
 
-      <div style={{
+      <div
+        style={{
           fontFamily: state.typography?.options?.headerFontFamily?.toString(),
           fontWeight: 300,
           fontSize: 10,
@@ -339,7 +342,7 @@ function App() {
             <SectionTool title="Bold Weight">
               <FontWeightTool
                 type="bold"
-                family={state.bodyFamily || {}}
+                family={state.bodyFamily || fontList[0]}
                 weight={state.typography.options.boldWeight || 0}
                 options={state.typography.options}
                 onChange={newOptions =>

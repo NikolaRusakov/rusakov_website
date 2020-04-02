@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Typography from 'typography';
 import altonTheme from 'typography-theme-alton';
-import injectFonts from '../../injectFonts';
+import injectFonts from './injectFonts';
 
 const typography = new Typography(altonTheme);
 const [typo, setTypo] = useState(typography);

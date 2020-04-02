@@ -1,24 +1,27 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Typography from 'typography';
 // @ts-ignore
 import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
-import { FontList, TypographyOptions, TypographyState } from '../../../index';
-// import injectFonts from '../../injectFonts';
 import fontList from '../../fontList.json';
 import Select from '../select/select';
-// import { themes } from '../../themes';
 import SectionTool from '../sectionTool/sectionTool';
 import NumberEditor from '../numberEditor/numberEditor';
 import { parseUnit } from '../../util/parseUnit';
 import ModularScaleTool from '../modularScaleTool/modularScaleTool';
 import FontSelectTool from '../fontSelectTool/fontSelectTool';
 import FontWeightTool from '../fontWeightTool/fontWeightTool';
+import {
+  TypographyState,
+  FontList,
+  TypographyOptions,
+} from '@saltit/typography-picker';
 
 export interface DesignToolProps {
   defaultTheme: TypographyOptions;
   themeNames: string[];
   themes: { name: string; title: string; requireTheme: () => Promise<any> }[];
+  onChange: (options: TypographyOptions) => void;
 }
 
 type ActionThemeType = {
@@ -111,6 +114,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
   defaultTheme,
   themeNames,
   themes,
+  onChange,
 }) => {
   const typography = new Typography(defaultTheme);
   const [state, dispatch] = useReducer(reducer, {
@@ -120,11 +124,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
     headerFamily: fontList[0],
   });
 
-  // const currentTypography = new Typography(state.typography.options);
-  // const injectRecentFont = useMemo(() => injectFonts(currentTypography), [
-  //   state.typography.options.headerFontFamily,
-  //   state.typography.options.bodyFontFamily,
-  // ]);
+  useEffect(() => {
+    onChange(state.typography.options);
+  }, [state.typography.options]);
   return (
     <div
       style={{
@@ -331,7 +333,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           <SectionTool title="Bold Weight">
             <FontWeightTool
               type="bold"
-              family={state.bodyFamily || {}}
+              family={state.bodyFamily || fontList[0]}
               weight={state.typography.options.boldWeight || 0}
               options={state.typography.options}
               onChange={newOptions =>

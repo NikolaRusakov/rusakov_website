@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import fontList from '../../fontList.json';
 import { css, StyleSheet } from 'aphrodite';
 import Autosuggest from 'react-autosuggest';
-import { FontList, TypographyOptions } from '../../..';
 import { lighten } from 'polished';
+import { TypographyOptions, FontList } from '@saltit/typography-picker';
 
 // fixme can be extended/improved with custom / self-hosted fonts
 const googleFontFamilies = fontList.map(({ family }) => family);
