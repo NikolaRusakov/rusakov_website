@@ -17,7 +17,7 @@
     "start:lerna": "lerna run start --stream",
     "clean": "gatsby clean",
     "start": "yarn develop",
-    "build": "yarn clean && prestart && gatsby build",
+    "build": "yarn clean && yarn prestart && gatsby build",
     "develop": "yarn clean && gatsby develop",
     "format": "prettier --write '**/*.tsx'",
     "storybook": "start-storybook -p 6006",
