@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ESnext",
+    "lib": ["es5", "es6", "dom", "dom.iterable", "esnext"],
+    "declaration": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve",
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+  },
+  "files": ["index.d.ts"],
+  "include": ["src/**/*", "index.d.ts"],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", ".env"]
+}

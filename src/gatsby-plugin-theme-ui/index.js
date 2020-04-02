@@ -9,11 +9,11 @@ const heading = {
 export const theme = {
   breakpoints: ['40em', '52em', '64em'],
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-  fonts: {
-    body: 'system-ui, sans-serif',
-    heading: 'inherit',
-    monospace: 'Menlo, monospace',
-  },
+  // fonts: {
+  //   body: 'system-ui, sans-serif',
+  //   heading: 'inherit',
+  //   monospace: 'Menlo, monospace',
+  // },
   fontSizes: [
     '0.75rem',
     '0.875rem',
@@ -66,35 +66,6 @@ export const theme = {
     },
   },
   styles: {
-    root: {
-      fontFamily: 'body',
-      lineHeight: 'body',
-      fontWeight: 'body',
-    },
-    h1: {
-      ...heading,
-      fontSize: 5,
-    },
-    h2: {
-      ...heading,
-      fontSize: 4,
-    },
-    h3: {
-      ...heading,
-      fontSize: 3,
-    },
-    h4: {
-      ...heading,
-      fontSize: 2,
-    },
-    h5: {
-      ...heading,
-      fontSize: 1,
-    },
-    h6: {
-      ...heading,
-      fontSize: 0,
-    },
     pre: {
       fontFamily: 'monospace',
       overflowX: 'auto',
@@ -102,77 +73,6 @@ export const theme = {
         color: 'inherit',
       },
     },
-    // code: {
-    //   // ...dracula,
-    //   ...nightOwl,
-    // },
-    // code: {
-    //   ...nightOwl,
-    //   dracula,
-    //   duotoneDark,
-    //   duotoneLight,
-    //   github,
-    //   nightOwlLight,
-    //   oceanicNext,
-    //   prism,
-    //   prismCoy,
-    //   prismDark,
-    //   prismFunky,
-    //   prismOkaidia,
-    //   prismSolarizedlight,
-    //   prismTomorrow,
-    //   prismTwilight,
-    //   shadesOfPurple,
-    //   ultramin,
-    //   vsDark,
-    //   // ...nightOwl,
-    // },
-    /*    prism: {
-          [[
-            '.comment',
-            '.prolog',
-            '.doctype',
-            '.cdata',
-            '.punctuation',
-            '.operator',
-            '.entity',
-            '.url',
-          ]]: {
-            color: 'gray',
-          },
-          '.comment': {
-            fontStyle: 'italic',
-          },
-          [[
-            '.property',
-            '.tag',
-            '.boolean',
-            '.number',
-            '.constant',
-            '.symbol',
-            '.deleted',
-            '.function',
-            '.class-name',
-            '.regex',
-            '.important',
-            '.variable',
-          ]]: {
-            color: 'purple',
-          },
-          [['.atrule', '.attr-value', '.keyword']]: {
-            color: 'primary',
-          },
-          [[
-            '.selector',
-            '.attr-name',
-            '.string',
-            '.char',
-            '.builtin',
-            '.inserted',
-          ]]: {
-            color: 'secondary',
-          },
-        },*/
     table: {
       width: '100%',
       borderCollapse: 'separate',
