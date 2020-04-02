@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
     title: 'Nikola Rusakov',
-    description:
-      'Rusakov Web Page',
+    description: 'Rusakov Web Page',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     `gatsby-plugin-typescript`,
     'gatsby-plugin-offline',
     'gatsby-plugin-theme-ui',
+    'gatsby-plugin-aphrodite',
     /*{
       resolve: 'gatsby-plugin-react-axe',
       options: {
