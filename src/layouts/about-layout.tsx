@@ -3,13 +3,11 @@ import { jsx, useColorMode, Checkbox } from 'theme-ui';
 import { ThemeProvider, Styled } from 'theme-ui';
 import { Helmet } from 'react-helmet';
 import theme from '../gatsby-plugin-theme-ui/index';
-import DesignTool from '@saltit/typography-picker/dist/components/designTool/designTool';
-// @ts-ignore
 import altonTheme from 'typography-theme-alton';
 import { useState, useMemo } from 'react';
 import Typography from 'typography';
 import merge from 'deepmerge';
-import injectFonts from '@saltit/typography-picker/dist/util/injectFonts';
+import { DesignTool, injectFonts } from '@saltit/typography-picker/dist';
 
 const AboutLayout: React.FC = ({ children }) => {
   const [mode, setMode] = useColorMode();
@@ -23,7 +21,7 @@ const AboutLayout: React.FC = ({ children }) => {
   return (
     <div>
       <Helmet defer={false}>
-        <meta charset="utf-8" />
+        {/*<meta charset="utf-8" />*/}
         <title>Rusakov Website</title>
         <link rel="canonical" href="http://rusakov.website/" />
         <style id="typography.js">{curTheme.toString()}</style>
@@ -40,7 +38,7 @@ const AboutLayout: React.FC = ({ children }) => {
           />
         </label>
         <DesignTool
-          defaultTheme={curTheme}
+          defaultTheme={curTheme.options}
           themeNames={['typography-theme-Wikipedia']}
           themes={[
             {

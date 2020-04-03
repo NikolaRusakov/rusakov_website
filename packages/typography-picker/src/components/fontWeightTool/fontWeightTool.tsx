@@ -8,7 +8,7 @@ import Select from '../select/select';
 import { TypographyOptions } from 'typography';
 import { FontList, GoogleFont } from '@saltit/typography-picker';
 
-interface FontWeightToolsProps {
+export interface FontWeightToolsProps {
   type: 'header' | 'body' | 'bold';
   family: FontList;
   weight: number | string;

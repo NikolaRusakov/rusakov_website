@@ -8,7 +8,7 @@ import { TypographyOptions, FontList } from '@saltit/typography-picker';
 // fixme can be extended/improved with custom / self-hosted fonts
 const googleFontFamilies = fontList.map(({ family }) => family);
 
-interface FontSelectToolProps {
+export interface FontSelectToolProps {
   type: 'header' | 'body';
   options: TypographyOptions;
   onSelectChange: (
