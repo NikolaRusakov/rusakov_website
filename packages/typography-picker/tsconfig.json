@@ -17,7 +17,7 @@
     "jsx": "preserve",
     "isolatedModules": true
   },
-  "files": ["index.d.ts"],
+  "files": ["index.d.ts", "types/types.d.ts"],
   "include": ["src/**/*", "**/*.d.ts"],
   "exclude": ["dist", "**/*.spec.ts"]
 }

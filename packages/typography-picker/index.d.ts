@@ -6,96 +6,87 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-declare module 'typography-theme-*' {
-  import { Typography } from 'typography';
-  const Theme: Typography;
-
-  export = Theme;
+export interface BaseLine {
+  fontSize: string;
+  lineHeight: string;
 }
 
-declare module '@saltit/typography-picker' {
-  export interface BaseLine {
-    fontSize: string;
-    lineHeight: string;
-  }
+export interface VerticalRhythm {
+  rhythm: (value: number) => string;
+  scale: (value: number) => BaseLine;
+  adjustFontSizeTo: (value?: number | string) => object;
+  linesForFontSize: (fontSize: number) => number;
+  establishBaseline: () => BaseLine;
+}
 
-  export interface VerticalRhythm {
-    rhythm: (value: number) => string;
-    scale: (value: number) => BaseLine;
-    adjustFontSizeTo: (value?: number | string) => object;
-    linesForFontSize: (fontSize: number) => number;
-    establishBaseline: () => BaseLine;
-  }
+export interface GoogleFont {
+  name: string;
+  styles: string[];
+}
 
-  export interface GoogleFont {
-    name: string;
-    styles: string[];
-  }
+export interface TypographyOptions {
+  baseFontSize?: string;
+  baseLineHeight?: number;
+  scaleRatio?: number;
+  googleFonts?: GoogleFont[];
+  headerFontFamily?: string[];
+  headerLineHeight?: number;
+  bodyFontFamily?: string[];
+  headerColor?: string;
+  bodyColor?: string;
+  headerWeight?: number | string;
+  bodyWeight?: number | string;
+  boldWeight?: number | string;
+  blockMarginBottom?: number;
+  includeNormalize?: boolean;
+  overrideStyles?: (
+    VerticalRhythm: VerticalRhythm,
+    options: TypographyOptions,
+    styles: any,
+  ) => object;
+  overrideThemeStyles?: (
+    VerticalRhythm: VerticalRhythm,
+    options: TypographyOptions,
+    styles: any,
+  ) => object;
+  plugins?: any[];
+}
 
-  export interface TypographyOptions {
-    baseFontSize?: string;
-    baseLineHeight?: number;
-    scaleRatio?: number;
-    googleFonts?: GoogleFont[];
-    headerFontFamily?: string[];
-    headerLineHeight?: number;
-    bodyFontFamily?: string[];
-    headerColor?: string;
-    bodyColor?: string;
-    headerWeight?: number | string;
-    bodyWeight?: number | string;
-    boldWeight?: number | string;
-    blockMarginBottom?: number;
-    includeNormalize?: boolean;
-    overrideStyles?: (
-      VerticalRhythm: VerticalRhythm,
-      options: TypographyOptions,
-      styles: any,
-    ) => object;
-    overrideThemeStyles?: (
-      VerticalRhythm: VerticalRhythm,
-      options: TypographyOptions,
-      styles: any,
-    ) => object;
-    plugins?: any[];
-  }
+declare class PickerTypography {
+  constructor(opts: TypographyOptions);
 
-  class PickerTypography {
-    constructor(opts: TypographyOptions);
+  options: TypographyOptions;
 
-    options: TypographyOptions;
+  createStyles(): string;
 
-    createStyles(): string;
+  toJSON(): object;
 
-    toJSON(): object;
+  injectStyles(): void;
 
-    injectStyles(): void;
+  rhythm: VerticalRhythm['rhythm'];
+  scale: VerticalRhythm['scale'];
+  adjustFontSizeTo: VerticalRhythm['adjustFontSizeTo'];
+  linesForFontSize: VerticalRhythm['linesForFontSize'];
+  establishBaseline: VerticalRhythm['establishBaseline'];
+}
 
-    rhythm: VerticalRhythm['rhythm'];
-    scale: VerticalRhythm['scale'];
-    adjustFontSizeTo: VerticalRhythm['adjustFontSizeTo'];
-    linesForFontSize: VerticalRhythm['linesForFontSize'];
-    establishBaseline: VerticalRhythm['establishBaseline'];
-  }
+export interface TypographyState {
+  theme: number;
+  typography: PickerTypography;
+  bodyFamily: FontList;
+  headerFamily: FontList;
+}
 
-  export interface TypographyState {
-    theme: number;
-    typography: PickerTypography;
-    bodyFamily: FontList;
-    headerFamily: FontList;
-  }
+export default PickerTypography;
 
-  export default PickerTypography;
+export interface FontList {
+  category: string;
+  family: string;
+  weights?: string[];
+}
 
-  export interface FontList {
-    category: string;
-    family: string;
-    weights?: string[];
-  }
-
-  export interface Theme {
-    name: string;
-    title: string;
-    requireTheme: () => Promise<any>;
-  }
+export interface Theme {
+  name: string;
+  title: string;
+  requireTheme: () => Promise<any>;
 }
