@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
+    "rootDir": "src",
+    "outDir": "dist",
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "ESnext",
@@ -12,9 +12,9 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "isolatedModules": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
-  "files": ["index.d.ts"],
-  "include": ["src/**/*", "index.d.ts"],
-  "exclude": ["node_modules", "dist", "**/*.spec.ts", ".env"]
+  "files": ["src/themes.ts", "index.d.ts"],
+  "include": ["src", "src/**/*"],
+  "exclude": ["node_modules/**", "**/*.spec.ts", ".env"]
 }

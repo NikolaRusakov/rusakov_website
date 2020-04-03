@@ -6,6 +6,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+declare module 'typography-theme-*' {
+  import { Typography } from 'typography';
+  const Theme: Typography;
+
+  export = Theme;
+}
+
 declare module '@saltit/typography-picker' {
   export interface BaseLine {
     fontSize: string;
@@ -53,7 +60,7 @@ declare module '@saltit/typography-picker' {
     plugins?: any[];
   }
 
-  declare class Typography {
+  class PickerTypography {
     constructor(opts: TypographyOptions);
 
     options: TypographyOptions;
@@ -73,16 +80,22 @@ declare module '@saltit/typography-picker' {
 
   export interface TypographyState {
     theme: number;
-    typography: Typography;
+    typography: PickerTypography;
     bodyFamily: FontList;
     headerFamily: FontList;
   }
 
-  export default Typography;
+  export default PickerTypography;
 
-   export interface FontList {
+  export interface FontList {
     category: string;
     family: string;
     weights?: string[];
+  }
+
+  export interface Theme {
+    name: string;
+    title: string;
+    requireTheme: () => Promise<any>;
   }
 }
