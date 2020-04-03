@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "resolveJsonModule": true
   },
-  "files": ["src/themes.ts", "index.d.ts"],
+  "files": ["src/themes.ts", "index.d.ts", "src/googleFonts.json"],
   "include": ["src", "src/**/*"],
   "exclude": ["node_modules/**", "**/*.spec.ts", ".env"]
 }

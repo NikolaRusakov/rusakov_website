@@ -19,3 +19,16 @@ export { Select };
 export { parseUnit };
 export { injectFonts };
 export { themes };
+
+export default {
+  DesignTool,
+  FontSelectTool,
+  FontWeightTool,
+  ModularScaleTool,
+  NumberEditor,
+  SectionTool,
+  Select,
+  parseUnit,
+  injectFonts,
+  themes,
+};
