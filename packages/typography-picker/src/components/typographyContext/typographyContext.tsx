@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-ignore
 import altonTheme from 'typography-theme-alton';
 import Typography from 'typography';
 

@@ -44,7 +44,6 @@ const AboutLayout: React.FC = ({ children }) => {
             {
               name: 'typography-theme-Wikipedia',
               title: 'Wikipedia',
-              // @ts-ignore
               requireTheme: () => import('typography-theme-Wikipedia'),
             },
           ]}

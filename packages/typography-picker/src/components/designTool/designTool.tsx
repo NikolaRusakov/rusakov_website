@@ -7,7 +7,7 @@ import fontList from '../../fontList.json';
 import Select from '../select/select';
 import SectionTool from '../sectionTool/sectionTool';
 import NumberEditor from '../numberEditor/numberEditor';
-import { parseUnit } from '../../util/parseUnit';
+import { parseUnit } from '../..';
 import ModularScaleTool from '../modularScaleTool/modularScaleTool';
 import FontSelectTool from '../fontSelectTool/fontSelectTool';
 import FontWeightTool from '../fontWeightTool/fontWeightTool';
