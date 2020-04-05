@@ -1,4 +1,4 @@
-import { setHue, saturate } from 'polished';
+import { setHue, saturate, transparentize } from 'polished';
 
 const heading = {
   fontFamily: 'heading',
@@ -8,7 +8,18 @@ const heading = {
 
 export const theme = {
   breakpoints: ['40em', '52em', '64em'],
-  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  space: [2, 4, 8, 16, 32, 64, 128, 256, 512],
+  badges: {
+    primary: {
+      color: 'invert',
+      bg: 'darken',
+    },
+    outline: {
+      color: 'text',
+      bg: 'muted',
+      boxShadow: 'inset 0 0 0 1px',
+    },
+  },
   // fonts: {
   //   body: 'system-ui, sans-serif',
   //   heading: 'inherit',
@@ -47,25 +58,45 @@ export const theme = {
   },
   colors: {
     text: '#292929',
+    // background: '#f3f3f3',
     background: '#00b0f0',
     primary: '#00b0f0',
     secondary: '#008BBE',
     accent: '#006d95',
     muted: '#E6E6E6',
     highlight: setHue(200, '#00b0f0'),
-    darken: saturate(100, '#006d95'),
+    darken: '#69D1F2',
+    invert: '#121212',
     // highlight: '#65D6FF',
     modes: {
       dark: {
         text: '#fff',
-        background: '#000',
+        // background: '#0c0c0c',
+        background: '#121212',
         primary: '#0cf',
         secondary: '#09c',
-        muted: '#111',
+        muted: 'rgba(0,70,162,0.98)',
+        darken: '#9fbed0',
+        // darken: '#dff3ff',
       },
     },
   },
+  cards: {
+    primary: {
+      padding: 2,
+      borderRadius: 4,
+      boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.5)',
+    },
+    secondary: {
+      padding: 1,
+      borderRadius: 2,
+      boxShadow: '0 0 2px 1px rgba(100, 0, 0, 0.2)',
+    },
+  },
   styles: {
+    hr: {
+      color: 'text',
+    },
     pre: {
       fontFamily: 'monospace',
       overflowX: 'auto',
@@ -91,7 +122,7 @@ export const theme = {
       fontStyle: 'italic',
       borderBottomStyle: 'solid',
     },
-  }
+  },
 };
 
 export default theme;

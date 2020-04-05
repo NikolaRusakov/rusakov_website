@@ -3,7 +3,7 @@ import { jsx, useColorMode } from 'theme-ui';
 import React, { useState, useEffect } from 'react';
 
 import { ThemeProvider } from 'theme-ui';
-import theme from '~/theme';
+import theme from '../../src/gatsby-plugin-theme-ui/index';
 import { Checkbox, Flex } from 'theme-ui';
 
 const TogglePanel = ({ children }) => {

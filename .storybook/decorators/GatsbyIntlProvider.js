@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { IntlContextProvider } from 'gatsby-plugin-intl/intl-context';
 
@@ -17,3 +18,4 @@ const GatsbyIntlProvider = storyFn => (
 );
 
 export default GatsbyIntlProvider;
+*/

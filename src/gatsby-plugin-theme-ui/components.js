@@ -1,11 +1,12 @@
 import React from 'react';
-// import ThemeUIPrism from '@theme-ui/prism';
-// import PrismCore from 'prismjs/components/prism-core';
 import Codeblock from './codeblock';
+import { Card, Button } from 'theme-ui';
+import { Section } from '../components/section';
 
 export default {
   pre: props => props.children,
-  code: Codeblock /*{
-    // return <ThemeUIPrism {...props} Prism={PrismCore} copy={true}/>;
-  },*/,
+  Card: Card,
+  Button: Button,
+  Section: Section,
+  code: Codeblock,
 };
