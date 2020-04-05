@@ -1,22 +1,29 @@
 /** @jsx jsx */
-import { jsx, useColorMode, Checkbox } from 'theme-ui';
-import { ThemeProvider, Styled } from 'theme-ui';
+import { jsx, useColorMode, Checkbox, ThemeProvider, Styled } from 'theme-ui';
+// @ts-ignore
+import { toTheme } from '@theme-ui/typography';
+
 import { Helmet } from 'react-helmet';
 import theme from '../gatsby-plugin-theme-ui/index';
 import altonTheme from 'typography-theme-alton';
 import { useState, useMemo } from 'react';
 import Typography from 'typography';
 import merge from 'deepmerge';
-import { DesignTool, injectFonts } from '@saltit/typography-picker/dist';
+import {
+  DesignTool,
+  injectFonts,
+  themes,
+} from '@saltit/typography-picker/dist';
 
 const AboutLayout: React.FC = ({ children }) => {
   const [mode, setMode] = useColorMode();
-  const [curTheme, setTheme] = useState<Typography>(altonTheme);
+  const [curTheme, setTheme] = useState<Typography>(new Typography(altonTheme));
 
   const injectRecentFont = useMemo(() => injectFonts(curTheme), [
     curTheme?.options?.headerFontFamily,
     curTheme?.options?.bodyFontFamily,
   ]);
+  const typographyToTheme = toTheme(curTheme.options);
 
   return (
     <div>
@@ -27,7 +34,7 @@ const AboutLayout: React.FC = ({ children }) => {
         <style id="typography.js">{curTheme.toString()}</style>
         {injectRecentFont}
       </Helmet>
-      <ThemeProvider theme={merge(curTheme, theme)}>
+      <ThemeProvider theme={merge(typographyToTheme, theme)}>
         <label>
           {mode}
           <Checkbox
@@ -38,15 +45,9 @@ const AboutLayout: React.FC = ({ children }) => {
           />
         </label>
         <DesignTool
-          defaultTheme={curTheme.options}
-          themeNames={['typography-theme-Wikipedia']}
-          themes={[
-            {
-              name: 'typography-theme-Wikipedia',
-              title: 'Wikipedia',
-              requireTheme: () => import('typography-theme-Wikipedia'),
-            },
-          ]}
+          defaultTheme={altonTheme}
+          themeNames={themes.map(({ name }) => name)}
+          themes={[...themes]}
           onChange={changes => setTheme(new Typography(changes))}
         />
         <Styled.root>{children}</Styled.root>

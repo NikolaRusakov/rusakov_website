@@ -6,6 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+import Typography from 'typography';
+
 export interface BaseLine {
   fontSize: string;
   lineHeight: string;
@@ -72,7 +74,7 @@ declare class PickerTypography {
 
 export interface TypographyState {
   theme: number;
-  typography: PickerTypography;
+  typography: Typography;
   bodyFamily: FontList;
   headerFamily: FontList;
 }
