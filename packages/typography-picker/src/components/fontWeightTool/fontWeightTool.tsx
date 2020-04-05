@@ -1,5 +1,5 @@
 import React from 'react';
-import { parseUnit } from '../../util/parseUnit';
+import { parseUnit } from '../..';
 import { contramap, getMonoid, ordNumber } from 'fp-ts/lib/Ord';
 import { sort } from 'fp-ts/lib/Array';
 import { fold } from 'fp-ts/lib/Monoid';

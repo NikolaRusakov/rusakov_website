@@ -6,9 +6,10 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import React from 'react';
 import { transparentize } from 'polished';
 import { ThemeUiStorybookProvider } from './decorators';
+import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
 
 addDecorator(story => (
-  <>
+  <React.Fragment>
     <div
       style={{ padding: '3rem' }}
       sx={{
@@ -16,14 +17,35 @@ addDecorator(story => (
       }}>
       {story()}
     </div>
-  </>
+  </React.Fragment>
 ));
 addDecorator(ThemeUiStorybookProvider);
 
 addParameters({
+  docs: {
+    container: DocsContainer,
+    page: DocsPage,
+  },
+});
+
+const desktopViewport = {
+  desktop: {
+    name: 'Desktop',
+    styles: {
+      width: '100%',
+      height: '100%',
+    },
+    type: 'desktop',
+  },
+};
+
+addParameters({
   viewport: {
-    viewports: INITIAL_VIEWPORTS,
-    defaultViewport: 'responsive',
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      ...desktopViewport,
+    },
+    defaultViewport: 'desktop',
   },
   options: {
     panelPosition: 'right',

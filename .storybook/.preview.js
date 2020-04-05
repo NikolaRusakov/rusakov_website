@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 
 import { configure, addDecorator, addParameters } from '@storybook/react';
@@ -83,3 +84,4 @@ addLocaleData(esLocaleData);
 addDecorator(GatsbyIntlProvider);
 // Adds react-intl
 addDecorator(withIntl);
+*/

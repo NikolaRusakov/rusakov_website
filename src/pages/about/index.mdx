@@ -4,12 +4,89 @@ path: /about
 title: About Me
 ---
 
-
 # About me
+
+Renders a button with text in italic
+
+ ~~strikethrough~~
+
+> blockquote
+>
+> > nested blockquote
+>
+> > **I'm bold!**
+>
+> more quotes
+
+<blockquote cite="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0000hB">
+  <p>a bunch of paragraphs</p>
+  <footer>
+    <a href="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0000hB">Edward Tufte, forum post, ‘Book design: advice and examples’ thread</a>
+  </footer>
+</blockquote>
+
 - My name is Nick
 - I'm a programmer
 
----
+# Section
+
+<Card variant="secondary"
+sx={{
+maxWidth: 256,
+}}>
+
+<span>Card</span>
+<div>
+
+ > Nested **MDX**!
+
+</div>
+
+1. One
+1. Two
+1. Three
+
+</Card>
+
+- My name is Nick
+- I'm a programmer
+
+# I'm a programmer
+## I'm a programmer
+### I'm a programmer
+#### I'm a programmer
+##### I'm a programmer
+###### I'm a programmer
+
+<ExperienceSection />
+
+<Card variant="primary">
+
+```javascript
+This *is* **markdown**!
+```
+
+ </Card>
+
+<Section>
+
+# I'm a programmer
+## I'm a programmer
+### I'm a programmer
+#### I'm a programmer
+##### I'm a programmer
+###### I'm a programmer
+
+
+<Card variant="primary">
+
+```javascript
+This *is* **markdown**!
+```
+
+ </Card>
+
+</Section>
 
 ```dart
 import 'dart:async';

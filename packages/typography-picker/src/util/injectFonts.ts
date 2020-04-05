@@ -1,16 +1,12 @@
 // TODO: make it SSR friendly and handle errors gracefully + add typings
-//@ts-ignore
-import Typography from '@saltit/typography-picker';
+import Typography from 'typography';
 
 //Injection can be improved by font list memoization, thus preventing unnecessary refetching
 function injectFonts(typography: Typography): void {
   const fontsStr = getFontsStr(typography);
 
-  if (fontsStr !== '') {
-    const link = getFontsLink(fontsStr);
-    if (document != null) {
-      injectLink(link);
-    }
+  if (fontsStr !== '' && typeof window !== 'undefined') {
+    injectLink(getFontsLink(fontsStr));
   } else {
     // Fallback action if defined?
   }
