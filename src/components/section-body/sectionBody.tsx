@@ -1,16 +1,19 @@
 /** @jsx jsx */
 import { jsx, Flex, Heading, Divider } from 'theme-ui';
 import React, { ReactNode } from 'react';
+import { TagEntity } from '../section-experience/sectionExperience';
 
-const SectionBody: React.FC<{
+export interface SectionBodyProps<T extends ReactNode | TagEntity[]> {
   children: {
     duration?: string;
     employment?: string;
+    projects: T;
     location?: string;
-    projects: ReactNode;
-    tags: ReactNode;
+    tags: T;
   };
-}> = ({ children }) => {
+}
+
+const SectionBody: React.FC<SectionBodyProps<ReactNode>> = ({ children }) => {
   return (
     <article>
       <Flex sx={{ flexDirection: 'column' }}>
@@ -18,18 +21,18 @@ const SectionBody: React.FC<{
           .filter(([key, _]) => key != 'tags')
           .map(([key, value]) =>
             value ? (
-              <Flex>
+              <Flex sx={{flexDirection:'column'}}>
                 <Heading
-                  as="h4"
+                  as="h3"
                   sx={{
-                    alignSelf: 'center',
+                    // alignSelf: 'center',
                     width: ['64px', '92px', '128px'],
-                    textAlign: 'right',
+                    // textAlign: 'right',
                     marginRight: theme => theme.space[1],
                   }}>
                   {key}
                 </Heading>
-                {key !== 'projects' ? <p>{value}</p> : <Flex>{value}</Flex>}
+                {key !== 'projects' ? <span>{value}</span> : <Flex>{value}</Flex>}
               </Flex>
             ) : null,
           )}

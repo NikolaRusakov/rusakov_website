@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useRef } from 'react';
 import Typography from 'typography';
 // @ts-ignore
 import gray from 'gray-percentage';
@@ -22,6 +22,7 @@ export interface DesignToolProps {
   themeNames: string[];
   themes: { name: string; title: string; requireTheme: () => Promise<any> }[];
   onChange: (options: TypographyOptions) => void;
+  trigger: string;
 }
 
 type ActionThemeType = {
@@ -115,6 +116,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
   themeNames,
   themes,
   onChange,
+  trigger,
 }) => {
   const typography = new Typography(defaultTheme);
   const [state, dispatch] = useReducer(reducer, {
@@ -124,9 +126,19 @@ export const DesignTool: React.FC<DesignToolProps> = ({
     headerFamily: fontList[0],
   });
 
+  const prevTrigger = useRef(trigger);
+
   useEffect(() => {
     onChange(state.typography.options);
   }, [state.typography.options]);
+
+  useEffect(() => {
+    if (trigger !== prevTrigger.current && trigger !== 'default') {
+      prevTrigger.current = trigger;
+      onChange(state.typography.options);
+    }
+  }, [trigger]);
+
   return (
     <div
       style={{

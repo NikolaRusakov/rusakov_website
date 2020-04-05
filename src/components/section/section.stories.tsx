@@ -41,7 +41,7 @@ storiesOf('Section', module)
               {abbr}
             </Badge>
           )),
-          tags: new Array(10)
+          tags: new Array(7)
             .fill({
               name: 'Typescript',
               abbr: 'TS',

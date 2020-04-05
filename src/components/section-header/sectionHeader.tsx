@@ -2,7 +2,7 @@
 import { Badge, Box, Flex, Heading, Image, jsx } from 'theme-ui';
 import React from 'react';
 
-export interface ExperienceSectionProps {
+export interface ExperienceProps {
   employedDuration?: string;
   duration?: string;
   company?: string;
@@ -10,14 +10,20 @@ export interface ExperienceSectionProps {
   companyLogo?: string;
   position?: string;
   location?: string;
+  details?: string;
 }
 
-const SectionHeader: React.FC<{
-  experience: ExperienceSectionProps;
+export interface SectionHeaderProps {
+  experience: ExperienceProps;
   externalProps: {
     badges?: string[];
   };
-}> = ({ children, experience, externalProps }) => {
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({
+  experience,
+  externalProps,
+}) => {
   return (
     <section
       sx={{
@@ -31,18 +37,16 @@ const SectionHeader: React.FC<{
       <Box
         mx={3}
         sx={{
-          // gridColumn: '1',
-          // gridRow: '1 / 3',
           width: ['64px', '92px', '128px'],
         }}>
         <Image src={experience.companyLogo} />
       </Box>
       <Flex sx={{ flexDirection: 'column' }}>
         <Heading
-          as="h2"
+          as="h1"
           sx={{
             letterSpacing: [0, '-1px', '-1px'],
-            fontSize: [4, 5, 7],
+            fontSize: [3, 4, 5],
           }}>
           {experience.position}
         </Heading>
@@ -53,22 +57,22 @@ const SectionHeader: React.FC<{
           }}>
           <Heading
             sx={{
-              fontSize: [2, 4, 4],
+              fontSize: [2, 2, 3],
             }}
             as="h3">
             {experience.company}
           </Heading>
-          <Box>
-            {externalProps?.badges?.map?.(value => (
-              <Badge
-                variant="primary"
-                px={[0, 2, 2]}
-                py={[0, 1, 1]}
-                ml={[0, 1, 1]}>
-                {value}
-              </Badge>
-            ))}
-          </Box>
+        </Flex>
+        <Flex sx={{ justifyContent: 'flex-end', my: [0, 1, 1] }}>
+          {externalProps?.badges?.map?.(value => (
+            <Badge
+              variant="primary"
+              px={[0, 2, 2]}
+              py={[0, 1, 1]}
+              ml={[0, 1, 1]}>
+              {value}
+            </Badge>
+          ))}
         </Flex>
         <Flex sx={{ justifyContent: 'flex-end' }}>
           <p sx={{ fontStyle: 'italic' }}>{experience?.employedDuration}</p>
