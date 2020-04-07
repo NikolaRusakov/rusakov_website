@@ -13,30 +13,42 @@ export interface SectionBodyProps<T extends ReactNode | TagEntity[]> {
   };
 }
 
+const iconMapper: Record<string, string> = {
+  duration: 'clock1',
+  employment: 'male-technologist',
+  projects: 'bulb',
+  location: 'map',
+};
+
 const SectionBody: React.FC<SectionBodyProps<ReactNode>> = ({ children }) => {
   return (
     <article>
       <Flex sx={{ flexDirection: 'column' }}>
-        {Object.entries(children)
-          .filter(([key, _]) => key != 'tags')
-          .map(([key, value]) =>
-            value ? (
-              <Flex sx={{flexDirection:'column'}}>
-                <Heading
-                  as="h3"
-                  sx={{
-                    // alignSelf: 'center',
-                    width: ['64px', '92px', '128px'],
-                    // textAlign: 'right',
-                    marginRight: theme => theme.space[1],
-                  }}>
-                  {key}
-                </Heading>
-                {key !== 'projects' ? <span>{value}</span> : <Flex>{value}</Flex>}
-              </Flex>
-            ) : null,
-          )}
-
+        {children.duration}{' | '}
+        {children.employment && `${children?.employment.toUpperCase()}`}
+        {/*{Object.entries(children)*/}
+        {/*  .filter(([key, _]) => key != 'tags')*/}
+        {/*  .map(([key, value]) =>*/}
+        {/*    value ? (*/}
+        {/*      <Flex sx={{ flexDirection: 'row' }}>*/}
+        {/*        /!*<Heading*!/*/}
+        {/*        /!*  as="h3"*!/*/}
+        {/*        /!*  sx={{*!/*/}
+        {/*        /!*    // alignSelf: 'center',*!/*/}
+        {/*        /!*    width: ['64px', '92px', '128px'],*!/*/}
+        {/*        /!*    // textAlign: 'right',*!/*/}
+        {/*        /!*    marginRight: theme => theme.space[1],*!/*/}
+        {/*        /!*  }}>*!/*/}
+        {/*        /!*  {key}*!/*/}
+        {/*        /!*</Heading>*!/*/}
+        {/*        {key !== 'projects' ? (*/}
+        {/*          <span>{value}</span>*/}
+        {/*        ) : (*/}
+        {/*          <Flex>{value}</Flex>*/}
+        {/*        )}*/}
+        {/*      </Flex>*/}
+        {/*    ) : null,*/}
+        {/*  )}*/}
         {children?.tags ? (
           <React.Fragment>
             <Divider />
@@ -45,8 +57,6 @@ const SectionBody: React.FC<SectionBodyProps<ReactNode>> = ({ children }) => {
                 as="h4"
                 sx={{
                   width: ['64px', '92px', '128px'],
-                  textAlign: 'right',
-                  flex: 'none',
                   alignSelf: 'baseline',
                   marginRight: theme => theme.space[1],
                 }}>

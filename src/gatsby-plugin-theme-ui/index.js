@@ -77,6 +77,7 @@ export const theme = {
         secondary: '#09c',
         muted: 'rgba(0,70,162,0.98)',
         darken: '#9fbed0',
+        invert: '#00b0f0',
         // darken: '#dff3ff',
       },
     },

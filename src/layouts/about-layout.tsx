@@ -9,6 +9,7 @@ import {
 } from 'theme-ui';
 // @ts-ignore
 import { toTheme } from '@theme-ui/typography';
+import { BarChart, RadialAreaChart, RadialAxis } from 'reaviz';
 
 import { Helmet } from 'react-helmet';
 import theme from '../gatsby-plugin-theme-ui/index';
@@ -21,6 +22,7 @@ import {
   injectFonts,
   themes,
 } from '@saltit/typography-picker/dist';
+import React from 'react';
 
 const AboutLayout: React.FC = ({ children }) => {
   const [mode, setMode] = useColorMode();
@@ -31,6 +33,26 @@ const AboutLayout: React.FC = ({ children }) => {
     curTheme?.options?.headerFontFamily,
     curTheme?.options?.bodyFontFamily,
   ]);
+
+  const categoryData = [
+    {
+      key: 'Phishing Attack',
+      data: 10,
+    },
+    {
+      key: 'IDS',
+      data: 14,
+    },
+    {
+      key: 'Malware',
+      data: 5,
+    },
+    {
+      key: 'DLP',
+      data: 18,
+    },
+  ];
+
   const typographyToTheme = toTheme(curTheme.options);
   return (
     <div>
@@ -43,13 +65,13 @@ const AboutLayout: React.FC = ({ children }) => {
       </Helmet>
       <ThemeProvider theme={merge(typographyToTheme, theme)}>
         <label>
-          {mode}
           <Checkbox
             onClick={() => {
               const next = mode === 'dark' ? 'light' : 'dark';
               setMode(next);
             }}
           />
+          {mode}
         </label>
         <DesignTool
           defaultTheme={altonTheme}
@@ -63,10 +85,22 @@ const AboutLayout: React.FC = ({ children }) => {
                 : themeSet.colors?.modes?.[colorMode]?.text;
 
             setTheme(
-              new Typography({ ...changes, bodyColor, headerColor: bodyColor }),
+              new Typography({
+                ...changes,
+                bodyColor,
+                headerColor: bodyColor,
+              }),
             );
           }}
         />
+        <BarChart width={350} height={250} data={categoryData} />
+        <RadialAreaChart
+          data={categoryData}
+          height={300}
+          width={300}
+          axis={<RadialAxis type="category" />}
+        />
+
         <Styled.root>{children}</Styled.root>
       </ThemeProvider>
     </div>

@@ -65,6 +65,7 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-typography": "^0.16.19",
+    "reaviz": "^8.1.0",
     "refractor": "^2.10.1",
     "theme-ui": "^0.3.1",
     "theme-ui-typography": "^0.1.7",

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Divider, Badge } from 'theme-ui';
+import { jsx, Divider, Badge, Flex, Box } from 'theme-ui';
 import React, { ReactNode } from 'react';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
@@ -8,6 +8,7 @@ import { Section } from '../section';
 import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
+import Futuretek from '../../data/futuretek.mdx';
 
 export interface TagEntity {
   name: string;
@@ -17,7 +18,7 @@ export interface TagEntity {
 
 const renderBadges = (tags: TagEntity[], badge: keyof TagEntity) =>
   tags.map((entity, index) => (
-    <Badge key={`tag-${entity.slug}-${index}`} variant="outline" py={1} m={1}>
+    <Badge key={`tag-${entity.slug}-${index}`} variant="outline" py={0} m={1}>
       <code>{entity[badge]}</code>
     </Badge>
   ));
@@ -62,16 +63,40 @@ const SectionExperience: React.FC<{
         header: { experience, externalProps },
       }) => (
         <Section variant="primary">
-          <SectionHeader
-            experience={experience}
-            externalProps={externalProps}
-          />
+          <Flex
+            sx={{
+              flexDirection: ['column', 'column', 'row'],
+              alignItems: 'baseline',
+            }}>
+            <Flex sx={{ maxWidth: '50%' }}>
+              <SectionHeader
+                experience={experience}
+                externalProps={externalProps}>
+                <Box sx={{ maxWidth: ['100%', '75%', '75%'] }}>
+                  <Futuretek />
+                </Box>
+              </SectionHeader>
+            </Flex>
+            <Flex
+              sx={{
+                flexDirection: 'column',
+                alignSelf: 'flex-start',
+                '& > ol': {
+                  textOverflow: 'ellipsis',
+                  wordWrap: 'break-word',
+                  whiteSpace: 'pre-line',
+                },
+              }}>
+              <Divider sx={{ visibility: ['visible', null, 'hidden'] }} />
+              <Futuretek />
+            </Flex>
+          </Flex>
           <Divider />
           <SectionBody>
             {{
+              location,
               duration,
               employment,
-              location,
               projects,
               tags,
             }}

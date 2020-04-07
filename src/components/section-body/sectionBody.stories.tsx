@@ -16,7 +16,7 @@ storiesOf('Section Body', module)
           { name: 'Veronica Inside', abbr: 'VI', slug: 'veronicaInside' },
           { name: 'Hart Van Nederland', abbr: 'HVN', slug: 'hartVanNederland' },
         ].map(({ slug, abbr }) => (
-          <Badge variant="outline" py={1} m={1}>
+          <Badge variant="outline" py={0} m={0}>
             {abbr}
           </Badge>
         )),
@@ -27,7 +27,7 @@ storiesOf('Section Body', module)
             slug: 'typescript',
           })
           .map(({ slug }, index) => (
-            <Badge key={`tag-${slug}-${+index}`} variant="outline" py={1} m={1}>
+            <Badge key={`tag-${slug}-${+index}`} variant="outline" py={0} m={0}>
               <code>{slug}</code>
             </Badge>
           )),

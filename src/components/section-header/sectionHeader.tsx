@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { Badge, Box, Flex, Heading, Image, jsx } from 'theme-ui';
-import React from 'react';
+import { Badge, Flex, Heading, Image, jsx, Box } from 'theme-ui';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface ExperienceProps {
   employedDuration?: string;
@@ -23,62 +23,95 @@ export interface SectionHeaderProps {
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   experience,
   externalProps,
+  children,
 }) => {
+  const [headHeight, setHeight] = useState({ clientHeight: 0, clientWidth: 0 });
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref.current !== null) {
+      // @ts-ignore
+      const { clientHeight, clientWidth } = ref.current;
+      setHeight({ clientHeight, clientWidth });
+    }
+  }, [ref]);
   return (
-    <section
+    <article
       sx={{
         display: 'flex',
-        // display: 'grid',
-        // 'grid-template-columns':
-        //   'minmax(min-content, 100px) repeat(auto-fill,60px)',
-        // gridGap: '0.5rem',
-        // 'grid-auto-rows': 'minmax(0.5rem, auto)',
+        flexDirection: 'column',
       }}>
-      <Box
-        mx={3}
+      <Flex
         sx={{
-          width: ['64px', '92px', '128px'],
+          justifyContent: 'start',
         }}>
-        <Image src={experience.companyLogo} />
-      </Box>
-      <Flex sx={{ flexDirection: 'column' }}>
-        <Heading
-          as="h1"
+        <Image
           sx={{
-            letterSpacing: [0, '-1px', '-1px'],
-            fontSize: [3, 4, 5],
+            width: ['20%', 'auto', `${headHeight.clientHeight}px`],
+            height: [null, 'auto', 'auto'],
+            mr: 1,
+            mb: 1,
+            borderRadius: 1,
+          }}
+          src={experience.companyLogo}
+        />
+        <Flex
+          ref={ref}
+          sx={{
+            flexDirection: 'column',
           }}>
-          {experience.position}
+          <Heading
+            as="h2"
+            sx={{
+              letterSpacing: [0, '-1px', '-1px'],
+              fontSize: [3, 4, 5],
+              width: `${1 +
+                (experience.position?.split(' ')[0].length ?? 0)}ch`,
+            }}>
+            {experience.position}
+          </Heading>
+
+          <Flex
+            sx={{
+              display: ['none', 'block', 'block'],
+              py: 1,
+              flexWrap: 'wrap',
+            }}>
+            {externalProps?.badges?.map?.(value => (
+              <Badge variant="primary" px={1} my={1} mr={1}>
+                {value}
+              </Badge>
+            ))}
+          </Flex>
+          {/*<Flex sx={{ justifyContent: 'flex-end' }}>*/}
+          {/*  <p sx={{ fontStyle: 'italic' }}>{experience?.employedDuration}</p>*/}
+          {/*</Flex>*/}
+        </Flex>
+      </Flex>
+      <Flex sx={{ flexDirection: ['column', 'row', 'row'] }}>
+        <Heading
+          sx={{
+            fontSize: [2, 2, 3],
+            whiteSpace: 'nowrap',
+          }}
+          as="h3">
+          {experience.company}
         </Heading>
         <Flex
           sx={{
-            justifyContent: 'space-between',
-            alignItems: 'baseline',
+            display: ['flex', 'none', 'none'],
+            py: 1,
+            flexWrap: 'wrap',
           }}>
-          <Heading
-            sx={{
-              fontSize: [2, 2, 3],
-            }}
-            as="h3">
-            {experience.company}
-          </Heading>
-        </Flex>
-        <Flex sx={{ justifyContent: 'flex-end', my: [0, 1, 1] }}>
           {externalProps?.badges?.map?.(value => (
-            <Badge
-              variant="primary"
-              px={[0, 2, 2]}
-              py={[0, 1, 1]}
-              ml={[0, 1, 1]}>
+            <Badge variant="primary" px={1} my={1} mr={1}>
               {value}
             </Badge>
           ))}
         </Flex>
-        <Flex sx={{ justifyContent: 'flex-end' }}>
-          <p sx={{ fontStyle: 'italic' }}>{experience?.employedDuration}</p>
-        </Flex>
       </Flex>
-    </section>
+      {children}
+    </article>
   );
 };
 export { SectionHeader };

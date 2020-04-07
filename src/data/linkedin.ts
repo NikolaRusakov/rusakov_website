@@ -21,7 +21,7 @@ const data: {
           position: 'Frontend Engineer',
           location: 'Location Brno',
         },
-        externalProps: { badges: ['FE', 'BE', 'Serverless'] },
+        externalProps: { badges: ['FE', 'BE', 'SLS'] },
       },
       body: {
         children: {
@@ -84,7 +84,7 @@ const data: {
           position: 'Full-stack Developer',
           location: 'Location Plzeň-město, Plzeňský, Česká republika',
         },
-        externalProps: { badges: ['FE', 'DevOps'] },
+        externalProps: { badges: ['FE', 'BE'] },
       },
       body: {
         children: {

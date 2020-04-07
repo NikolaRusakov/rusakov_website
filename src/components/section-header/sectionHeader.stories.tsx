@@ -18,6 +18,6 @@ storiesOf('Section Header', module)
         position: 'Frontend Engineer',
         location: 'Location Brno',
       }}
-      externalProps={{ badges: ['FE', 'BE', 'Serverless'] }}
+      externalProps={{ badges: ['FE', 'BE', 'SLS'] }}
     />
   ));
