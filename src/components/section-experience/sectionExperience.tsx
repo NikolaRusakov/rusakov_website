@@ -86,8 +86,12 @@ const SectionExperience: React.FC<{
                   wordWrap: 'break-word',
                   whiteSpace: 'pre-line',
                 },
-                '& > h1, & > h2, & > h3, & > h4, & > h5, & > h6': {
+                '& > h1, & > h2': {
                   textAlign: 'right',
+                },
+                '& > h3, & > h4, & > h5, & > h6': {
+                  textAlign: 'right',
+                  paddingLeft: '2ch',
                 },
               }}>
               <Flex
@@ -100,16 +104,16 @@ const SectionExperience: React.FC<{
                 <Heading
                   sx={{
                     fontSize: [2, 2, 3],
-                    width: '15ch',
+                    width: '14ch',
                     textAlign: 'end',
                   }}
-                  as="h4">
+                  as="h3">
                   {experience.company}
                 </Heading>
               </Flex>
               <Divider
                 sx={{
-                  width: '90%',
+                  width: '14ch',
                   alignSelf: 'flex-end',
                   visibility: ['visible', null, 'visible'],
                 }}
