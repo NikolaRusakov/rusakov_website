@@ -12,8 +12,9 @@ import Futuretek from '../../data/futuretek.mdx';
 
 export interface TagEntity {
   name: string;
-  abbr: string;
-  slug: string;
+  abbr?: string;
+  slug?: string;
+  count?: string;
 }
 
 const renderBadges = (tags: TagEntity[], badge: keyof TagEntity) =>
@@ -42,6 +43,8 @@ export const SectionExperienceHOC = () => {
         ...header.experience,
         projects: renderBadges(body.children.projects, 'abbr'),
         tags: renderBadges(body.children.tags, 'slug'),
+        skills:
+          body.children.skills && renderBadges(body.children.skills, 'name'),
       },
     },
   }));
@@ -58,7 +61,7 @@ const SectionExperience: React.FC<{
     {experience.map(
       ({
         body: {
-          children: { duration, employment, location, projects, tags },
+          children: { duration, employment, location, projects, skills, tags },
         },
         header: { experience, externalProps },
       }) => (
@@ -119,6 +122,12 @@ const SectionExperience: React.FC<{
                 }}
               />
               <Futuretek />
+              {skills && (
+                <Flex sx={{ flexDirection: 'column' }}>
+                  <Divider sx={{ width: '100%' }} />
+                  <section>{skills}</section>
+                </Flex>
+              )}
             </Flex>
           </Flex>
           <Divider />

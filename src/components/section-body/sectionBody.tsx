@@ -10,6 +10,7 @@ export interface SectionBodyProps<T extends ReactNode | TagEntity[]> {
     projects: T;
     location?: string;
     tags: T;
+    skills?: T;
   };
 }
 

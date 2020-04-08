@@ -31,6 +31,7 @@
     "@mdx-js/react": "^1.5.7",
     "@saltit/typography-picker": "0.0.1",
     "@svgr/webpack": "^5.2.0",
+    "@theme-ui/presets": "^0.3.0",
     "@theme-ui/prism": "^0.3.0-alpha.6",
     "@theme-ui/typography": "^0.3.0",
     "deepmerge": "^4.2.2",

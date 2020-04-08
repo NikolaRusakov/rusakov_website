@@ -7,13 +7,13 @@ import {
   useColorMode,
   useThemeUI,
   Flex,
+  Button,
 } from 'theme-ui';
 // @ts-ignore
 import { toTheme } from '@theme-ui/typography';
-import { BarChart, RadialAreaChart, RadialAxis } from 'reaviz';
 
 import { Helmet } from 'react-helmet';
-import theme from '../gatsby-plugin-theme-ui/index';
+import defaultTheme from '../gatsby-plugin-theme-ui/index';
 import altonTheme from 'typography-theme-alton';
 import { useMemo, useState } from 'react';
 import Typography from 'typography';
@@ -24,44 +24,66 @@ import {
   themes,
 } from '@saltit/typography-picker/dist';
 import React from 'react';
+import {
+  base,
+  system,
+  funk,
+  future,
+  roboto,
+  dark,
+  deep,
+  swiss,
+  tosh,
+  bootstrap,
+  bulma,
+  tailwind,
+  // @ts-ignore
+} from '@theme-ui/presets';
+
+const presets = {
+  light: defaultTheme,
+  base,
+  system,
+  funk,
+  future,
+  roboto,
+  dark,
+  deep,
+  swiss,
+  tosh,
+  bootstrap,
+  bulma,
+  tailwind,
+};
+
+const preset = (v: string) => ({
+  value: v,
+  identity: presets,
+  map: (mapping: (str: string) => typeof preset) => mapping(v),
+});
 
 const AboutLayout: React.FC = ({ children }) => {
   const [mode, setMode] = useColorMode();
-  const [curTheme, setTheme] = useState<Typography>(new Typography(altonTheme));
+  const [typography, setTypography] = useState<Typography>(
+    new Typography(altonTheme),
+  );
   const { theme: themeSet, colorMode } = useThemeUI();
+  const [theme, setTheme] = useState(defaultTheme);
 
-  const injectRecentFont = useMemo(() => injectFonts(curTheme), [
-    curTheme?.options?.headerFontFamily,
-    curTheme?.options?.bodyFontFamily,
+  const injectRecentFont = useMemo(() => injectFonts(typography), [
+    typography?.options?.headerFontFamily,
+    typography?.options?.bodyFontFamily,
   ]);
+  //TODO patch with all preset colors inside *modes* theme member
+  const typographyToTheme = toTheme(typography.options);
 
-  const categoryData = [
-    {
-      key: 'Phishing Attack',
-      data: 10,
-    },
-    {
-      key: 'IDS',
-      data: 14,
-    },
-    {
-      key: 'Malware',
-      data: 5,
-    },
-    {
-      key: 'DLP',
-      data: 18,
-    },
-  ];
-
-  const typographyToTheme = toTheme(curTheme.options);
   return (
     <div>
       <Helmet defer={false}>
         {/*<meta charset="utf-8" />*/}
         <title>Rusakov Website</title>
         <link rel="canonical" href="http://rusakov.website/" />
-        <style id="typography.js">{curTheme.toString()}</style>
+        <style id="typography.js">{typography.toString()}</style>
         {injectRecentFont}
       </Helmet>
       <ThemeProvider theme={merge(typographyToTheme, theme)}>
@@ -87,7 +109,7 @@ const AboutLayout: React.FC = ({ children }) => {
                   ? themeSet.colors?.text
                   : themeSet.colors?.modes?.[colorMode]?.text;
 
-              setTheme(
+              setTypography(
                 new Typography({
                   ...changes,
                   bodyColor,
@@ -96,15 +118,25 @@ const AboutLayout: React.FC = ({ children }) => {
               );
             }}
           />
-        </Flex>
-        <BarChart width={350} height={250} data={categoryData} />
-        <RadialAreaChart
-          data={categoryData}
-          height={300}
-          width={300}
-          axis={<RadialAxis type="category" />}
-        />
+          <Button
+            onClick={() => {
+              const keyPresets = Object.keys(presets);
+              const colorModeIndex =
+                keyPresets.indexOf(colorMode) >= 0
+                  ? keyPresets.indexOf(colorMode) + 1
+                  : 0;
+              const newThemeColor =
+                keyPresets[
+                  colorModeIndex == keyPresets.length ? 0 : colorModeIndex
+                ];
 
+              setTheme(presets[newThemeColor]);
+              //TODO only set new Theme Color which is patched with preset color styles on init.
+              setMode(newThemeColor);
+            }}>
+            {colorMode}
+          </Button>
+        </Flex>
         <Styled.root>{children}</Styled.root>
       </ThemeProvider>
     </div>

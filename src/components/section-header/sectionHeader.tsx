@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Badge, Flex, Heading, Image, jsx, Box } from 'theme-ui';
+import { Badge, Flex, Heading, Image, jsx } from 'theme-ui';
 import React, { useEffect, useRef, useState } from 'react';
 
 export interface ExperienceProps {

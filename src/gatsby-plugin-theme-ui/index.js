@@ -17,7 +17,7 @@ export const theme = {
     outline: {
       color: 'text',
       bg: 'muted',
-      boxShadow: 'inset 0 0 0 1px',
+      boxShadow: (theme)=>`0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.secondary}`,
     },
   },
   // fonts: {
