@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Divider, Badge, Flex, Box } from 'theme-ui';
+import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
 import React, { ReactNode } from 'react';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
@@ -62,13 +62,13 @@ const SectionExperience: React.FC<{
         },
         header: { experience, externalProps },
       }) => (
-        <Section variant="primary">
+        <Section variant="primary" sx={{ width: '90vw', margin: 'auto' }}>
           <Flex
             sx={{
               flexDirection: ['column', 'column', 'row'],
               alignItems: 'baseline',
             }}>
-            <Flex sx={{ maxWidth: '50%' }}>
+            <Flex sx={{ maxWidth: ['100%', '50%', '50%'] }}>
               <SectionHeader
                 experience={experience}
                 externalProps={externalProps}>
@@ -86,8 +86,34 @@ const SectionExperience: React.FC<{
                   wordWrap: 'break-word',
                   whiteSpace: 'pre-line',
                 },
+                '& > h1, & > h2, & > h3, & > h4, & > h5, & > h6': {
+                  textAlign: 'right',
+                },
               }}>
-              <Divider sx={{ visibility: ['visible', null, 'hidden'] }} />
+              <Flex
+                sx={{
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  maxWidth: ['45%', '50%', '50%'],
+                  alignSelf: 'flex-end',
+                }}>
+                <Heading
+                  sx={{
+                    fontSize: [2, 2, 3],
+                    width: '15ch',
+                    textAlign: 'end',
+                  }}
+                  as="h4">
+                  {experience.company}
+                </Heading>
+              </Flex>
+              <Divider
+                sx={{
+                  width: '90%',
+                  alignSelf: 'flex-end',
+                  visibility: ['visible', null, 'visible'],
+                }}
+              />
               <Futuretek />
             </Flex>
           </Flex>

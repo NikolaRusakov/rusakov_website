@@ -11,6 +11,8 @@ import { parseUnit } from '../..';
 import ModularScaleTool from '../modularScaleTool/modularScaleTool';
 import FontSelectTool from '../fontSelectTool/fontSelectTool';
 import FontWeightTool from '../fontWeightTool/fontWeightTool';
+import { Global } from '@emotion/core';
+
 import {
   TypographyState,
   FontList,
@@ -138,224 +140,242 @@ export const DesignTool: React.FC<DesignToolProps> = ({
       onChange(state.typography.options);
     }
   }, [trigger]);
+  // details[open] summary {
 
   return (
-    <div
-      style={{
-        fontFamily: state.typography?.options?.headerFontFamily?.toString(),
-        fontWeight: 300,
-        fontSize: 10,
-        lineHeight: 1.5,
-        letterSpacing: 0,
-        background: 'rgba(0,0,0,0.65)',
-        color: 'rgba(255,255,255,0.95)',
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        // @ts-ignore
-        WebkitFontSmoothing: 'auto',
-      }}>
-      <Section>
-        <div
-          style={{
-            color: 'rgba(255,255,255,0.95)',
-            fontFamily: state.typography?.options?.headerFontFamily?.toString(),
-            fontSize: 15,
-            fontWeight: 300,
-            marginBottom: 0,
-            marginTop: 10,
-          }}>
-          Page Typography
-        </div>
-        <SectionRow>
+    <React.Fragment>
+      <Global
+        styles={{
+          '.designToolToggle:checked + .designTool': { display: 'none' },
+          '.designToolToggle': {
+            display: 'block',
+            height: '24px',
+            width: '24px',
+          },
+        }}
+      />
+      <input className="designToolToggle" type="checkbox" />
+      <div
+        className="designTool"
+        style={{
+          fontFamily: state.typography?.options?.headerFontFamily?.toString(),
+          fontWeight: 300,
+          fontSize: 10,
+          lineHeight: 1.5,
+          letterSpacing: 0,
+          background: 'rgba(0,0,0,0.65)',
+          color: 'rgba(255,255,255,0.95)',
+          position: 'fixed',
+          width: '200px',
+          top: 0,
+          right: 0,
+          // @ts-ignore
+          WebkitFontSmoothing: 'auto',
+        }}>
+        <Section>
           <div
             style={{
-              fontSize: 10,
-              lineHeight: '15px',
-              marginTop: 7.5,
+              color: 'rgba(255,255,255,0.95)',
+              fontFamily: state.typography?.options?.headerFontFamily?.toString(),
+              fontSize: 15,
+              fontWeight: 300,
+              marginBottom: 0,
+              marginTop: 10,
             }}>
-            Pick theme
+            Page Typography
           </div>
-          <Select
-            options={themeNames}
-            value={state.theme}
-            style={{
-              width: '100%',
-            }}
-            onChange={async value => {
-              const createTheme = await themes[+value].requireTheme();
-              const changeState = new Typography(createTheme.default);
-              let newBodyFamily: FontList =
-                fontList.find(font => font.family === value) || fontList[0];
+          <SectionRow>
+            <div
+              style={{
+                fontSize: 10,
+                lineHeight: '15px',
+                marginTop: 7.5,
+              }}>
+              Pick theme
+            </div>
+            <Select
+              options={themeNames}
+              value={state.theme}
+              style={{
+                width: '100%',
+              }}
+              onChange={async value => {
+                const createTheme = await themes[+value].requireTheme();
+                const changeState = new Typography(createTheme.default);
+                let newBodyFamily: FontList =
+                  fontList.find(font => font.family === value) || fontList[0];
 
-              let newHeaderFamily: FontList =
-                fontList.find(font => font.family === value) || fontList[0];
-              dispatch({
-                action: 'changeState',
-                payload: {
-                  theme: parseInt(value, 10),
-                  typography: changeState,
-                  bodyFamily: newBodyFamily,
-                  headerFamily: newHeaderFamily,
-                },
-              });
-            }}
-          />
-        </SectionRow>
-      </Section>
-      <Section>
-        <SectionHeader>Base sizes</SectionHeader>
-        <SectionRow>
-          <SectionTool title="Font Size">
-            <NumberEditor
-              unit="px"
-              value={parseUnit(state.typography.options.baseFontSize || '')[0]}
-              min={9}
-              max={100}
-              step={0.25}
-              decimals={2}
-              onValueChange={baseFontSize =>
-                setTimeout(() => {
-                  dispatch({
-                    action: 'modifyOptions',
-                    payload: {
-                      baseFontSize,
-                    },
-                  });
-                })
-              }
-            />
-          </SectionTool>
-          <SectionTool title="Line height">
-            <NumberEditor
-              unit="number"
-              value={state.typography.options.baseLineHeight ?? 1}
-              min={1}
-              max={2.5}
-              step={0.01}
-              decimals={2}
-              onValueChange={value => {
+                let newHeaderFamily: FontList =
+                  fontList.find(font => font.family === value) || fontList[0];
                 dispatch({
-                  action: 'modifyOptions',
+                  action: 'changeState',
                   payload: {
-                    baseLineHeight: value,
+                    theme: parseInt(value, 10),
+                    typography: changeState,
+                    bodyFamily: newBodyFamily,
+                    headerFamily: newHeaderFamily,
                   },
                 });
               }}
             />
-          </SectionTool>
-        </SectionRow>
-        <SectionRow>
-          <SectionTool title="Paragraph Spacing">
-            <NumberEditor
-              unit="rhythm"
-              value={state.typography.options.blockMarginBottom ?? 0}
-              min={0.25}
-              max={3}
-              step={0.1}
-              decimals={2}
-              onValueChange={value =>
+          </SectionRow>
+        </Section>
+        <Section>
+          <SectionHeader>Base sizes</SectionHeader>
+          <SectionRow>
+            <SectionTool title="Font Size">
+              <NumberEditor
+                unit="px"
+                value={
+                  parseUnit(state.typography.options.baseFontSize || '')[0]
+                }
+                min={9}
+                max={100}
+                step={0.25}
+                decimals={2}
+                onValueChange={baseFontSize =>
+                  setTimeout(() => {
+                    dispatch({
+                      action: 'modifyOptions',
+                      payload: {
+                        baseFontSize,
+                      },
+                    });
+                  })
+                }
+              />
+            </SectionTool>
+            <SectionTool title="Line height">
+              <NumberEditor
+                unit="number"
+                value={state.typography.options.baseLineHeight ?? 1}
+                min={1}
+                max={2.5}
+                step={0.01}
+                decimals={2}
+                onValueChange={value => {
+                  dispatch({
+                    action: 'modifyOptions',
+                    payload: {
+                      baseLineHeight: value,
+                    },
+                  });
+                }}
+              />
+            </SectionTool>
+          </SectionRow>
+          <SectionRow>
+            <SectionTool title="Paragraph Spacing">
+              <NumberEditor
+                unit="rhythm"
+                value={state.typography.options.blockMarginBottom ?? 0}
+                min={0.25}
+                max={3}
+                step={0.1}
+                decimals={2}
+                onValueChange={value =>
+                  dispatch({
+                    action: 'modifyOptions',
+                    payload: {
+                      blockMarginBottom: parseFloat(value),
+                    },
+                  })
+                }
+              />
+            </SectionTool>
+            <ModularScaleTool
+              key="scale"
+              scaleRatio={state.typography.options.scaleRatio || ''}
+              onChange={newScale =>
                 dispatch({
                   action: 'modifyOptions',
                   payload: {
-                    blockMarginBottom: parseFloat(value),
+                    scaleRatio: newScale,
                   },
                 })
               }
             />
-          </SectionTool>
-          <ModularScaleTool
-            key="scale"
-            scaleRatio={state.typography.options.scaleRatio || ''}
-            onChange={newScale =>
-              dispatch({
-                action: 'modifyOptions',
-                payload: {
-                  scaleRatio: newScale,
-                },
-              })
-            }
-          />
-        </SectionRow>
-      </Section>
+          </SectionRow>
+        </Section>
 
-      <Section>
-        <SectionHeader>Headers</SectionHeader>
-        <SectionRow>
-          <div>Typeface</div>
-          <FontSelectTool
-            type="header"
-            options={state.typography.options}
-            onSelectChange={(options, headerFamily) =>
-              dispatch({
-                action: 'changeFont',
-                payload: {
-                  options: new Typography(options),
-                  headerFamily,
-                },
-              })
-            }
-          />
-        </SectionRow>
-        <SectionRow>
-          <SectionTool title="Weight">
-            <FontWeightTool
+        <Section>
+          <SectionHeader>Headers</SectionHeader>
+          <SectionRow>
+            <div>Typeface</div>
+            <FontSelectTool
               type="header"
-              family={state.headerFamily}
-              weight={state.typography.options.headerWeight ?? 400}
               options={state.typography.options}
-              onChange={newOptions =>
-                dispatch({ action: 'modifyOptions', payload: newOptions })
+              onSelectChange={(options, headerFamily) =>
+                dispatch({
+                  action: 'changeFont',
+                  payload: {
+                    options: new Typography(options),
+                    headerFamily,
+                  },
+                })
               }
             />
-          </SectionTool>
-        </SectionRow>
-      </Section>
+          </SectionRow>
+          <SectionRow>
+            <SectionTool title="Weight">
+              <FontWeightTool
+                type="header"
+                family={state.headerFamily}
+                weight={state.typography.options.headerWeight ?? 400}
+                options={state.typography.options}
+                onChange={newOptions =>
+                  dispatch({ action: 'modifyOptions', payload: newOptions })
+                }
+              />
+            </SectionTool>
+          </SectionRow>
+        </Section>
 
-      <Section>
-        <SectionHeader>Body</SectionHeader>
-        <SectionRow>
-          <div>Typeface</div>
-          <FontSelectTool
-            type="body"
-            options={state.typography.options}
-            onSelectChange={(options, bodyFamily) =>
-              dispatch({
-                action: 'changeFont',
-                payload: {
-                  options: new Typography(options),
-                  bodyFamily,
-                },
-              })
-            }
-          />
-        </SectionRow>
-        <SectionRow>
-          <SectionTool title="Body Weight">
-            <FontWeightTool
+        <Section>
+          <SectionHeader>Body</SectionHeader>
+          <SectionRow>
+            <div>Typeface</div>
+            <FontSelectTool
               type="body"
-              family={state.bodyFamily}
-              weight={state.typography.options.bodyWeight || 0}
               options={state.typography.options}
-              onChange={newOptions =>
-                dispatch({ action: 'modifyOptions', payload: newOptions })
+              onSelectChange={(options, bodyFamily) =>
+                dispatch({
+                  action: 'changeFont',
+                  payload: {
+                    options: new Typography(options),
+                    bodyFamily,
+                  },
+                })
               }
             />
-          </SectionTool>
-          <SectionTool title="Bold Weight">
-            <FontWeightTool
-              type="bold"
-              family={state.bodyFamily || fontList[0]}
-              weight={state.typography.options.boldWeight || 0}
-              options={state.typography.options}
-              onChange={newOptions =>
-                dispatch({ action: 'modifyOptions', payload: newOptions })
-              }
-            />
-          </SectionTool>
-        </SectionRow>
-      </Section>
-    </div>
+          </SectionRow>
+          <SectionRow>
+            <SectionTool title="Body Weight">
+              <FontWeightTool
+                type="body"
+                family={state.bodyFamily}
+                weight={state.typography.options.bodyWeight || 0}
+                options={state.typography.options}
+                onChange={newOptions =>
+                  dispatch({ action: 'modifyOptions', payload: newOptions })
+                }
+              />
+            </SectionTool>
+            <SectionTool title="Bold Weight">
+              <FontWeightTool
+                type="bold"
+                family={state.bodyFamily || fontList[0]}
+                weight={state.typography.options.boldWeight || 0}
+                options={state.typography.options}
+                onChange={newOptions =>
+                  dispatch({ action: 'modifyOptions', payload: newOptions })
+                }
+              />
+            </SectionTool>
+          </SectionRow>
+        </Section>
+      </div>
+    </React.Fragment>
   );
 };
 

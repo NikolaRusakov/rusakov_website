@@ -44,10 +44,15 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <Flex
         sx={{
           justifyContent: 'start',
+          width: ['max-content', null, null],
         }}>
         <Image
           sx={{
-            width: ['20%', 'auto', `${headHeight.clientHeight}px`],
+            width: [
+              `${headHeight.clientHeight}px`,
+              'auto',
+              `${headHeight.clientHeight}px`,
+            ],
             height: [null, 'auto', 'auto'],
             mr: 1,
             mb: 1,
@@ -58,7 +63,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         <Flex
           ref={ref}
           sx={{
-            flexDirection: 'column',
+            flexDirection: ['row', 'column', 'column'],
           }}>
           <Heading
             as="h2"
@@ -70,7 +75,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             }}>
             {experience.position}
           </Heading>
-
           <Flex
             sx={{
               display: ['none', 'block', 'block'],
@@ -88,15 +92,30 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           {/*</Flex>*/}
         </Flex>
       </Flex>
+
+      <Flex
+        sx={{
+          fontSize: 'smaller',
+          alignSelf: 'baseline',
+          flexDirection: 'column',
+        }}>
+        <dl>
+          <dt>
+            {experience.employment && `${experience.employment.toUpperCase()}`}
+          </dt>
+          <dd> {experience.duration}</dd>
+        </dl>
+      </Flex>
+
       <Flex sx={{ flexDirection: ['column', 'row', 'row'] }}>
-        <Heading
-          sx={{
-            fontSize: [2, 2, 3],
-            whiteSpace: 'nowrap',
-          }}
-          as="h3">
-          {experience.company}
-        </Heading>
+        {/*<Heading*/}
+        {/*  sx={{*/}
+        {/*    fontSize: [2, 2, 3],*/}
+        {/*    whiteSpace: 'nowrap',*/}
+        {/*  }}*/}
+        {/*  as="h3">*/}
+        {/*  {experience.company}*/}
+        {/*</Heading>*/}
         <Flex
           sx={{
             display: ['flex', 'none', 'none'],

@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   useColorMode,
   useThemeUI,
+  Flex,
 } from 'theme-ui';
 // @ts-ignore
 import { toTheme } from '@theme-ui/typography';
@@ -64,35 +65,38 @@ const AboutLayout: React.FC = ({ children }) => {
         {injectRecentFont}
       </Helmet>
       <ThemeProvider theme={merge(typographyToTheme, theme)}>
-        <label>
-          <Checkbox
-            onClick={() => {
-              const next = mode === 'dark' ? 'light' : 'dark';
-              setMode(next);
+        <Flex sx={{ position: 'sticky', top: 0 }}>
+          <label>
+            <Checkbox
+              onClick={() => {
+                const next = mode === 'dark' ? 'light' : 'dark';
+                setMode(next);
+              }}
+            />
+            {mode}
+          </label>
+
+          <DesignTool
+            defaultTheme={altonTheme}
+            themeNames={themes.map(({ name }) => name)}
+            themes={[...themes]}
+            trigger={mode}
+            onChange={changes => {
+              const bodyColor =
+                colorMode === 'default' || colorMode === 'light'
+                  ? themeSet.colors?.text
+                  : themeSet.colors?.modes?.[colorMode]?.text;
+
+              setTheme(
+                new Typography({
+                  ...changes,
+                  bodyColor,
+                  headerColor: bodyColor,
+                }),
+              );
             }}
           />
-          {mode}
-        </label>
-        <DesignTool
-          defaultTheme={altonTheme}
-          themeNames={themes.map(({ name }) => name)}
-          themes={[...themes]}
-          trigger={mode}
-          onChange={changes => {
-            const bodyColor =
-              colorMode === 'default' || colorMode === 'light'
-                ? themeSet.colors?.text
-                : themeSet.colors?.modes?.[colorMode]?.text;
-
-            setTheme(
-              new Typography({
-                ...changes,
-                bodyColor,
-                headerColor: bodyColor,
-              }),
-            );
-          }}
-        />
+        </Flex>
         <BarChart width={350} height={250} data={categoryData} />
         <RadialAreaChart
           data={categoryData}
