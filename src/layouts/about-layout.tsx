@@ -47,12 +47,12 @@ const presets = {
   funk,
   future,
   roboto,
-  dark,
   deep,
   swiss,
   tosh,
   bootstrap,
   bulma,
+  dark,
   tailwind,
 };
 
@@ -63,30 +63,53 @@ const preset = (v: string) => ({
 });
 
 const AboutLayout: React.FC = ({ children }) => {
-  const [mode, setMode] = useColorMode();
-  const [typography, setTypography] = useState<Typography>(
-    new Typography(altonTheme),
-  );
   const { theme: themeSet, colorMode } = useThemeUI();
-  const [theme, setTheme] = useState(defaultTheme);
+  const [mode, setMode] = useColorMode();
+
+  const bodyColor =
+    colorMode === 'default' || colorMode === 'light'
+      ? themeSet.colors?.text
+      : themeSet.colors?.modes?.[colorMode]?.text;
+
+  const [typography, setTypography] = useState<Typography>(
+    new Typography({ ...altonTheme, bodyColor, headerColor: bodyColor }),
+  );
+  const typographyToTheme = toTheme(typography.options);
+
+  const provideTypography = {
+    ...typographyToTheme,
+    bodyColor,
+    headerColor: bodyColor,
+  };
 
   const injectRecentFont = useMemo(() => injectFonts(typography), [
     typography?.options?.headerFontFamily,
     typography?.options?.bodyFontFamily,
   ]);
-  //TODO patch with all preset colors inside *modes* theme member
-  const typographyToTheme = toTheme(typography.options);
 
+  //TODO solution to overriding typography with color modes
   return (
-    <div>
-      <Helmet defer={false}>
-        {/*<meta charset="utf-8" />*/}
-        <title>Rusakov Website</title>
-        <link rel="canonical" href="http://rusakov.website/" />
-        <style id="typography.js">{typography.toString()}</style>
-        {injectRecentFont}
-      </Helmet>
-      <ThemeProvider theme={merge(typographyToTheme, theme)}>
+    <ThemeProvider
+      theme={merge(
+        provideTypography,
+        merge(
+          {
+            useColorSchemeMediaQuery: true,
+            ...presets[colorMode],
+          },
+          provideTypography,
+        ),
+      )}>
+      <div>
+        <Helmet defer={false}>
+          {/*<meta charset="utf-8" />*/}
+          <title>Rusakov Website</title>
+          <link rel="canonical" href="http://rusakov.website/" />
+          <style id="typography.js">{typography.toString()}</style>
+          {injectRecentFont}
+        </Helmet>
+        <h1 sx={{ color: 'primary' }}>Theme UI sample</h1>
+
         <Flex sx={{ position: 'sticky', top: 0 }}>
           <label>
             <Checkbox
@@ -130,7 +153,6 @@ const AboutLayout: React.FC = ({ children }) => {
                   colorModeIndex == keyPresets.length ? 0 : colorModeIndex
                 ];
 
-              setTheme(presets[newThemeColor]);
               //TODO only set new Theme Color which is patched with preset color styles on init.
               setMode(newThemeColor);
             }}>
@@ -138,8 +160,8 @@ const AboutLayout: React.FC = ({ children }) => {
           </Button>
         </Flex>
         <Styled.root>{children}</Styled.root>
-      </ThemeProvider>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 };
 

@@ -49,9 +49,13 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         <Image
           sx={{
             width: [
-              `${headHeight.clientHeight}px`,
+              `${
+                headHeight.clientHeight === 0 ? 60 : headHeight.clientHeight
+              }px`,
               'auto',
-              `${headHeight.clientHeight}px`,
+              `${
+                headHeight.clientHeight === 0 ? 100 : headHeight.clientHeight
+              }px`,
             ],
             height: [null, 'auto', 'auto'],
             mr: 1,

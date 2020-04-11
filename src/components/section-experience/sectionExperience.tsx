@@ -82,6 +82,7 @@ const SectionExperience: React.FC<{
             </Flex>
             <Flex
               sx={{
+                width: 'fit-content',
                 flexDirection: 'column',
                 alignSelf: 'flex-start',
                 '& > ol': {
