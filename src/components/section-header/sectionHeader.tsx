@@ -50,11 +50,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           sx={{
             width: [
               `${
-                headHeight.clientHeight === 0 ? 60 : headHeight.clientHeight
+                headHeight.clientHeight
               }px`,
               'auto',
               `${
-                headHeight.clientHeight === 0 ? 100 : headHeight.clientHeight
+                headHeight.clientHeight
               }px`,
             ],
             height: [null, 'auto', 'auto'],
