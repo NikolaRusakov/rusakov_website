@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Divider, Badge } from 'theme-ui';
+import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
 import React, { ReactNode } from 'react';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
@@ -8,16 +8,18 @@ import { Section } from '../section';
 import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
+import Futuretek from '../../data/futuretek.mdx';
 
 export interface TagEntity {
   name: string;
-  abbr: string;
-  slug: string;
+  abbr?: string;
+  slug?: string;
+  count?: string;
 }
 
 const renderBadges = (tags: TagEntity[], badge: keyof TagEntity) =>
   tags.map((entity, index) => (
-    <Badge key={`tag-${entity.slug}-${index}`} variant="outline" py={1} m={1}>
+    <Badge key={`tag-${entity.slug}-${index}`} variant="outline" py={0} m={1}>
       <code>{entity[badge]}</code>
     </Badge>
   ));
@@ -41,6 +43,8 @@ export const SectionExperienceHOC = () => {
         ...header.experience,
         projects: renderBadges(body.children.projects, 'abbr'),
         tags: renderBadges(body.children.tags, 'slug'),
+        skills:
+          body.children.skills && renderBadges(body.children.skills, 'name'),
       },
     },
   }));
@@ -57,21 +61,82 @@ const SectionExperience: React.FC<{
     {experience.map(
       ({
         body: {
-          children: { duration, employment, location, projects, tags },
+          children: { duration, employment, location, projects, skills, tags },
         },
         header: { experience, externalProps },
       }) => (
-        <Section variant="primary">
-          <SectionHeader
-            experience={experience}
-            externalProps={externalProps}
-          />
+        <Section variant="primary" sx={{ width: '90vw', margin: 'auto' }}>
+          <Flex
+            sx={{
+              flexDirection: ['column', 'column', 'row'],
+              alignItems: 'baseline',
+            }}>
+            <Flex sx={{ maxWidth: ['100%', '50%', '50%'] }}>
+              <SectionHeader
+                experience={experience}
+                externalProps={externalProps}>
+                <Box sx={{ maxWidth: ['100%', '75%', '75%'] }}>
+                  <Futuretek />
+                </Box>
+              </SectionHeader>
+            </Flex>
+            <Flex
+              sx={{
+                width: 'fit-content',
+                flexDirection: 'column',
+                alignSelf: 'flex-start',
+                '& > ol': {
+                  textOverflow: 'ellipsis',
+                  wordWrap: 'break-word',
+                  whiteSpace: 'pre-line',
+                },
+                '& > h1, & > h2': {
+                  textAlign: 'right',
+                },
+                '& > h3, & > h4, & > h5, & > h6': {
+                  textAlign: 'right',
+                  paddingLeft: '2ch',
+                },
+              }}>
+              <Flex
+                sx={{
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  maxWidth: ['45%', '50%', '50%'],
+                  alignSelf: 'flex-end',
+                }}>
+                <Heading
+                  sx={{
+                    fontSize: [2, 2, 3],
+                    width: '14ch',
+                    textAlign: 'end',
+                  }}
+                  as="h3">
+                  {experience.company}
+                </Heading>
+              </Flex>
+              <Divider
+                sx={{
+                  width: '14ch',
+                  alignSelf: 'flex-end',
+                  visibility: ['visible', null, 'visible'],
+                }}
+              />
+              <Futuretek />
+              {skills && (
+                <Flex sx={{ flexDirection: 'column' }}>
+                  <Divider sx={{ width: '100%' }} />
+                  <section>{skills}</section>
+                </Flex>
+              )}
+            </Flex>
+          </Flex>
           <Divider />
           <SectionBody>
             {{
+              location,
               duration,
               employment,
-              location,
               projects,
               tags,
             }}

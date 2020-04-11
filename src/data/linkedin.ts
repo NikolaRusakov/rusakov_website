@@ -21,7 +21,7 @@ const data: {
           position: 'Frontend Engineer',
           location: 'Location Brno',
         },
-        externalProps: { badges: ['FE', 'BE', 'Serverless'] },
+        externalProps: { badges: ['FE', 'BE', 'SLS'] },
       },
       body: {
         children: {
@@ -30,6 +30,46 @@ const data: {
             abbr: 'TS',
             slug: 'typescript',
           }),
+          skills: [
+            {
+              name: 'HMLT5',
+              count: '5',
+            },
+            {
+              name: 'Redux',
+              count: '2',
+            },
+            {
+              name: 'Swagger',
+            },
+            {
+              name: 'TypeScript',
+              count: '5',
+            },
+            {
+              name: 'RxJS',
+              count: '3',
+            },
+            {
+              name: 'Neo4j',
+            },
+            {
+              name: 'Ionic Framework',
+              count: '6',
+            },
+            {
+              name: 'GraphQL',
+              count: '3',
+            },
+            {
+              name: 'Flutter',
+              count: '1',
+            },
+            {
+              name: 'Firebase',
+              count: '1',
+            },
+          ],
           projects: [
             { name: 'Veronica Inside', abbr: 'VI', slug: 'veronicaInside' },
             {
@@ -62,6 +102,51 @@ const data: {
             abbr: 'TS',
             slug: 'typescript',
           }),
+          skills: [
+            {
+              name: 'JavaScript',
+              count: '4',
+            },
+            {
+              name: 'Java',
+            },
+            {
+              name: 'Maven',
+            },
+            {
+              name: 'CSS',
+              count: '4',
+            },
+            {
+              name: 'Docker',
+            },
+            {
+              name: 'Spring Framework',
+            },
+            {
+              name: 'Hibernate',
+            },
+            {
+              name: 'PHP',
+            },
+            {
+              name: 'SQL',
+            },
+            {
+              name: 'PostgreSQL',
+            },
+            {
+              name: 'Linux',
+              count: '2',
+            },
+            {
+              name: 'IntelliJ IDEA',
+              count: '1',
+            },
+            {
+              name: 'Amazon Web Services (AWS)',
+            },
+          ],
           projects: [
             { name: 'Veronica Inside', abbr: 'VI', slug: 'veronicaInside' },
             {
@@ -84,7 +169,7 @@ const data: {
           position: 'Full-stack Developer',
           location: 'Location Plzeň-město, Plzeňský, Česká republika',
         },
-        externalProps: { badges: ['FE', 'DevOps'] },
+        externalProps: { badges: ['FE', 'BE'] },
       },
       body: {
         children: {
@@ -93,6 +178,51 @@ const data: {
             abbr: 'TS',
             slug: 'typescript',
           }),
+          skills: [
+            {
+              name: 'JavaScript',
+              count: '4',
+            },
+            {
+              name: 'Java',
+            },
+            {
+              name: 'Maven',
+            },
+            {
+              name: 'CSS',
+              count: '4',
+            },
+            {
+              name: 'Docker',
+            },
+            {
+              name: 'Spring Framework',
+            },
+            {
+              name: 'Hibernate',
+            },
+            {
+              name: 'PHP',
+            },
+            {
+              name: 'SQL',
+            },
+            {
+              name: 'PostgreSQL',
+            },
+            {
+              name: 'Linux',
+              count: '2',
+            },
+            {
+              name: 'IntelliJ IDEA',
+              count: '1',
+            },
+            {
+              name: 'Amazon Web Services (AWS)',
+            },
+          ],
           projects: [
             { name: 'Veronica Inside', abbr: 'VI', slug: 'veronicaInside' },
             {
@@ -121,6 +251,51 @@ const data: {
       },
       body: {
         children: {
+          skills: [
+            {
+              name: 'JavaScript',
+              count: '4',
+            },
+            {
+              name: 'Java',
+            },
+            {
+              name: 'Maven',
+            },
+            {
+              name: 'CSS',
+              count: '4',
+            },
+            {
+              name: 'Docker',
+            },
+            {
+              name: 'Spring Framework',
+            },
+            {
+              name: 'Hibernate',
+            },
+            {
+              name: 'PHP',
+            },
+            {
+              name: 'SQL',
+            },
+            {
+              name: 'PostgreSQL',
+            },
+            {
+              name: 'Linux',
+              count: '2',
+            },
+            {
+              name: 'IntelliJ IDEA',
+              count: '1',
+            },
+            {
+              name: 'Amazon Web Services (AWS)',
+            },
+          ],
           tags: [],
           // tags: new Array(7).fill({
           //   name: 'Typescript',
