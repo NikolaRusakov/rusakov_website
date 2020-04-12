@@ -1,6 +1,10 @@
 /** @jsx jsx */
-import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
-import React, { ReactNode } from 'react';
+import { jsx, Divider, Badge, Flex, Box, Heading, Styled } from 'theme-ui';
+import React, { ReactNode, useState } from 'react';
+import { useMorphList } from 'react-morph';
+// @ts-ignore
+import { v4 as uuidv4 } from 'uuid';
+
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
 import { Section } from '../section';
@@ -55,90 +59,141 @@ const SectionExperience: React.FC<{
     header: SectionHeaderProps;
     body: SectionBodyProps<ReactNode>;
   }[];
-}> = ({ experience }) => (
-  <React.Fragment>
-    {experience.map(
-      ({
-        body: {
-          children: { duration, employment, location, projects, skills, tags },
-        },
-        header: { experience, externalProps },
-      }) => (
-        <Section variant="primary" sx={{ width: '90vw', margin: 'auto' }}>
-          <Flex
-            sx={{
-              flexDirection: ['column', 'column', 'row'],
-              alignItems: 'baseline',
-            }}>
-            <Flex sx={{ maxWidth: ['100%', '50%', '50%'] }}>
-              <SectionHeader
-                experience={experience}
-                externalProps={externalProps}>
-                <Box sx={{ maxWidth: ['100%', '75%', '75%'] }}>
-                  <Futuretek />
-                </Box>
-              </SectionHeader>
-            </Flex>
+}> = ({ experience }) => {
+  const expUUID = uuidv4();
+  const expList = experience.map((_, index) => `${expUUID}-${index}`);
+
+  const morphs = useMorphList(
+    expList /*, {
+    spring: {
+      restDisplacementThreshold: 0.05,
+      overshootClamping: false,
+    },
+  }*/,
+  );
+  const [toggle, setToggle] = useState(true);
+
+  return (
+    <React.Fragment>
+      {experience.map(
+        (
+          {
+            body: {
+              children: {
+                duration,
+                employment,
+                location,
+                projects,
+                skills,
+                tags,
+              },
+            },
+            header: { experience, externalProps },
+          },
+          index,
+        ) => (
+          <Section variant="primary" sx={{ width: '90vw', margin: 'auto' }}>
             <Flex
               sx={{
-                width: 'fit-content',
-                flexDirection: 'column',
-                alignSelf: 'flex-start',
-                '& > ol': {
-                  textOverflow: 'ellipsis',
-                  wordWrap: 'break-word',
-                  whiteSpace: 'pre-line',
-                },
-                '& > h1, & > h2': {
-                  textAlign: 'right',
-                },
-                '& > h3, & > h4, & > h5, & > h6': {
-                  textAlign: 'right',
-                  marginTop: '1ch',
-                  paddingLeft: '2ch',
-                },
+                flexDirection: ['column', 'column', 'row'],
+                alignItems: 'baseline',
               }}>
+              <Flex sx={{ maxWidth: ['100%', '50%', '50%'] }}>
+                <SectionHeader
+                  experience={experience}
+                  externalProps={externalProps}>
+                  <Box sx={{ maxWidth: ['100%', '75%', '75%'] }}>
+                    <Futuretek />
+                  </Box>
+                  {!toggle && (
+                    // @ts-ignore
+                    <section {...morphs[index]}>
+                      <Divider />
+                      {skills}
+                    </section>
+                  )}
+                </SectionHeader>
+              </Flex>
               <Flex
                 sx={{
+                  width: 'fit-content',
                   flexDirection: 'column',
-                  alignItems: 'flex-end',
-                  maxWidth: ['45%', '50%', '50%'],
-                  alignSelf: 'flex-end',
+                  alignSelf: 'flex-start',
+                  '& > ol': {
+                    textOverflow: 'ellipsis',
+                    wordWrap: 'break-word',
+                    whiteSpace: 'pre-line',
+                  },
+                  '& > h1, & > h2': {
+                    textAlign: 'right',
+                  },
+                  '& > h3, & > h4, & > h5, & > h6': {
+                    textAlign: 'right',
+                    marginTop: '1ch',
+                    paddingLeft: '2ch',
+                  },
                 }}>
-                <Heading
+                <Flex
                   sx={{
-                    fontSize: [2, 2, 3],
-                    width: '14ch',
-                    textAlign: 'end',
-                    borderBottom: theme => `2px solid ${theme.colors.primary}`,
-                  }}
-                  as="h3">
-                  {experience.company}
-                </Heading>
-              </Flex>
-              <Futuretek />
-              {skills && (
-                <Flex sx={{ flexDirection: 'column' }}>
-                  <Divider sx={{ width: '100%' }} />
-                  <section>{skills}</section>
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    maxWidth: ['45%', '50%', '50%'],
+                    alignSelf: 'flex-end',
+                  }}>
+                  <Heading
+                    sx={{
+                      fontSize: [2, 2, 3],
+                      width: '14ch',
+                      textAlign: 'end',
+                      borderBottom: theme =>
+                        `2px solid ${theme.colors.primary}`,
+                    }}
+                    as="h3">
+                    {experience.company}
+                  </Heading>
                 </Flex>
-              )}
+                <Flex sx={{ flexDirection: 'column' }}>
+                  <Flex sx={{ alignSelf: 'flex-end', marginTop: '1ch' }}>
+                    <Styled.h4>
+                      <Styled.em>{'Highlight'}</Styled.em>
+                    </Styled.h4>{' '}
+                    <Styled.h4>
+                      {' '}
+                      |<Styled.em>{'Detailed'}</Styled.em>
+                    </Styled.h4>
+                  </Flex>
+                  <button onClick={() => setToggle(!toggle)}>
+                    Let's morph!
+                  </button>
+                  <Futuretek />
+                </Flex>
+
+                {skills && (
+                  <Flex sx={{ flexDirection: 'column' }}>
+                    <Divider sx={{ width: '100%' }} />
+                    {toggle && (
+                      // @ts-ignore
+                      <section {...morphs[index]}>{skills}</section>
+                    )}
+                  </Flex>
+                )}
+              </Flex>
             </Flex>
-          </Flex>
-          <Divider />
-          {/*<SectionBody>*/}
-          {/*  {{*/}
-          {/*    location,*/}
-          {/*    duration,*/}
-          {/*    employment,*/}
-          {/*    projects,*/}
-          {/*    tags,*/}
-          {/*  }}*/}
-          {/*</SectionBody>*/}
-        </Section>
-      ),
-    )}
-  </React.Fragment>
-);
+            <Divider />
+            {/*<SectionBody>*/}
+            {/*  {{*/}
+            {/*    location,*/}
+            {/*    duration,*/}
+            {/*    employment,*/}
+            {/*    projects,*/}
+            {/*    tags,*/}
+            {/*  }}*/}
+            {/*</SectionBody>*/}
+          </Section>
+        ),
+      )}
+    </React.Fragment>
+  );
+};
 
 export default SectionExperience;
