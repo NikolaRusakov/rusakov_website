@@ -119,8 +119,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         {/*  }}*/}
         {/*  as="h3">*/}
         {/*  {experience.company}*/}
-        {/*</Heading>*/}
-        <Flex
+        {/*</Heading>*/}        <Flex
           sx={{
             display: ['flex', 'none', 'none'],
             py: 1,

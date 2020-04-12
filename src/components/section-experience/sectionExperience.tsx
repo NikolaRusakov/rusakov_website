@@ -3,7 +3,6 @@ import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
 import React, { ReactNode } from 'react';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
-import { SectionBody } from '../section-body';
 import { Section } from '../section';
 import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
@@ -95,6 +94,7 @@ const SectionExperience: React.FC<{
                 },
                 '& > h3, & > h4, & > h5, & > h6': {
                   textAlign: 'right',
+                  marginTop: '1ch',
                   paddingLeft: '2ch',
                 },
               }}>
@@ -110,18 +110,12 @@ const SectionExperience: React.FC<{
                     fontSize: [2, 2, 3],
                     width: '14ch',
                     textAlign: 'end',
+                    borderBottom: theme => `2px solid ${theme.colors.primary}`,
                   }}
                   as="h3">
                   {experience.company}
                 </Heading>
               </Flex>
-              <Divider
-                sx={{
-                  width: '14ch',
-                  alignSelf: 'flex-end',
-                  visibility: ['visible', null, 'visible'],
-                }}
-              />
               <Futuretek />
               {skills && (
                 <Flex sx={{ flexDirection: 'column' }}>
@@ -132,15 +126,15 @@ const SectionExperience: React.FC<{
             </Flex>
           </Flex>
           <Divider />
-          <SectionBody>
-            {{
-              location,
-              duration,
-              employment,
-              projects,
-              tags,
-            }}
-          </SectionBody>
+          {/*<SectionBody>*/}
+          {/*  {{*/}
+          {/*    location,*/}
+          {/*    duration,*/}
+          {/*    employment,*/}
+          {/*    projects,*/}
+          {/*    tags,*/}
+          {/*  }}*/}
+          {/*</SectionBody>*/}
         </Section>
       ),
     )}
