@@ -141,9 +141,10 @@ export const theme = {
     },
   },
   styles: {
-    // root: {
-    //   bg: 'unset'
-    // },
+    root: {
+      transitionDuration: '0.3s',
+      transitionProperty: 'background-color, color',
+    },
     hr: {
       color: 'text',
     },

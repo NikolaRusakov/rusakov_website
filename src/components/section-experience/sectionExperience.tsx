@@ -2,8 +2,6 @@
 import { jsx, Divider, Badge, Flex, Box, Heading, Styled } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
-// @ts-ignore
-import { v4 as uuidv4 } from 'uuid';
 
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
@@ -60,7 +58,7 @@ const SectionExperience: React.FC<{
     body: SectionBodyProps<ReactNode>;
   }[];
 }> = ({ experience }) => {
-  const expUUID = uuidv4();
+  const expUUID = 'experience-section';
   const expList = experience.map((_, index) => `${expUUID}-${index}`);
 
   const morphs = useMorphList(
@@ -71,7 +69,15 @@ const SectionExperience: React.FC<{
     },
   }*/,
   );
-  const [toggle, setToggle] = useState(true);
+
+  const [showHighlight, setHighlight] = useState(
+    expList.reduce((acc, cur) => {
+      return {
+        ...acc,
+        [cur]: true,
+      };
+    }, {}),
+  );
 
   return (
     <React.Fragment>
@@ -105,9 +111,11 @@ const SectionExperience: React.FC<{
                   <Box sx={{ maxWidth: ['100%', '75%', '75%'] }}>
                     <Futuretek />
                   </Box>
-                  {!toggle && (
+                  {!showHighlight[expList[index]] && (
                     // @ts-ignore
-                    <section {...morphs[index]}>
+                    <section
+                      {...morphs[index]}
+                      sx={{ maxWidth: ['100%', '75%', '75%'] }}>
                       <Divider />
                       {skills}
                     </section>
@@ -153,25 +161,33 @@ const SectionExperience: React.FC<{
                   </Heading>
                 </Flex>
                 <Flex sx={{ flexDirection: 'column' }}>
-                  <Flex sx={{ alignSelf: 'flex-end', marginTop: '1ch' }}>
-                    <Styled.h4>
+                  <button sx={{ alignSelf: 'flex-end', marginTop: '1ch' }}>
+                    <Styled.h4
+                      sx={{
+                        borderRadius: 1,
+                      }}>
                       <Styled.em>{'Highlight'}</Styled.em>
                     </Styled.h4>{' '}
                     <Styled.h4>
                       {' '}
                       |<Styled.em>{'Detailed'}</Styled.em>
                     </Styled.h4>
-                  </Flex>
-                  <button onClick={() => setToggle(!toggle)}>
-                    Let's morph!
+                  </button>
+                  <button
+                    onClick={() =>
+                      setHighlight({
+                        ...showHighlight,
+                        [expList[index]]: !showHighlight[expList[index]],
+                      })
+                    }>
+                    Let's morph {index}!
                   </button>
                   <Futuretek />
                 </Flex>
-
                 {skills && (
                   <Flex sx={{ flexDirection: 'column' }}>
                     <Divider sx={{ width: '100%' }} />
-                    {toggle && (
+                    {showHighlight[expList[index]] && (
                       // @ts-ignore
                       <section {...morphs[index]}>{skills}</section>
                     )}
