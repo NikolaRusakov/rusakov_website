@@ -10,6 +10,7 @@ import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
 import Futuretek from '../../data/futuretek.mdx';
+import Checkbox from '../checkbox/checkbox';
 
 export interface TagEntity {
   name: string;
@@ -60,6 +61,9 @@ const SectionExperience: React.FC<{
 }> = ({ experience }) => {
   const expUUID = 'experience-section';
   const expList = experience.map((_, index) => `${expUUID}-${index}`);
+  const toggleList = experience.map((_, index) => `${expUUID}-toggle-${index}`);
+
+  const toggleMorphs = useMorphList(toggleList);
 
   const morphs = useMorphList(
     expList /*, {
@@ -161,27 +165,56 @@ const SectionExperience: React.FC<{
                   </Heading>
                 </Flex>
                 <Flex sx={{ flexDirection: 'column' }}>
-                  <button sx={{ alignSelf: 'flex-end', marginTop: '1ch' }}>
-                    <Styled.h4
-                      sx={{
-                        borderRadius: 1,
-                      }}>
-                      <Styled.em>{'Highlight'}</Styled.em>
-                    </Styled.h4>{' '}
-                    <Styled.h4>
-                      {' '}
-                      |<Styled.em>{'Detailed'}</Styled.em>
-                    </Styled.h4>
-                  </button>
-                  <button
-                    onClick={() =>
-                      setHighlight({
-                        ...showHighlight,
-                        [expList[index]]: !showHighlight[expList[index]],
-                      })
-                    }>
-                    Let's morph {index}!
-                  </button>
+                  <Flex sx={{ mt: 2, alignSelf: 'flex-end' }}>
+                    <label sx={{ display: 'flex' }}>
+                      <Flex
+                        sx={{
+                          flexDirection: 'column',
+                          mr: 2,
+                          alignItems: 'flex-end',
+                        }}>
+                        <Flex>
+                          {showHighlight[expList[index]] && (
+                            <span
+                              {...toggleMorphs[index]}
+                              sx={{
+                                '&:before': {
+                                  content: "'\\21A0'",
+                                  color: 'primary',
+                                },
+                              }}
+                            />
+                          )}
+                          <span>{'Highlight'}</span>
+                        </Flex>
+
+                        <Flex>
+                          {!showHighlight[expList[index]] && (
+                            <span
+                              {...toggleMorphs[index]}
+                              sx={{
+                                '&:before': {
+                                  content: "'\\21A0'",
+                                  color: 'secondary',
+                                },
+                              }}
+                            />
+                          )}
+                          <span>{'Detailed'}</span>
+                        </Flex>
+                      </Flex>
+                      <Flex>
+                        <Checkbox
+                          onClick={() =>
+                            setHighlight({
+                              ...showHighlight,
+                              [expList[index]]: !showHighlight[expList[index]],
+                            })
+                          }
+                        />
+                      </Flex>
+                    </label>
+                  </Flex>
                   <Futuretek />
                 </Flex>
                 {skills && (
