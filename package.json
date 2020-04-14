@@ -65,6 +65,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
+    "react-morph": "^0.4.0",
     "react-typography": "^0.16.19",
     "reaviz": "^8.1.0",
     "refractor": "^2.10.1",
@@ -73,7 +74,7 @@
     "typescript": "^3.8.3",
     "typography": "^0.16.19",
     "typography-theme-alton": "^0.16.19",
-    "uuid": "^7.0.2"
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",

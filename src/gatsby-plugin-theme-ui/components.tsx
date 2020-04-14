@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx, Card, Button } from 'theme-ui';
 import Codeblock from './codeblock';
-import { Card, Button } from 'theme-ui';
 import { Section } from '../components/section';
 import { SectionExperienceHOC } from '../components/section-experience/sectionExperience';
 
@@ -9,5 +10,11 @@ export default {
   Button: Button,
   Section: Section,
   code: Codeblock,
+  // @ts-ignore
+  blockquote: ({ children }) => (
+    <blockquote sx={{ backgroundColor: 'highlight', color: 'text' }}>
+      {children}
+    </blockquote>
+  ),
   ExperienceSection: SectionExperienceHOC,
 };
