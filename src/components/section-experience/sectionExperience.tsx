@@ -1,7 +1,10 @@
 /** @jsx jsx */
-import { jsx, Divider, Badge, Flex, Box, Heading, Styled } from 'theme-ui';
+import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
+
+// @ts-ignore
+import loadable from '@loadable/component';
 
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
@@ -9,7 +12,6 @@ import { Section } from '../section';
 import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
-import Futuretek from '../../data/futuretek.mdx';
 import Checkbox from '../checkbox/checkbox';
 
 export interface TagEntity {
@@ -83,6 +85,9 @@ const SectionExperience: React.FC<{
     }, {}),
   );
 
+  //fixme maybe consider pattern like https://reacttraining.com/react-router/web/example/route-config
+  const Highlight = loadable(props => import(`@mdx/highlights/futuretek`));
+
   return (
     <React.Fragment>
       {experience.map(
@@ -113,10 +118,9 @@ const SectionExperience: React.FC<{
                   experience={experience}
                   externalProps={externalProps}>
                   <Box sx={{ maxWidth: ['100%', '75%', '75%'] }}>
-                    <Futuretek />
+                    <Highlight />
                   </Box>
                   {!showHighlight[expList[index]] && (
-                    // @ts-ignore
                     <section
                       {...morphs[index]}
                       sx={{ maxWidth: ['100%', '75%', '75%'] }}>
@@ -215,7 +219,7 @@ const SectionExperience: React.FC<{
                       </Flex>
                     </label>
                   </Flex>
-                  <Futuretek />
+                  <Highlight />
                 </Flex>
                 {skills && (
                   <Flex sx={{ flexDirection: 'column' }}>

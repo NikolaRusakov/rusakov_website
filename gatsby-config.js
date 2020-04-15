@@ -9,6 +9,17 @@ module.exports = {
     'gatsby-plugin-offline',
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-aphrodite',
+    'gatsby-plugin-loadable-components-ssr',
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@mdx': 'src/data/mdx',
+          '@posts': 'content/posts',
+        },
+        extensions: ['mdx', 'md'],
+      },
+    },
     /*{
       resolve: 'gatsby-plugin-react-axe',
       options: {
@@ -51,6 +62,13 @@ module.exports = {
     },*/
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `experienceDetails`,
+        path: `${__dirname}/src/data/mdx/`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
