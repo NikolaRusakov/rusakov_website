@@ -77,6 +77,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `test`,
+        path: `${__dirname}/src/pages/test`,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-page-creator',
       options: {
         path: `${__dirname}/src/pages/about`,

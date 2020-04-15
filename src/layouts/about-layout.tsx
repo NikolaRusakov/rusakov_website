@@ -11,6 +11,7 @@ import {
 } from 'theme-ui';
 // @ts-ignore
 import { toTheme } from '@theme-ui/typography';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 
 import { Helmet } from 'react-helmet';
 import defaultTheme from '../gatsby-plugin-theme-ui/index';
@@ -62,7 +63,8 @@ const preset = (v: string) => ({
   map: (mapping: (str: string) => typeof preset) => mapping(v),
 });
 
-const AboutLayout: React.FC = ({ children }) => {
+// @ts-ignore
+const AboutLayout: React.FC = children => {
   const { theme: themeSet, colorMode } = useThemeUI();
   const [mode, setMode] = useColorMode();
 
@@ -159,7 +161,13 @@ const AboutLayout: React.FC = ({ children }) => {
             {colorMode}
           </Button>
         </Flex>
-        <Styled.root>{children}</Styled.root>
+        <Styled.root>
+          {children.pageContext.children ? (
+            <MDXRenderer>{children.pageContext.children}</MDXRenderer>
+          ) : (
+            children.children
+          )}
+        </Styled.root>
       </div>
     </ThemeProvider>
   );
