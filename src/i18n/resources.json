@@ -1,0 +1,18 @@
+{
+  "en": {
+    "translation": {
+      "en": "English",
+      "cs": "Czech",
+      "Using i18next": "Using i18next (EN)",
+      "not found": "not found"
+    }
+  },
+  "cs": {
+    "translation": {
+      "en": "Anglicky",
+      "cs": "Česky",
+      "Using i18next": "Using i18next (CZ)",
+      "not found": "not found (CZ)"
+    }
+  }
+}

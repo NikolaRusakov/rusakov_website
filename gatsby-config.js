@@ -7,9 +7,18 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     `gatsby-plugin-typescript`,
     'gatsby-plugin-offline',
+    `gatsby-transformer-json`,
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-aphrodite',
-    'gatsby-plugin-loadable-components-ssr',
+    // 'gatsby-plugin-loadable-components-ssr',
+    {
+      resolve: `gatsby-plugin-loadable-components-ssr`,
+      options: {
+        // Whether replaceHydrateFunction should call ReactDOM.hydrate or ReactDOM.render
+        // Defaults to ReactDOM.render on develop and ReactDOM.hydrate on build
+        useHydrate: true,
+      },
+    },
     {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
@@ -18,6 +27,13 @@ module.exports = {
           '@posts': 'content/posts',
         },
         extensions: ['mdx', 'md'],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/config/translations`,
+        name: `translations`,
       },
     },
     /*{

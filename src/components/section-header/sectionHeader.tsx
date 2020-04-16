@@ -34,7 +34,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       const { clientHeight, clientWidth } = ref.current;
       setHeight({ clientHeight, clientWidth });
     }
-  }, [ref]);
+  }, []);
   return (
     <article
       sx={{

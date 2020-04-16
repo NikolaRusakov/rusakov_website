@@ -38,6 +38,6 @@ const getFontsStr = (typography: Typography): string =>
 const getFontsLink = (
   str: string,
   domain = 'https://fonts.googleapis.com/css?family=',
-): string => `<link href="${domain}${str}" rel="preload" rel="stylesheet" type="text/css" />`;
+): string => `<link href="${domain}${str}" rel="stylesheet" type="text/css" />`;
 
 export default injectFonts;

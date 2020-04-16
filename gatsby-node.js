@@ -72,7 +72,7 @@ exports.createPages = async ({ page, graphql, actions }, pluginOptions) => {
 
   const result = await graphql(`
     {
-      blog: allFile(filter: { sourceInstanceName: { eq: "test" } }) {
+      blog: allFile(filter: { sourceInstanceName: { eq: "about" } }) {
         edges {
           node {
             relativeDirectory
@@ -100,16 +100,20 @@ exports.createPages = async ({ page, graphql, actions }, pluginOptions) => {
   }
 
   const postList = result.data.blog.edges;
-
+  const paths = postList.map(({ node: {childMdx:pl} }) => ({
+    locale: pl.fields.locale,
+    templateKey: pl.frontmatter.templateKey,
+  }));
+  console.log(paths);
   postList.forEach(async node => {
-
     const { node: post } = node;
+    const locale = post.childMdx.fields.locale;
+    const isDefault = post.childMdx.fields.isDefault;
+
     const slug = post.childMdx.frontmatter.templateKey;
     const title = post.childMdx.frontmatter.title;
 
     // Use the fields created in exports.onCreateNode
-    const locale = post.childMdx.fields.locale;
-    const isDefault = post.childMdx.fields.isDefault;
 
     createPage({
       path: localizedSlug({ isDefault, locale, slug }),
@@ -122,6 +126,8 @@ exports.createPages = async ({ page, graphql, actions }, pluginOptions) => {
         children: post.childMdx.body,
         locale,
         title,
+        slug,
+        paths,
       },
     });
   });

@@ -9,11 +9,11 @@ module.exports = {
         defaultTitle: `Nikola Rusakov website`,
         defaultDescription: `To be defined`,
     },
-    cz: {
-        path: `cz`,
+    cs: {
+        path: `cs`,
         locale: `cs-CZ`,
         dateFormat: `DD.MM.YYYY`,
-        siteLanguage: `cz`,
+        siteLanguage: `cs`,
         ogLanguage: `cz_CZ`,
         defaultTitle: `Nikola Rusakov stranka`,
         defaultDescription: `Bude nadefinovano`,

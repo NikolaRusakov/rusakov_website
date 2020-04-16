@@ -12,6 +12,7 @@ import {
 // @ts-ignore
 import { toTheme } from '@theme-ui/typography';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { useTranslation } from 'react-i18next';
 
 import { Helmet } from 'react-helmet';
 import defaultTheme from '../gatsby-plugin-theme-ui/index';
@@ -40,6 +41,10 @@ import {
   tailwind,
   // @ts-ignore
 } from '@theme-ui/presets';
+import withI18next from '../i18n/withI18Next';
+import LocalizedLink from '../components/localizedLink/localizedLink';
+import useTranslations from '../components/useTranslations/useTranslations';
+import { Link } from 'gatsby';
 
 const presets = {
   light: defaultTheme,
@@ -67,6 +72,8 @@ const preset = (v: string) => ({
 const AboutLayout: React.FC = children => {
   const { theme: themeSet, colorMode } = useThemeUI();
   const [mode, setMode] = useColorMode();
+  // const { backToHome } = useTranslations();
+  const { t } = useTranslation();
 
   const bodyColor =
     colorMode === 'default' || colorMode === 'light'
@@ -110,8 +117,26 @@ const AboutLayout: React.FC = children => {
           <style id="typography.js">{typography.toString()}</style>
           {injectRecentFont}
         </Helmet>
-        <h1 sx={{ color: 'primary' }}>Theme UI sample</h1>
-
+        <nav
+          sx={{
+            position: 'sticky',
+            display: 'flex',
+            justifyContent: 'center',
+            top: '0',
+          }}>
+          <div>
+            {children.pageContext.paths.map(
+              ({ locale, templateKey }, index, array) => (
+                <React.Fragment>
+                  <Link to={`/${locale}/${templateKey}`} hrefLang={locale}>
+                    {t(`${locale}`)}
+                  </Link>
+                  {index < array.length - 1 && '|'}
+                </React.Fragment>
+              ),
+            )}
+          </div>
+        </nav>
         <Flex sx={{ position: 'sticky', top: 0 }}>
           <label>
             <Checkbox
@@ -173,4 +198,4 @@ const AboutLayout: React.FC = children => {
   );
 };
 
-export default AboutLayout;
+export default withI18next()(AboutLayout);

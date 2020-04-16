@@ -2,6 +2,7 @@
 import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
+import i18n from 'i18next';
 
 // @ts-ignore
 import loadable from '@loadable/component';
@@ -86,7 +87,9 @@ const SectionExperience: React.FC<{
   );
 
   //fixme maybe consider pattern like https://reacttraining.com/react-router/web/example/route-config
-  const Highlight = loadable(props => import(`@mdx/highlights/futuretek`));
+  const Highlight = loadable(props =>
+    import(`@mdx/highlights/futuretek.${i18n.language}`),
+  );
 
   return (
     <React.Fragment>
