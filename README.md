@@ -141,6 +141,8 @@ please read the [code of conduct](CODE_OF_CONDUCT.md).
 
 ---
 
+1. `@loadable/server` ChunkExtractor doesn't work properly (requires magic comments `webpackChunkName` and more work)
+
 ### Ideas
 
 **i18n mdx pages**:

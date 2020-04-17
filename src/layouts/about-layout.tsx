@@ -125,7 +125,7 @@ const AboutLayout: React.FC = children => {
             top: '0',
           }}>
           <div>
-            {children.pageContext.paths.map(
+            {children.pageContext.paths?.map(
               ({ locale, templateKey }, index, array) => (
                 <React.Fragment>
                   <Link to={`/${locale}/${templateKey}`} hrefLang={locale}>
