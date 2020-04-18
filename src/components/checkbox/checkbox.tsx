@@ -25,7 +25,7 @@ export const Slider: React.FC = props => (
     sx={{
       transition: 'all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6)',
       position: 'absolute',
-      bg: theme => theme.colors.secondary,
+      bg: theme => theme.colors.primary,
       borderRadius: '50%',
       width: theme => `${theme.fontSizes[1]}px`,
       height: theme => `${theme.fontSizes[1]}px`,
@@ -40,8 +40,9 @@ const Checkbox: React.FC<{ onClick?: () => void }> = ({ onClick }) => (
     <Global
       styles={theme => ({
         '.hiddenBox:checked + div .slider': {
+          transition: 'all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6)',
           boxShadow: `0 0 4px 0 ${theme.colors.secondary} inset, 0 0 2px 0 ${theme.colors.primary}`,
-          backgroundColor: `${theme.colors.primary}`,
+          backgroundColor: `${theme.colors.secondary}`,
           transform: `translateY(calc(${theme.fontSizes[2] * 2}px))`,
         },
       })}
