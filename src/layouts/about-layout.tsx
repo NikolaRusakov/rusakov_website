@@ -39,6 +39,7 @@ import {
   bootstrap,
   bulma,
   tailwind,
+  polaris,
   // @ts-ignore
 } from '@theme-ui/presets';
 import withI18next from '../i18n/withI18Next';
@@ -60,6 +61,7 @@ const presets = {
   bulma,
   dark,
   tailwind,
+  polaris,
 };
 
 const preset = (v: string) => ({

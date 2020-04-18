@@ -1,7 +1,6 @@
+/** @jsx jsx */
 import React, { useReducer, useEffect, useRef } from 'react';
 import Typography from 'typography';
-// @ts-ignore
-import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
 import fontList from '../../fontList.json';
 import Select from '../select/select';
@@ -11,7 +10,8 @@ import { parseUnit } from '../..';
 import ModularScaleTool from '../modularScaleTool/modularScaleTool';
 import FontSelectTool from '../fontSelectTool/fontSelectTool';
 import FontWeightTool from '../fontWeightTool/fontWeightTool';
-import { Global } from '@emotion/core';
+import { Global, jsx } from '@emotion/core';
+import { desaturate, readableColor, transparentize } from 'polished';
 
 import {
   TypographyState,
@@ -76,14 +76,16 @@ function reducer(
   }
 }
 
-const Section: React.FC = ({ children }) => (
+const Section: React.FC = ({ children, ...props }) => (
   <div
     style={{
       clear: 'both',
       paddingBottom: 3.75,
       paddingLeft: 7.5,
       paddingRight: 7.5,
-    }}>
+      flexDirection: 'column',
+    }}
+    {...props}>
     {children}
   </div>
 );
@@ -99,16 +101,15 @@ const SectionRow: React.FC = ({ children }) => (
 
 const SectionHeader: React.FC = ({ children }) => (
   <div
-    style={{
-      background: gray(17),
-      borderBottom: '1px solid',
-      borderColor: gray(50, 0, true),
-      fontSize: 13,
+    css={theme => ({
+      borderBottom: `2px solid ${theme.colors.secondary}`,
+      color: readableColor(theme.colors.primary),
+      fontSize: 20,
       paddingLeft: 7.5,
       marginLeft: -7.5,
       marginRight: -7.5,
       marginBottom: 3.75,
-    }}>
+    })}>
     {children}
   </div>
 );
@@ -146,7 +147,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
     <React.Fragment>
       <Global
         styles={{
-          '.designToolToggle:checked + .designTool': { display: 'none' },
+          '.designToolToggle:checked + .designTool': {
+            display: 'none !important',
+          },
           '.designToolToggle': {
             display: 'block',
             height: '24px',
@@ -157,47 +160,56 @@ export const DesignTool: React.FC<DesignToolProps> = ({
       <input className="designToolToggle" type="checkbox" />
       <div
         className="designTool"
-        style={{
+        css={theme => ({
+          backgroundColor: transparentize(
+            0.2,
+            desaturate(0.3, theme.colors.primary),
+          ),
+          color: readableColor(theme.colors.text),
           fontFamily: state.typography?.options?.headerFontFamily?.toString(),
-          fontWeight: 300,
-          fontSize: 10,
+          fontSize: 20,
           lineHeight: 1.5,
           letterSpacing: 0,
-          background: 'rgba(0,0,0,0.65)',
-          color: 'rgba(255,255,255,0.95)',
           position: 'fixed',
-          width: '200px',
+          width: 'auto',
+          minHeight: '100px',
           top: 0,
           right: 0,
           // @ts-ignore
           WebkitFontSmoothing: 'auto',
-        }}>
-        <Section>
+          display: 'flex',
+          flexWrap: 'wrap',
+        })}>
+        <Section css={{ display: 'flex', maxWidth: '15ch' }}>
           <div
-            style={{
-              color: 'rgba(255,255,255,0.95)',
+            css={theme => ({
+              color: readableColor(theme.colors.text),
               fontFamily: state.typography?.options?.headerFontFamily?.toString(),
-              fontSize: 15,
+              fontSize: 20,
               fontWeight: 300,
               marginBottom: 0,
               marginTop: 10,
-            }}>
-            Page Typography
+            })}>
+            {'Page Typography'}
           </div>
           <SectionRow>
             <div
-              style={{
-                fontSize: 10,
-                lineHeight: '15px',
-                marginTop: 7.5,
+              css={{
+                display: 'flex',
+                maxWidth: '15ch',
+                fontSize: 20,
               }}>
-              Pick theme
+              {'Pick theme'}
             </div>
             <Select
               options={themeNames}
               value={state.theme}
               style={{
+                height: '6ch',
                 width: '100%',
+                overflow: 'hidden',
+                wordWrap: 'normal',
+                whiteSpace: 'normal',
               }}
               onChange={async value => {
                 const createTheme = await themes[+value].requireTheme();
@@ -220,7 +232,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             />
           </SectionRow>
         </Section>
-        <Section>
+        <Section css={{ display: 'flex', width: '16em' }}>
           <SectionHeader>Base sizes</SectionHeader>
           <SectionRow>
             <SectionTool title="Font Size">
@@ -298,7 +310,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           </SectionRow>
         </Section>
 
-        <Section>
+        <Section css={{ display: 'flex' }}>
           <SectionHeader>Headers</SectionHeader>
           <SectionRow>
             <div>Typeface</div>
@@ -331,7 +343,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           </SectionRow>
         </Section>
 
-        <Section>
+        <Section css={{ display: 'flex' }}>
           <SectionHeader>Body</SectionHeader>
           <SectionRow>
             <div>Typeface</div>

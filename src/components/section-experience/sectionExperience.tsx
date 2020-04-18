@@ -3,10 +3,6 @@ import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
 import i18n from 'i18next';
-
-// @ts-ignore
-import loadable from '@loadable/component';
-
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
 import { Section } from '../section';
@@ -145,17 +141,13 @@ const SectionExperience: React.FC<{
   );
 
   const [hideDetails, setHighlight] = useState(
-    expList.reduce((acc, cur) => {
-      return {
+    expList.reduce(
+      (acc, cur) => ({
         ...acc,
         [cur]: true,
-      };
-    }, {}),
-  );
-
-  //fixme maybe consider pattern like https://reacttraining.com/react-router/web/example/route-config
-  const Highlights = loadable(() =>
-    import(`@mdx/highlights/futuretek.${i18n.language}`),
+      }),
+      {},
+    ),
   );
 
   return (
