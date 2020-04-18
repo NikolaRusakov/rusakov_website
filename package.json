@@ -85,8 +85,7 @@
     "uuid": "^7.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/node": "^7.7.4",
+    "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@babel/preset-env": "^7.9.0",
@@ -108,15 +107,17 @@
     "babel-plugin-styled-components": "^1.10.7",
     "babel-preset-gatsby": "^0.2.35",
     "babel-preset-react-app": "^9.1.1",
+    "cross-env": "^7.0.2",
     "graphql": "^14.6.0",
     "graphql-cli": "^3.0.14",
     "jest": "^25.1.0",
     "lerna": "^3.20.2",
-    "nodemon": "^2.0.1",
+    "nodemon": "^2.0.3",
     "prettier": "^1.15.3",
     "react-is": "^16.13.1",
     "storybook-addon-intl": "^2.4.1",
     "ts-jest": "^25.2.1",
+    "ts-node": "^8.8.2",
     "tslint": "^6.1.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-react": "^3.6.0"

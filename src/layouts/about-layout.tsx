@@ -117,26 +117,6 @@ const AboutLayout: React.FC = children => {
           <style id="typography.js">{typography.toString()}</style>
           {injectRecentFont}
         </Helmet>
-        <nav
-          sx={{
-            position: 'sticky',
-            display: 'flex',
-            justifyContent: 'center',
-            top: '0',
-          }}>
-          <div>
-            {children.pageContext.paths?.map(
-              ({ locale, templateKey }, index, array) => (
-                <React.Fragment>
-                  <Link to={`/${locale}/${templateKey}`} hrefLang={locale}>
-                    {t(`${locale}`)}
-                  </Link>
-                  {index < array.length - 1 && '|'}
-                </React.Fragment>
-              ),
-            )}
-          </div>
-        </nav>
         <Flex sx={{ position: 'sticky', top: 0 }}>
           <label>
             <Checkbox
@@ -185,6 +165,25 @@ const AboutLayout: React.FC = children => {
             }}>
             {colorMode}
           </Button>
+          <nav
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <div>
+              {children.pageContext.paths?.map(
+                ({ locale, templateKey }, index, array) => (
+                  <React.Fragment>
+                    <Link to={`/${locale}/${templateKey}`} hrefLang={locale}>
+                      {t(`${locale}`)}
+                    </Link>
+                    {index < array.length - 1 && '|'}
+                  </React.Fragment>
+                ),
+              )}
+            </div>
+          </nav>
         </Flex>
         <Styled.root>
           {children.pageContext.children ? (

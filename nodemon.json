@@ -1,0 +1,7 @@
+{
+  "restartable": "rs",
+  "ignore": ["**/*.test.ts", "**/*.spec.ts", "node_modules/"],
+  "watch": ["scripts"],
+  "exec": "ts-node --files --project tsconfig.script.json scripts/scrape-parser.ts",
+  "ext": "ts,js,json"
+}

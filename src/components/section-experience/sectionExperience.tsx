@@ -87,7 +87,7 @@ const SectionExperience: React.FC<{
   );
 
   //fixme maybe consider pattern like https://reacttraining.com/react-router/web/example/route-config
-  const Highlight = loadable(props =>
+  const Highlight = loadable(() =>
     import(`@mdx/highlights/futuretek.${i18n.language}`),
   );
 

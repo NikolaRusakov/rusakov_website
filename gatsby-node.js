@@ -100,7 +100,7 @@ exports.createPages = async ({ page, graphql, actions }, pluginOptions) => {
   }
 
   const postList = result.data.blog.edges;
-  const paths = postList.map(({ node: {childMdx:pl} }) => ({
+  const paths = postList.map(({ node: { childMdx: pl } }) => ({
     locale: pl.fields.locale,
     templateKey: pl.frontmatter.templateKey,
   }));
