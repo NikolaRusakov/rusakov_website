@@ -1,0 +1,149 @@
+{
+  "flowup": {
+    "be": ["nodejs", "typescript", "graphql", "apollo", "go"],
+    "fe": [
+      ["angular", "ionicFramework", "nx", "rxjs", "ngrx", "angularUniversal", "akita"],
+      ["css", "scss", "angularFlexlayout"],
+      "hmtl5",
+      "jest",
+      "storybook",
+      "protractor",
+      "playwright",
+      "cordova",
+      "capacitor",
+      "flutter"
+    ],
+    "dx": ["prettier", "husky", "lerna", "confluence", "browserstack"],
+    "devops": [
+      "bitrise",
+      "fastlane",
+      "bamboo",
+      "githubActions",
+      "androidStudio",
+      "xcode"
+    ],
+    "sls": [
+      "serverless",
+      "terraform",
+      [
+        "googleCloudPlatform",
+        "terraform",
+        "docker",
+        "kubernetes",
+        "computeEngine",
+        "iam",
+        "cloudStorage",
+        "cloudRun",
+        "appEngine",
+        "networking"
+      ],
+      [
+        "amazonWebServices",
+        "serverless",
+        "terraform",
+        "cloudformation",
+        "lambda",
+        "stepFunctions",
+        "appsync",
+        "amplify",
+        "dynamodb",
+        "s3",
+        "cloudfront",
+        "apiGateway",
+        "route53",
+        "iam",
+        "sqs"
+      ],
+      [
+        "firebase",
+        "firestore",
+        "hosting",
+        "storage",
+        "cloudFunctions",
+        "authentication",
+        "mlKit",
+        "remoteConfig",
+        "extensions"
+      ]
+    ],
+    "other": [
+      "codeReview",
+      "agileMethodologies",
+      "mentor",
+      "scrum",
+      "workshop",
+      "bootcamp",
+      "publicSpeaking",
+      "a11y",
+      "i18n",
+      "l10n",
+      "seo",
+      "smo"
+    ]
+  },
+  "sprint": {
+    "fe": [
+      "angular",
+      "typescript",
+      "ngrx",
+      "angularFlexLayout",
+      "rxjs",
+      "jest",
+      "storybook"
+    ],
+    "sls": ["firebase", "hosting"],
+    "dx": ["browserstack", "prettier", "swagger"],
+    "devops": ["gitlabcicd"]
+  },
+  "marbes": {
+    "be": [
+      [
+        "java",
+        "hibernate",
+        "tomcat",
+        "spring",
+        "springBoot",
+        "orikaMapper",
+        "freemarker",
+        "swagger",
+        "maven",
+        "elasticSearch"
+      ],
+      "rabbitmq",
+      ["php", "yii2"]
+    ],
+    "devops": ["docker", "dockerSwarm", "gitlabcicd", "jenkins", "testcafe"],
+    "fe": [
+      ["reactjs", "redux", "reduxForm"],
+      "webpack",
+      "flow",
+      "babel",
+      "typescript",
+      "scss",
+      "html5",
+      "jquery",
+      ["java", "vaadin"]
+    ],
+    "others": [
+      ["db", "mysql", "postgresql", "mssql", "sql"],
+      ["os", "ubuntu", "arch"]
+    ]
+  },
+  "futuretek": {
+    "fe": [
+      ["reactjs", "redux", "reduxForm"],
+      "webpack",
+      "flow",
+      "babel",
+      "scss",
+      "css",
+      "html5"
+    ],
+    "be": [
+      ["java", "spring", "springBoot", "orikaMapper", "mapdb", "maven"],
+      "nodejs"
+    ],
+    "devops": ["docker", "dockerCompose"],
+    "others": ["codeReview"]
+  }
+}
