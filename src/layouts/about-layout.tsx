@@ -43,9 +43,8 @@ import {
   // @ts-ignore
 } from '@theme-ui/presets';
 import withI18next from '../i18n/withI18Next';
-import LocalizedLink from '../components/localizedLink/localizedLink';
-import useTranslations from '../components/useTranslations/useTranslations';
 import { Link } from 'gatsby';
+import i18next from 'i18next';
 
 const presets = {
   light: defaultTheme,
@@ -76,6 +75,10 @@ const AboutLayout: React.FC = children => {
   const [mode, setMode] = useColorMode();
   // const { backToHome } = useTranslations();
   const { t } = useTranslation();
+  const typographyNaming = i18next.getResourceBundle(
+    i18next.language,
+    'typography',
+  );
 
   const bodyColor =
     colorMode === 'default' || colorMode === 'light'
@@ -135,6 +138,7 @@ const AboutLayout: React.FC = children => {
             themeNames={themes.map(({ name }) => name)}
             themes={[...themes]}
             trigger={mode}
+            naming={typographyNaming}
             onChange={changes => {
               const bodyColor =
                 colorMode === 'default' || colorMode === 'light'

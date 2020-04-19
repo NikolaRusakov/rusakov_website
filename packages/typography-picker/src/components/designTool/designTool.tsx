@@ -12,7 +12,7 @@ import FontSelectTool from '../fontSelectTool/fontSelectTool';
 import FontWeightTool from '../fontWeightTool/fontWeightTool';
 import { Global, jsx } from '@emotion/core';
 import { desaturate, readableColor, transparentize } from 'polished';
-
+import namingDefault from '../../naming.json';
 import {
   TypographyState,
   FontList,
@@ -25,6 +25,7 @@ export interface DesignToolProps {
   themes: { name: string; title: string; requireTheme: () => Promise<any> }[];
   onChange: (options: TypographyOptions) => void;
   trigger: string;
+  naming?: typeof namingDefault;
 }
 
 type ActionThemeType = {
@@ -120,6 +121,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
   themes,
   onChange,
   trigger,
+  naming = namingDefault,
 }) => {
   const typography = new Typography(defaultTheme);
   const [state, dispatch] = useReducer(reducer, {
@@ -181,7 +183,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           flexWrap: 'wrap',
         })}>
         <Section css={{ display: 'flex', maxWidth: '15ch' }}>
-          <div
+          <h2
             css={theme => ({
               color: readableColor(theme.colors.text),
               fontFamily: state.typography?.options?.headerFontFamily?.toString(),
@@ -189,17 +191,18 @@ export const DesignTool: React.FC<DesignToolProps> = ({
               fontWeight: 300,
               marginBottom: 0,
               marginTop: 10,
+              borderBottom: `2px solid ${theme.colors.secondary}`,
             })}>
-            {'Page Typography'}
-          </div>
+            <em>{naming.typographyPicker}</em>
+          </h2>
           <SectionRow>
             <div
               css={{
                 display: 'flex',
                 maxWidth: '15ch',
-                fontSize: 20,
+                fontSize: 16,
               }}>
-              {'Pick theme'}
+              {naming.pickTheme}
             </div>
             <Select
               options={themeNames}
@@ -233,9 +236,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           </SectionRow>
         </Section>
         <Section css={{ display: 'flex', width: '16em' }}>
-          <SectionHeader>Base sizes</SectionHeader>
+          <SectionHeader>{naming.baseSizes}</SectionHeader>
           <SectionRow>
-            <SectionTool title="Font Size">
+            <SectionTool title={naming.fontSize}>
               <NumberEditor
                 unit="px"
                 value={
@@ -257,9 +260,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
                 }
               />
             </SectionTool>
-            <SectionTool title="Line height">
+            <SectionTool title={naming.lineHeight}>
               <NumberEditor
-                unit="number"
+                unit={naming.number}
                 value={state.typography.options.baseLineHeight ?? 1}
                 min={1}
                 max={2.5}
@@ -277,9 +280,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             </SectionTool>
           </SectionRow>
           <SectionRow>
-            <SectionTool title="Paragraph Spacing">
+            <SectionTool title={naming.paragraphSpacing}>
               <NumberEditor
-                unit="rhythm"
+                unit={naming.rhythm}
                 value={state.typography.options.blockMarginBottom ?? 0}
                 min={0.25}
                 max={3}
@@ -297,6 +300,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             </SectionTool>
             <ModularScaleTool
               key="scale"
+              naming={naming}
               scaleRatio={state.typography.options.scaleRatio || ''}
               onChange={newScale =>
                 dispatch({
@@ -311,9 +315,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
         </Section>
 
         <Section css={{ display: 'flex' }}>
-          <SectionHeader>Headers</SectionHeader>
+          <SectionHeader>{naming.headers}</SectionHeader>
           <SectionRow>
-            <div>Typeface</div>
+            <div>{naming.typeface}</div>
             <FontSelectTool
               type="header"
               options={state.typography.options}
@@ -329,7 +333,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             />
           </SectionRow>
           <SectionRow>
-            <SectionTool title="Weight">
+            <SectionTool title={naming.weight}>
               <FontWeightTool
                 type="header"
                 family={state.headerFamily}
@@ -344,9 +348,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
         </Section>
 
         <Section css={{ display: 'flex' }}>
-          <SectionHeader>Body</SectionHeader>
+          <SectionHeader>{naming.body}</SectionHeader>
           <SectionRow>
-            <div>Typeface</div>
+            <div>{naming.typeface}</div>
             <FontSelectTool
               type="body"
               options={state.typography.options}
@@ -362,7 +366,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             />
           </SectionRow>
           <SectionRow>
-            <SectionTool title="Body Weight">
+            <SectionTool title={naming.bodyWeight}>
               <FontWeightTool
                 type="body"
                 family={state.bodyFamily}
@@ -373,7 +377,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
                 }
               />
             </SectionTool>
-            <SectionTool title="Bold Weight">
+            <SectionTool title={naming.boldWeight}>
               <FontWeightTool
                 type="bold"
                 family={state.bodyFamily || fontList[0]}

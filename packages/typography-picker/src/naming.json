@@ -1,5 +1,4 @@
 {
-  "backToHome": "Back to home",
   "typographyPicker": "Typography Picker",
   "fontSize": "Font Size",
   "baseSizes": "Base Sizes",
@@ -13,6 +12,7 @@
   "weight": "Weight",
   "typeface": "Typeface",
   "headers": "Headers",
+  "header": "Header",
   "pickTheme": "Pick Theme",
   "body": "Body",
   "bodyWeight": "Body Weight",

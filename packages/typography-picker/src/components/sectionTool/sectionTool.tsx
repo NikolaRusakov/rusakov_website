@@ -11,6 +11,9 @@ const SectionTool: React.FC<{ title: string }> = ({ children, title }) => (
       style={{
         fontSize: 10,
         lineHeight: '15px',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       }}>
       {title}
     </span>

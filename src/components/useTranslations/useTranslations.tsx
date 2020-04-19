@@ -31,8 +31,6 @@ export const query = graphql`
                 node {
                     name
                     translations: childTranslationsJson {
-                        hello
-                        subline
                         backToHome
                     }
                 }
