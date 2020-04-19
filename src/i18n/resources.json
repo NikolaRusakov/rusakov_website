@@ -24,6 +24,10 @@
       "body": "Body",
       "bodyWeight": "Body Weight",
       "boldWeight": "Bold Weight"
+    },
+    "about": {
+      "Summary": "Summary",
+      "Detailed Overview": "Detailed Overview"
     }
   },
   "cs": {
@@ -51,6 +55,10 @@
       "body": "Tělo",
       "bodyWeight": "Tloušťka Těla",
       "boldWeight": "Tloušťka duktus"
+    },
+    "about": {
+      "Summary": "Shrnutí",
+      "Detailed Overview": "Detailní přehled"
     }
   }
 }

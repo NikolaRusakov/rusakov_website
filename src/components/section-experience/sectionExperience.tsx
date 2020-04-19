@@ -12,6 +12,7 @@ import data from '../../data/linkedin';
 import Checkbox from '../checkbox/checkbox';
 import { useStaticQuery, graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { useTranslation } from 'react-i18next';
 
 export interface TagEntity {
   name: string;
@@ -125,6 +126,8 @@ const SectionExperience: React.FC<{
     body: SectionBodyProps<ReactNode>;
   }[];
 }> = ({ experience }) => {
+  const { t } = useTranslation();
+
   const expUUID = 'experience-section';
   const expList = experience.map((_, index) => `${expUUID}-${index}`);
   const toggleList = experience.map((_, index) => `${expUUID}-toggle-${index}`);
@@ -254,7 +257,7 @@ const SectionExperience: React.FC<{
                               }}
                             />
                           )}
-                          <span>{'Highlight'}</span>
+                          <span>{t('about:Summary')}</span>
                         </Flex>
 
                         <Flex>
@@ -269,7 +272,7 @@ const SectionExperience: React.FC<{
                               }}
                             />
                           )}
-                          <span>{'Detailed'}</span>
+                          <span>{t('about:Detailed Overview')}</span>
                         </Flex>
                       </Flex>
                       <Flex>

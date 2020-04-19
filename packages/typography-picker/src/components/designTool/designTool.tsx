@@ -235,7 +235,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             />
           </SectionRow>
         </Section>
-        <Section css={{ display: 'flex', width: '16em' }}>
+        <Section css={{ display: 'flex', width: '13em' }}>
           <SectionHeader>{naming.baseSizes}</SectionHeader>
           <SectionRow>
             <SectionTool title={naming.fontSize}>
