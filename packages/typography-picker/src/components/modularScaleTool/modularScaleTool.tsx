@@ -26,7 +26,7 @@ const ModularScaleTool: React.FC<{
       subscription.unsubscribe();
     };
   }, []);
-  console.log(props?.naming?.scaleRatio);
+
   return (
     <SectionTool title={props?.naming?.scaleRatio ?? namingDefault.scaleRatio}>
       <NumberEditor
