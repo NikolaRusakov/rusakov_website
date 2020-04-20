@@ -15,7 +15,8 @@
             "nx",
             "rxjs",
             "ngrx",
-            "angularUniversal"
+            "angularUniversal",
+            "akita"
           ],
           ["css", "scss", "angularFlexLayout"],
           "hmtl5",

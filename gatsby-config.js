@@ -43,6 +43,19 @@ module.exports = {
         name: `translations`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/data/generated`,
+        name: `generated`,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-json`,
+      // options: {
+      //   typeName: ({ node, object, isArray }) => isArray,
+      // },
+    },
     /*{
       resolve: 'gatsby-plugin-react-axe',
       options: {

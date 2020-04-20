@@ -5,10 +5,120 @@ const {
   findKey,
   removeTrailingSlash,
 } = require(`./src/utils/gatsby-node-helpers`);
+const i18nConfig = require('./config/i18n');
+console.log(i18nConfig);
+exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
+  createTypes([
+    `
+    type TagEntity implements Node {
+      key: String
+      name: String
+      count: String
+      heading: String
+    }
+    
+    type TagEntityEntries implements Node{
+      data: [TagEntity]
+    }
+
+    type ContentfulSubSection implements Node {
+      title: String
+    }
+
+    union TagEntityUnion =  TagEntity | TagEntityEntries  
+
+    type SkillTagSection implements Node {
+      section: String!
+      tags: [TagEntityUnion]
+          @link(from: "tags___NODE")
+    }
+    
+    type CompanyTagSections implements Node {
+      shortKey: String!
+      sections: [SkillTagSection]
+    }
+    
+    type SkillCompanySection implements Node {
+      locale: String!
+      data: [CompanyTagSections]
+    }
+    
+    type CompanySections implements Node {
+      skills: [SkillCompanySection]
+    }
+  `,
+  ]);
+};
+
+// type AllSkillTagSections implements node {
+//   data: [SkillTagSections]
+// }
+//
+// type SkillCompanySections implements Node {
+//   locale: String!
+//       data : AllSkillTagSections
+// }
+// exports.createResolvers = ({ createResolvers }) => {
+//   const fullName = {
+//     type: 'String',
+//     resolve(source, args, context, info) {
+//       return source.firstName + ' ' + source.name;
+//     },
+//   };
+//   const resolvers = {
+//     Query: {
+//       AllSkillTagSection: {
+//         type: ['SkillTagSections'],
+//         resolve(source, args, context, info) {
+//           return context.nodeModel.getAllNodes({ type: 'SkillTagSections' });
+//         },
+//       },
+//     },
+//     // AuthorJson: {
+//     //   fullName,
+//     // },
+//     // ContributorJson: {
+//     //   fullName,
+//     // },
+//   };
+//   createResolvers(resolvers);
+// };
+
+exports.sourceNodes = async (
+  { actions, createNodeId, createContentDigest, getCache },
+  config,
+) => {
+  const { createNode } = actions;
+  Object.keys(i18nConfig).map(locale => {
+    const { default: parsedTags } = import(
+      `./src/data/generated/parsed-tags.${locale}.json`
+    );
+    const companies = parsedTags.map(({ sections, shortKey }) => ({
+      shortKey,
+      sections: sections.map(({ section, tags }) => ({
+        section,
+        tags: tags.map(tag => (Array.isArray(tag) ? { data: tag } : tag)),
+      })),
+    }));
+
+    const skillCompanySection = { locale, data: companies };
+    const node = {
+      ...skillCompanySection,
+      id: createNodeId(`parsed-tags-${locale}`),
+      internal: {
+        type: 'SkillCompanySection',
+        contentDigest: createContentDigest(skillCompanySection),
+      },
+    };
+    createNode(node);
+  });
+
+  // contentDigest: createContentDigest(nodeData);
+};
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
-
+  console.log(node.internal.type);
   // Check for "Mdx" type so that other files (e.g. images) are exluded
   if (node.internal.type === `Mdx`) {
     // Use path.basename

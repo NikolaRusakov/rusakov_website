@@ -143,14 +143,14 @@ const scrape = Object.keys(i18n).map(async lang => {
 
             return isTagEntity(mapped)
               ? mergeWithScraped(mapped, [scrapedKeyTags, scrapedValueTags])
-              : mapped;
+              : null;
           };
 
           return Array.isArray(tagEntity)
-            ? tagEntity.map(tag => mapAndMergeTags(tag))
+            ? tagEntity.map(tag => mapAndMergeTags(tag)).filter(i => i != null)
             : mapAndMergeTags(tagEntity);
         });
-        return { section, tags: mappers };
+        return { section, tags: mappers.filter(i => i != null) };
       }),
     }));
   };

@@ -76,8 +76,8 @@ export const SectionExperienceHOC = () => {
       }
       localTags: allFile(
         filter: {
-          extension: { eq: "mdx" }
-          relativeDirectory: { eq: "details" }
+          extension: { eq: "json" }
+          relativeDirectory: { eq: "generated" }
         }
       ) {
         details: nodes {
