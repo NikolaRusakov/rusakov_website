@@ -15,8 +15,8 @@
   },
   "css": { "key": "css", "name": "CSS" },
   "scss": { "key": "scss", "name": "SCSS" },
-  "angularFlexlayout": {
-    "key": "angularFlexlayout",
+  "angularFlexLayout": {
+    "key": "angularFlexLayout",
     "name": "Angular Flex-layout"
   },
   "hmtl5": { "key": "hmtl5", "name": "HTML5" },

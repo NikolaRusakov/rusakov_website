@@ -74,6 +74,22 @@ export const SectionExperienceHOC = () => {
           }
         }
       }
+      localTags: allFile(
+        filter: {
+          extension: { eq: "mdx" }
+          relativeDirectory: { eq: "details" }
+        }
+      ) {
+        details: nodes {
+          relativeDirectory
+          name
+          base
+          extension
+          childMdx {
+            body
+          }
+        }
+      }
     }
   `);
 
@@ -147,7 +163,7 @@ const SectionExperience: React.FC<{
     expList.reduce(
       (acc, cur) => ({
         ...acc,
-        [cur]: true,
+        [cur]: false,
       }),
       {},
     ),

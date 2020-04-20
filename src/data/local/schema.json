@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/CompaniesLocalElement"
+  },
+  "definitions": {
+    "CompaniesLocalElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shortKey": {
+          "type": "string"
+        },
+        "be": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Be"
+          }
+        },
+        "fe": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fe"
+          }
+        },
+        "dx": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "devops": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sls"
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Other"
+          }
+        }
+      },
+      "required": [
+        "fe",
+        "shortKey"
+      ],
+      "title": "CompaniesLocalElement"
+    },
+    "Be": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Be"
+    },
+    "Fe": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Fe"
+    },
+    "Other": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Other"
+    },
+    "Sls": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Sls"
+    }
+  }
+}
