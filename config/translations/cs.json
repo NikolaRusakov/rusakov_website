@@ -1,0 +1,20 @@
+{
+  "backToHome": "Zpět na domovskou stránku",
+  "typographyPicker": "Výběř Písma",
+  "fontSize": "Velikost Písma",
+  "baseSizes": "Základní velikosti",
+  "lineHeight": "Výška řádku",
+  "paragraphSpacing": "Mezery mezi odstavci",
+  "scaleRatio": "Škálování",
+  "ratio": "poměr",
+  "number": "číslo",
+  "rhythm": "rytmus",
+  "scale": "měřítko",
+  "weight": "Tloušťka (duktus)",
+  "typeface": "Rodina písma",
+  "headers": "Záhlaví",
+  "pickTheme": "Vyberte náměť písma",
+  "body": "Tělo",
+  "bodyWeight": "Tloušťka Těla",
+  "boldWeight": "Tloušťka duktus"
+}

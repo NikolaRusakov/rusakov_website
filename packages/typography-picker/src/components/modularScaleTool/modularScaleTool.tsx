@@ -4,15 +4,12 @@ import SectionTool from '../sectionTool/sectionTool';
 import msToRatio from '../msToRatio/msToRatio';
 import { Subject } from 'rxjs';
 import { auditTime, distinctUntilChanged, map } from 'rxjs/operators';
-/*
-TODO: onValueChange
-[x] - throttle + limit callback call with RxJS operators
-[x] - ex: ...pipe(AuditTime(30),distinctUntilChanges(),map(...))
-[ ] - maybe auditTime value through props?
- */
+import namingDefault from '../../naming.json';
+
 const ModularScaleTool: React.FC<{
   scaleRatio: string | number;
   onChange: (val: number) => void;
+  naming?: typeof namingDefault;
 }> = props => {
   const [input$] = useState(() => new Subject<string>());
 
@@ -31,9 +28,9 @@ const ModularScaleTool: React.FC<{
   }, []);
 
   return (
-    <SectionTool title="Scale Ratio">
+    <SectionTool title={props?.naming?.scaleRatio ?? namingDefault.scaleRatio}>
       <NumberEditor
-        unit="ratio"
+        unit={props?.naming?.ratio ?? namingDefault.ratio}
         value={msToRatio(props.scaleRatio)}
         min={1}
         max={6}

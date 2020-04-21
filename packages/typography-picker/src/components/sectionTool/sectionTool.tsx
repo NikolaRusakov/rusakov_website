@@ -5,11 +5,15 @@ const SectionTool: React.FC<{ title: string }> = ({ children, title }) => (
     style={{
       float: 'left',
       marginRight: 5,
+      width: '45%',
     }}>
     <span
       style={{
         fontSize: 10,
         lineHeight: '15px',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       }}>
       {title}
     </span>
@@ -18,7 +22,7 @@ const SectionTool: React.FC<{ title: string }> = ({ children, title }) => (
       style={{
         position: 'relative',
         overflow: 'hidden',
-        width: 80,
+        // width: '16ch',
       }}>
       {children}
     </div>

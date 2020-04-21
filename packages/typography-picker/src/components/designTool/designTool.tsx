@@ -1,7 +1,6 @@
+/** @jsx jsx */
 import React, { useReducer, useEffect, useRef } from 'react';
 import Typography from 'typography';
-// @ts-ignore
-import gray from 'gray-percentage';
 import { Lens } from 'monocle-ts';
 import fontList from '../../fontList.json';
 import Select from '../select/select';
@@ -11,8 +10,9 @@ import { parseUnit } from '../..';
 import ModularScaleTool from '../modularScaleTool/modularScaleTool';
 import FontSelectTool from '../fontSelectTool/fontSelectTool';
 import FontWeightTool from '../fontWeightTool/fontWeightTool';
-import { Global } from '@emotion/core';
-
+import { Global, jsx } from '@emotion/core';
+import { desaturate, readableColor, transparentize } from 'polished';
+import namingDefault from '../../naming.json';
 import {
   TypographyState,
   FontList,
@@ -25,6 +25,7 @@ export interface DesignToolProps {
   themes: { name: string; title: string; requireTheme: () => Promise<any> }[];
   onChange: (options: TypographyOptions) => void;
   trigger: string;
+  naming?: typeof namingDefault;
 }
 
 type ActionThemeType = {
@@ -76,14 +77,16 @@ function reducer(
   }
 }
 
-const Section: React.FC = ({ children }) => (
+const Section: React.FC = ({ children, ...props }) => (
   <div
     style={{
       clear: 'both',
       paddingBottom: 3.75,
       paddingLeft: 7.5,
       paddingRight: 7.5,
-    }}>
+      flexDirection: 'column',
+    }}
+    {...props}>
     {children}
   </div>
 );
@@ -99,16 +102,15 @@ const SectionRow: React.FC = ({ children }) => (
 
 const SectionHeader: React.FC = ({ children }) => (
   <div
-    style={{
-      background: gray(17),
-      borderBottom: '1px solid',
-      borderColor: gray(50, 0, true),
-      fontSize: 13,
+    css={theme => ({
+      borderBottom: `2px solid ${theme.colors.secondary}`,
+      color: readableColor(theme.colors.primary),
+      fontSize: 20,
       paddingLeft: 7.5,
       marginLeft: -7.5,
       marginRight: -7.5,
       marginBottom: 3.75,
-    }}>
+    })}>
     {children}
   </div>
 );
@@ -119,6 +121,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
   themes,
   onChange,
   trigger,
+  naming = namingDefault,
 }) => {
   const typography = new Typography(defaultTheme);
   const [state, dispatch] = useReducer(reducer, {
@@ -146,7 +149,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
     <React.Fragment>
       <Global
         styles={{
-          '.designToolToggle:checked + .designTool': { display: 'none' },
+          '.designToolToggle:checked + .designTool': {
+            display: 'none !important',
+          },
           '.designToolToggle': {
             display: 'block',
             height: '24px',
@@ -157,47 +162,57 @@ export const DesignTool: React.FC<DesignToolProps> = ({
       <input className="designToolToggle" type="checkbox" />
       <div
         className="designTool"
-        style={{
+        css={theme => ({
+          backgroundColor: transparentize(
+            0.2,
+            desaturate(0.3, theme.colors.primary),
+          ),
+          color: readableColor(theme.colors.text),
           fontFamily: state.typography?.options?.headerFontFamily?.toString(),
-          fontWeight: 300,
-          fontSize: 10,
+          fontSize: 20,
           lineHeight: 1.5,
           letterSpacing: 0,
-          background: 'rgba(0,0,0,0.65)',
-          color: 'rgba(255,255,255,0.95)',
           position: 'fixed',
-          width: '200px',
+          width: 'auto',
+          minHeight: '100px',
           top: 0,
           right: 0,
           // @ts-ignore
           WebkitFontSmoothing: 'auto',
-        }}>
-        <Section>
-          <div
-            style={{
-              color: 'rgba(255,255,255,0.95)',
+          display: 'flex',
+          flexWrap: 'wrap',
+        })}>
+        <Section css={{ display: 'flex', maxWidth: '15ch' }}>
+          <h2
+            css={theme => ({
+              color: readableColor(theme.colors.text),
               fontFamily: state.typography?.options?.headerFontFamily?.toString(),
-              fontSize: 15,
+              fontSize: 20,
               fontWeight: 300,
               marginBottom: 0,
               marginTop: 10,
-            }}>
-            Page Typography
-          </div>
+              borderBottom: `2px solid ${theme.colors.secondary}`,
+            })}>
+            <em>{naming.typographyPicker}</em>
+          </h2>
           <SectionRow>
             <div
-              style={{
-                fontSize: 10,
-                lineHeight: '15px',
-                marginTop: 7.5,
+              css={{
+                display: 'flex',
+                maxWidth: '15ch',
+                fontSize: 16,
               }}>
-              Pick theme
+              {naming.pickTheme}
             </div>
             <Select
               options={themeNames}
               value={state.theme}
               style={{
+                height: '6ch',
                 width: '100%',
+                overflow: 'hidden',
+                wordWrap: 'normal',
+                whiteSpace: 'normal',
               }}
               onChange={async value => {
                 const createTheme = await themes[+value].requireTheme();
@@ -220,10 +235,10 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             />
           </SectionRow>
         </Section>
-        <Section>
-          <SectionHeader>Base sizes</SectionHeader>
+        <Section css={{ display: 'flex', width: '13em' }}>
+          <SectionHeader>{naming.baseSizes}</SectionHeader>
           <SectionRow>
-            <SectionTool title="Font Size">
+            <SectionTool title={naming.fontSize}>
               <NumberEditor
                 unit="px"
                 value={
@@ -245,9 +260,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
                 }
               />
             </SectionTool>
-            <SectionTool title="Line height">
+            <SectionTool title={naming.lineHeight}>
               <NumberEditor
-                unit="number"
+                unit={naming.number}
                 value={state.typography.options.baseLineHeight ?? 1}
                 min={1}
                 max={2.5}
@@ -265,9 +280,9 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             </SectionTool>
           </SectionRow>
           <SectionRow>
-            <SectionTool title="Paragraph Spacing">
+            <SectionTool title={naming.paragraphSpacing}>
               <NumberEditor
-                unit="rhythm"
+                unit={naming.rhythm}
                 value={state.typography.options.blockMarginBottom ?? 0}
                 min={0.25}
                 max={3}
@@ -285,6 +300,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             </SectionTool>
             <ModularScaleTool
               key="scale"
+              naming={naming}
               scaleRatio={state.typography.options.scaleRatio || ''}
               onChange={newScale =>
                 dispatch({
@@ -298,10 +314,10 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           </SectionRow>
         </Section>
 
-        <Section>
-          <SectionHeader>Headers</SectionHeader>
+        <Section css={{ display: 'flex' }}>
+          <SectionHeader>{naming.headers}</SectionHeader>
           <SectionRow>
-            <div>Typeface</div>
+            <div>{naming.typeface}</div>
             <FontSelectTool
               type="header"
               options={state.typography.options}
@@ -317,7 +333,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             />
           </SectionRow>
           <SectionRow>
-            <SectionTool title="Weight">
+            <SectionTool title={naming.weight}>
               <FontWeightTool
                 type="header"
                 family={state.headerFamily}
@@ -331,10 +347,10 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           </SectionRow>
         </Section>
 
-        <Section>
-          <SectionHeader>Body</SectionHeader>
+        <Section css={{ display: 'flex' }}>
+          <SectionHeader>{naming.body}</SectionHeader>
           <SectionRow>
-            <div>Typeface</div>
+            <div>{naming.typeface}</div>
             <FontSelectTool
               type="body"
               options={state.typography.options}
@@ -350,7 +366,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             />
           </SectionRow>
           <SectionRow>
-            <SectionTool title="Body Weight">
+            <SectionTool title={naming.bodyWeight}>
               <FontWeightTool
                 type="body"
                 family={state.bodyFamily}
@@ -361,7 +377,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
                 }
               />
             </SectionTool>
-            <SectionTool title="Bold Weight">
+            <SectionTool title={naming.boldWeight}>
               <FontWeightTool
                 type="bold"
                 family={state.bodyFamily || fontList[0]}

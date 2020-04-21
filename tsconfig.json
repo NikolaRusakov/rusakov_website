@@ -17,7 +17,12 @@
     "pretty": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "baseUrl": "./",
+    "resolveJsonModule": true,
+    "paths": {
+      "@mdx": ["src/data/mdx"]
+    }
   },
   "include": ["src/**/*", "types/*.d.ts"]
 }

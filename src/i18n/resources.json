@@ -1,0 +1,64 @@
+{
+  "en": {
+    "translation": {
+      "en": "English",
+      "cs": "Czech",
+      "Using i18next": "Using i18next (EN)",
+      "not found": "not found"
+    },
+    "typography": {
+      "typographyPicker": "Typography Picker",
+      "fontSize": "Font Size",
+      "baseSizes": "Base Sizes",
+      "lineHeight": "Line Height",
+      "paragraphSpacing": "Paragraph Spacing",
+      "scaleRatio": "Scale Ratio",
+      "ratio": "ratio",
+      "number": "number",
+      "rhythm": "rhythm",
+      "scale": "scale",
+      "weight": "Weight",
+      "typeface": "Typeface",
+      "headers": "Headers",
+      "pickTheme": "Pick Theme",
+      "body": "Body",
+      "bodyWeight": "Body Weight",
+      "boldWeight": "Bold Weight"
+    },
+    "about": {
+      "Summary": "Summary",
+      "Detailed Overview": "Detailed Overview"
+    }
+  },
+  "cs": {
+    "translation": {
+      "en": "Anglicky",
+      "cs": "Česky",
+      "Using i18next": "Using i18next (CZ)",
+      "not found": "not found (CZ)"
+    },
+    "typography": {
+      "typographyPicker": "Výběř Typografie",
+      "fontSize": "Velikost Písma",
+      "baseSizes": "Základní velikosti",
+      "lineHeight": "Výška řádku",
+      "paragraphSpacing": "Mezery mezi odstavci",
+      "scaleRatio": "Škálování",
+      "ratio": "poměr",
+      "number": "číslo",
+      "rhythm": "rytmus",
+      "scale": "měřítko",
+      "weight": "Tloušťka (duktus)",
+      "typeface": "Rodina písma",
+      "headers": "Záhlaví",
+      "pickTheme": "Vyberte náměť písma",
+      "body": "Tělo",
+      "bodyWeight": "Tloušťka Těla",
+      "boldWeight": "Tloušťka duktus"
+    },
+    "about": {
+      "Summary": "Shrnutí",
+      "Detailed Overview": "Detailní přehled"
+    }
+  }
+}

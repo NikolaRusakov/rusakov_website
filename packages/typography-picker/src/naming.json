@@ -1,0 +1,20 @@
+{
+  "typographyPicker": "Typography Picker",
+  "fontSize": "Font Size",
+  "baseSizes": "Base Sizes",
+  "lineHeight": "Line Height",
+  "paragraphSpacing": "Paragraph Spacing",
+  "scaleRatio": "Scale Ratio",
+  "ratio": "ratio",
+  "number": "number",
+  "rhythm": "rhythm",
+  "scale": "scale",
+  "weight": "Weight",
+  "typeface": "Typeface",
+  "headers": "Headers",
+  "header": "Header",
+  "pickTheme": "Pick Theme",
+  "body": "Body",
+  "bodyWeight": "Body Weight",
+  "boldWeight": "Bold Weight"
+}

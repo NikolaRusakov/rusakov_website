@@ -34,7 +34,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       const { clientHeight, clientWidth } = ref.current;
       setHeight({ clientHeight, clientWidth });
     }
-  }, [ref]);
+  }, []);
   return (
     <article
       sx={{
@@ -49,13 +49,9 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         <Image
           sx={{
             width: [
-              `${
-                headHeight.clientHeight
-              }px`,
+              `${headHeight.clientHeight}px`,
               'auto',
-              `${
-                headHeight.clientHeight
-              }px`,
+              `${headHeight.clientHeight}px`,
             ],
             height: [null, 'auto', 'auto'],
             mr: 1,
@@ -119,7 +115,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         {/*  }}*/}
         {/*  as="h3">*/}
         {/*  {experience.company}*/}
-        {/*</Heading>*/}        <Flex
+        {/*</Heading>*/}{' '}
+        <Flex
           sx={{
             display: ['flex', 'none', 'none'],
             py: 1,

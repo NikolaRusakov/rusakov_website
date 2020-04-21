@@ -1,0 +1,197 @@
+{
+  "positions": {
+    "heading": "Experience",
+    "experience": [
+      {
+        "employedDuration": "Dates Employed Feb 2019 – Present",
+        "duration": "1 yr 3 mos",
+        "company": "FlowUp Full-time",
+        "employment": "Full-time",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQE7e-hDDBtsWQ/company-logo_100_100/0?e=1594857600&v=beta&t=KAEV5mZqkKnmmX-ySwPDgZgZGmqX2ENBjin19NqiIqU",
+        "position": "Frontend Engineer",
+        "location": "Location District Brno-City, Czech Republic"
+      },
+      {
+        "employedDuration": "Dates Employed Aug 2018 – Jan 2019",
+        "duration": "6 mos",
+        "company": "Sprint Innovations Full-time",
+        "employment": "Full-time",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C4E0BAQGacPkigH-l8A/company-logo_100_100/0?e=1594857600&v=beta&t=BlWLdwYXMKKfA5tZdtMFG6No0OEB4IxjHcrmDbCMtGI",
+        "position": "Frontend Developer",
+        "location": "Location District Brno-City, Czech Republic"
+      },
+      {
+        "employedDuration": "Dates Employed Jan 2018 – Jul 2018",
+        "duration": "7 mos",
+        "company": "MARBES CONSULTING s.r.o.",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQGmERye2lTt9Q/company-logo_100_100/0?e=1594857600&v=beta&t=lKH1VNvKK8YeYxgduR-9pOlEXQixJg_uQWTwutHK47A",
+        "position": "Full-stack Developer",
+        "location": "Location Plzeň-město, Plzeňský, Česká republika"
+      },
+      {
+        "employedDuration": "Dates Employed Sep 2017 – Jan 2018",
+        "duration": "5 mos",
+        "company": "FutureTek Solutions Ltd. Full-time",
+        "employment": "Full-time",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQEeZdp3-MUVBg/company-logo_100_100/0?e=1594857600&v=beta&t=70B6nLC_SwgVqWtvXC7i9W_3XZ2o52-1HIjYShEogrE",
+        "position": "Full-stack Developer",
+        "location": "Location Okres Plzeň-město, Česká republika",
+        "details": "Iternship"
+      }
+    ]
+  },
+  "education": {
+    "heading": "Education",
+    "data": [
+      {
+        "schoolName": "VOŠ a SPŠE Plzeň",
+        "degreeName": "Diplomovaný specialista (DiS.)",
+        "fieldOfStudy": "Informační technologie",
+        "degree": "1.25"
+      },
+      {
+        "schoolName": "ISŠ Cheb, Výpočetní technika",
+        "degree": "1.5"
+      }
+    ]
+  },
+  "skills": {
+    "topSkills": {
+      "heading": "Skills & Endorsements",
+      "skills": [
+        {
+          "name": "Angular",
+          "count": "11"
+        },
+        {
+          "name": "ReactJS",
+          "count": "4"
+        },
+        {
+          "name": "Git",
+          "count": "7"
+        }
+      ]
+    },
+    "otherSkills": {
+      "sections": [
+        "Industry Knowledge",
+        "Tools & Technologies",
+        "Interpersonal Skills",
+        "Other Skills"
+      ],
+      "skills": [
+        {
+          "heading": "Industry Knowledge",
+          "skill": [
+            {
+              "name": "Agile Methodologies",
+              "count": "2"
+            }
+          ]
+        },
+        {
+          "heading": "Tools & Technologies",
+          "skill": [
+            {
+              "name": "JavaScript",
+              "count": "5"
+            },
+            {
+              "name": "Java"
+            },
+            {
+              "name": "Maven"
+            },
+            {
+              "name": "CSS",
+              "count": "5"
+            },
+            {
+              "name": "Docker",
+              "count": "1"
+            },
+            {
+              "name": "Spring Framework"
+            },
+            {
+              "name": "Hibernate"
+            },
+            {
+              "name": "PHP"
+            },
+            {
+              "name": "SQL"
+            },
+            {
+              "name": "PostgreSQL"
+            },
+            {
+              "name": "Linux",
+              "count": "2"
+            },
+            {
+              "name": "IntelliJ IDEA",
+              "count": "1"
+            },
+            {
+              "name": "Amazon Web Services (AWS)"
+            }
+          ]
+        },
+        {
+          "heading": "Interpersonal Skills",
+          "skill": [
+            {
+              "name": "Problem Solving",
+              "count": "4"
+            }
+          ]
+        },
+        {
+          "heading": "Other Skills",
+          "skill": [
+            {
+              "name": "HMLT5",
+              "count": "5"
+            },
+            {
+              "name": "Redux",
+              "count": "2"
+            },
+            {
+              "name": "Swagger"
+            },
+            {
+              "name": "TypeScript",
+              "count": "5"
+            },
+            {
+              "name": "RxJS",
+              "count": "3"
+            },
+            {
+              "name": "Neo4j"
+            },
+            {
+              "name": "Ionic Framework",
+              "count": "6"
+            },
+            {
+              "name": "GraphQL",
+              "count": "3"
+            },
+            {
+              "name": "Flutter",
+              "count": "2"
+            },
+            {
+              "name": "Firebase",
+              "count": "1"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

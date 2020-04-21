@@ -11,6 +11,8 @@ import {
 } from 'theme-ui';
 // @ts-ignore
 import { toTheme } from '@theme-ui/typography';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { useTranslation } from 'react-i18next';
 
 import { Helmet } from 'react-helmet';
 import defaultTheme from '../gatsby-plugin-theme-ui/index';
@@ -37,8 +39,12 @@ import {
   bootstrap,
   bulma,
   tailwind,
+  polaris,
   // @ts-ignore
 } from '@theme-ui/presets';
+import withI18next from '../i18n/withI18Next';
+import { Link } from 'gatsby';
+import i18next from 'i18next';
 
 const presets = {
   light: defaultTheme,
@@ -54,6 +60,7 @@ const presets = {
   bulma,
   dark,
   tailwind,
+  polaris,
 };
 
 const preset = (v: string) => ({
@@ -62,9 +69,16 @@ const preset = (v: string) => ({
   map: (mapping: (str: string) => typeof preset) => mapping(v),
 });
 
-const AboutLayout: React.FC = ({ children }) => {
+// @ts-ignore
+const AboutLayout: React.FC = children => {
   const { theme: themeSet, colorMode } = useThemeUI();
   const [mode, setMode] = useColorMode();
+  // const { backToHome } = useTranslations();
+  const { t } = useTranslation();
+  const typographyNaming = i18next.getResourceBundle(
+    i18next.language,
+    'typography',
+  );
 
   const bodyColor =
     colorMode === 'default' || colorMode === 'light'
@@ -108,8 +122,6 @@ const AboutLayout: React.FC = ({ children }) => {
           <style id="typography.js">{typography.toString()}</style>
           {injectRecentFont}
         </Helmet>
-        <h1 sx={{ color: 'primary' }}>Theme UI sample</h1>
-
         <Flex sx={{ position: 'sticky', top: 0 }}>
           <label>
             <Checkbox
@@ -126,6 +138,7 @@ const AboutLayout: React.FC = ({ children }) => {
             themeNames={themes.map(({ name }) => name)}
             themes={[...themes]}
             trigger={mode}
+            naming={typographyNaming}
             onChange={changes => {
               const bodyColor =
                 colorMode === 'default' || colorMode === 'light'
@@ -158,11 +171,36 @@ const AboutLayout: React.FC = ({ children }) => {
             }}>
             {colorMode}
           </Button>
+          <nav
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <div>
+              {children.pageContext.paths?.map(
+                ({ locale, templateKey }, index, array) => (
+                  <React.Fragment>
+                    <Link to={`/${locale}/${templateKey}`} hrefLang={locale}>
+                      {t(`${locale}`)}
+                    </Link>
+                    {index < array.length - 1 && '|'}
+                  </React.Fragment>
+                ),
+              )}
+            </div>
+          </nav>
         </Flex>
-        <Styled.root>{children}</Styled.root>
+        <Styled.root>
+          {children.pageContext.children ? (
+            <MDXRenderer>{children.pageContext.children}</MDXRenderer>
+          ) : (
+            children.children
+          )}
+        </Styled.root>
       </div>
     </ThemeProvider>
   );
 };
 
-export default AboutLayout;
+export default withI18next()(AboutLayout);

@@ -8,6 +8,8 @@ export interface SectionBodyProps<T extends ReactNode | TagEntity[]> {
     duration?: string;
     employment?: string;
     projects: T;
+    highlight?: ReactNode;
+    detail?: ReactNode;
     location?: string;
     tags: T;
     skills?: T;
@@ -25,7 +27,8 @@ const SectionBody: React.FC<SectionBodyProps<ReactNode>> = ({ children }) => {
   return (
     <article>
       <Flex sx={{ flexDirection: 'column' }}>
-        {children.duration}{' | '}
+        {children.duration}
+        {' | '}
         {children.employment && `${children?.employment.toUpperCase()}`}
         {/*{Object.entries(children)*/}
         {/*  .filter(([key, _]) => key != 'tags')*/}

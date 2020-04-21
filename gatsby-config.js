@@ -6,9 +6,49 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     `gatsby-plugin-typescript`,
-    'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/en/*`, `/cs/*`],
+      },
+    },
+    // `gatsby-transformer-json`,
     'gatsby-plugin-theme-ui',
+    // fixme to be removed as soon as typography-picker will be i18n'd & configurable
     'gatsby-plugin-aphrodite',
+    // 'gatsby-plugin-loadable-components-ssr',
+    // {
+    //   resolve: `gatsby-plugin-loadable-components-ssr`,
+    //   options: {
+    //     // Whether replaceHydrateFunction should call ReactDOM.hydrate or ReactDOM.render
+    //     // Defaults to ReactDOM.render on develop and ReactDOM.hydrate on build
+    //     useHydrate: true,
+    //   },
+    // },
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@mdx': 'src/data/mdx',
+          '@posts': 'content/posts',
+        },
+        extensions: ['mdx', 'md'],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/config/translations`,
+        name: `translations`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/data/generated`,
+        name: `generated`,
+      },
+    },
     /*{
       resolve: 'gatsby-plugin-react-axe',
       options: {
@@ -54,8 +94,22 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `experienceDetails`,
+        path: `${__dirname}/src/data/mdx/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `about`,
         path: `${__dirname}/src/pages/about`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `test`,
+        path: `${__dirname}/src/pages/test`,
       },
     },
     {

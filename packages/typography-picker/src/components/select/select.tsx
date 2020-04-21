@@ -1,20 +1,6 @@
-import React from 'react';
-import { grayscale, saturate } from 'polished';
-import { StyleSheet, css } from 'aphrodite';
-
-const styles = StyleSheet.create({
-  editor: {
-    ':active': {
-      borderColor: grayscale('#00E'),
-    },
-    ':hover': {
-      borderColor: saturate('100', grayscale('#00F')),
-    },
-    ':focus': {
-      borderColor: saturate('200', grayscale('#00F')),
-    },
-  },
-});
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+import { grayscale, saturate, readableColor } from 'polished';
 
 const Select = ({
   options = [],
@@ -34,27 +20,35 @@ const Select = ({
   ));
   return (
     <select
-      className={css(styles.editor)}
-      style={{
+      css={theme => ({
         background:
           "url(\"data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='18' height='18' viewBox='0 0 24 24'><path fill='rgb(153, 153, 153)' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>\")",
-        backgroundColor: grayscale('#F0F'),
+        backgroundColor: theme.colors.primary,
         backgroundPosition: '100% 50%',
         backgroundRepeat: 'no-repeat',
         border: '1px solid',
-        borderColor: grayscale('#00F'),
-        borderRadius: 3,
-        color: grayscale('#EFF'),
+        borderColor: theme.colors.secondary,
+        borderRadius: 6,
+        color: readableColor(theme.colors.text),
         fontSize: 12,
-        width: 80,
+        width: '100%',
         padding: '2px 8px',
         height: 24,
         outline: 'none',
         // apperance: 'none',
         // mozAppearance: 'none',
         // webkitAppearance: 'none',
+        '&:active': {
+          borderColor: grayscale('#00E'),
+        },
+        '&:hover': {
+          borderColor: saturate('100', grayscale('#00F')),
+        },
+        '&:focus': {
+          borderColor: saturate('200', grayscale('#00F')),
+        },
         ...style,
-      }}
+      })}
       value={value}
       onChange={e => onChange(e.target.value)}
       onKeyDown={e => {

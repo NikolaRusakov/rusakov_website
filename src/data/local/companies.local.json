@@ -1,0 +1,223 @@
+[
+  {
+    "shortKey": "flowup",
+    "sections": [
+      {
+        "section": "be",
+        "tags": ["nodejs", "typescript", "graphql", "apollo", "go"]
+      },
+      {
+        "section": "fe",
+        "tags": [
+          [
+            "angular",
+            "ionicFramework",
+            "nx",
+            "rxjs",
+            "ngrx",
+            "angularUniversal",
+            "akita"
+          ],
+          ["css", "scss", "angularFlexLayout"],
+          "hmtl5",
+          "jest",
+          "storybook",
+          "protractor",
+          "playwright",
+          "cordova",
+          "capacitor",
+          "flutter"
+        ]
+      },
+      {
+        "section": "dx",
+        "tags": [["prettier", "husky", "lerna", "confluence", "browserstack"]]
+      },
+      {
+        "section": "devops",
+        "tags": [
+          "bitrise",
+          "fastlane",
+          "bamboo",
+          "githubActions",
+          "androidStudio",
+          "xcode"
+        ]
+      },
+      {
+        "section": "sls",
+        "tags": [
+          "serverless",
+          "terraform",
+          [
+            "googleCloudPlatform",
+            "terraform",
+            "docker",
+            "kubernetes",
+            "computeEngine",
+            "iam",
+            "cloudStorage",
+            "cloudRun",
+            "appEngine",
+            "networking"
+          ],
+          [
+            "amazonWebServices",
+            "serverless",
+            "terraform",
+            "cloudformation",
+            "lambda",
+            "stepFunctions",
+            "appsync",
+            "amplify",
+            "dynamodb",
+            "s3",
+            "cloudfront",
+            "apiGateway",
+            "route53",
+            "iam",
+            "sqs"
+          ],
+          [
+            "firebase",
+            "firestore",
+            "hosting",
+            "storage",
+            "cloudFunctions",
+            "authentication",
+            "mlKit",
+            "remoteConfig",
+            "extensions"
+          ]
+        ]
+      },
+      {
+        "section": "other",
+        "tags": [
+          "codeReview",
+          "agileMethodologies",
+          "mentor",
+          "scrum",
+          "workshop",
+          "bootcamp",
+          "publicSpeaking",
+          "a11y",
+          "i18n",
+          "l10n",
+          "seo",
+          "smo"
+        ]
+      }
+    ]
+  },
+  {
+    "shortKey": "sprint",
+    "sections": [
+      {
+        "section": "fe",
+        "tags": [
+          "angular",
+          "typescript",
+          "ngrx",
+          "angularFlexLayout",
+          "rxjs",
+          "jest",
+          "storybook"
+        ]
+      },
+      {
+        "section": "sls",
+        "tags": ["firebase", "hosting"]
+      },
+      {
+        "section": "dx",
+        "tags": ["browserstack", "prettier", "swagger"]
+      },
+      {
+        "section": "devops",
+        "tags": ["gitlabcicd"]
+      }
+    ]
+  },
+  {
+    "shortKey": "marbes",
+    "sections": [
+      {
+        "section": "be",
+        "tags": [
+          [
+            "java",
+            "hibernate",
+            "tomcat",
+            "spring",
+            "springBoot",
+            "orikaMapper",
+            "freemarker",
+            "swagger",
+            "maven",
+            "elasticSearch"
+          ],
+          "rabbitmq",
+          ["php", "yii2"]
+        ]
+      },
+      {
+        "section": "devops",
+        "tags": ["docker", "dockerSwarm", "gitlabcicd", "jenkins", "testcafe"]
+      },
+      {
+        "section": "fe",
+        "tags": [
+          ["reactjs", "redux", "reduxForm"],
+          "webpack",
+          "flow",
+          "babel",
+          "typescript",
+          "scss",
+          "html5",
+          "jquery",
+          ["java", "vaadin"]
+        ]
+      },
+      {
+        "section": "other",
+        "tags": [
+          ["db", "mysql", "postgresql", "mssql", "sql"],
+          ["os", "ubuntu", "arch"]
+        ]
+      }
+    ]
+  },
+  {
+    "shortKey": "futuretek",
+    "sections": [
+      {
+        "section": "fe",
+        "tags": [
+          ["reactjs", "redux", "reduxForm"],
+          "webpack",
+          "flow",
+          "babel",
+          "scss",
+          "css",
+          "html5"
+        ]
+      },
+      {
+        "section": "be",
+        "tags": [
+          ["java", "spring", "springBoot", "orikaMapper", "mapdb", "maven"],
+          "nodejs"
+        ]
+      },
+      {
+        "section": "devops",
+        "tags": ["docker", "dockerCompose"]
+      },
+      {
+        "section": "other",
+        "tags": ["codeReview"]
+      }
+    ]
+  }
+]

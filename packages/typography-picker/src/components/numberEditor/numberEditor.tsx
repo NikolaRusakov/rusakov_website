@@ -1,24 +1,11 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React, { useEffect, useState } from 'react';
 // @ts-ignore
 import ReactNumberEditor from 'react-number-editor';
-import { StyleSheet, css } from 'aphrodite';
-import { saturate } from 'polished';
+import { saturate, readableColor } from 'polished';
 import { auditTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
-const styles = StyleSheet.create({
-  editor: {
-    ':active': {
-      borderColor: saturate('10', '#00F'),
-    },
-    ':hover': {
-      borderColor: saturate('50', '#00F'),
-    },
-    ':focus': {
-      borderColor: saturate('200', '#00F'),
-    },
-  },
-});
 
 const NumberEditor: React.FC<{
   unit: string;
@@ -47,33 +34,40 @@ const NumberEditor: React.FC<{
   }, []);
 
   return (
-    <div>
+    <div css={{ display: 'flex', position: 'relative', left: 0}}>
       <ReactNumberEditor
         {...props}
         ref={props.ref}
-        className={css(styles.editor)}
         onValueChange={(value: string) => input$.next(value)}
-        style={{
-          backgroundColor: saturate(10, '#F0F'),
-          border: '1px solid',
-          borderColor: saturate(25, '#00F'),
-          borderRadius: 3,
-          color: '#FFF',
-          fontSize: 12,
+        css={theme => ({
+          backgroundColor: theme.colors.secondary,
+          shadowBox: `0 0 2px ${saturate(50, theme.colors.background)}`,
+          borderRadius: '6px',
+          color: readableColor(theme.colors.text),
+          fontSize: '16px',
           padding: '2px 8px',
-          width: 80,
-        }}
+          width: '100%',
+          '&:active': {
+            borderColor: saturate('10', '#00F'),
+          },
+          '&:hover': {
+            borderColor: saturate('50', '#00F'),
+          },
+          '&:focus': {
+            borderColor: saturate('200', '#00F'),
+          },
+        })}
       />
-      <div
-        style={{
-          color: '#AFA',
-          fontSize: 10,
+      <span
+        css={theme => ({
           position: 'absolute',
           right: 5,
-          top: 4,
-        }}>
+          top: '15%',
+          fontSize: 10,
+          borderBottom: theme.colors.primary,
+        })}>
         {props.unit}
-      </div>
+      </span>
     </div>
   );
 });
