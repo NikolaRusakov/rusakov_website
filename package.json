@@ -17,6 +17,7 @@
     "start:lerna": "lerna run start --stream",
     "clean": "gatsby clean",
     "start": "yarn develop",
+    "debug": "node --inspect-brk --no-lazy node_modules/gatsby/dist/bin/gatsby develop",
     "build": "yarn clean && yarn prestart && gatsby build",
     "develop": "yarn clean && gatsby develop",
     "format": "prettier --write '**/*.tsx'",
@@ -88,6 +89,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
@@ -109,6 +111,7 @@
     "babel-preset-gatsby": "^0.2.35",
     "babel-preset-react-app": "^9.1.1",
     "cross-env": "^7.0.2",
+    "esm": "^3.2.25",
     "graphql": "^14.6.0",
     "graphql-cli": "^3.0.14",
     "jest": "^25.1.0",
