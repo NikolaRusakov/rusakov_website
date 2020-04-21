@@ -15,22 +15,12 @@ exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
       name: String
       count: String
       heading: String
+      tags : [TagEntity]
     }
-    
-    type TagEntityEntries implements Node @dontInfer{
-      data: [TagEntity]
-    }
-
-    type ContentfulSubSection implements Node {
-      title: String
-    }
-
-    union TagEntityUnion =  TagEntity | TagEntityEntries  
-
+   
     type SkillTagSection implements Node @dontInfer{
       section: String!
-      tags: [TagEntityUnion]
-          @link(from: "tags___NODE")
+      tags: [TagEntity]
     }
     
     type CompanyTagSections implements Node @dontInfer{
@@ -47,25 +37,8 @@ exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
       skills: [SkillCompanySection]
     }
   `,
-    schema.buildUnionType({
-      name: 'TagEntityUnion',
-      types: ['TagEntity', 'TagEntityEntries'],
-      resolveType: node => node.internal.type,
-      // resolveType(value) {
-      //   console.log(value);
-        // if (value.data != null) {
-        //   return 'TagEntityEntries';
-        // } else {
-        //   return 'TagEntity';
-        // }
-        // if (value.internal.type === 'block__columns') {
-        // }
-
-        // throw 'No template defined';
-      // },
-    }),
   ]);
-return;
+  return;
 };
 
 // type AllSkillTagSections implements node {
@@ -118,20 +91,11 @@ exports.sourceNodes = async (
         shortKey,
         sections: sections.map(({ section, tags }) => ({
           section,
-          tags: tags.map(tag => (Array.isArray(tag) ? { data: tag } : tag)),
+          tags: tags.map(tag => (Array.isArray(tag) ? { tags: tag } : tag)),
         })),
       }));
 
       const skillCompanySection = { locale, data: companies };
-      const node = {
-        ...skillCompanySection,
-        id: createNodeId(`parsed-tags-${locale}`),
-        internal: {
-          type: 'SkillCompanySection',
-          contentDigest: createContentDigest(skillCompanySection),
-        },
-      };
-      createNode(node);
       return skillCompanySection;
     }
   });
@@ -140,6 +104,7 @@ exports.sourceNodes = async (
     skills,
     id: createNodeId(`company-sections`),
     internal: {
+      content: JSON.stringify(skills),
       type: 'CompanySections',
       contentDigest: createContentDigest(skills),
     },
@@ -213,37 +178,6 @@ exports.createPages = async ({ page, graphql, actions }, pluginOptions) => {
 
   const testTemplate = require.resolve(`./src/layouts/about-layout.tsx`);
 
-  const res = await graphql(`
-query MyQuery2 {
-  __typename
-  companySections {
-    skills {
-      locale
-      data {
-        sections {
-          section
-          __typename
-          tags {
-            ... on TagEntity {
-              id
-              name
-              count
-            }
-            __typename
-            ... on TagEntityEntries {
-              data {
-                name
-                count
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`);
-  console.log(res);
   const result = await graphql(`
     {
       blog: allFile(filter: { sourceInstanceName: { eq: "about" } }) {
