@@ -23,18 +23,18 @@ function useTranslations() {
 }
 
 export default useTranslations;
-
-export const query = graphql`
-    query useTranslations {
-        rawData: allFile(filter: { sourceInstanceName: { eq: "translations" } }) {
-            edges {
-                node {
-                    name
-                    translations: childTranslationsJson {
-                        backToHome
-                    }
-                }
-            }
-        }
-    }
-`;
+//
+// export const query = graphql`
+//     query useTranslations {
+//         rawData: allFile(filter: { sourceInstanceName: { eq: "translations" } }) {
+//             edges {
+//                 node {
+//                     name
+//                     translations: childTranslationsJson {
+//                         backToHome
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// `;

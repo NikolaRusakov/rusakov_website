@@ -6,14 +6,13 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     `gatsby-plugin-typescript`,
-    // 'gatsby-plugin-offline',
     {
       resolve: `gatsby-plugin-offline`,
       options: {
         precachePages: [`/en/*`, `/cs/*`],
       },
     },
-    `gatsby-transformer-json`,
+    // `gatsby-transformer-json`,
     'gatsby-plugin-theme-ui',
     // fixme to be removed as soon as typography-picker will be i18n'd & configurable
     'gatsby-plugin-aphrodite',
@@ -49,12 +48,6 @@ module.exports = {
         path: `${__dirname}/src/data/generated`,
         name: `generated`,
       },
-    },
-    {
-      resolve: `gatsby-transformer-json`,
-      // options: {
-      //   typeName: ({ node, object, isArray }) => isArray,
-      // },
     },
     /*{
       resolve: 'gatsby-plugin-react-axe',
