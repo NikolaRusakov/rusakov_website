@@ -13,6 +13,9 @@ import Checkbox from '../checkbox/checkbox';
 import { useStaticQuery, graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import { FileConnection, CompanySections } from '../../../types/gatsby-graphql';
+import { exists } from '../../utils/utils';
 
 export interface TagEntity {
   name: string;
@@ -20,6 +23,13 @@ export interface TagEntity {
   slug?: string;
   count?: string;
 }
+
+const toTag = (name: string | null | undefined) =>
+  name && (
+    <Badge variant="muted" py={0} m={1}>
+      <span>{name}</span>
+    </Badge>
+  );
 
 const renderMdx = (highlight: string) => (
   <React.Fragment>
@@ -36,9 +46,15 @@ const renderBadges = (tags: TagEntity[], badge: keyof TagEntity) =>
 
 //TODO: data fetching will be combined with StaticQuery from automated JSON
 export const SectionExperienceHOC = () => {
+  const locale = i18next.language;
   const {
-    allHighlights: { highlights },
-    allDetails: { details },
+    allHighlights: { nodes: highlights },
+    allDetails: { nodes: details },
+    companySections,
+  }: {
+    allHighlights: FileConnection;
+    allDetails: FileConnection;
+    companySections: CompanySections;
   } = useStaticQuery(graphql`
     query HighlightPerSection {
       allHighlights: allFile(
@@ -47,7 +63,7 @@ export const SectionExperienceHOC = () => {
           relativeDirectory: { eq: "highlights" }
         }
       ) {
-        highlights: nodes {
+        nodes {
           relativeDirectory
           name
           base
@@ -64,7 +80,7 @@ export const SectionExperienceHOC = () => {
           relativeDirectory: { eq: "details" }
         }
       ) {
-        details: nodes {
+        nodes {
           relativeDirectory
           name
           base
@@ -74,19 +90,44 @@ export const SectionExperienceHOC = () => {
           }
         }
       }
+
       localTags: allFile(
         filter: {
           extension: { eq: "json" }
           relativeDirectory: { eq: "generated" }
         }
       ) {
-        details: nodes {
+        nodes {
           relativeDirectory
           name
           base
           extension
           childMdx {
             body
+          }
+        }
+      }
+
+      companySections {
+        skills {
+          locale
+          data {
+            shortKey
+            sections {
+              section
+              tags {
+                name
+                key
+                count
+                heading
+                tags {
+                  name
+                  key
+                  count
+                  heading
+                }
+              }
+            }
           }
         }
       }
@@ -100,15 +141,25 @@ export const SectionExperienceHOC = () => {
     const tmpCompanyKey = header?.experience?.company
       ?.split(' ')[0]
       .toLocaleLowerCase();
+
     const highlight = highlights.filter(
-      // @ts-ignore
       highlight => highlight.name == `${tmpCompanyKey}.${i18n.language}`,
     )[0];
     const detail = details.filter(
-      // @ts-ignore
       detail => detail.name == `${tmpCompanyKey}.${i18n.language}`,
     )[0];
 
+    const companySection = companySections?.skills
+      ?.filter(skill => skill?.locale == locale)[0]
+      ?.data?.filter(section => section?.shortKey == tmpCompanyKey)[0];
+    // const mapTagSections = (skills: Array<Maybe<SkillCompanySection>>) =>
+    //   skills
+    //     ?.filter(skill => skill?.locale == locale)
+    //     .map(companySection => {
+    //       companySection?.data
+    //         ?.filter(section => section?.shortKey == tmpCompanyKey)
+    //         .map(value => value?.sections);
+    //     });
     return {
       header: Lens.fromPath<SectionHeaderProps>()([
         'experience',
@@ -126,6 +177,10 @@ export const SectionExperienceHOC = () => {
           highlight:
             highlight?.childMdx?.body && renderMdx(highlight.childMdx.body),
           detail: detail?.childMdx?.body && renderMdx(detail.childMdx.body),
+          tagSections:
+            companySection?.sections != null
+              ? companySection.sections
+              : undefined,
           tags: renderBadges(body.children.tags, 'slug'),
           skills:
             body.children.skills && renderBadges(body.children.skills, 'name'),
@@ -163,7 +218,7 @@ const SectionExperience: React.FC<{
     expList.reduce(
       (acc, cur) => ({
         ...acc,
-        [cur]: false,
+        [cur]: true,
       }),
       {},
     ),
@@ -184,6 +239,7 @@ const SectionExperience: React.FC<{
                 highlight,
                 detail,
                 tags,
+                tagSections,
               },
             },
             header: { experience, externalProps },
@@ -204,12 +260,29 @@ const SectionExperience: React.FC<{
                     {highlight}
                   </Box>
                   {!hideDetails[expList[index]] && (
-                    <section
-                      {...morphs[index]}
-                      sx={{ maxWidth: ['100%', '70%', '70%'] }}>
-                      <Divider />
-                      {skills}
-                    </section>
+                    <React.Fragment>
+                      {tagSections?.map(section => (
+                        <Flex sx={{ flexDirection: 'column', bg: 'muted' }}>
+                          <h2>{section?.section}</h2>
+                          <Divider />
+                          <Flex sx={{ flexWrap: 'wrap' }}>
+                            {section?.tags?.map(tag =>
+                              exists(tag?.tags)
+                                ? tag?.tags?.map(childTag =>
+                                    toTag(childTag?.name),
+                                  )
+                                : toTag(tag?.name),
+                            )}
+                          </Flex>
+                        </Flex>
+                      ))}
+                      <section
+                        {...morphs[index]}
+                        sx={{ maxWidth: ['100%', '70%', '70%'] }}>
+                        <Divider />
+                        {skills}
+                      </section>
+                    </React.Fragment>
                   )}
                 </SectionHeader>
               </Flex>

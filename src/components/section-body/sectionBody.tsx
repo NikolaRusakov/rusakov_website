@@ -2,6 +2,7 @@
 import { jsx, Flex, Heading, Divider } from 'theme-ui';
 import React, { ReactNode } from 'react';
 import { TagEntity } from '../section-experience/sectionExperience';
+import { Maybe, SkillTagSection } from 'types/gatsby-graphql';
 
 export interface SectionBodyProps<T extends ReactNode | TagEntity[]> {
   children: {
@@ -11,6 +12,7 @@ export interface SectionBodyProps<T extends ReactNode | TagEntity[]> {
     highlight?: ReactNode;
     detail?: ReactNode;
     location?: string;
+    tagSections?: Maybe<SkillTagSection>[] | undefined;
     tags: T;
     skills?: T;
   };

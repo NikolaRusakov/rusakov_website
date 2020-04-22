@@ -18,7 +18,7 @@ exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
       tags : [TagEntity]
     }
    
-    type SkillTagSection implements Node @dontInfer{
+    type SkillTagSection @dontInfer{
       section: String!
       tags: [TagEntity]
     }

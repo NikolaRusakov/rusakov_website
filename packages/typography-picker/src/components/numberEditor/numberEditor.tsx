@@ -16,7 +16,7 @@ const NumberEditor: React.FC<{
   decimals: number;
   onValueChange: (value: any) => void;
   ref?: React.Ref<any>;
-}> = React.forwardRef(props => {
+}> = props => {
   // TODO wrap onChange and if value isn't a number, set to minimum value.
   const [input$] = useState(() => new Subject<string>());
 
@@ -34,7 +34,7 @@ const NumberEditor: React.FC<{
   }, []);
 
   return (
-    <div css={{ display: 'flex', position: 'relative', left: 0}}>
+    <div css={{ display: 'flex', position: 'relative', left: 0 }}>
       <ReactNumberEditor
         {...props}
         ref={props.ref}
@@ -70,6 +70,6 @@ const NumberEditor: React.FC<{
       </span>
     </div>
   );
-});
+};
 
 export default NumberEditor;

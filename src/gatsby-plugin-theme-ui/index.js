@@ -37,6 +37,14 @@ export const theme = {
       boxShadow: theme =>
         `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
     },
+    muted: {
+      color: 'text',
+      fontSize: 0,
+      background: 'transparent',
+      height: 'min-content',
+      boxShadow: theme =>
+        `0 0 1px 0 ${theme.colors.muted} inset, 0 0 3px 0 ${theme.colors.secondary}`,
+    },
   },
   // fonts: {
   //   body: 'inherit',
