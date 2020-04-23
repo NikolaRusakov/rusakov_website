@@ -27,7 +27,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
   const sectionId = uuidv4();
   if (exists(tags)) {
     return tags?.length > 3 ? (
-      <div sx={{ m: 1, maxWidth: '97%' }}>
+      <div sx={{ m: 1, maxWidth: '97%', position: 'relative' }}>
         <Global
           styles={theme => ({
             'input[type=checkbox]:checked + section': {
@@ -36,7 +36,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
               borderLeft: `6px solid ${theme.colors.secondary} !important`,
               borderRadius: 0,
               border: 'none',
-              transition: 'border 0.15s ease-in-out 0.1s',
+              transition: 'border-radius 0.1s ease-in-out 0.05s, border 0.05s ease-in-out 0.1s',
 
               '& > label > header': {
                 display: 'flex',
