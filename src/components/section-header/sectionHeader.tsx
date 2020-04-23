@@ -40,6 +40,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
       }}>
       <Flex
         sx={{

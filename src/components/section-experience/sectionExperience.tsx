@@ -230,7 +230,7 @@ const SectionExperience: React.FC<{
     expList.reduce(
       (acc, cur) => ({
         ...acc,
-        [cur]: true,
+        [cur]: false,
       }),
       {},
     ),
@@ -410,8 +410,6 @@ const SectionExperience: React.FC<{
                             ? theme.colors.primary
                             : theme.colors.secondary
                         }`,
-                      // boxShadow: theme =>
-                      //   `0 0 4px 0 ${theme.colors.secondary} inset, 0 0 2px 0 ${theme.colors.primary}`,
                     }}>
                     {hideDetails[expList[index]] ? highlight : detail}
                   </div>

@@ -41,8 +41,9 @@ export const theme = {
       color: 'text',
       fontSize: theme => `calc(${theme.fontSizes[0]}px * 0.9)`,
       background: 'transparent',
+      fontWeight: 'normal',
       height: 'min-content',
-      boxShadow: theme => `0 0 2px 0 ${theme.colors.secondary}`,
+      boxShadow: theme => `0 0 3px 0 ${theme.colors.secondary}`,
     },
   },
   // fonts: {

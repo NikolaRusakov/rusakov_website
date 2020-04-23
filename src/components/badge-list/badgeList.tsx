@@ -2,11 +2,14 @@
 import { Badge, Box, jsx } from 'theme-ui';
 import { Maybe, TagEntity } from '../../../types/gatsby-graphql';
 
-import { exists } from '../../utils/utils';
+import { exists, isNonEmptyArray } from '../../utils/utils';
 import HiddenCheckbox from '../checkbox/hiddenCheckbox';
 import { transparentize } from 'polished';
 import { Global } from '@emotion/core';
 import { v4 as uuidv4 } from 'uuid';
+
+const calculatedWidth = (tags: TagEntity[]) =>
+  tags.length / 10 <= 1 ? 2 : Math.ceil(tags.length / 10);
 
 export const toBadge = (tag: TagEntity, styles = {}) =>
   tag.name && (
@@ -24,34 +27,41 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
   const sectionId = uuidv4();
   if (exists(tags)) {
     return tags?.length > 3 ? (
-      <div sx={{ m: 1 }}>
+      <div sx={{ m: 1, maxWidth: '97%' }}>
         <Global
           styles={theme => ({
             'input[type=checkbox]:checked + section': {
-              borderRadius: 0,
               margin: `${theme.space[1]}px 0`,
               marginRight: `${theme.space[1]}px`,
               borderLeft: `6px solid ${theme.colors.secondary} !important`,
-              '& > label > header > em': {
-                width: 0,
-                visibility: 'hidden',
-                padding: 0,
-                fontSize: '0px',
-                opacity: 0,
-                transition:
-                  'width 0.05s ease-in-out 0.12s,' +
-                  'padding 0.05s ease-in-out 0.15s,' +
-                  'opacity 0.05s ease-in-out 0.05s,' +
-                  'font-size 0.07s ease-in-out 0.05s,' +
-                  'visibility 0.05s ease-in-out 0.12s',
-              },
+              borderRadius: 0,
               border: 'none',
+              transition: 'border 0.15s ease-in-out 0.1s',
+
               '& > label > header': {
+                display: 'flex',
                 justifyContent: 'center',
+                transition: 'justify-content 0.15 ease-in-out 0.1s',
+                '& span': {
+                  fontWeight: 'bold',
+                },
+                '& em': {
+                  width: 0,
+                  visibility: 'hidden',
+                  padding: 0,
+                  fontSize: '0px',
+                  opacity: 0,
+                  transition:
+                    'width 0.05s ease-in-out 0.10s,' +
+                    'padding 0.05s ease-in-out 0.10s,' +
+                    'opacity 0.05s ease-in-out 0.05s,' +
+                    'font-size 0.07s ease-in-out 0.05s,' +
+                    'visibility 0.05s ease-in-out 0.10s',
+                },
               },
               '& > article': {
                 visibility: 'visible',
-                maxHeight: '200px',
+                maxHeight: '900px',
                 maxWidth: '900px',
                 backgroundColor: `${transparentize(
                   0.7,
@@ -60,7 +70,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                 padding: `${theme.space[1]}px 0`,
                 opacity: 1,
                 transition:
-                  'opacity 0.2s ease-in-out 0.1s, max-width 0.1s ease-in-out, max-height 0.2s ease-in-out, visibility 0.25s ease-in-out 0.1s, all ease-in-out 0.3s',
+                  'opacity 0.2s ease-in-out 0.1s, max-width 0.1s ease-in-out, max-height 0.2s ease-in-out, visibility 0.25s ease-in-out 0.1s',
               },
             },
           })}
@@ -74,6 +84,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
           as="section"
           variant="badges.muted"
           sx={{
+            position: 'relative',
             borderRadius: '48px',
             transition:
               'border 0.15s ease-in-out 0.1s, border-radius 0.15s ease-in-out 0.1s, max-height 0.15s ease-in-out, max-width 0.20s ease-in-out',
@@ -83,19 +94,20 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
             {
               <header
                 sx={{
-                  width: '100%',
-                  display: 'inline-flex',
+                  maxWidth: '100%',
+                  display: 'flex',
                   justifyContent: 'center',
+                  padding: '0 4px',
                 }}>
                 <span
                   sx={{
-                    fontSize: 2,
+                    fontSize: 0,
                     padding: 1,
-                    fontWeight: 'bold',
                     position: 'relative',
                     textOverflow: 'ellipsis',
+                    overflow: 'hidden',
                     wordWrap: 'break-word',
-                    whiteSpace: 'pre-line',
+                    whiteSpace: 'nowrap',
                   }}>
                   {tags[0]?.name}
                 </span>
@@ -103,27 +115,29 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                   sx={{
                     visibility: 'visible',
                     width: theme =>
-                      `${theme.fontSizes[2] *
-                        (tags.length / 10 < 1
-                          ? 2
-                          : Math.ceil(tags.length / 10) + 1)}px`,
+                      (isNonEmptyArray(tags) &&
+                        `
+                        ${
+                          // theme.fontSizes[2] *
+                          calculatedWidth(tags)
+                        }rem`) ||
+                      `${theme.fontSizes[2]}rem`,
+                    // : theme.fontSizes[2],
                     transition:
                       'width 0.05s ease-in-out 0.12s,' +
                       'padding 0.05s ease-in-out 0.15s,' +
                       'opacity 0.05s ease-in-out 0.10s,' +
                       'font-size 0.05s ease-in-out 0.1s,' +
                       'visibility 0.05s ease-in-out 0.15s',
-                    // transition: 'visibility 0.2s ease-in-out 0.2s',
-                    fontSize: 2,
-                    padding: 1,
+                    // textAlign: 'end',
+                    fontSize: 0,
+                    margin: 1,
                     fontWeight: 'bold',
                     opacity: 1,
+                    letterSpacing: '-1px',
+                    whiteSpace: 'nowrap',
+                    textAlign: 'center',
                   }}>{`+ ${tags.length - 1}`}</em>
-                {/*<em sx={{*/}
-                {/*    fontSize: 2, padding: 1, fontWeight: 'bold'*/}
-                {/*}}>*/}
-                {/*  + {tags.length - 1}*/}
-                {/*</em>*/}
               </header>
             }
           </label>
