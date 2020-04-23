@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import fontList from '../../fontList.json';
-import { css, StyleSheet } from 'aphrodite';
+// import { css, StyleSheet } from 'aphrodite';
 import Autosuggest from 'react-autosuggest';
-import { lighten } from 'polished';
+// import { lighten } from 'polished';
 import { TypographyOptions, FontList } from '@saltit/typography-picker';
 
 // fixme can be extended/improved with custom / self-hosted fonts
@@ -16,50 +16,50 @@ export interface FontSelectToolProps {
     family: { category: string; family: string; weights: string[] },
   ) => void;
 }
-
-const styles = StyleSheet.create({
-  input: {
-    background:
-      "url(\"data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='18' height='18' viewBox='0 0 24 24'><path fill='rgb(153, 153, 153)' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>\")",
-    backgroundColor: lighten(10, '#AAE'),
-    backgroundPosition: '100% 10%',
-    backgroundRepeat: 'no-repeat',
-    border: '1px solid',
-    borderColor: lighten(10, '#FFC'),
-    borderRadius: 3,
-    color: '#000',
-    fontSize: 12,
-    width: '100%',
-    padding: '2px 8px',
-    marginBottom: 3.75,
-  },
-  suggestionsContainer: {
-    background: '#AAE',
-    border: '1px solid',
-    borderColor: '#FFC',
-    borderRadius: 3,
-    color: '#000',
-    fontSize: 12,
-    padding: 0,
-    margin: 0,
-    listStyle: 'none',
-    position: 'absolute',
-    zIndex: 1,
-    overflow: 'hidden',
-    overflowY: 'scroll',
-    maxHeight: '100px',
-    width: '93%',
-  },
-  suggestion: {
-    color: '#000',
-    padding: '3.75px 7px',
-    margin: 0,
-  },
-  suggestionFocused: {
-    background: '#FFC',
-    color: '#000',
-  },
-});
+//
+// const styles = StyleSheet.create({
+//   input: {
+//     background:
+//       "url(\"data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='18' height='18' viewBox='0 0 24 24'><path fill='rgb(153, 153, 153)' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>\")",
+//     backgroundColor: lighten(10, '#AAE'),
+//     backgroundPosition: '100% 10%',
+//     backgroundRepeat: 'no-repeat',
+//     border: '1px solid',
+//     borderColor: lighten(10, '#FFC'),
+//     borderRadius: 3,
+//     color: '#000',
+//     fontSize: 12,
+//     width: '100%',
+//     padding: '2px 8px',
+//     marginBottom: 3.75,
+//   },
+//   suggestionsContainer: {
+//     background: '#AAE',
+//     border: '1px solid',
+//     borderColor: '#FFC',
+//     borderRadius: 3,
+//     color: '#000',
+//     fontSize: 12,
+//     padding: 0,
+//     margin: 0,
+//     listStyle: 'none',
+//     position: 'absolute',
+//     zIndex: 1,
+//     overflow: 'hidden',
+//     overflowY: 'scroll',
+//     maxHeight: '100px',
+//     width: '93%',
+//   },
+//   suggestion: {
+//     color: '#000',
+//     padding: '3.75px 7px',
+//     margin: 0,
+//   },
+//   suggestionFocused: {
+//     background: '#FFC',
+//     color: '#000',
+//   },
+// });
 
 const options: { name: string }[] = fontList.map(font => ({
   name: font.family,
@@ -198,12 +198,12 @@ const FontSelectTool: React.FC<FontSelectToolProps> = ({
         selectFamilyChange(suggestionValue)
       }
       inputProps={inputProps}
-      theme={{
-        input: css(styles.input),
-        suggestionsContainer: css(styles.suggestionsContainer),
-        suggestion: css(styles.suggestion),
-        suggestionFocused: css(styles.suggestionFocused),
-      }}
+      // theme={{
+      //   input: css(styles.input),
+      //   suggestionsContainer: css(styles.suggestionsContainer),
+      //   suggestion: css(styles.suggestion),
+      //   suggestionFocused: css(styles.suggestionFocused),
+      // }}
     />
   );
 };
