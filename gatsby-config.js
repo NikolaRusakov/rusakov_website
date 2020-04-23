@@ -12,13 +12,12 @@ module.exports = {
         precachePages: [`/en/*`, `/cs/*`],
       },
     },
-    {
-  resolve: `gatsby-plugin-graphql-codegen`,
-  options: {
-
-    fileName: `./types/gatsby-graphql.ts`,
-  }
-},
+    // {
+    //   resolve: `gatsby-plugin-graphql-codegen`,
+    //   options: {
+    //     fileName: `./types/gatsby-graphql.ts`,
+    //   },
+    // },
     // `gatsby-transformer-json`,
     'gatsby-plugin-theme-ui',
     // fixme to be removed as soon as typography-picker will be i18n'd & configurable

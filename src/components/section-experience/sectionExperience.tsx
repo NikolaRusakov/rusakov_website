@@ -14,22 +14,13 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
-import { FileConnection, CompanySections } from '../../../types/gatsby-graphql';
+import {
+  FileConnection,
+  CompanySections,
+  TagEntity,
+} from '../../../types/gatsby-graphql';
 import { exists } from '../../utils/utils';
-
-export interface TagEntity {
-  name: string;
-  abbr?: string;
-  slug?: string;
-  count?: string;
-}
-
-const toTag = (name: string | null | undefined) =>
-  name && (
-    <Badge variant="muted" py={0} m={1}>
-      <span>{name}</span>
-    </Badge>
-  );
+import badgeList, { toBadge } from '../badge-list/badgeList';
 
 const renderMdx = (highlight: string) => (
   <React.Fragment>
@@ -37,9 +28,17 @@ const renderMdx = (highlight: string) => (
   </React.Fragment>
 );
 
-const renderBadges = (tags: TagEntity[], badge: keyof TagEntity) =>
+const renderBadges = ({
+  tags,
+  badge,
+  variant,
+}: {
+  tags: TagEntity[];
+  badge: keyof TagEntity;
+  variant: 'primary' | 'outline' | 'muted';
+}) =>
   tags.map((entity, index) => (
-    <Badge key={`tag-${entity.slug}-${index}`} variant="outline" py={0} m={1}>
+    <Badge key={`tag-${entity.name}-${index}`} variant={variant} py={0} m={1}>
       <span>{entity[badge]}</span>
     </Badge>
   ));
@@ -173,7 +172,11 @@ export const SectionExperienceHOC = () => {
         children: {
           ...body.children,
           ...header.experience,
-          projects: renderBadges(body.children.projects, 'abbr'),
+          projects: renderBadges({
+            tags: body.children.projects,
+            variant: 'outline',
+            badge: 'abbr',
+          }),
           highlight:
             highlight?.childMdx?.body && renderMdx(highlight.childMdx.body),
           detail: detail?.childMdx?.body && renderMdx(detail.childMdx.body),
@@ -181,9 +184,18 @@ export const SectionExperienceHOC = () => {
             companySection?.sections != null
               ? companySection.sections
               : undefined,
-          tags: renderBadges(body.children.tags, 'slug'),
+          tags: renderBadges({
+            tags: body.children.tags,
+            variant: 'outline',
+            badge: 'slug',
+          }),
           skills:
-            body.children.skills && renderBadges(body.children.skills, 'name'),
+            body.children.skills &&
+            renderBadges({
+              tags: body.children.skills,
+              variant: 'outline',
+              badge: 'name',
+            }),
         },
       },
     };
@@ -263,15 +275,15 @@ const SectionExperience: React.FC<{
                     <React.Fragment>
                       {tagSections?.map(section => (
                         <Flex sx={{ flexDirection: 'column', bg: 'muted' }}>
-                          <h2>{section?.section}</h2>
+                          <span>{section?.section}</span>
                           <Divider />
-                          <Flex sx={{ flexWrap: 'wrap' }}>
-                            {section?.tags?.map(tag =>
-                              exists(tag?.tags)
-                                ? tag?.tags?.map(childTag =>
-                                    toTag(childTag?.name),
-                                  )
-                                : toTag(tag?.name),
+                          <Flex sx={{ flexWrap: 'wrap', py: 1 }}>
+                            {section?.tags?.map(
+                              tag =>
+                                exists(tag) &&
+                                (exists(tag?.tags)
+                                  ? badgeList(tag?.tags)
+                                  : toBadge(tag)),
                             )}
                           </Flex>
                         </Flex>

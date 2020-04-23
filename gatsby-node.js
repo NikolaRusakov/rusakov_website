@@ -10,11 +10,13 @@ const i18nConfig = require('./config/i18n');
 exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
   createTypes([
     `
-    type TagEntity implements Node @dontInfer{
+    type TagEntity @dontInfer{
       key: String
       name: String
       count: String
       heading: String
+      abbr: String
+      slug: String
       tags : [TagEntity]
     }
    

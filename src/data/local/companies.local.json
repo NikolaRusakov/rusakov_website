@@ -31,7 +31,7 @@
       },
       {
         "section": "dx",
-        "tags": [["prettier", "husky", "lerna", "confluence", "browserstack"]]
+        "tags": ["prettier", "husky", "lerna", "confluence", "browserstack"]
       },
       {
         "section": "devops",
@@ -47,8 +47,6 @@
       {
         "section": "sls",
         "tags": [
-          "serverless",
-          "terraform",
           [
             "googleCloudPlatform",
             "terraform",
@@ -88,7 +86,9 @@
             "mlKit",
             "remoteConfig",
             "extensions"
-          ]
+          ],
+          "serverless",
+          "terraform"
         ]
       },
       {
