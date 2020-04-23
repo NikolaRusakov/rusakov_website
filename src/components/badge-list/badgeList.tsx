@@ -24,7 +24,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
   const sectionId = uuidv4();
   if (exists(tags)) {
     return tags?.length > 3 ? (
-      <div>
+      <div sx={{ m: 1 }}>
         <Global
           styles={theme => ({
             'input[type=checkbox]:checked + section': {
@@ -32,10 +32,23 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
               margin: `${theme.space[1]}px 0`,
               marginRight: `${theme.space[1]}px`,
               borderLeft: `6px solid ${theme.colors.secondary} !important`,
-              '& > header > span': {
-                fontWeight: 'bolder',
+              '& > label > header > em': {
+                width: 0,
+                visibility: 'hidden',
+                padding: 0,
+                fontSize: '0px',
+                opacity: 0,
+                transition:
+                  'width 0.05s ease-in-out 0.12s,' +
+                  'padding 0.05s ease-in-out 0.15s,' +
+                  'opacity 0.05s ease-in-out 0.05s,' +
+                  'font-size 0.07s ease-in-out 0.05s,' +
+                  'visibility 0.05s ease-in-out 0.12s',
               },
               border: 'none',
+              '& > label > header': {
+                justifyContent: 'center',
+              },
               '& > article': {
                 visibility: 'visible',
                 maxHeight: '200px',
@@ -47,7 +60,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                 padding: `${theme.space[1]}px 0`,
                 opacity: 1,
                 transition:
-                  'opacity 0.2s ease-in-out,max-width 0.1s ease-in-out,max-height 0.2s ease-in-out, visibility 0.25s ease-in-out 0.1s',
+                  'opacity 0.2s ease-in-out 0.1s, max-width 0.1s ease-in-out, max-height 0.2s ease-in-out, visibility 0.25s ease-in-out 0.1s, all ease-in-out 0.3s',
               },
             },
           })}
@@ -62,18 +75,55 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
           variant="badges.muted"
           sx={{
             borderRadius: '48px',
-            transition: 'max-height 0.15s ease-in',
+            transition:
+              'border 0.15s ease-in-out 0.1s, border-radius 0.15s ease-in-out 0.1s, max-height 0.15s ease-in-out, max-width 0.20s ease-in-out',
             border: theme => `1px solid ${theme.colors.primary}`,
           }}>
           <label htmlFor={`section-${sectionId}`}>
             {
-              <header sx={{ width: '100%', display: 'inline-flex' }}>
-                <span sx={{ fontSize: 2, padding: 1, fontWeight: 'bold' }}>
+              <header
+                sx={{
+                  width: '100%',
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                }}>
+                <span
+                  sx={{
+                    fontSize: 2,
+                    padding: 1,
+                    fontWeight: 'bold',
+                    position: 'relative',
+                    textOverflow: 'ellipsis',
+                    wordWrap: 'break-word',
+                    whiteSpace: 'pre-line',
+                  }}>
                   {tags[0]?.name}
                 </span>
-                <em sx={{ fontSize: 2, padding: 1, fontWeight: 'bold' }}>
-                  + {tags.length - 1}
-                </em>
+                <em
+                  sx={{
+                    visibility: 'visible',
+                    width: theme =>
+                      `${theme.fontSizes[2] *
+                        (tags.length / 10 < 1
+                          ? 2
+                          : Math.ceil(tags.length / 10) + 1)}px`,
+                    transition:
+                      'width 0.05s ease-in-out 0.12s,' +
+                      'padding 0.05s ease-in-out 0.15s,' +
+                      'opacity 0.05s ease-in-out 0.10s,' +
+                      'font-size 0.05s ease-in-out 0.1s,' +
+                      'visibility 0.05s ease-in-out 0.15s',
+                    // transition: 'visibility 0.2s ease-in-out 0.2s',
+                    fontSize: 2,
+                    padding: 1,
+                    fontWeight: 'bold',
+                    opacity: 1,
+                  }}>{`+ ${tags.length - 1}`}</em>
+                {/*<em sx={{*/}
+                {/*    fontSize: 2, padding: 1, fontWeight: 'bold'*/}
+                {/*}}>*/}
+                {/*  + {tags.length - 1}*/}
+                {/*</em>*/}
               </header>
             }
           </label>

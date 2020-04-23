@@ -277,7 +277,12 @@ const SectionExperience: React.FC<{
                         <Flex sx={{ flexDirection: 'column', bg: 'muted' }}>
                           <span>{section?.section}</span>
                           <Divider />
-                          <Flex sx={{ flexWrap: 'wrap', py: 1 }}>
+                          <Flex
+                            sx={{
+                              flexWrap: 'wrap',
+                              py: 1,
+                              alignItems: 'baseline',
+                            }}>
                             {section?.tags?.map(
                               tag =>
                                 exists(tag) &&
