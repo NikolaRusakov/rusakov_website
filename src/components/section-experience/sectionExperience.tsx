@@ -151,14 +151,7 @@ export const SectionExperienceHOC = () => {
     const companySection = companySections?.skills
       ?.filter(skill => skill?.locale == locale)[0]
       ?.data?.filter(section => section?.shortKey == tmpCompanyKey)[0];
-    // const mapTagSections = (skills: Array<Maybe<SkillCompanySection>>) =>
-    //   skills
-    //     ?.filter(skill => skill?.locale == locale)
-    //     .map(companySection => {
-    //       companySection?.data
-    //         ?.filter(section => section?.shortKey == tmpCompanyKey)
-    //         .map(value => value?.sections);
-    //     });
+
     return {
       header: Lens.fromPath<SectionHeaderProps>()([
         'experience',
@@ -230,7 +223,7 @@ const SectionExperience: React.FC<{
     expList.reduce(
       (acc, cur) => ({
         ...acc,
-        [cur]: false,
+        [cur]: true,
       }),
       {},
     ),
