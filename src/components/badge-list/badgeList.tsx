@@ -46,7 +46,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                 '& > label > header': {
                   display: 'flex',
                   justifyContent: 'center',
-                  transition: 'justify-content 0.15 ease-in-out 0.1s',
+                  transition: 'justify-content 0.15 ease-in-out 0.05s',
                   '& span': {
                     fontWeight: 'bold',
                   },
