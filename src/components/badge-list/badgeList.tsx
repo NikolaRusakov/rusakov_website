@@ -28,58 +28,52 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
     return tags?.length > 3 ? (
       <div sx={{ m: 1, maxWidth: '97%', position: 'relative' }}>
         <Global
-          styles={theme => {
-            console.log({
-              accent: theme.colors.accent,
-              muted: theme.colors.muted,
-            });
-            return {
-              'input[type=checkbox]:checked + section': {
-                margin: `${theme.space[1]}px 0`,
-                marginRight: `${theme.space[1]}px`,
-                borderLeft: `6px solid ${theme.colors.secondary} !important`,
-                borderRadius: 0,
-                border: 'none',
-                transition:
-                  'border-radius 0.1s ease-in-out 0.05s, border 0.05s ease-in-out 0.1s',
+          styles={theme => ({
+            'input[type=checkbox]:checked + section': {
+              margin: `${theme.space[1]}px 0`,
+              marginRight: `${theme.space[1]}px`,
+              borderLeft: `6px solid ${theme.colors.secondary} !important`,
+              borderRadius: 0,
+              border: 'none',
+              transition:
+                'border-radius 0.1s ease-in-out 0.05s, border 0.05s ease-in-out 0.1s',
 
-                '& > label > header': {
-                  display: 'flex',
-                  justifyContent: 'center',
-                  transition: 'justify-content 0.15 ease-in-out 0.05s',
-                  '& span': {
-                    fontWeight: 'bold',
-                  },
-                  '& em': {
-                    width: 0,
-                    visibility: 'hidden',
-                    padding: 0,
-                    fontSize: '0px',
-                    opacity: 0,
-                    transition:
-                      'width 0.05s ease-in-out 0.10s,' +
-                      'padding 0.05s ease-in-out 0.10s,' +
-                      'opacity 0.05s ease-in-out 0.05s,' +
-                      'font-size 0.07s ease-in-out 0.05s,' +
-                      'visibility 0.05s ease-in-out 0.10s',
-                  },
+              '& > label > header': {
+                display: 'flex',
+                justifyContent: 'center',
+                transition: 'justify-content 0.15 ease-in-out 0.05s',
+                '& span': {
+                  fontWeight: 'bold',
                 },
-                '& > article': {
-                  visibility: 'visible',
-                  maxHeight: '900px',
-                  maxWidth: '900px',
-                  backgroundColor:
-                    theme.colors.highlight ||
-                    theme.colors.accent ||
-                    theme.colors.muted,
-                  padding: `${theme.space[1]}px 0`,
-                  opacity: 1,
+                '& em': {
+                  width: 0,
+                  visibility: 'hidden',
+                  padding: 0,
+                  fontSize: '0px',
+                  opacity: 0,
                   transition:
-                    'opacity 0.2s ease-in-out 0.1s, max-width 0.1s ease-in-out, max-height 0.2s ease-in-out, visibility 0.25s ease-in-out 0.1s',
+                    'width 0.05s ease-in-out 0.10s,' +
+                    'padding 0.05s ease-in-out 0.10s,' +
+                    'opacity 0.05s ease-in-out 0.05s,' +
+                    'font-size 0.07s ease-in-out 0.05s,' +
+                    'visibility 0.05s ease-in-out 0.10s',
                 },
               },
-            };
-          }}
+              '& > article': {
+                visibility: 'visible',
+                maxHeight: '900px',
+                maxWidth: '900px',
+                backgroundColor:
+                  theme.colors.highlight ||
+                  theme.colors.accent ||
+                  theme.colors.muted,
+                padding: `${theme.space[1]}px 0`,
+                opacity: 1,
+                transition:
+                  'opacity 0.2s ease-in-out 0.1s, max-width 0.1s ease-in-out, max-height 0.2s ease-in-out, visibility 0.25s ease-in-out 0.1s',
+              },
+            },
+          })}
         />
         <HiddenCheckbox
           type="checkbox"
