@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
+import { Badge, Box, Divider, Flex, Heading, jsx } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
 import i18n from 'i18next';
+import i18next from 'i18next';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
 import { Section } from '../section';
@@ -10,13 +11,12 @@ import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
 import Checkbox from '../checkbox/checkbox';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useTranslation } from 'react-i18next';
-import i18next from 'i18next';
 import {
-  FileConnection,
   CompanySections,
+  FileConnection,
   TagEntity,
 } from '../../../types/gatsby-graphql';
 import { exists } from '../../utils/utils';
@@ -268,15 +268,45 @@ const SectionExperience: React.FC<{
                 <SectionHeader
                   experience={experience}
                   externalProps={externalProps}>
-                  <Box sx={{ maxWidth: ['100%', '70%', '70%'] }}>
-                    {highlight}
-                  </Box>
+                  {hideDetails[expList[index]] && (
+                    <Box sx={{ maxWidth: ['100%', '70%', '70%'] }}>
+                      {highlight}
+                    </Box>
+                  )}
                   {!hideDetails[expList[index]] && (
                     <React.Fragment>
                       {tagSections?.map(section => (
-                        <Flex sx={{ flexDirection: 'column', bg: 'muted' }}>
-                          <span>{section?.section}</span>
-                          <Divider />
+                        <Flex
+                          sx={{
+                            flexDirection: 'column',
+                            bg: 'muted',
+                            maxWidth: ['100%', '100%', '90%'],
+                          }}>
+                          <header
+                            sx={{
+                              display: 'flex',
+                              width: '95%',
+                              alignSelf: 'center',
+                              borderBottom: theme =>
+                                `1px solid ${theme.colors.primary}`,
+                            }}>
+                            <Box
+                              sx={{
+                                marginBottom: 0,
+                                px: 1,
+                                fontWeight: 'bold',
+                                color: 'background',
+                                bg: 'text',
+                                textTransform: 'uppercase',
+                                borderTopLeftRadius: 1,
+                                borderTopRightRadius: 1,
+                              }}
+                              px={1}
+                              my={1}
+                              mr={1}>
+                              {section?.section}
+                            </Box>
+                          </header>
                           <Flex
                             sx={{
                               flexWrap: 'wrap',
@@ -296,7 +326,6 @@ const SectionExperience: React.FC<{
                       <section
                         {...morphs[index]}
                         sx={{ maxWidth: ['100%', '70%', '70%'] }}>
-                        <Divider />
                         {skills}
                       </section>
                     </React.Fragment>
