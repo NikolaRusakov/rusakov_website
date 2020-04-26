@@ -32,7 +32,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
             'input[type=checkbox]:checked + section': {
               margin: `${theme.space[1]}px 0`,
               marginRight: `${theme.space[1]}px`,
-              borderLeft: `6px solid ${theme.colors.secondary} !important`,
+              borderLeft: `5px solid ${theme.colors.secondary} !important`,
               borderRadius: 0,
               border: 'none',
               transition:

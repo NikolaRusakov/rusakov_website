@@ -140,8 +140,9 @@ export const theme = {
   cards: {
     primary: {
       padding: 2,
-      borderRadius: 4,
-      boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.5)',
+      borderRadius: 2,
+      border: theme => `2px solid ${theme.colors.primary}`,
+      // boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.5)',
     },
     secondary: {
       padding: 1,
