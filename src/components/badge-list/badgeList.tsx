@@ -15,7 +15,7 @@ export const toBadge = (tag: TagEntity, styles = {}) =>
     <Badge
       key={`badge- ${uuidv4()}`}
       variant="muted"
-      sx={{ ...styles }}
+      sx={{ ...styles, whiteSpace: 'normal' }}
       py={0}
       m={1}>
       <span>{tag.name}</span>
@@ -43,7 +43,8 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                 justifyContent: 'center',
                 transition: 'justify-content 0.15 ease-in-out 0.05s',
                 '& span': {
-                  fontWeight: 'bold',
+                    whiteSpace: 'normal',
+                    fontWeight: 'bold',
                 },
                 '& em': {
                   width: 0,
@@ -61,8 +62,8 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
               },
               '& > article': {
                 visibility: 'visible',
-                maxHeight: '900px',
-                maxWidth: '900px',
+                maxHeight: '1900px',
+                maxWidth: '1900px',
                 backgroundColor:
                   theme.colors.highlight ||
                   theme.colors.accent ||
@@ -85,7 +86,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
           variant="badges.muted"
           sx={{
             position: 'relative',
-            borderRadius: '48px',
+            borderRadius: theme => theme.space[2] * 1.5,
             transition:
               'border 0.15s ease-in-out 0.1s, border-radius 0.15s ease-in-out 0.1s, max-height 0.15s ease-in-out, max-width 0.20s ease-in-out',
             border: theme => `1px solid ${theme.colors.primary}`,
@@ -97,17 +98,19 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                   maxWidth: '100%',
                   display: 'flex',
                   justifyContent: 'center',
-                  padding: '0 4px',
+                  // padding: '0 4px',
                 }}>
                 <span
                   sx={{
                     fontSize: 0,
+                    paddingRight: '0 !important',
                     padding: 1,
                     position: 'relative',
                     textOverflow: 'ellipsis',
                     overflow: 'hidden',
                     wordWrap: 'break-word',
                     whiteSpace: 'nowrap',
+                    maxWidth: '85%',
                   }}>
                   {tags[0]?.name}
                 </span>
@@ -131,6 +134,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                       'visibility 0.05s ease-in-out 0.15s',
                     // textAlign: 'end',
                     fontSize: 0,
+                    marginLeft: '0 !important',
                     margin: 1,
                     fontWeight: 'bold',
                     opacity: 1,

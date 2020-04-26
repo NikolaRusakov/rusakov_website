@@ -1,1 +1,413 @@
-[{"shortKey":"flowup","sections":[{"section":"be","tags":[{"key":"nodejs","name":"Node.js"},{"key":"typescript","name":"TypeScript","heading":"Další dovednosti","count":"5"},{"key":"graphql","name":"GraphQL","heading":"Další dovednosti","count":"3"},{"key":"apollo","name":"Apollo"},{"key":"go","name":"Golang"}]},{"section":"fe","tags":[[{"key":"angular","name":"Angular","count":"11"},{"key":"ionicFramework","name":"Ionic Framework","heading":"Další dovednosti","count":"6"},{"key":"nx","name":"Nx (Nrwl)"},{"key":"rxjs","name":"RxJS","heading":"Další dovednosti","count":"3"},{"key":"ngrx","name":"NgRx"},{"key":"angularUniversal","name":"Angular Universal"}],[{"key":"css","name":"CSS","heading":"Nástroje a technologie","count":"5"},{"key":"scss","name":"SCSS"},{"key":"angularFlexLayout","name":"Angular Flex-layout"}],{"key":"hmtl5","name":"HTML5"},{"key":"jest","name":"Jest"},{"key":"storybook","name":"Storybook"},{"key":"protractor","name":"Protractor"},{"key":"playwright","name":"Playwright"},{"key":"cordova","name":"Apache Cordova"},{"key":"capacitor","name":"Capacitor"},{"key":"flutter","name":"Flutter","heading":"Další dovednosti","count":"2"}]},{"section":"dx","tags":[{"key":"prettier","name":"Prettier"},{"key":"husky","name":"Husky"},{"key":"lerna","name":"Lerna"},{"key":"browserstack","name":"Browserstack"}]},{"section":"devops","tags":[{"key":"bitrise","name":"Bitrise"},{"key":"fastlane","name":"Fastlane"},{"key":"bamboo","name":"Bamboo Atlassian"},{"key":"githubActions","name":"Github Actions"},{"key":"androidStudio","name":"Android Studio"},{"key":"xcode","name":"Xcode"}]},{"section":"sls","tags":[[{"key":"googleCloudPlatform","name":"Google Cloud Platform"},{"key":"terraform","name":"Terraform"},{"key":"docker","name":"Docker","heading":"Nástroje a technologie","count":"1"},{"key":"kubernetes","name":"Kubernetes"},{"key":"computeEngine","name":"Compute Engine"},{"key":"iam","name":"IAM"},{"key":"cloudStorage","name":"Cloud Storage"},{"key":"cloudRun","name":"Cloud Run"},{"key":"appEngine","name":"App Engine"},{"key":"networking","name":"Networking"}],[{"key":"amazonWebServices","name":"Amazon Web Services (AWS)","heading":"Nástroje a technologie"},{"key":"serverless","name":"Serverless"},{"key":"terraform","name":"Terraform"},{"key":"cloudformation","name":"CloudFormation"},{"key":"lambda","name":"Lambda"},{"key":"stepFunctions","name":"Step Functions"},{"key":"appsync","name":""},{"key":"amplify","name":"Amplify"},{"key":"dynamodb","name":"DynamoDB"},{"key":"s3","name":"S3"},{"key":"cloudfront","name":"CloudFront"},{"key":"apiGateway","name":"API Gateway"},{"key":"route53","name":"Route 53"},{"key":"iam","name":"IAM"},{"key":"sqs","name":"Simple Queue Service"}],[{"key":"firebase","name":"Firebase","heading":"Další dovednosti","count":"1"},{"key":"firestore","name":"Firestore"},{"key":"hosting","name":"Hosting"},{"key":"storage","name":"Storage"},{"key":"cloudFunctions","name":"Cloud Functions"},{"key":"authentication","name":"Authentication"},{"key":"mlKit","name":"ML Kit"},{"key":"remoteConfig","name":"Remote Config"},{"key":"extensions","name":"Extensions"}],{"key":"serverless","name":"Serverless"},{"key":"terraform","name":"Terraform"}]},{"section":"other","tags":[{"key":"codeReview","name":"Code Review"},{"key":"agileMethodologies","name":"Agile Methodologies","heading":"Znalosti v oboru","count":"2"},{"key":"mentor","name":"Mentoring"},{"key":"scrum","name":"Scrum"},{"key":"workshop","name":"Workshop"},{"key":"bootcamp","name":"Bootcamp"},{"key":"publicSpeaking","name":"Public Speaking"},{"key":"a11y","name":"Accessibility"},{"key":"i18n","name":"Internationalization"},{"key":"l10n","name":"Localization"},{"key":"seo","name":"Search Engine Optimization"},{"key":"smo","name":"Social Media Optimization"}]}]},{"shortKey":"sprint","sections":[{"section":"fe","tags":[{"key":"angular","name":"Angular","count":"11"},{"key":"typescript","name":"TypeScript","heading":"Další dovednosti","count":"5"},{"key":"ngrx","name":"NgRx"},{"key":"angularFlexLayout","name":"Angular Flex-layout"},{"key":"rxjs","name":"RxJS","heading":"Další dovednosti","count":"3"},{"key":"jest","name":"Jest"},{"key":"storybook","name":"Storybook"}]},{"section":"sls","tags":[{"key":"firebase","name":"Firebase","heading":"Další dovednosti","count":"1"},{"key":"hosting","name":"Hosting"}]},{"section":"dx","tags":[{"key":"browserstack","name":"Browserstack"},{"key":"prettier","name":"Prettier"},{"key":"swagger","name":"Swagger","heading":"Další dovednosti"}]},{"section":"devops","tags":[{"key":"gitlabcicd","name":"Gitlab CI/CD"}]}]},{"shortKey":"marbes","sections":[{"section":"be","tags":[[{"key":"java","name":"Java","heading":"Nástroje a technologie"},{"key":"hibernate","name":"Hibernate","heading":"Nástroje a technologie"},{"key":"tomcat","name":"Apache Tomcat"},{"key":"spring","name":"Spring"},{"key":"springBoot","name":"Spring Boot"},{"key":"orikaMapper","name":"Orika Mapper"},{"key":"freeMarker","name":"FreeMarker"},{"key":"swagger","name":"Swagger","heading":"Další dovednosti"},{"key":"maven","name":"Maven","heading":"Nástroje a technologie"},{"key":"elasticSearch","name":"ElasticSearch"}],{"key":"rabbitmq","name":"RabbitMQ"},[{"key":"php","name":"PHP","heading":"Nástroje a technologie"},{"key":"yii2","name":"Yii2"}]]},{"section":"devops","tags":[{"key":"docker","name":"Docker","heading":"Nástroje a technologie","count":"1"},{"key":"dockerSwarm","name":"Docker Swarm"},{"key":"gitlabcicd","name":"Gitlab CI/CD"},{"key":"jenkins","name":"Jenkins"},{"key":"testcafe","name":"TestCafe"}]},{"section":"fe","tags":[[{"key":"reactjs","name":"ReactJS","count":"4"},{"key":"redux","name":"Redux","heading":"Další dovednosti","count":"2"},{"key":"reduxForm","name":"Redux Form"}],{"key":"webpack","name":"Webpack"},{"key":"flow","name":"Flow"},{"key":"babel","name":"Babel"},{"key":"typescript","name":"TypeScript","heading":"Další dovednosti","count":"5"},{"key":"scss","name":"SCSS"},{"key":"html5","name":"HTML5"},{"key":"jquery","name":"jQuery"},[{"key":"java","name":"Java","heading":"Nástroje a technologie"},{"key":"vaadin","name":"Vaadin"}]]},{"section":"other","tags":[[{"key":"db","name":"Database"},{"key":"mysql","name":"MySQL"},{"key":"postgresql","name":"PostgreSQL","heading":"Nástroje a technologie"},{"key":"mssql","name":"Microsoft SQL Server"},{"key":"sql","name":"SQL","heading":"Nástroje a technologie"}],[{"key":"os","name":"Operating System"},{"key":"ubuntu","name":"Ubuntu"},{"key":"arch","name":"Arch"}]]}]},{"shortKey":"futuretek","sections":[{"section":"fe","tags":[[{"key":"reactjs","name":"ReactJS","count":"4"},{"key":"redux","name":"Redux","heading":"Další dovednosti","count":"2"},{"key":"reduxForm","name":"Redux Form"}],{"key":"webpack","name":"Webpack"},{"key":"flow","name":"Flow"},{"key":"babel","name":"Babel"},{"key":"scss","name":"SCSS"},{"key":"css","name":"CSS","heading":"Nástroje a technologie","count":"5"},{"key":"html5","name":"HTML5"}]},{"section":"be","tags":[[{"key":"java","name":"Java","heading":"Nástroje a technologie"},{"key":"spring","name":"Spring"},{"key":"springBoot","name":"Spring Boot"},{"key":"orikaMapper","name":"Orika Mapper"},{"key":"mapdb","name":"MapDB"},{"key":"maven","name":"Maven","heading":"Nástroje a technologie"}],{"key":"nodejs","name":"Node.js"}]},{"section":"devops","tags":[{"key":"docker","name":"Docker","heading":"Nástroje a technologie","count":"1"}]},{"section":"other","tags":[{"key":"codeReview","name":"Code Review"}]}]}]
+[
+  {
+    "shortKey": "flowup",
+    "sections": [
+      {
+        "section": "be",
+        "tags": [
+          { "key": "nodejs", "name": "Node.js" },
+          {
+            "key": "typescript",
+            "name": "TypeScript",
+            "heading": "Další dovednosti",
+            "count": "5"
+          },
+          {
+            "key": "graphql",
+            "name": "GraphQL",
+            "heading": "Další dovednosti",
+            "count": "3"
+          },
+          { "key": "apollo", "name": "Apollo" },
+          { "key": "go", "name": "Golang" }
+        ]
+      },
+      {
+        "section": "fe",
+        "tags": [
+          [
+            { "key": "angular", "name": "Angular", "count": "11" },
+            {
+              "key": "ionicFramework",
+              "name": "Ionic Framework",
+              "heading": "Další dovednosti",
+              "count": "6"
+            },
+            { "key": "nx", "name": "Nx (Nrwl)" },
+            {
+              "key": "rxjs",
+              "name": "RxJS",
+              "heading": "Další dovednosti",
+              "count": "3"
+            },
+            { "key": "ngrx", "name": "NgRx" },
+            { "key": "angularUniversal", "name": "Angular Universal" }
+          ],
+          [
+            {
+              "key": "css",
+              "name": "CSS",
+              "heading": "Nástroje a technologie",
+              "count": "5"
+            },
+            { "key": "scss", "name": "SCSS" },
+            { "key": "angularFlexLayout", "name": "Angular Flex-layout" }
+          ],
+          { "key": "hmtl5", "name": "HTML5" },
+          { "key": "jest", "name": "Jest" },
+          { "key": "storybook", "name": "Storybook" },
+          { "key": "protractor", "name": "Protractor" },
+          { "key": "playwright", "name": "Playwright" },
+          { "key": "cordova", "name": "Apache Cordova" },
+          { "key": "capacitor", "name": "Capacitor" },
+          {
+            "key": "flutter",
+            "name": "Flutter",
+            "heading": "Další dovednosti",
+            "count": "2"
+          }
+        ]
+      },
+      {
+        "section": "dx",
+        "tags": [
+          { "key": "prettier", "name": "Prettier" },
+          { "key": "husky", "name": "Husky" },
+          { "key": "lerna", "name": "Lerna" },
+          { "key": "browserstack", "name": "Browserstack" }
+        ]
+      },
+      {
+        "section": "devops",
+        "tags": [
+          { "key": "bitrise", "name": "Bitrise" },
+          { "key": "fastlane", "name": "Fastlane" },
+          { "key": "bamboo", "name": "Bamboo Atlassian" },
+          { "key": "githubActions", "name": "Github Actions" },
+          { "key": "androidStudio", "name": "Android Studio" },
+          { "key": "xcode", "name": "Xcode" }
+        ]
+      },
+      {
+        "section": "sls",
+        "tags": [
+          [
+            { "key": "googleCloudPlatform", "name": "Google Cloud Platform" },
+            { "key": "terraform", "name": "Terraform" },
+            {
+              "key": "docker",
+              "name": "Docker",
+              "heading": "Nástroje a technologie",
+              "count": "1"
+            },
+            { "key": "kubernetes", "name": "Kubernetes" },
+            { "key": "computeEngine", "name": "Compute Engine" },
+            { "key": "iam", "name": "IAM" },
+            { "key": "cloudStorage", "name": "Cloud Storage" },
+            { "key": "cloudRun", "name": "Cloud Run" },
+            { "key": "appEngine", "name": "App Engine" },
+            { "key": "networking", "name": "Networking" }
+          ],
+          [
+            {
+              "key": "amazonWebServices",
+              "name": "Amazon Web Services (AWS)",
+              "heading": "Nástroje a technologie"
+            },
+            { "key": "serverless", "name": "Serverless" },
+            { "key": "terraform", "name": "Terraform" },
+            { "key": "cloudformation", "name": "CloudFormation" },
+            { "key": "lambda", "name": "Lambda" },
+            { "key": "stepFunctions", "name": "Step Functions" },
+            { "key": "appsync", "name": "" },
+            { "key": "amplify", "name": "Amplify" },
+            { "key": "dynamodb", "name": "DynamoDB" },
+            { "key": "s3", "name": "S3" },
+            { "key": "cloudfront", "name": "CloudFront" },
+            { "key": "apiGateway", "name": "API Gateway" },
+            { "key": "route53", "name": "Route 53" },
+            { "key": "iam", "name": "IAM" },
+            { "key": "sqs", "name": "Simple Queue Service" }
+          ],
+          [
+            {
+              "key": "firebase",
+              "name": "Firebase",
+              "heading": "Další dovednosti",
+              "count": "1"
+            },
+            { "key": "firestore", "name": "Firestore" },
+            { "key": "hosting", "name": "Hosting" },
+            { "key": "storage", "name": "Storage" },
+            { "key": "cloudFunctions", "name": "Cloud Functions" },
+            { "key": "authentication", "name": "Authentication" },
+            { "key": "mlKit", "name": "ML Kit" },
+            { "key": "remoteConfig", "name": "Remote Config" },
+            { "key": "extensions", "name": "Extensions" }
+          ],
+          { "key": "serverless", "name": "Serverless" },
+          { "key": "terraform", "name": "Terraform" }
+        ]
+      },
+      {
+        "section": "other",
+        "tags": [
+          { "key": "codeReview", "name": "Code Review" },
+          {
+            "key": "agileMethodologies",
+            "name": "Agile Methodologies",
+            "heading": "Znalosti v oboru",
+            "count": "2"
+          },
+          { "key": "mentor", "name": "Mentoring" },
+          { "key": "scrum", "name": "Scrum" },
+          { "key": "workshop", "name": "Workshop" },
+          { "key": "bootcamp", "name": "Bootcamp" },
+          { "key": "publicSpeaking", "name": "Public Speaking" },
+          { "key": "a11y", "name": "Accessibility" },
+          { "key": "i18n", "name": "Internationalization" },
+          { "key": "l10n", "name": "Localization" },
+          { "key": "seo", "name": "Search Engine Optimization" },
+          { "key": "smo", "name": "Social Media Optimization" }
+        ]
+      }
+    ]
+  },
+  {
+    "shortKey": "sprint",
+    "sections": [
+      {
+        "section": "fe",
+        "tags": [
+          { "key": "angular", "name": "Angular", "count": "11" },
+          {
+            "key": "typescript",
+            "name": "TypeScript",
+            "heading": "Další dovednosti",
+            "count": "5"
+          },
+          { "key": "ngrx", "name": "NgRx" },
+          { "key": "angularFlexLayout", "name": "Angular Flex-layout" },
+          {
+            "key": "rxjs",
+            "name": "RxJS",
+            "heading": "Další dovednosti",
+            "count": "3"
+          },
+          { "key": "jest", "name": "Jest" },
+          { "key": "storybook", "name": "Storybook" }
+        ]
+      },
+      {
+        "section": "sls",
+        "tags": [
+          {
+            "key": "firebase",
+            "name": "Firebase",
+            "heading": "Další dovednosti",
+            "count": "1"
+          },
+          { "key": "hosting", "name": "Hosting" }
+        ]
+      },
+      {
+        "section": "dx",
+        "tags": [
+          { "key": "browserstack", "name": "Browserstack" },
+          { "key": "prettier", "name": "Prettier" },
+          { "key": "swagger", "name": "Swagger", "heading": "Další dovednosti" }
+        ]
+      },
+      {
+        "section": "devops",
+        "tags": [{ "key": "gitlabcicd", "name": "Gitlab CI/CD" }]
+      }
+    ]
+  },
+  {
+    "shortKey": "marbes",
+    "sections": [
+      {
+        "section": "be",
+        "tags": [
+          [
+            {
+              "key": "java",
+              "name": "Java",
+              "heading": "Nástroje a technologie"
+            },
+            {
+              "key": "hibernate",
+              "name": "Hibernate",
+              "heading": "Nástroje a technologie"
+            },
+            { "key": "tomcat", "name": "Apache Tomcat" },
+            { "key": "spring", "name": "Spring" },
+            { "key": "springBoot", "name": "Spring Boot" },
+            { "key": "orikaMapper", "name": "Orika Mapper" },
+            { "key": "freeMarker", "name": "FreeMarker" },
+            {
+              "key": "swagger",
+              "name": "Swagger",
+              "heading": "Další dovednosti"
+            },
+            {
+              "key": "maven",
+              "name": "Maven",
+              "heading": "Nástroje a technologie"
+            },
+            { "key": "elasticSearch", "name": "ElasticSearch" }
+          ],
+          { "key": "rabbitmq", "name": "RabbitMQ" },
+          [
+            {
+              "key": "php",
+              "name": "PHP",
+              "heading": "Nástroje a technologie"
+            },
+            { "key": "yii2", "name": "Yii2" }
+          ]
+        ]
+      },
+      {
+        "section": "devops",
+        "tags": [
+          {
+            "key": "docker",
+            "name": "Docker",
+            "heading": "Nástroje a technologie",
+            "count": "1"
+          },
+          { "key": "dockerSwarm", "name": "Docker Swarm" },
+          { "key": "gitlabcicd", "name": "Gitlab CI/CD" },
+          { "key": "jenkins", "name": "Jenkins" },
+          { "key": "testcafe", "name": "TestCafe" }
+        ]
+      },
+      {
+        "section": "fe",
+        "tags": [
+          [
+            { "key": "reactjs", "name": "ReactJS", "count": "4" },
+            {
+              "key": "redux",
+              "name": "Redux",
+              "heading": "Další dovednosti",
+              "count": "2"
+            },
+            { "key": "reduxForm", "name": "Redux Form" }
+          ],
+          { "key": "webpack", "name": "Webpack" },
+          { "key": "flow", "name": "Flow" },
+          { "key": "babel", "name": "Babel" },
+          {
+            "key": "typescript",
+            "name": "TypeScript",
+            "heading": "Další dovednosti",
+            "count": "5"
+          },
+          { "key": "scss", "name": "SCSS" },
+          { "key": "html5", "name": "HTML5" },
+          { "key": "jquery", "name": "jQuery" },
+          [
+            {
+              "key": "java",
+              "name": "Java",
+              "heading": "Nástroje a technologie"
+            },
+            { "key": "vaadin", "name": "Vaadin" }
+          ]
+        ]
+      },
+      {
+        "section": "other",
+        "tags": [
+          [
+            { "key": "db", "name": "Database" },
+            { "key": "mysql", "name": "MySQL" },
+            {
+              "key": "postgresql",
+              "name": "PostgreSQL",
+              "heading": "Nástroje a technologie"
+            },
+            { "key": "mssql", "name": "Microsoft SQL Server" },
+            { "key": "sql", "name": "SQL", "heading": "Nástroje a technologie" }
+          ],
+          [
+            { "key": "os", "name": "Operating System" },
+            { "key": "ubuntu", "name": "Ubuntu" },
+            { "key": "arch", "name": "Arch" }
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "shortKey": "futuretek",
+    "sections": [
+      {
+        "section": "fe",
+        "tags": [
+          [
+            { "key": "reactjs", "name": "ReactJS", "count": "4" },
+            {
+              "key": "redux",
+              "name": "Redux",
+              "heading": "Další dovednosti",
+              "count": "2"
+            },
+            { "key": "reduxForm", "name": "Redux Form" }
+          ],
+          { "key": "webpack", "name": "Webpack" },
+          { "key": "flow", "name": "Flow" },
+          { "key": "babel", "name": "Babel" },
+          { "key": "scss", "name": "SCSS" },
+          {
+            "key": "css",
+            "name": "CSS",
+            "heading": "Nástroje a technologie",
+            "count": "5"
+          },
+          { "key": "html5", "name": "HTML5" }
+        ]
+      },
+      {
+        "section": "be",
+        "tags": [
+          [
+            {
+              "key": "java",
+              "name": "Java",
+              "heading": "Nástroje a technologie"
+            },
+            { "key": "spring", "name": "Spring" },
+            { "key": "springBoot", "name": "Spring Boot" },
+            { "key": "orikaMapper", "name": "Orika Mapper" },
+            { "key": "mapdb", "name": "MapDB" },
+            {
+              "key": "maven",
+              "name": "Maven",
+              "heading": "Nástroje a technologie"
+            }
+          ],
+          { "key": "nodejs", "name": "Node.js" }
+        ]
+      },
+      {
+        "section": "devops",
+        "tags": [
+          {
+            "key": "docker",
+            "name": "Docker",
+            "heading": "Nástroje a technologie",
+            "count": "1"
+          }
+        ]
+      },
+      {
+        "section": "other",
+        "tags": [{ "key": "codeReview", "name": "Code Review" }]
+      }
+    ]
+  }
+]

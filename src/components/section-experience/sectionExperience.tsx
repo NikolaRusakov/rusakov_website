@@ -267,13 +267,19 @@ const SectionExperience: React.FC<{
                     </Box>
                   )}
                   {!hideDetails[expList[index]] && (
-                    <React.Fragment>
+                    <div
+                      sx={theme => ({
+                        borderRadius: 2,
+                        maxWidth: ['100%', '100%', '90%'],
+                        bg: 'muted',
+                        boxShadow: `0 0 2px ${theme.colors.secondary} inset`,
+                        padding: '0.5em',
+                        // borderRadius: '2%',
+                      })}>
                       {tagSections?.map(section => (
                         <Flex
                           sx={{
                             flexDirection: 'column',
-                            bg: 'muted',
-                            maxWidth: ['100%', '100%', '90%'],
                           }}>
                           <header
                             sx={{
@@ -281,7 +287,7 @@ const SectionExperience: React.FC<{
                               width: '95%',
                               alignSelf: 'center',
                               borderBottom: theme =>
-                                `1px solid ${theme.colors.primary}`,
+                                `1px solid ${theme.colors.text}`,
                             }}>
                             <Box
                               sx={{
@@ -316,12 +322,12 @@ const SectionExperience: React.FC<{
                           </Flex>
                         </Flex>
                       ))}
-                      <section
-                        {...morphs[index]}
-                        sx={{ maxWidth: ['100%', '70%', '70%'] }}>
-                        {skills}
-                      </section>
-                    </React.Fragment>
+                      {/*<section*/}
+                      {/*  {...morphs[index]}*/}
+                      {/*  sx={{ maxWidth: ['100%', '70%', '70%'] }}>*/}
+                      {/*  {skills}*/}
+                      {/*</section>*/}
+                    </div>
                   )}
                 </SectionHeader>
               </Flex>
