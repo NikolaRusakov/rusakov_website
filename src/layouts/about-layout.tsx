@@ -15,8 +15,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useTranslation } from 'react-i18next';
 
 import { Helmet } from 'react-helmet';
-import defaultTheme from '../gatsby-plugin-theme-ui/index';
-import altonTheme from 'typography-theme-alton';
+import usStandards from 'typography-theme-us-web-design-standards';
 import { useMemo, useState } from 'react';
 import Typography from 'typography';
 import merge from 'deepmerge';
@@ -47,7 +46,7 @@ import { Link } from 'gatsby';
 import i18next from 'i18next';
 
 const presets = {
-  light: defaultTheme,
+  light: bulma,
   base,
   system,
   funk,
@@ -73,7 +72,7 @@ const preset = (v: string) => ({
 const AboutLayout: React.FC = children => {
   const { theme: themeSet, colorMode } = useThemeUI();
   const [mode, setMode] = useColorMode();
-  // const { backToHome } = useTranslations();
+
   const { t } = useTranslation();
   const typographyNaming = i18next.getResourceBundle(
     i18next.language,
@@ -86,7 +85,7 @@ const AboutLayout: React.FC = children => {
       : themeSet.colors?.modes?.[colorMode]?.text;
 
   const [typography, setTypography] = useState<Typography>(
-    new Typography({ ...altonTheme, bodyColor, headerColor: bodyColor }),
+    new Typography({ ...usStandards, bodyColor, headerColor: bodyColor }),
   );
   const typographyToTheme = toTheme(typography.options);
 
@@ -134,7 +133,10 @@ const AboutLayout: React.FC = children => {
           </label>
 
           <DesignTool
-            defaultTheme={altonTheme}
+            theme={{
+              defaultTheme: usStandards,
+              themeName: 'typography-theme-us-web-design-standards',
+            }}
             themeNames={themes.map(({ name }) => name)}
             themes={[...themes]}
             trigger={mode}

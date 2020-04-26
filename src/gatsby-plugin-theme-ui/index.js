@@ -168,14 +168,26 @@ export const theme = {
       width: '100%',
       borderCollapse: 'separate',
       borderSpacing: 0,
+      margin: '0 !important',
+    },
+    tr: {
+      color: 'text',
+    },
+    thead: {
+      textAlign: 'center',
     },
     th: {
-      textAlign: 'left',
-      borderBottomStyle: 'solid',
+      bg: 'text',
+      color: 'background',
+
+      '&:first-child': {
+        textAlign: 'center',
+      },
     },
     td: {
-      textAlign: 'left',
-      borderBottomStyle: 'solid',
+      '&:first-child': {
+        textAlign: 'center',
+      },
     },
     navlink: {
       textAlign: 'left',

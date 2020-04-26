@@ -22,9 +22,9 @@ import {
 import { exists } from '../../utils/utils';
 import badgeList, { toBadge } from '../badge-list/badgeList';
 
-const renderMdx = (highlight: string) => (
+const renderMdx = (content: string) => (
   <React.Fragment>
-    <MDXRenderer>{highlight}</MDXRenderer>
+    <MDXRenderer>{content}</MDXRenderer>
   </React.Fragment>
 );
 
@@ -47,19 +47,38 @@ const renderBadges = ({
 export const SectionExperienceHOC = () => {
   const locale = i18next.language;
   const {
-    allHighlights: { nodes: highlights },
+    allHighlight: { nodes: highlight },
+    allSummary: { nodes: summary },
     allDetails: { nodes: details },
     companySections,
   }: {
-    allHighlights: FileConnection;
+    allHighlight: FileConnection;
+    allSummary: FileConnection;
     allDetails: FileConnection;
     companySections: CompanySections;
   } = useStaticQuery(graphql`
     query HighlightPerSection {
-      allHighlights: allFile(
+      allHighlight: allFile(
         filter: {
           extension: { eq: "mdx" }
-          relativeDirectory: { eq: "highlights" }
+          relativeDirectory: { eq: "highlight" }
+        }
+      ) {
+        nodes {
+          relativeDirectory
+          name
+          base
+          extension
+          childMdx {
+            body
+          }
+        }
+      }
+
+      allSummary: allFile(
+        filter: {
+          extension: { eq: "mdx" }
+          relativeDirectory: { eq: "summary" }
         }
       ) {
         nodes {
@@ -141,11 +160,15 @@ export const SectionExperienceHOC = () => {
       ?.split(' ')[0]
       .toLocaleLowerCase();
 
-    const highlight = highlights.filter(
+    const highlights = highlight.filter(
       highlight => highlight.name == `${tmpCompanyKey}.${i18n.language}`,
     )[0];
     const detail = details.filter(
       detail => detail.name == `${tmpCompanyKey}.${i18n.language}`,
+    )[0];
+
+    const summaries = summary.filter(
+      summary => summary.name == `${tmpCompanyKey}.${i18n.language}`,
     )[0];
 
     const companySection = companySections?.skills
@@ -170,9 +193,11 @@ export const SectionExperienceHOC = () => {
             variant: 'outline',
             badge: 'abbr',
           }),
-          highlight:
-            highlight?.childMdx?.body && renderMdx(highlight.childMdx.body),
+          summary:
+            summaries?.childMdx?.body && renderMdx(summaries.childMdx.body),
           detail: detail?.childMdx?.body && renderMdx(detail.childMdx.body),
+          highlight:
+            highlights?.childMdx?.body && renderMdx(highlights.childMdx.body),
           tagSections:
             companySection?.sections != null
               ? companySection.sections
@@ -219,7 +244,7 @@ const SectionExperience: React.FC<{
   }*/,
   );
 
-  const [hideDetails, setHighlight] = useState(
+  const [hideDetails, setSummary] = useState(
     expList.reduce(
       (acc, cur) => ({
         ...acc,
@@ -241,6 +266,7 @@ const SectionExperience: React.FC<{
                 location,
                 projects,
                 skills,
+                summary,
                 highlight,
                 detail,
                 tags,
@@ -274,8 +300,19 @@ const SectionExperience: React.FC<{
                         bg: 'muted',
                         boxShadow: `0 0 2px ${theme.colors.secondary} inset`,
                         padding: '0.5em',
+                        display: 'flex',
+                        flexDirection: 'column',
                         // borderRadius: '2%',
                       })}>
+                      <h2
+                        sx={{
+                          alignSelf: 'center',
+                          padding: '0 5%',
+                          borderBottom: theme =>
+                            `3px solid ${theme.colors.primary}`,
+                        }}>
+                        {t('My opportunities')}
+                      </h2>
                       {tagSections?.map(section => (
                         <Flex
                           sx={{
@@ -412,7 +449,7 @@ const SectionExperience: React.FC<{
                       <Flex>
                         <Checkbox
                           onClick={() =>
-                            setHighlight({
+                            setSummary({
                               ...hideDetails,
                               [expList[index]]: !hideDetails[expList[index]],
                             })
@@ -439,7 +476,7 @@ const SectionExperience: React.FC<{
                             : theme.colors.secondary
                         }`,
                     }}>
-                    {hideDetails[expList[index]] ? highlight : detail}
+                    {hideDetails[expList[index]] ? summary : detail}
                   </div>
                 </Flex>
                 {skills && (

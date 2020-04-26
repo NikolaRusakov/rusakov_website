@@ -20,7 +20,7 @@ import {
 } from '@saltit/typography-picker';
 
 export interface DesignToolProps {
-  defaultTheme: TypographyOptions;
+  theme: { defaultTheme: TypographyOptions; themeName?: string };
   themeNames: string[];
   themes: { name: string; title: string; requireTheme: () => Promise<any> }[];
   onChange: (options: TypographyOptions) => void;
@@ -117,7 +117,7 @@ const SectionHeader: React.FC = ({ children }) => (
 );
 
 export const DesignTool: React.FC<DesignToolProps> = ({
-  defaultTheme,
+  theme: { defaultTheme, themeName = '' },
   themeNames,
   themes,
   onChange,
@@ -125,9 +125,10 @@ export const DesignTool: React.FC<DesignToolProps> = ({
   naming = namingDefault,
 }) => {
   const typography = new Typography(defaultTheme);
+
   const [state, dispatch] = useReducer(reducer, {
     typography,
-    theme: 0,
+    theme: themeNames.indexOf(themeName) ?? 0,
     bodyFamily: fontList[0],
     headerFamily: fontList[0],
   });
@@ -144,7 +145,6 @@ export const DesignTool: React.FC<DesignToolProps> = ({
       onChange(state.typography.options);
     }
   }, [trigger]);
-  // details[open] summary {
 
   return (
     <React.Fragment>
