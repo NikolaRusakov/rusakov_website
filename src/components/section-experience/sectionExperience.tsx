@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { jsx, Divider, Badge, Flex, Box, Heading } from 'theme-ui';
+import { Badge, Box, Divider, Flex, Heading, jsx } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
 import i18n from 'i18next';
+import i18next from 'i18next';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
 import { Section } from '../section';
@@ -10,16 +11,16 @@ import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
 import Checkbox from '../checkbox/checkbox';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useTranslation } from 'react-i18next';
-
-export interface TagEntity {
-  name: string;
-  abbr?: string;
-  slug?: string;
-  count?: string;
-}
+import {
+  CompanySections,
+  FileConnection,
+  TagEntity,
+} from '../../../types/gatsby-graphql';
+import { exists } from '../../utils/utils';
+import badgeList, { toBadge } from '../badge-list/badgeList';
 
 const renderMdx = (highlight: string) => (
   <React.Fragment>
@@ -27,18 +28,32 @@ const renderMdx = (highlight: string) => (
   </React.Fragment>
 );
 
-const renderBadges = (tags: TagEntity[], badge: keyof TagEntity) =>
+const renderBadges = ({
+  tags,
+  badge,
+  variant,
+}: {
+  tags: TagEntity[];
+  badge: keyof TagEntity;
+  variant: 'primary' | 'outline' | 'muted';
+}) =>
   tags.map((entity, index) => (
-    <Badge key={`tag-${entity.slug}-${index}`} variant="outline" py={0} m={1}>
+    <Badge key={`tag-${entity.name}-${index}`} variant={variant} py={0} m={1}>
       <span>{entity[badge]}</span>
     </Badge>
   ));
 
 //TODO: data fetching will be combined with StaticQuery from automated JSON
 export const SectionExperienceHOC = () => {
+  const locale = i18next.language;
   const {
-    allHighlights: { highlights },
-    allDetails: { details },
+    allHighlights: { nodes: highlights },
+    allDetails: { nodes: details },
+    companySections,
+  }: {
+    allHighlights: FileConnection;
+    allDetails: FileConnection;
+    companySections: CompanySections;
   } = useStaticQuery(graphql`
     query HighlightPerSection {
       allHighlights: allFile(
@@ -47,7 +62,7 @@ export const SectionExperienceHOC = () => {
           relativeDirectory: { eq: "highlights" }
         }
       ) {
-        highlights: nodes {
+        nodes {
           relativeDirectory
           name
           base
@@ -64,7 +79,7 @@ export const SectionExperienceHOC = () => {
           relativeDirectory: { eq: "details" }
         }
       ) {
-        details: nodes {
+        nodes {
           relativeDirectory
           name
           base
@@ -74,19 +89,44 @@ export const SectionExperienceHOC = () => {
           }
         }
       }
+
       localTags: allFile(
         filter: {
           extension: { eq: "json" }
           relativeDirectory: { eq: "generated" }
         }
       ) {
-        details: nodes {
+        nodes {
           relativeDirectory
           name
           base
           extension
           childMdx {
             body
+          }
+        }
+      }
+
+      companySections {
+        skills {
+          locale
+          data {
+            shortKey
+            sections {
+              section
+              tags {
+                name
+                key
+                count
+                heading
+                tags {
+                  name
+                  key
+                  count
+                  heading
+                }
+              }
+            }
           }
         }
       }
@@ -100,14 +140,17 @@ export const SectionExperienceHOC = () => {
     const tmpCompanyKey = header?.experience?.company
       ?.split(' ')[0]
       .toLocaleLowerCase();
+
     const highlight = highlights.filter(
-      // @ts-ignore
       highlight => highlight.name == `${tmpCompanyKey}.${i18n.language}`,
     )[0];
     const detail = details.filter(
-      // @ts-ignore
       detail => detail.name == `${tmpCompanyKey}.${i18n.language}`,
     )[0];
+
+    const companySection = companySections?.skills
+      ?.filter(skill => skill?.locale == locale)[0]
+      ?.data?.filter(section => section?.shortKey == tmpCompanyKey)[0];
 
     return {
       header: Lens.fromPath<SectionHeaderProps>()([
@@ -122,13 +165,30 @@ export const SectionExperienceHOC = () => {
         children: {
           ...body.children,
           ...header.experience,
-          projects: renderBadges(body.children.projects, 'abbr'),
+          projects: renderBadges({
+            tags: body.children.projects,
+            variant: 'outline',
+            badge: 'abbr',
+          }),
           highlight:
             highlight?.childMdx?.body && renderMdx(highlight.childMdx.body),
           detail: detail?.childMdx?.body && renderMdx(detail.childMdx.body),
-          tags: renderBadges(body.children.tags, 'slug'),
+          tagSections:
+            companySection?.sections != null
+              ? companySection.sections
+              : undefined,
+          tags: renderBadges({
+            tags: body.children.tags,
+            variant: 'outline',
+            badge: 'slug',
+          }),
           skills:
-            body.children.skills && renderBadges(body.children.skills, 'name'),
+            body.children.skills &&
+            renderBadges({
+              tags: body.children.skills,
+              variant: 'outline',
+              badge: 'name',
+            }),
         },
       },
     };
@@ -163,7 +223,7 @@ const SectionExperience: React.FC<{
     expList.reduce(
       (acc, cur) => ({
         ...acc,
-        [cur]: false,
+        [cur]: true,
       }),
       {},
     ),
@@ -184,6 +244,7 @@ const SectionExperience: React.FC<{
                 highlight,
                 detail,
                 tags,
+                tagSections,
               },
             },
             header: { experience, externalProps },
@@ -200,16 +261,73 @@ const SectionExperience: React.FC<{
                 <SectionHeader
                   experience={experience}
                   externalProps={externalProps}>
-                  <Box sx={{ maxWidth: ['100%', '70%', '70%'] }}>
-                    {highlight}
-                  </Box>
+                  {hideDetails[expList[index]] && (
+                    <Box sx={{ maxWidth: ['100%', '70%', '70%'] }}>
+                      {highlight}
+                    </Box>
+                  )}
                   {!hideDetails[expList[index]] && (
-                    <section
-                      {...morphs[index]}
-                      sx={{ maxWidth: ['100%', '70%', '70%'] }}>
-                      <Divider />
-                      {skills}
-                    </section>
+                    <div
+                      sx={theme => ({
+                        borderRadius: 2,
+                        maxWidth: ['100%', '100%', '90%'],
+                        bg: 'muted',
+                        boxShadow: `0 0 2px ${theme.colors.secondary} inset`,
+                        padding: '0.5em',
+                        // borderRadius: '2%',
+                      })}>
+                      {tagSections?.map(section => (
+                        <Flex
+                          sx={{
+                            flexDirection: 'column',
+                          }}>
+                          <header
+                            sx={{
+                              display: 'flex',
+                              width: '95%',
+                              alignSelf: 'center',
+                              borderBottom: theme =>
+                                `1px solid ${theme.colors.text}`,
+                            }}>
+                            <Box
+                              sx={{
+                                marginBottom: 0,
+                                px: 1,
+                                fontWeight: 'bold',
+                                color: 'background',
+                                bg: 'text',
+                                textTransform: 'uppercase',
+                                borderTopLeftRadius: 1,
+                                borderTopRightRadius: 1,
+                              }}
+                              px={1}
+                              my={1}
+                              mr={1}>
+                              {section?.section}
+                            </Box>
+                          </header>
+                          <Flex
+                            sx={{
+                              flexWrap: 'wrap',
+                              py: 1,
+                              alignItems: 'baseline',
+                            }}>
+                            {section?.tags?.map(
+                              tag =>
+                                exists(tag) &&
+                                (exists(tag?.tags)
+                                  ? badgeList(tag?.tags)
+                                  : toBadge(tag)),
+                            )}
+                          </Flex>
+                        </Flex>
+                      ))}
+                      {/*<section*/}
+                      {/*  {...morphs[index]}*/}
+                      {/*  sx={{ maxWidth: ['100%', '70%', '70%'] }}>*/}
+                      {/*  {skills}*/}
+                      {/*</section>*/}
+                    </div>
                   )}
                 </SectionHeader>
               </Flex>
@@ -320,8 +438,6 @@ const SectionExperience: React.FC<{
                             ? theme.colors.primary
                             : theme.colors.secondary
                         }`,
-                      // boxShadow: theme =>
-                      //   `0 0 4px 0 ${theme.colors.secondary} inset, 0 0 2px 0 ${theme.colors.primary}`,
                     }}>
                     {hideDetails[expList[index]] ? highlight : detail}
                   </div>

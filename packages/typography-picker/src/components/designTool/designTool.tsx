@@ -85,6 +85,7 @@ const Section: React.FC = ({ children, ...props }) => (
       paddingLeft: 7.5,
       paddingRight: 7.5,
       flexDirection: 'column',
+      position: 'relative',
     }}
     {...props}>
     {children}

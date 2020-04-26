@@ -41,7 +41,7 @@
   "terraform": { "key": "terraform", "name": "Terraform" },
   "googleCloudPlatform": {
     "key": "googleCloudPlatform",
-    "name": "Google Cloud Platform (GCP)"
+    "name": "Google Cloud Platform"
   },
   "docker": { "key": "docker", "name": "Docker" },
   "kubernetes": { "key": "kubernetes", "name": "Kubernetes" },
@@ -53,7 +53,7 @@
   "networking": { "key": "networking", "name": "Networking" },
   "amazonWebServices": {
     "key": "amazonWebServices",
-    "name": "Amazon Web Services (AWS)"
+    "name": "Amazon Web Services"
   },
   "cloudformation": { "key": "cloudformation", "name": "CloudFormation" },
   "lambda": { "key": "lambda", "name": "Lambda" },

@@ -71,12 +71,10 @@
       {
         "section": "dx",
         "tags": [
-          [
-            { "key": "prettier", "name": "Prettier" },
-            { "key": "husky", "name": "Husky" },
-            { "key": "lerna", "name": "Lerna" },
-            { "key": "browserstack", "name": "Browserstack" }
-          ]
+          { "key": "prettier", "name": "Prettier" },
+          { "key": "husky", "name": "Husky" },
+          { "key": "lerna", "name": "Lerna" },
+          { "key": "browserstack", "name": "Browserstack" }
         ]
       },
       {
@@ -93,13 +91,8 @@
       {
         "section": "sls",
         "tags": [
-          { "key": "serverless", "name": "Serverless" },
-          { "key": "terraform", "name": "Terraform" },
           [
-            {
-              "key": "googleCloudPlatform",
-              "name": "Google Cloud Platform (GCP)"
-            },
+            { "key": "googleCloudPlatform", "name": "Google Cloud Platform" },
             { "key": "terraform", "name": "Terraform" },
             {
               "key": "docker",
@@ -151,7 +144,9 @@
             { "key": "mlKit", "name": "ML Kit" },
             { "key": "remoteConfig", "name": "Remote Config" },
             { "key": "extensions", "name": "Extensions" }
-          ]
+          ],
+          { "key": "serverless", "name": "Serverless" },
+          { "key": "terraform", "name": "Terraform" }
         ]
       },
       {
