@@ -154,6 +154,17 @@ export const theme = {
     root: {
       transitionDuration: '0.3s',
       transitionProperty: 'background-color, color',
+      '&::-webkit-scrollbar': {
+        width: '0.8rem',
+        height: '0.5em',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: theme =>
+          `linear-gradient(180deg,${theme.colors.primary},${theme.colors.secondary})`,
+        borderRadius: '999px',
+        boxShadow:
+          'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',
+      },
     },
     hr: {
       color: 'text',

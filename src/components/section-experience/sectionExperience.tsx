@@ -468,6 +468,17 @@ const SectionExperience: React.FC<{
                       borderRadius: 2,
                       padding: 1,
                       overflowY: 'scroll',
+                      '&::-webkit-scrollbar': {
+                        width: '0.8rem',
+                        height: '0.5em',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        background: theme =>
+                          `linear-gradient(180deg,${theme.colors.primary},${theme.colors.secondary})`,
+                        borderRadius: '999px',
+                        boxShadow:
+                          'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',
+                      },
                       bg: 'muted',
                       border: theme =>
                         `2px solid ${
