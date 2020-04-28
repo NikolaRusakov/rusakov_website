@@ -1,11 +1,18 @@
-import * as E from 'fp-ts/lib/Either';
 import merge from 'deepmerge';
+import * as E from 'fp-ts/lib/Either';
 import { pipe } from 'fp-ts/lib/pipeable';
+import { sortBy } from 'fp-ts/lib/Array';
+import { ord, ordNumber } from 'fp-ts/lib/Ord';
 
 import * as fs from 'fs';
 import i18n from '../config/i18n.js';
 import { toKeyFormat } from '../src/utils/transform';
-import { isTagEntity, LocalCompanies, TagEntity } from './scrape-types';
+import {
+  isTagEntity,
+  LocalCompanies,
+  TagEntity,
+  TagEntityCompare,
+} from './scrape-types';
 
 const scrape = Object.keys(i18n).map(async lang => {
   const { education, positions, skills } = await import(
@@ -49,15 +56,28 @@ const scrape = Object.keys(i18n).map(async lang => {
   const transOtherSkills = {
     sections: skills.otherSkills.sections,
     // @ts-ignore
-    skills: skills.otherSkills.skills.map(({ skill, heading }) =>
-      // @ts-ignore
-      skill.map(({ name, count }) => ({
+    skills: skills.otherSkills.skills.map<TagEntity>(({ skill, heading }) => {
+      const formattedSkills: TagEntityCompare[] = (skill as TagEntity[]).map<
+        TagEntityCompare
+      >(({ name, count }) => ({
         key: toKeyFormat(name),
         heading,
         name,
-        count,
-      })),
-    ),
+        count: count != null ? Number(count) : 0 ?? 0,
+      }));
+
+      const byCount = ord.contramap(ordNumber, (p: TagEntityCompare) => {
+        return p.count;
+      });
+      const sortByCount = sortBy([byCount]);
+
+      return sortByCount(formattedSkills)
+        .map<TagEntity>(sortedSkill => ({
+          ...sortedSkill,
+          count: sortedSkill.count.toLocaleString(),
+        }))
+        .reverse();
+    }),
     entities: {
       ...skills.otherSkills.skills
         .map(
@@ -97,6 +117,21 @@ const scrape = Object.keys(i18n).map(async lang => {
       if (e) throw e;
     },
   );
+
+  fs.writeFile(
+    `src/data/generated/parsed-skills.${lang}.json`,
+    JSON.stringify({
+      topSkills: { skills: transTopSkills.skills },
+      otherSkills: {
+        sections: transOtherSkills.sections,
+        skills: transOtherSkills.skills.flat(),
+      },
+    }),
+    e => {
+      if (e) throw e;
+    },
+  );
+
   const localCompanies = await import('../src/data/local/companies.local.json');
   const { default: tagsMapper } = await import(
     '../src/data/local/tags.local.json'
