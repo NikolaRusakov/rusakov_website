@@ -18,7 +18,7 @@ import {
   TagEntity,
 } from '../../../types/gatsby-graphql';
 import { exists } from '../../utils/utils';
-import badgeList, { toBadge } from '../badge-list/badgeList';
+import badgeList, { toBadge } from '../badge/badgeList';
 
 const renderMdx = (content: string) => (
   <React.Fragment>

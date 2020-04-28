@@ -4,6 +4,12 @@ module.exports = {
     description: 'Rusakov Web Page',
   },
   plugins: [
+    // {
+    //   resolve: `gatsby-plugin-graphql-codegen`,
+    //   options: {
+    //     fileName: `./types/gatsby-graphql.ts`,
+    //   },
+    // },
     'gatsby-plugin-react-helmet',
     `gatsby-plugin-typescript`,
     {
@@ -12,12 +18,6 @@ module.exports = {
         precachePages: [`/en/*`, `/cs/*`],
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-graphql-codegen`,
-    //   options: {
-    //     fileName: `./types/gatsby-graphql.ts`,
-    //   },
-    // },
     'gatsby-plugin-theme-ui',
     {
       resolve: `gatsby-plugin-alias-imports`,
@@ -117,6 +117,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-svgr',
       options: {
+        include: /svg/,
         prettier: true, // use prettier to format JS code output (default)
         svgo: true, // use svgo to optimize SVGs (default)
         svgoConfig: {
