@@ -184,7 +184,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           flexWrap: 'wrap',
         })}>
         <Section css={{ display: 'flex', maxWidth: '15ch' }}>
-          <h2
+          <span
             css={theme => ({
               color: readableColor(theme.colors.text),
               fontFamily: state.typography?.options?.headerFontFamily?.toString(),
@@ -195,7 +195,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
               borderBottom: `2px solid ${theme.colors.secondary}`,
             })}>
             <em>{naming.typographyPicker}</em>
-          </h2>
+          </span>
           <SectionRow>
             <div
               css={{
