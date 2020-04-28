@@ -2,11 +2,9 @@
 import { Badge, Box, Divider, Flex, Heading, jsx } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
-import i18n from 'i18next';
 import i18next from 'i18next';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
-import { Section } from '../section';
 import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
@@ -161,14 +159,14 @@ export const SectionExperienceHOC = () => {
       .toLocaleLowerCase();
 
     const highlights = highlight.filter(
-      highlight => highlight.name == `${tmpCompanyKey}.${i18n.language}`,
+      highlight => highlight.name == `${tmpCompanyKey}.${i18next.language}`,
     )[0];
     const detail = details.filter(
-      detail => detail.name == `${tmpCompanyKey}.${i18n.language}`,
+      detail => detail.name == `${tmpCompanyKey}.${i18next.language}`,
     )[0];
 
     const summaries = summary.filter(
-      summary => summary.name == `${tmpCompanyKey}.${i18n.language}`,
+      summary => summary.name == `${tmpCompanyKey}.${i18next.language}`,
     )[0];
 
     const companySection = companySections?.skills
@@ -255,7 +253,13 @@ const SectionExperience: React.FC<{
   );
 
   return (
-    <React.Fragment>
+    <div
+      sx={{
+        width: '100vw',
+        // border: theme => `2px solid ${theme.colors.secondary}`,
+        padding: 2,
+        margin: 'auto',
+      }}>
       {experience.map(
         (
           {
@@ -277,7 +281,9 @@ const SectionExperience: React.FC<{
           },
           index,
         ) => (
-          <Section variant="primary" sx={{ width: '90vw', margin: 'auto' }}>
+          <div
+            // variant="primary"
+            sx={{}}>
             <Flex
               sx={{
                 flexDirection: ['column', 'column', 'row'],
@@ -288,7 +294,7 @@ const SectionExperience: React.FC<{
                   experience={experience}
                   externalProps={externalProps}>
                   {hideDetails[expList[index]] && (
-                    <Box sx={{ maxWidth: ['100%', '70%', '70%'] }}>
+                    <Box sx={{ maxWidth: ['100%', '80%', '80%'] }}>
                       {highlight}
                     </Box>
                   )}
@@ -480,27 +486,29 @@ const SectionExperience: React.FC<{
                           'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',
                       },
                       bg: 'muted',
-                      border: theme =>
-                        `2px solid ${
-                          hideDetails[expList[index]]
-                            ? theme.colors.primary
-                            : theme.colors.secondary
-                        }`,
+                      boxShadow: theme =>
+                        `inset 2px 2px 2px ${theme.colors.primary}, inset -2px -2px 2px ${theme.colors.secondary}`,
+                      // border: theme =>
+                      //   `2px solid ${
+                      //     hideDetails[expList[index]]
+                      //       ? theme.colors.primary
+                      //       : theme.colors.secondary
+                      //   }`,
                     }}>
                     {hideDetails[expList[index]] ? summary : detail}
                   </div>
                 </Flex>
-                {skills && (
-                  <Flex sx={{ flexDirection: 'column' }}>
-                    {hideDetails[expList[index]] && (
-                      // @ts-ignore
-                      <section {...morphs[index]}>{skills}</section>
-                    )}
-                  </Flex>
-                )}
+                {/*{skills && (*/}
+                {/*  <Flex sx={{ flexDirection: 'column' }}>*/}
+                {/*    {hideDetails[expList[index]] && (*/}
+                {/*      // @ts-ignore*/}
+                {/*      <section {...morphs[index]}>{skills}</section>*/}
+                {/*    )}*/}
+                {/*  </Flex>*/}
+                {/*)}*/}
               </Flex>
             </Flex>
-            <Divider />
+            <Divider sx={{ marginTop: 3, bg: 'primary' }} />
             {/*<SectionBody>*/}
             {/*  {{*/}
             {/*    location,*/}
@@ -510,10 +518,10 @@ const SectionExperience: React.FC<{
             {/*    tags,*/}
             {/*  }}*/}
             {/*</SectionBody>*/}
-          </Section>
+          </div>
         ),
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

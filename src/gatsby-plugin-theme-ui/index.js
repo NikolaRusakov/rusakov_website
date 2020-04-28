@@ -1,4 +1,4 @@
-import { setHue, saturate, transparentize } from 'polished';
+import { readableColor } from 'polished';
 
 import {
   dark,
@@ -33,16 +33,38 @@ export const theme = {
     },
     outline: {
       color: 'background',
-      bg: 'accent',
-      boxShadow: theme =>
-        `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
+      position: 'relative',
+      '&:after': {
+        position: 'absolute',
+        top: '-15px',
+        left: '-15px',
+        right: '-15px',
+        bottom: '-15px',
+        boxShadow: theme =>
+          `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
+      },
+      bg: theme =>
+        theme.colors.highlight || theme.colors.accent || theme.colors.muted,
+      // boxShadow: theme =>
+      //   `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
     },
     muted: {
-      color: 'text',
+      color: theme => readableColor(theme.colors.primary),
+      fontSize: theme => `calc(${theme.fontSizes[0]}px * 0.9)`,
+      bg: 'primary',
+      fontWeight: 'normal',
+      height: 'min-content',
+      border: theme => `1px solid ${theme.colors.secondary}`,
+      boxShadow: theme => `0 0 1px 0 ${theme.colors.secondary}`,
+    },
+    highlight: {
+      color: 'background',
+      bg: 'text',
       fontSize: theme => `calc(${theme.fontSizes[0]}px * 0.9)`,
       background: 'transparent',
       fontWeight: 'normal',
       height: 'min-content',
+      border: theme => `1px solid ${theme.colors.secondary}`,
       boxShadow: theme => `0 0 3px 0 ${theme.colors.secondary}`,
     },
   },

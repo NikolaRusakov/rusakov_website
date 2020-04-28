@@ -4,154 +4,29 @@ path: /about
 title: About Me
 ---
 
-# About me
+<Card sx={{textAlign: 'center'}}>
 
-Renders a button with text in italic
-
- ~~strikethrough~~
-
-> blockquote
->
-> > nested blockquote
->
-> > **I'm bold!**
->
-> more quotes
-
-<blockquote cite="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0000hB">
-  <p>a bunch of paragraphs</p>
-  <footer>
-    <a href="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0000hB">Edward Tufte, forum post, ‘Book design: advice and examples’ thread</a>
-  </footer>
-</blockquote>
-
-- My name is Nick
-- I'm a programmer 🧑‍💻
-# Section
-
-<Card variant="secondary"
-sx={{
-maxWidth: 256,
-}}>
-
-<span>Card</span>
-<div>
-
- > Nested **MDX**!
-
-</div>
-
-1. One
-1. Two
-1. Three
+# Experience
 
 </Card>
 
-- My name is Nick
-- I'm a programmer
-
-# I'm a programmer
-## I'm a programmer
-### I'm a programmer
-#### I'm a programmer
-##### I'm a programmer
-###### I'm a programmer
-
 <ExperienceSection />
 
-```dart
-import 'dart:async';
+<Card sx={{textAlign: 'center'}}>
 
-import 'package:bloc/bloc.dart';
+# Skill
 
-enum CounterEvent { increment, decrement }
 
-class CounterBloc extends Bloc<CounterEvent, int> {
-  @override
-  int get initialState => 0;
+</Card>
 
-  @override
-  Stream<int> mapEventToState(CounterEvent event) async* {
-    switch (event) {
-      case CounterEvent.decrement:
-        // Simulating Network Latency
-        await Future<void>.delayed(Duration(seconds: 1));
-        yield state - 1;
-        break;
-      case CounterEvent.increment:
-        // Simulating Network Latency
-        await Future<void>.delayed(Duration(milliseconds: 500));
-        yield state + 1;
-        break;
-      default:
-        throw Exception('unhandled event: $event');
-    }
-  }
-}
-```
+<Grid
+gap={2}
+columns={[2, '1fr 2fr']}>
+<Box bg='primary' m={3}>
+  <SkillSection />
+</Box>
 
-```docker
-version: '3'
-services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-  redis:
-    image: "redis:alpine"
-```
-
-```r
-switch(class(x)[1],
-       "class_1" = { ..... },
-       "class_2" = { ..... },
-       .......,
-       .......,
-       "class_10" = { ..... },
-       stop(" ... invalid class:", class(x)))
-```
-
-```javascript
-// In your gatsby-config.js
-// Let's make this line very long so that our container has to scroll its overflow…
-// src/gatsby-plugin-theme-ui/index.js
-import nightOwl from '@theme-ui/prism/presets/night-owl';
-export default {
-  styles: {
-    pre: {
-      ...nightOwl,
-    },
-  },
-};
-```
-
-```javascript {1-2,22}{numberLines: true}
-// In your gatsby-config.js
-// Let's make this line very long so that our container has to scroll its overflow…
-{
-  plugins: [
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 756,
-            },
-          },
-          {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
-          },
-          `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-smartypants`,
-          `gatsby-remark-prismjs`,
-        ],
-      },
-    },
-  ];
-}
-```
+  <Box bg='muted' m={3}>
+<LinkedInSkillSection />
+  </Box>
+</Grid>
