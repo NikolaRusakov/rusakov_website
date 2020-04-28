@@ -173,8 +173,15 @@ const FontSelectTool: React.FC<FontSelectToolProps> = ({
         selectFamilyChange(suggestionValue)
       }
       inputProps={inputProps}
-      // @ts-ignore
       theme={{
+        input: cx(
+          'react-autosuggest__input',
+          cssFn({
+            fontSize: '14px',
+            // @ts-ignore
+            border: `1px solid ${useCustomTheme.colors.primary}`,
+          }),
+        ),
         suggestionsList: cx(
           'react-autosuggest__suggestions-list',
           cssFn({
@@ -182,7 +189,6 @@ const FontSelectTool: React.FC<FontSelectToolProps> = ({
             margin: `0 ${useCustomTheme.space[1]}px`,
           }),
         ),
-
         suggestionsContainer: cx(
           'react-autosuggest__suggestions-container',
           cssFn({

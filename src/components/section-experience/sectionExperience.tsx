@@ -2,11 +2,9 @@
 import { Badge, Box, Divider, Flex, Heading, jsx } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
 import { useMorphList } from 'react-morph';
-import i18n from 'i18next';
 import i18next from 'i18next';
 import { Lens } from 'monocle-ts';
 import { SectionHeader } from '../section-header';
-import { Section } from '../section';
 import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
@@ -22,9 +20,9 @@ import {
 import { exists } from '../../utils/utils';
 import badgeList, { toBadge } from '../badge-list/badgeList';
 
-const renderMdx = (highlight: string) => (
+const renderMdx = (content: string) => (
   <React.Fragment>
-    <MDXRenderer>{highlight}</MDXRenderer>
+    <MDXRenderer>{content}</MDXRenderer>
   </React.Fragment>
 );
 
@@ -47,19 +45,38 @@ const renderBadges = ({
 export const SectionExperienceHOC = () => {
   const locale = i18next.language;
   const {
-    allHighlights: { nodes: highlights },
+    allHighlight: { nodes: highlight },
+    allSummary: { nodes: summary },
     allDetails: { nodes: details },
     companySections,
   }: {
-    allHighlights: FileConnection;
+    allHighlight: FileConnection;
+    allSummary: FileConnection;
     allDetails: FileConnection;
     companySections: CompanySections;
   } = useStaticQuery(graphql`
     query HighlightPerSection {
-      allHighlights: allFile(
+      allHighlight: allFile(
         filter: {
           extension: { eq: "mdx" }
-          relativeDirectory: { eq: "highlights" }
+          relativeDirectory: { eq: "highlight" }
+        }
+      ) {
+        nodes {
+          relativeDirectory
+          name
+          base
+          extension
+          childMdx {
+            body
+          }
+        }
+      }
+
+      allSummary: allFile(
+        filter: {
+          extension: { eq: "mdx" }
+          relativeDirectory: { eq: "summary" }
         }
       ) {
         nodes {
@@ -141,11 +158,15 @@ export const SectionExperienceHOC = () => {
       ?.split(' ')[0]
       .toLocaleLowerCase();
 
-    const highlight = highlights.filter(
-      highlight => highlight.name == `${tmpCompanyKey}.${i18n.language}`,
+    const highlights = highlight.filter(
+      highlight => highlight.name == `${tmpCompanyKey}.${i18next.language}`,
     )[0];
     const detail = details.filter(
-      detail => detail.name == `${tmpCompanyKey}.${i18n.language}`,
+      detail => detail.name == `${tmpCompanyKey}.${i18next.language}`,
+    )[0];
+
+    const summaries = summary.filter(
+      summary => summary.name == `${tmpCompanyKey}.${i18next.language}`,
     )[0];
 
     const companySection = companySections?.skills
@@ -170,9 +191,11 @@ export const SectionExperienceHOC = () => {
             variant: 'outline',
             badge: 'abbr',
           }),
-          highlight:
-            highlight?.childMdx?.body && renderMdx(highlight.childMdx.body),
+          summary:
+            summaries?.childMdx?.body && renderMdx(summaries.childMdx.body),
           detail: detail?.childMdx?.body && renderMdx(detail.childMdx.body),
+          highlight:
+            highlights?.childMdx?.body && renderMdx(highlights.childMdx.body),
           tagSections:
             companySection?.sections != null
               ? companySection.sections
@@ -219,7 +242,7 @@ const SectionExperience: React.FC<{
   }*/,
   );
 
-  const [hideDetails, setHighlight] = useState(
+  const [hideDetails, setSummary] = useState(
     expList.reduce(
       (acc, cur) => ({
         ...acc,
@@ -230,7 +253,13 @@ const SectionExperience: React.FC<{
   );
 
   return (
-    <React.Fragment>
+    <div
+      sx={{
+        width: '100vw',
+        // border: theme => `2px solid ${theme.colors.secondary}`,
+        padding: 2,
+        margin: 'auto',
+      }}>
       {experience.map(
         (
           {
@@ -241,6 +270,7 @@ const SectionExperience: React.FC<{
                 location,
                 projects,
                 skills,
+                summary,
                 highlight,
                 detail,
                 tags,
@@ -251,7 +281,9 @@ const SectionExperience: React.FC<{
           },
           index,
         ) => (
-          <Section variant="primary" sx={{ width: '90vw', margin: 'auto' }}>
+          <div
+            // variant="primary"
+            sx={{}}>
             <Flex
               sx={{
                 flexDirection: ['column', 'column', 'row'],
@@ -262,7 +294,7 @@ const SectionExperience: React.FC<{
                   experience={experience}
                   externalProps={externalProps}>
                   {hideDetails[expList[index]] && (
-                    <Box sx={{ maxWidth: ['100%', '70%', '70%'] }}>
+                    <Box sx={{ maxWidth: ['100%', '80%', '80%'] }}>
                       {highlight}
                     </Box>
                   )}
@@ -274,8 +306,19 @@ const SectionExperience: React.FC<{
                         bg: 'muted',
                         boxShadow: `0 0 2px ${theme.colors.secondary} inset`,
                         padding: '0.5em',
+                        display: 'flex',
+                        flexDirection: 'column',
                         // borderRadius: '2%',
                       })}>
+                      <h2
+                        sx={{
+                          alignSelf: 'center',
+                          padding: '0 5%',
+                          borderBottom: theme =>
+                            `3px solid ${theme.colors.primary}`,
+                        }}>
+                        {t('My opportunities')}
+                      </h2>
                       {tagSections?.map(section => (
                         <Flex
                           sx={{
@@ -412,7 +455,7 @@ const SectionExperience: React.FC<{
                       <Flex>
                         <Checkbox
                           onClick={() =>
-                            setHighlight({
+                            setSummary({
                               ...hideDetails,
                               [expList[index]]: !hideDetails[expList[index]],
                             })
@@ -431,28 +474,41 @@ const SectionExperience: React.FC<{
                       borderRadius: 2,
                       padding: 1,
                       overflowY: 'scroll',
+                      '&::-webkit-scrollbar': {
+                        width: '0.8rem',
+                        height: '0.5em',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        background: theme =>
+                          `linear-gradient(180deg,${theme.colors.primary},${theme.colors.secondary})`,
+                        borderRadius: '999px',
+                        boxShadow:
+                          'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',
+                      },
                       bg: 'muted',
-                      border: theme =>
-                        `2px solid ${
-                          hideDetails[expList[index]]
-                            ? theme.colors.primary
-                            : theme.colors.secondary
-                        }`,
+                      boxShadow: theme =>
+                        `inset 2px 2px 2px ${theme.colors.primary}, inset -2px -2px 2px ${theme.colors.secondary}`,
+                      // border: theme =>
+                      //   `2px solid ${
+                      //     hideDetails[expList[index]]
+                      //       ? theme.colors.primary
+                      //       : theme.colors.secondary
+                      //   }`,
                     }}>
-                    {hideDetails[expList[index]] ? highlight : detail}
+                    {hideDetails[expList[index]] ? summary : detail}
                   </div>
                 </Flex>
-                {skills && (
-                  <Flex sx={{ flexDirection: 'column' }}>
-                    {hideDetails[expList[index]] && (
-                      // @ts-ignore
-                      <section {...morphs[index]}>{skills}</section>
-                    )}
-                  </Flex>
-                )}
+                {/*{skills && (*/}
+                {/*  <Flex sx={{ flexDirection: 'column' }}>*/}
+                {/*    {hideDetails[expList[index]] && (*/}
+                {/*      // @ts-ignore*/}
+                {/*      <section {...morphs[index]}>{skills}</section>*/}
+                {/*    )}*/}
+                {/*  </Flex>*/}
+                {/*)}*/}
               </Flex>
             </Flex>
-            <Divider />
+            <Divider sx={{ marginTop: 3, bg: 'primary' }} />
             {/*<SectionBody>*/}
             {/*  {{*/}
             {/*    location,*/}
@@ -462,10 +518,10 @@ const SectionExperience: React.FC<{
             {/*    tags,*/}
             {/*  }}*/}
             {/*</SectionBody>*/}
-          </Section>
+          </div>
         ),
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

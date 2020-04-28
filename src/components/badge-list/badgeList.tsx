@@ -6,6 +6,7 @@ import { exists, isNonEmptyArray } from '../../utils/utils';
 import HiddenCheckbox from '../checkbox/hiddenCheckbox';
 import { Global } from '@emotion/core';
 import { v4 as uuidv4 } from 'uuid';
+import { readableColor } from 'polished';
 
 const calculatedWidth = (tags: TagEntity[]) =>
   tags.length / 10 <= 1 ? 2 : Math.ceil(tags.length / 10);
@@ -14,8 +15,11 @@ export const toBadge = (tag: TagEntity, styles = {}) =>
   tag.name && (
     <Badge
       key={`badge- ${uuidv4()}`}
-      variant="muted"
-      sx={{ ...styles, whiteSpace: 'normal' }}
+      sx={{
+        ...styles,
+        color: theme => readableColor(theme.colors.primary),
+        whiteSpace: 'normal',
+      }}
       py={0}
       m={1}>
       <span>{tag.name}</span>
@@ -32,7 +36,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
             'input[type=checkbox]:checked + section': {
               margin: `${theme.space[1]}px 0`,
               marginRight: `${theme.space[1]}px`,
-              borderLeft: `6px solid ${theme.colors.secondary} !important`,
+              borderLeft: `5px solid ${theme.colors.secondary} !important`,
               borderRadius: 0,
               border: 'none',
               transition:
@@ -43,8 +47,8 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                 justifyContent: 'center',
                 transition: 'justify-content 0.15 ease-in-out 0.05s',
                 '& span': {
-                    whiteSpace: 'normal',
-                    fontWeight: 'bold',
+                  whiteSpace: 'normal',
+                  fontWeight: 'bold',
                 },
                 '& em': {
                   width: 0,
@@ -86,10 +90,10 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
           variant="badges.muted"
           sx={{
             position: 'relative',
-            borderRadius: theme => theme.space[2] * 1.5,
+            borderRadius: 3,
+            // borderRadius: theme => theme.space[2] * 1.5,
             transition:
               'border 0.15s ease-in-out 0.1s, border-radius 0.15s ease-in-out 0.1s, max-height 0.15s ease-in-out, max-width 0.20s ease-in-out',
-            border: theme => `1px solid ${theme.colors.primary}`,
           }}>
           <label htmlFor={`section-${sectionId}`}>
             {
@@ -98,7 +102,6 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                   maxWidth: '100%',
                   display: 'flex',
                   justifyContent: 'center',
-                  // padding: '0 4px',
                 }}>
                 <span
                   sx={{
@@ -120,19 +123,14 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                     width: theme =>
                       (isNonEmptyArray(tags) &&
                         `
-                        ${
-                          // theme.fontSizes[2] *
-                          calculatedWidth(tags)
-                        }rem`) ||
+                        ${calculatedWidth(tags)}rem`) ||
                       `${theme.fontSizes[2]}rem`,
-                    // : theme.fontSizes[2],
                     transition:
                       'width 0.05s ease-in-out 0.12s,' +
                       'padding 0.05s ease-in-out 0.15s,' +
                       'opacity 0.05s ease-in-out 0.10s,' +
                       'font-size 0.05s ease-in-out 0.1s,' +
                       'visibility 0.05s ease-in-out 0.15s',
-                    // textAlign: 'end',
                     fontSize: 0,
                     marginLeft: '0 !important',
                     margin: 1,
@@ -158,10 +156,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
             }}>
             {tags
               .slice(1)
-              .map(
-                childTag =>
-                  exists(childTag) && toBadge(childTag, { bg: 'highlight' }),
-              )}
+              .map(childTag => exists(childTag) && toBadge(childTag))}
           </article>
         </Box>
       </div>

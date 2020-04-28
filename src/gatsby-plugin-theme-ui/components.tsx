@@ -1,15 +1,20 @@
 /** @jsx jsx */
-import { jsx, Card, Button } from 'theme-ui';
+import { jsx, Card, Button, Grid } from 'theme-ui';
 import Codeblock from './codeblock';
 import { Section } from '../components/section';
 import { SectionExperienceHOC } from '../components/section-experience/sectionExperience';
+import SkillSection from '../components/section-skill/skillSection';
+import LinkedInSkillSection from '../components/section-skill/linkedinSkillSection';
 
 export default {
   // pre: props => props.children,
   Card: Card,
   Button: Button,
   Section: Section,
+  Grid: Grid,
   code: Codeblock,
+  SkillSection: SkillSection,
+  LinkedInSkillSection: LinkedInSkillSection,
   // @ts-ignore
   blockquote: ({ children }) => (
     <blockquote sx={{ backgroundColor: 'highlight', color: 'text' }}>

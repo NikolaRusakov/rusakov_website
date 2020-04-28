@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { jsx, Flex, Heading, Divider } from 'theme-ui';
 import React, { ReactNode } from 'react';
-import { TagEntity } from '../section-experience/sectionExperience';
-import { Maybe, SkillTagSection } from 'types/gatsby-graphql';
+import { Maybe, SkillTagSection, TagEntity } from 'types/gatsby-graphql';
 
 export interface SectionBodyProps<T extends ReactNode | TagEntity[]> {
   children: {
     duration?: string;
     employment?: string;
     projects: T;
+    summary?: ReactNode;
     highlight?: ReactNode;
     detail?: ReactNode;
     location?: string;

@@ -83,7 +83,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
               flexWrap: 'wrap',
             }}>
             {externalProps?.badges?.map?.(value => (
-              <Badge variant="primary" px={1} my={1} mr={1}>
+              <Badge key={value.toString()} variant="primary" px={1} my={1} mr={1}>
                 {value}
               </Badge>
             ))}

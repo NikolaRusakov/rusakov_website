@@ -3676,7 +3676,10 @@ export type TagEntityFilterListInput = {
 export type HighlightPerSectionQueryVariables = {};
 
 
-export type HighlightPerSectionQuery = { allHighlights: { nodes: Array<(
+export type HighlightPerSectionQuery = { allHighlight: { nodes: Array<(
+      Pick<File, 'relativeDirectory' | 'name' | 'base' | 'extension'>
+      & { childMdx?: Maybe<Pick<Mdx, 'body'>> }
+    )> }, allSummary: { nodes: Array<(
       Pick<File, 'relativeDirectory' | 'name' | 'base' | 'extension'>
       & { childMdx?: Maybe<Pick<Mdx, 'body'>> }
     )> }, allDetails: { nodes: Array<(

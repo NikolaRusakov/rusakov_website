@@ -27,7 +27,8 @@
     },
     "about": {
       "Summary": "Summary",
-      "Detailed Overview": "Detailed Overview"
+      "Detailed Overview": "Detailed Overview",
+      "My opportunities": "My opportunities"
     }
   },
   "cs": {
@@ -58,7 +59,8 @@
     },
     "about": {
       "Summary": "Shrnutí",
-      "Detailed Overview": "Detailní přehled"
+      "Detailed Overview": "Detailní přehled",
+      "My opportunities": "Mé příležitosti"
     }
   }
 }

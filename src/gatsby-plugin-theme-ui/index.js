@@ -1,4 +1,4 @@
-import { setHue, saturate, transparentize } from 'polished';
+import { readableColor } from 'polished';
 
 import {
   dark,
@@ -33,16 +33,38 @@ export const theme = {
     },
     outline: {
       color: 'background',
-      bg: 'accent',
-      boxShadow: theme =>
-        `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
+      position: 'relative',
+      '&:after': {
+        position: 'absolute',
+        top: '-15px',
+        left: '-15px',
+        right: '-15px',
+        bottom: '-15px',
+        boxShadow: theme =>
+          `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
+      },
+      bg: theme =>
+        theme.colors.highlight || theme.colors.accent || theme.colors.muted,
+      // boxShadow: theme =>
+      //   `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
     },
     muted: {
-      color: 'text',
+      color: theme => readableColor(theme.colors.primary),
+      fontSize: theme => `calc(${theme.fontSizes[0]}px * 0.9)`,
+      bg: 'primary',
+      fontWeight: 'normal',
+      height: 'min-content',
+      border: theme => `1px solid ${theme.colors.secondary}`,
+      boxShadow: theme => `0 0 1px 0 ${theme.colors.secondary}`,
+    },
+    highlight: {
+      color: 'background',
+      bg: 'text',
       fontSize: theme => `calc(${theme.fontSizes[0]}px * 0.9)`,
       background: 'transparent',
       fontWeight: 'normal',
       height: 'min-content',
+      border: theme => `1px solid ${theme.colors.secondary}`,
       boxShadow: theme => `0 0 3px 0 ${theme.colors.secondary}`,
     },
   },
@@ -140,8 +162,9 @@ export const theme = {
   cards: {
     primary: {
       padding: 2,
-      borderRadius: 4,
-      boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.5)',
+      borderRadius: 2,
+      border: theme => `2px solid ${theme.colors.primary}`,
+      // boxShadow: '0 0 4px 1px rgba(0, 0, 0, 0.5)',
     },
     secondary: {
       padding: 1,
@@ -153,6 +176,17 @@ export const theme = {
     root: {
       transitionDuration: '0.3s',
       transitionProperty: 'background-color, color',
+      '&::-webkit-scrollbar': {
+        width: '0.8rem',
+        height: '0.5em',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: theme =>
+          `linear-gradient(180deg,${theme.colors.primary},${theme.colors.secondary})`,
+        borderRadius: '999px',
+        boxShadow:
+          'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',
+      },
     },
     hr: {
       color: 'text',
@@ -168,14 +202,26 @@ export const theme = {
       width: '100%',
       borderCollapse: 'separate',
       borderSpacing: 0,
+      margin: '0 !important',
+    },
+    tr: {
+      color: 'text',
+    },
+    thead: {
+      textAlign: 'center',
     },
     th: {
-      textAlign: 'left',
-      borderBottomStyle: 'solid',
+      bg: 'text',
+      color: 'background',
+
+      '&:first-child': {
+        textAlign: 'center',
+      },
     },
     td: {
-      textAlign: 'left',
-      borderBottomStyle: 'solid',
+      '&:first-child': {
+        textAlign: 'center',
+      },
     },
     navlink: {
       textAlign: 'left',
