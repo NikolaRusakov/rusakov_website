@@ -15,7 +15,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { useTranslation } from 'react-i18next';
 
 import { Helmet } from 'react-helmet';
-import usStandards from 'typography-theme-us-web-design-standards';
+import usStandardsTheme from 'typography-theme-us-web-design-standards';
 import { useMemo, useState } from 'react';
 import Typography from 'typography';
 import merge from 'deepmerge';
@@ -44,6 +44,7 @@ import {
 import withI18next from '../i18n/withI18Next';
 import { Link } from 'gatsby';
 import i18next from 'i18next';
+import { TypographyOptions } from '@saltit/typography-picker';
 
 const presets = {
   light: bulma,
@@ -72,6 +73,8 @@ const preset = (v: string) => ({
 const AboutLayout: React.FC = children => {
   const { theme: themeSet, colorMode } = useThemeUI();
   const [mode, setMode] = useColorMode();
+  let usStandards: TypographyOptions = usStandardsTheme;
+  usStandards.baseFontSize = '16px';
 
   const { t } = useTranslation();
   const typographyNaming = i18next.getResourceBundle(
@@ -87,6 +90,7 @@ const AboutLayout: React.FC = children => {
   const [typography, setTypography] = useState<Typography>(
     new Typography({ ...usStandards, bodyColor, headerColor: bodyColor }),
   );
+
   const typographyToTheme = toTheme(typography.options);
 
   const provideTypography = {
@@ -133,6 +137,8 @@ const AboutLayout: React.FC = children => {
           </label>
 
           <DesignTool
+            // @ts-ignore
+
             theme={{
               defaultTheme: usStandards,
               themeName: 'typography-theme-us-web-design-standards',
@@ -183,7 +189,10 @@ const AboutLayout: React.FC = children => {
               {children.pageContext.paths?.map(
                 ({ locale, templateKey }, index, array) => (
                   <React.Fragment>
-                    <Link to={`/${locale}/${templateKey}`} hrefLang={locale}>
+                    <Link
+                      key={`${locale}-${templateKey}`}
+                      to={`/${locale}/${templateKey}`}
+                      hrefLang={locale}>
                       {t(`${locale}`)}
                     </Link>
                     {index < array.length - 1 && '|'}
