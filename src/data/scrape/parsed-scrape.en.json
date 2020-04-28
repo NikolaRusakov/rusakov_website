@@ -1,1 +1,484 @@
-{"positions":{"flowup":{"employedDuration":"Dates Employed Feb 2019 – Present","duration":"1 yr 3 mos","company":"FlowUp ","employment":"Full-time","companyLogo":"https://media-exp1.licdn.com/dms/image/C560BAQE7e-hDDBtsWQ/company-logo_100_100/0?e=1594857600&v=beta&t=KAEV5mZqkKnmmX-ySwPDgZgZGmqX2ENBjin19NqiIqU","position":"Frontend Engineer","location":"Location District Brno-City, Czech Republic","key":"flowup","shortKey":"flowup","shortCompany":"FlowUp"},"sprint":{"employedDuration":"Dates Employed Aug 2018 – Jan 2019","duration":"6 mos","company":"Sprint Innovations ","employment":"Full-time","companyLogo":"https://media-exp1.licdn.com/dms/image/C4E0BAQGacPkigH-l8A/company-logo_100_100/0?e=1594857600&v=beta&t=BlWLdwYXMKKfA5tZdtMFG6No0OEB4IxjHcrmDbCMtGI","position":"Frontend Developer","location":"Location District Brno-City, Czech Republic","key":"sprintInnovations","shortKey":"sprint","shortCompany":"Sprint"},"marbes":{"employedDuration":"Dates Employed Jan 2018 – Jul 2018","duration":"7 mos","company":"MARBES CONSULTING s.r.o.","companyLogo":"https://media-exp1.licdn.com/dms/image/C560BAQGmERye2lTt9Q/company-logo_100_100/0?e=1594857600&v=beta&t=lKH1VNvKK8YeYxgduR-9pOlEXQixJg_uQWTwutHK47A","position":"Full-stack Developer","location":"Location Plzeň-město, Plzeňský, Česká republika","key":"marbesConsulting","shortKey":"marbes","shortCompany":"MARBES"},"futuretek":{"employedDuration":"Dates Employed Sep 2017 – Jan 2018","duration":"5 mos","company":"FutureTek Solutions Ltd. ","employment":"Full-time","companyLogo":"https://media-exp1.licdn.com/dms/image/C560BAQEeZdp3-MUVBg/company-logo_100_100/0?e=1594857600&v=beta&t=70B6nLC_SwgVqWtvXC7i9W_3XZ2o52-1HIjYShEogrE","position":"Full-stack Developer","location":"Location Okres Plzeň-město, Česká republika","details":"Iternship","key":"futuretekSolutions","shortKey":"futuretek","shortCompany":"FutureTek"}},"skills":{"topSkills":{"skills":[{"key":"angular","name":"Angular","count":"11"},{"key":"reactjs","name":"ReactJS","count":"4"},{"key":"git","name":"Git","count":"7"}],"entities":{"angular":{"key":"angular","name":"Angular","count":"11"},"reactjs":{"key":"reactjs","name":"ReactJS","count":"4"},"git":{"key":"git","name":"Git","count":"7"}}},"otherSkills":{"sections":["Industry Knowledge","Tools & Technologies","Interpersonal Skills","Other Skills"],"skills":[[{"key":"agileMethodologies","heading":"Industry Knowledge","name":"Agile Methodologies","count":"2"}],[{"key":"javascript","heading":"Tools & Technologies","name":"JavaScript","count":"5"},{"key":"java","heading":"Tools & Technologies","name":"Java"},{"key":"maven","heading":"Tools & Technologies","name":"Maven"},{"key":"css","heading":"Tools & Technologies","name":"CSS","count":"5"},{"key":"docker","heading":"Tools & Technologies","name":"Docker","count":"1"},{"key":"springFramework","heading":"Tools & Technologies","name":"Spring Framework"},{"key":"hibernate","heading":"Tools & Technologies","name":"Hibernate"},{"key":"php","heading":"Tools & Technologies","name":"PHP"},{"key":"sql","heading":"Tools & Technologies","name":"SQL"},{"key":"postgresql","heading":"Tools & Technologies","name":"PostgreSQL"},{"key":"linux","heading":"Tools & Technologies","name":"Linux","count":"2"},{"key":"intellijIdea","heading":"Tools & Technologies","name":"IntelliJ IDEA","count":"1"},{"key":"amazonWebServices","heading":"Tools & Technologies","name":"Amazon Web Services (AWS)"}],[{"key":"problemSolving","heading":"Interpersonal Skills","name":"Problem Solving","count":"4"}],[{"key":"hmlt5","heading":"Other Skills","name":"HMLT5","count":"5"},{"key":"redux","heading":"Other Skills","name":"Redux","count":"2"},{"key":"swagger","heading":"Other Skills","name":"Swagger"},{"key":"typescript","heading":"Other Skills","name":"TypeScript","count":"5"},{"key":"rxjs","heading":"Other Skills","name":"RxJS","count":"3"},{"key":"neo4j","heading":"Other Skills","name":"Neo4j"},{"key":"ionicFramework","heading":"Other Skills","name":"Ionic Framework","count":"6"},{"key":"graphql","heading":"Other Skills","name":"GraphQL","count":"3"},{"key":"flutter","heading":"Other Skills","name":"Flutter","count":"2"},{"key":"firebase","heading":"Other Skills","name":"Firebase","count":"1"}]],"entities":{"agileMethodologies":{"key":"agileMethodologies","heading":"Industry Knowledge","name":"Agile Methodologies","count":"2"},"javascript":{"key":"javascript","heading":"Tools & Technologies","name":"JavaScript","count":"5"},"java":{"key":"java","heading":"Tools & Technologies","name":"Java"},"maven":{"key":"maven","heading":"Tools & Technologies","name":"Maven"},"css":{"key":"css","heading":"Tools & Technologies","name":"CSS","count":"5"},"docker":{"key":"docker","heading":"Tools & Technologies","name":"Docker","count":"1"},"springFramework":{"key":"springFramework","heading":"Tools & Technologies","name":"Spring Framework"},"hibernate":{"key":"hibernate","heading":"Tools & Technologies","name":"Hibernate"},"php":{"key":"php","heading":"Tools & Technologies","name":"PHP"},"sql":{"key":"sql","heading":"Tools & Technologies","name":"SQL"},"postgresql":{"key":"postgresql","heading":"Tools & Technologies","name":"PostgreSQL"},"linux":{"key":"linux","heading":"Tools & Technologies","name":"Linux","count":"2"},"intellijIdea":{"key":"intellijIdea","heading":"Tools & Technologies","name":"IntelliJ IDEA","count":"1"},"amazonWebServices":{"key":"amazonWebServices","heading":"Tools & Technologies","name":"Amazon Web Services (AWS)"},"problemSolving":{"key":"problemSolving","heading":"Interpersonal Skills","name":"Problem Solving","count":"4"},"hmlt5":{"key":"hmlt5","heading":"Other Skills","name":"HMLT5","count":"5"},"redux":{"key":"redux","heading":"Other Skills","name":"Redux","count":"2"},"swagger":{"key":"swagger","heading":"Other Skills","name":"Swagger"},"typescript":{"key":"typescript","heading":"Other Skills","name":"TypeScript","count":"5"},"rxjs":{"key":"rxjs","heading":"Other Skills","name":"RxJS","count":"3"},"neo4j":{"key":"neo4j","heading":"Other Skills","name":"Neo4j"},"ionicFramework":{"key":"ionicFramework","heading":"Other Skills","name":"Ionic Framework","count":"6"},"graphql":{"key":"graphql","heading":"Other Skills","name":"GraphQL","count":"3"},"flutter":{"key":"flutter","heading":"Other Skills","name":"Flutter","count":"2"},"firebase":{"key":"firebase","heading":"Other Skills","name":"Firebase","count":"1"}}}},"education":[{"schoolName":"VOŠ a SPŠE Plzeň","degreeName":"Diplomovaný specialista (DiS.)","fieldOfStudy":"Informační technologie","degree":"1.25"},{"schoolName":"ISŠ Cheb, Výpočetní technika","degree":"1.5"}],"tagEntities":{"angular":{"key":"angular","name":"Angular","count":"11"},"reactjs":{"key":"reactjs","name":"ReactJS","count":"4"},"git":{"key":"git","name":"Git","count":"7"},"agileMethodologies":{"key":"agileMethodologies","heading":"Industry Knowledge","name":"Agile Methodologies","count":"2"},"javascript":{"key":"javascript","heading":"Tools & Technologies","name":"JavaScript","count":"5"},"java":{"key":"java","heading":"Tools & Technologies","name":"Java"},"maven":{"key":"maven","heading":"Tools & Technologies","name":"Maven"},"css":{"key":"css","heading":"Tools & Technologies","name":"CSS","count":"5"},"docker":{"key":"docker","heading":"Tools & Technologies","name":"Docker","count":"1"},"springFramework":{"key":"springFramework","heading":"Tools & Technologies","name":"Spring Framework"},"hibernate":{"key":"hibernate","heading":"Tools & Technologies","name":"Hibernate"},"php":{"key":"php","heading":"Tools & Technologies","name":"PHP"},"sql":{"key":"sql","heading":"Tools & Technologies","name":"SQL"},"postgresql":{"key":"postgresql","heading":"Tools & Technologies","name":"PostgreSQL"},"linux":{"key":"linux","heading":"Tools & Technologies","name":"Linux","count":"2"},"intellijIdea":{"key":"intellijIdea","heading":"Tools & Technologies","name":"IntelliJ IDEA","count":"1"},"amazonWebServices":{"key":"amazonWebServices","heading":"Tools & Technologies","name":"Amazon Web Services (AWS)"},"problemSolving":{"key":"problemSolving","heading":"Interpersonal Skills","name":"Problem Solving","count":"4"},"hmlt5":{"key":"hmlt5","heading":"Other Skills","name":"HMLT5","count":"5"},"redux":{"key":"redux","heading":"Other Skills","name":"Redux","count":"2"},"swagger":{"key":"swagger","heading":"Other Skills","name":"Swagger"},"typescript":{"key":"typescript","heading":"Other Skills","name":"TypeScript","count":"5"},"rxjs":{"key":"rxjs","heading":"Other Skills","name":"RxJS","count":"3"},"neo4j":{"key":"neo4j","heading":"Other Skills","name":"Neo4j"},"ionicFramework":{"key":"ionicFramework","heading":"Other Skills","name":"Ionic Framework","count":"6"},"graphql":{"key":"graphql","heading":"Other Skills","name":"GraphQL","count":"3"},"flutter":{"key":"flutter","heading":"Other Skills","name":"Flutter","count":"2"},"firebase":{"key":"firebase","heading":"Other Skills","name":"Firebase","count":"1"}}}
+{
+  "positions": {
+    "flowup": {
+      "employedDuration": "Dates Employed Feb 2019 – Present",
+      "duration": "1 yr 3 mos",
+      "company": "FlowUp ",
+      "employment": "Full-time",
+      "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQE7e-hDDBtsWQ/company-logo_100_100/0?e=1594857600&v=beta&t=KAEV5mZqkKnmmX-ySwPDgZgZGmqX2ENBjin19NqiIqU",
+      "position": "Frontend Engineer",
+      "location": "Location District Brno-City, Czech Republic",
+      "key": "flowup",
+      "shortKey": "flowup",
+      "shortCompany": "FlowUp"
+    },
+    "sprint": {
+      "employedDuration": "Dates Employed Aug 2018 – Jan 2019",
+      "duration": "6 mos",
+      "company": "Sprint Innovations ",
+      "employment": "Full-time",
+      "companyLogo": "https://media-exp1.licdn.com/dms/image/C4E0BAQGacPkigH-l8A/company-logo_100_100/0?e=1594857600&v=beta&t=BlWLdwYXMKKfA5tZdtMFG6No0OEB4IxjHcrmDbCMtGI",
+      "position": "Frontend Developer",
+      "location": "Location District Brno-City, Czech Republic",
+      "key": "sprintInnovations",
+      "shortKey": "sprint",
+      "shortCompany": "Sprint"
+    },
+    "marbes": {
+      "employedDuration": "Dates Employed Jan 2018 – Jul 2018",
+      "duration": "7 mos",
+      "company": "MARBES CONSULTING s.r.o.",
+      "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQGmERye2lTt9Q/company-logo_100_100/0?e=1594857600&v=beta&t=lKH1VNvKK8YeYxgduR-9pOlEXQixJg_uQWTwutHK47A",
+      "position": "Full-stack Developer",
+      "location": "Location Plzeň-město, Plzeňský, Česká republika",
+      "key": "marbesConsulting",
+      "shortKey": "marbes",
+      "shortCompany": "MARBES"
+    },
+    "futuretek": {
+      "employedDuration": "Dates Employed Sep 2017 – Jan 2018",
+      "duration": "5 mos",
+      "company": "FutureTek Solutions Ltd. ",
+      "employment": "Full-time",
+      "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQEeZdp3-MUVBg/company-logo_100_100/0?e=1594857600&v=beta&t=70B6nLC_SwgVqWtvXC7i9W_3XZ2o52-1HIjYShEogrE",
+      "position": "Full-stack Developer",
+      "location": "Location Okres Plzeň-město, Česká republika",
+      "details": "Iternship",
+      "key": "futuretekSolutions",
+      "shortKey": "futuretek",
+      "shortCompany": "FutureTek"
+    }
+  },
+  "skills": {
+    "topSkills": {
+      "skills": [
+        { "key": "angular", "name": "Angular", "count": "11" },
+        { "key": "reactjs", "name": "ReactJS", "count": "4" },
+        { "key": "git", "name": "Git", "count": "7" }
+      ],
+      "entities": {
+        "angular": { "key": "angular", "name": "Angular", "count": "11" },
+        "reactjs": { "key": "reactjs", "name": "ReactJS", "count": "4" },
+        "git": { "key": "git", "name": "Git", "count": "7" }
+      }
+    },
+    "otherSkills": {
+      "sections": [
+        "Industry Knowledge",
+        "Tools & Technologies",
+        "Interpersonal Skills",
+        "Other Skills"
+      ],
+      "skills": [
+        [
+          {
+            "key": "agileMethodologies",
+            "heading": "Industry Knowledge",
+            "name": "Agile Methodologies",
+            "count": "2"
+          }
+        ],
+        [
+          {
+            "key": "javascript",
+            "heading": "Tools & Technologies",
+            "name": "JavaScript",
+            "count": "5"
+          },
+          { "key": "java", "heading": "Tools & Technologies", "name": "Java" },
+          {
+            "key": "maven",
+            "heading": "Tools & Technologies",
+            "name": "Maven"
+          },
+          {
+            "key": "css",
+            "heading": "Tools & Technologies",
+            "name": "CSS",
+            "count": "5"
+          },
+          {
+            "key": "docker",
+            "heading": "Tools & Technologies",
+            "name": "Docker",
+            "count": "1"
+          },
+          {
+            "key": "springFramework",
+            "heading": "Tools & Technologies",
+            "name": "Spring Framework"
+          },
+          {
+            "key": "hibernate",
+            "heading": "Tools & Technologies",
+            "name": "Hibernate"
+          },
+          { "key": "php", "heading": "Tools & Technologies", "name": "PHP" },
+          { "key": "sql", "heading": "Tools & Technologies", "name": "SQL" },
+          {
+            "key": "postgresql",
+            "heading": "Tools & Technologies",
+            "name": "PostgreSQL"
+          },
+          {
+            "key": "linux",
+            "heading": "Tools & Technologies",
+            "name": "Linux",
+            "count": "2"
+          },
+          {
+            "key": "intellijIdea",
+            "heading": "Tools & Technologies",
+            "name": "IntelliJ IDEA",
+            "count": "1"
+          },
+          {
+            "key": "amazonWebServices",
+            "heading": "Tools & Technologies",
+            "name": "Amazon Web Services (AWS)"
+          }
+        ],
+        [
+          {
+            "key": "problemSolving",
+            "heading": "Interpersonal Skills",
+            "name": "Problem Solving",
+            "count": "4"
+          }
+        ],
+        [
+          {
+            "key": "hmlt5",
+            "heading": "Other Skills",
+            "name": "HMLT5",
+            "count": "5"
+          },
+          {
+            "key": "redux",
+            "heading": "Other Skills",
+            "name": "Redux",
+            "count": "2"
+          },
+          { "key": "swagger", "heading": "Other Skills", "name": "Swagger" },
+          {
+            "key": "typescript",
+            "heading": "Other Skills",
+            "name": "TypeScript",
+            "count": "5"
+          },
+          {
+            "key": "rxjs",
+            "heading": "Other Skills",
+            "name": "RxJS",
+            "count": "3"
+          },
+          { "key": "neo4j", "heading": "Other Skills", "name": "Neo4j" },
+          {
+            "key": "ionicFramework",
+            "heading": "Other Skills",
+            "name": "Ionic Framework",
+            "count": "6"
+          },
+          {
+            "key": "graphql",
+            "heading": "Other Skills",
+            "name": "GraphQL",
+            "count": "3"
+          },
+          {
+            "key": "flutter",
+            "heading": "Other Skills",
+            "name": "Flutter",
+            "count": "2"
+          },
+          {
+            "key": "firebase",
+            "heading": "Other Skills",
+            "name": "Firebase",
+            "count": "1"
+          }
+        ]
+      ],
+      "entities": {
+        "agileMethodologies": {
+          "key": "agileMethodologies",
+          "heading": "Industry Knowledge",
+          "name": "Agile Methodologies",
+          "count": "2"
+        },
+        "javascript": {
+          "key": "javascript",
+          "heading": "Tools & Technologies",
+          "name": "JavaScript",
+          "count": "5"
+        },
+        "java": {
+          "key": "java",
+          "heading": "Tools & Technologies",
+          "name": "Java"
+        },
+        "maven": {
+          "key": "maven",
+          "heading": "Tools & Technologies",
+          "name": "Maven"
+        },
+        "css": {
+          "key": "css",
+          "heading": "Tools & Technologies",
+          "name": "CSS",
+          "count": "5"
+        },
+        "docker": {
+          "key": "docker",
+          "heading": "Tools & Technologies",
+          "name": "Docker",
+          "count": "1"
+        },
+        "springFramework": {
+          "key": "springFramework",
+          "heading": "Tools & Technologies",
+          "name": "Spring Framework"
+        },
+        "hibernate": {
+          "key": "hibernate",
+          "heading": "Tools & Technologies",
+          "name": "Hibernate"
+        },
+        "php": {
+          "key": "php",
+          "heading": "Tools & Technologies",
+          "name": "PHP"
+        },
+        "sql": {
+          "key": "sql",
+          "heading": "Tools & Technologies",
+          "name": "SQL"
+        },
+        "postgresql": {
+          "key": "postgresql",
+          "heading": "Tools & Technologies",
+          "name": "PostgreSQL"
+        },
+        "linux": {
+          "key": "linux",
+          "heading": "Tools & Technologies",
+          "name": "Linux",
+          "count": "2"
+        },
+        "intellijIdea": {
+          "key": "intellijIdea",
+          "heading": "Tools & Technologies",
+          "name": "IntelliJ IDEA",
+          "count": "1"
+        },
+        "amazonWebServices": {
+          "key": "amazonWebServices",
+          "heading": "Tools & Technologies",
+          "name": "Amazon Web Services (AWS)"
+        },
+        "problemSolving": {
+          "key": "problemSolving",
+          "heading": "Interpersonal Skills",
+          "name": "Problem Solving",
+          "count": "4"
+        },
+        "hmlt5": {
+          "key": "hmlt5",
+          "heading": "Other Skills",
+          "name": "HMLT5",
+          "count": "5"
+        },
+        "redux": {
+          "key": "redux",
+          "heading": "Other Skills",
+          "name": "Redux",
+          "count": "2"
+        },
+        "swagger": {
+          "key": "swagger",
+          "heading": "Other Skills",
+          "name": "Swagger"
+        },
+        "typescript": {
+          "key": "typescript",
+          "heading": "Other Skills",
+          "name": "TypeScript",
+          "count": "5"
+        },
+        "rxjs": {
+          "key": "rxjs",
+          "heading": "Other Skills",
+          "name": "RxJS",
+          "count": "3"
+        },
+        "neo4j": { "key": "neo4j", "heading": "Other Skills", "name": "Neo4j" },
+        "ionicFramework": {
+          "key": "ionicFramework",
+          "heading": "Other Skills",
+          "name": "Ionic Framework",
+          "count": "6"
+        },
+        "graphql": {
+          "key": "graphql",
+          "heading": "Other Skills",
+          "name": "GraphQL",
+          "count": "3"
+        },
+        "flutter": {
+          "key": "flutter",
+          "heading": "Other Skills",
+          "name": "Flutter",
+          "count": "2"
+        },
+        "firebase": {
+          "key": "firebase",
+          "heading": "Other Skills",
+          "name": "Firebase",
+          "count": "1"
+        }
+      }
+    }
+  },
+  "education": [
+    {
+      "schoolName": "VOŠ a SPŠE Plzeň",
+      "degreeName": "Diplomovaný specialista (DiS.)",
+      "fieldOfStudy": "Informační technologie",
+      "degree": "1.25"
+    },
+    { "schoolName": "ISŠ Cheb, Výpočetní technika", "degree": "1.5" }
+  ],
+  "tagEntities": {
+    "angular": { "key": "angular", "name": "Angular", "count": "11" },
+    "reactjs": { "key": "reactjs", "name": "ReactJS", "count": "4" },
+    "git": { "key": "git", "name": "Git", "count": "7" },
+    "agileMethodologies": {
+      "key": "agileMethodologies",
+      "heading": "Industry Knowledge",
+      "name": "Agile Methodologies",
+      "count": "2"
+    },
+    "javascript": {
+      "key": "javascript",
+      "heading": "Tools & Technologies",
+      "name": "JavaScript",
+      "count": "5"
+    },
+    "java": {
+      "key": "java",
+      "heading": "Tools & Technologies",
+      "name": "Java"
+    },
+    "maven": {
+      "key": "maven",
+      "heading": "Tools & Technologies",
+      "name": "Maven"
+    },
+    "css": {
+      "key": "css",
+      "heading": "Tools & Technologies",
+      "name": "CSS",
+      "count": "5"
+    },
+    "docker": {
+      "key": "docker",
+      "heading": "Tools & Technologies",
+      "name": "Docker",
+      "count": "1"
+    },
+    "springFramework": {
+      "key": "springFramework",
+      "heading": "Tools & Technologies",
+      "name": "Spring Framework"
+    },
+    "hibernate": {
+      "key": "hibernate",
+      "heading": "Tools & Technologies",
+      "name": "Hibernate"
+    },
+    "php": { "key": "php", "heading": "Tools & Technologies", "name": "PHP" },
+    "sql": { "key": "sql", "heading": "Tools & Technologies", "name": "SQL" },
+    "postgresql": {
+      "key": "postgresql",
+      "heading": "Tools & Technologies",
+      "name": "PostgreSQL"
+    },
+    "linux": {
+      "key": "linux",
+      "heading": "Tools & Technologies",
+      "name": "Linux",
+      "count": "2"
+    },
+    "intellijIdea": {
+      "key": "intellijIdea",
+      "heading": "Tools & Technologies",
+      "name": "IntelliJ IDEA",
+      "count": "1"
+    },
+    "amazonWebServices": {
+      "key": "amazonWebServices",
+      "heading": "Tools & Technologies",
+      "name": "Amazon Web Services (AWS)"
+    },
+    "problemSolving": {
+      "key": "problemSolving",
+      "heading": "Interpersonal Skills",
+      "name": "Problem Solving",
+      "count": "4"
+    },
+    "hmlt5": {
+      "key": "hmlt5",
+      "heading": "Other Skills",
+      "name": "HMLT5",
+      "count": "5"
+    },
+    "redux": {
+      "key": "redux",
+      "heading": "Other Skills",
+      "name": "Redux",
+      "count": "2"
+    },
+    "swagger": {
+      "key": "swagger",
+      "heading": "Other Skills",
+      "name": "Swagger"
+    },
+    "typescript": {
+      "key": "typescript",
+      "heading": "Other Skills",
+      "name": "TypeScript",
+      "count": "5"
+    },
+    "rxjs": {
+      "key": "rxjs",
+      "heading": "Other Skills",
+      "name": "RxJS",
+      "count": "3"
+    },
+    "neo4j": { "key": "neo4j", "heading": "Other Skills", "name": "Neo4j" },
+    "ionicFramework": {
+      "key": "ionicFramework",
+      "heading": "Other Skills",
+      "name": "Ionic Framework",
+      "count": "6"
+    },
+    "graphql": {
+      "key": "graphql",
+      "heading": "Other Skills",
+      "name": "GraphQL",
+      "count": "3"
+    },
+    "flutter": {
+      "key": "flutter",
+      "heading": "Other Skills",
+      "name": "Flutter",
+      "count": "2"
+    },
+    "firebase": {
+      "key": "firebase",
+      "heading": "Other Skills",
+      "name": "Firebase",
+      "count": "1"
+    }
+  }
+}

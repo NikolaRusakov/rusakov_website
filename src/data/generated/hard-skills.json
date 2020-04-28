@@ -1,0 +1,85 @@
+{
+  "data": [
+    {
+      "section": "fe",
+      "items": [
+        { "name": "React", "position": 0 },
+        { "name": "Flutter", "position": 2 },
+        { "name": "Angular", "position": 1 },
+        { "name": "Ionic", "position": 1 },
+        { "name": "Vue.js", "position": 3 },
+        { "name": "Svelte", "position": 3 },
+        { "name": "Kotlin", "position": 3 },
+        { "name": "Swift", "position": 3 }
+      ]
+    },
+    {
+      "section": "be",
+      "items": [
+        {
+          "name": "Node.js",
+          "position": 0
+        },
+        {
+          "name": "Python",
+          "position": 0
+        },
+        {
+          "name": "Golang",
+          "position": 2
+        },
+        {
+          "name": "Rust",
+          "position": 3
+        },
+        {
+          "name": "Java",
+          "position": 1
+        }
+      ]
+    },
+    {
+      "section": "cloud",
+      "items": [
+        { "name": "GCP", "position": 0 },
+        { "name": "AWS", "position": 1 },
+        { "name": "Firebase", "position": 2 },
+        { "name": "Docker", "position": 3 },
+        { "name": "Kubernetes", "position": 3 }
+      ]
+    },
+    {
+      "section": "db",
+      "items": [
+        {
+          "name": "PostgreSQL",
+          "position": 0
+        },
+        {
+          "name": "MySQL",
+          "position": 1
+        },
+        {
+          "name": "Neo4j",
+          "position": 3
+        },
+        {
+          "name": "MongoDB",
+          "position": 2
+        },
+        {
+          "name": "DynamoDB",
+          "position": 2
+        },
+        {
+          "name": "Firestore",
+          "position": 2
+        },
+        {
+          "name": "Neo4j",
+          "position": 3
+        }
+      ]
+    }
+  ]
+}
