@@ -125,7 +125,7 @@ const AboutLayout: React.FC = children => {
           <style id="typography.js">{typography.toString()}</style>
           {injectRecentFont}
         </Helmet>
-        <Flex sx={{ position: 'sticky', top: 0 }}>
+        <Flex sx={{ position: 'sticky', top: 0, zIndex: '2002' }}>
           <label>
             <Checkbox
               onClick={() => {

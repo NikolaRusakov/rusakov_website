@@ -31,6 +31,7 @@ const SkillSection: React.FC = () => {
       }
     }
   `);
+
   const logoMap = edges.reduce(
     (acc, { node }) => ({
       ...acc,
@@ -97,6 +98,7 @@ const SkillSection: React.FC = () => {
                           flex: 'auto',
                           flexDirection: 'column',
                           alignItems: 'center',
+                          flexWrap: 'wrap-reverse',
                           py: 1,
                           ...(array.length === 1 && {
                             flexDirection: 'row',

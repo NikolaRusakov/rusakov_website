@@ -4654,11 +4654,14 @@ export type LinkedInSkillsQueryVariables = {};
 
 export type LinkedInSkillsQuery = { linkedInSkills?: Maybe<{ skills?: Maybe<Array<Maybe<(
       Pick<LinkedInSkillsSection, 'locale'>
-      & { data?: Maybe<{ topSkills?: Maybe<{ skills?: Maybe<Array<Maybe<Pick<TagEntity, 'count' | 'heading' | 'key' | 'name' | 'slug'>>>> }>, otherSkills?: Maybe<(
+      & { data?: Maybe<{ topSkills?: Maybe<{ skills?: Maybe<Array<Maybe<Pick<TagEntity, 'count' | 'heading' | 'key' | 'name' | 'abbr' | 'slug'>>>> }>, otherSkills?: Maybe<(
           Pick<OtherSkills, 'sections'>
           & { skills?: Maybe<Array<Maybe<Pick<TagEntity, 'abbr' | 'count' | 'heading' | 'key' | 'slug' | 'name'>>>> }
         )> }> }
-    )>>> }> };
+    )>>> }>, logos: { edges: Array<{ node: (
+        Pick<File, 'base' | 'name'>
+        & { childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'aspectRatio' | 'sizes' | 'src' | 'srcSet' | 'srcWebp' | 'base64'>> }> }
+      ) }> } };
 
 export type Unnamed_1_QueryVariables = {};
 
