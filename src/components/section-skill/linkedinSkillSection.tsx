@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import { jsx, Flex } from 'theme-ui';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import i18next from 'i18next';
 import { graphql, useStaticQuery } from 'gatsby';
 import { LinkedInSkillsQuery, TagEntity } from '../../../types/gatsby-graphql';
 import { exists, isNonEmptyArray, pickBadgeName } from '../../utils/utils';
 import { toBadge } from '../badge/badgeList';
-import Img from 'gatsby-image/withIEPolyfill';
+import Img, {
+  GatsbyImageWithIEPolyfillProps,
+} from 'gatsby-image/withIEPolyfill';
 import LinkedInBadge from '../badge/linkedInBadge';
 
 const nameId = (name: string) => name.toLowerCase().replace('.', '');
@@ -15,54 +17,49 @@ const imageByKeyOrAbbr = (keys: string[]) => (logoMap: any) => {
   return keys.map(key => nameId(key) in logoMap && logoMap[nameId(key)])[0];
 };
 
-const toGatsbyImage = (tag: TagEntity) => (logoMap: any) => {
+const toGatsbyImageProps = (tag: TagEntity) => (
+  logoMap: any,
+): GatsbyImageWithIEPolyfillProps | undefined => {
   const searchIndexes = [tag?.abbr, tag?.key].filter(exists);
   const image = imageByKeyOrAbbr(searchIndexes)(logoMap);
   //fixme Types
   // @ts-ignore
-  return (
-    // @ts-ignore
-    exists(image?.childImageSharp?.fluid) && (
-      <Img
-        // @ts-ignore
-        fluid={image.childImageSharp.fluid}
-        objectFit="contain"
-        alt={nameId(tag.name ?? '')}
-        sx={{
-          height: ['2rem', '3rem', '4rem'],
-          width: ['2rem', '3rem', '4rem'],
-        }}
-      />
-    )
-  );
+  return exists(image?.childImageSharp?.fluid)
+    ? {
+        fluid: image.childImageSharp.fluid,
+        objectFit: 'contain',
+        alt: nameId(tag.name ?? ''),
+      }
+    : undefined;
 };
 
-const SkillContent: React.FC<{ tag: TagEntity; logoMap: any }> = ({
-  tag,
-  logoMap,
-}) => (
-  <React.Fragment>
-    {exists(tag?.key) && toGatsbyImage(tag)(logoMap)}
-    {Number(tag?.count) > 0 && (
-      <Flex
-        sx={{
-          bottom: '-4%',
-          transform: 'scale(0.7)',
-          right: 'auto',
-        }}>
-        <LinkedInBadge tag={tag} />
-      </Flex>
-    )}
-    {toBadge(pickBadgeName(tag, true), {
-      whiteSpace: 'pre-wrap',
-      overflow: 'hidden',
-      display: '-webkit-box',
-      '-webkit-box-orient': 'vertical',
-      '-webkit-line-clamp': ' 2',
-      margin: [0, '2px', '4px'],
-    })}
-  </React.Fragment>
-);
+interface Arguments {
+  img?: GatsbyImageWithIEPolyfillProps;
+  head: ReactNode;
+}
+
+const SkillContent: React.FC<{
+  tag: TagEntity;
+  logoMap: any;
+  children: (args: Arguments) => JSX.Element;
+}> = ({ tag, logoMap, children }) =>
+  children({
+    img: toGatsbyImageProps(tag)(logoMap),
+    head: (
+      <React.Fragment>
+        {Number(tag?.count) > 0 && (
+          <Flex
+            sx={{
+              bottom: '-4%',
+              transform: 'scale(0.7)',
+              right: 'auto',
+            }}>
+            <LinkedInBadge tag={tag} />
+          </Flex>
+        )}
+      </React.Fragment>
+    ),
+  });
 
 const LinkedInSkillSection: React.FC = () => {
   const locale = i18next.language;
@@ -157,13 +154,17 @@ const LinkedInSkillSection: React.FC = () => {
   );
 
   return (
-    <div
+    <Flex
+      as="section"
       sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
         height: '100%',
         width: ['90vw', null, '40vw'],
         backgroundColor: 'white',
       }}>
-      <Flex sx={{ justifyContent: 'space-evenly' }}>
+      <Flex sx={{ justifyContent: 'space-evenly', width: '90%' }}>
         {linkedInskills?.topSkills?.skills?.map(
           tag =>
             exists(tag) && (
@@ -173,33 +174,97 @@ const LinkedInSkillSection: React.FC = () => {
                   flexDirection: 'column',
                   alignItems: 'center',
                 }}>
-                <SkillContent tag={tag} logoMap={logoMap} />
+                <SkillContent tag={tag} logoMap={logoMap}>
+                  {({ head, img }) => {
+                    return (
+                      <React.Fragment>
+                        {exists(img) && (
+                          <Img
+                            {...img}
+                            sx={{ width: ['5rem', null, '6rem'] }}
+                          />
+                        )}
+                        {head}
+                        {toBadge(pickBadgeName(tag, true), {
+                          whiteSpace: 'pre-wrap',
+                          overflow: 'hidden',
+                          display: '-webkit-box',
+                          '-webkit-box-orient': 'vertical',
+                          '-webkit-line-clamp': ' 2',
+                          margin: [0, '2px', '4px'],
+                        })}
+                      </React.Fragment>
+                    );
+                  }}
+                </SkillContent>
               </Flex>
             ),
         )}
       </Flex>
       {tagSortedByDesc &&
         tagSortedByDesc.map(([sectionName, value]) => (
-          <section>
-            <h3>{sectionName}</h3>
-            <Flex sx={{ flexWrap: 'wrap', alignItems: 'center' }}>
-              {value.map(tag => (
-                <Flex
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    position: 'relative',
-                    maxWidth: '25%',
-                  }}>
-                  <SkillContent tag={tag} logoMap={logoMap} />
-                </Flex>
-              ))}
-            </Flex>
-            <hr />
-          </section>
+          <Flex
+            sx={{
+              width: value.length > 4 ? '100%' : '50%',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+            }}>
+            <section
+              sx={{
+                flexDirection: 'column',
+                display: 'flex',
+              }}>
+              <h3 sx={{ margin: theme => `${theme.space[2]}px auto` }}>
+                {sectionName}
+              </h3>
+              <Flex
+                sx={{
+                  flexWrap: 'wrap',
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-around',
+                }}>
+                {value.map(tag => (
+                  <Flex
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      position: 'relative',
+                      maxWidth: value.length === 1 ? '100%' : '25%',
+                      m: 2,
+                    }}>
+                    <SkillContent tag={tag} logoMap={logoMap}>
+                      {({ head, img }) => {
+                        return (
+                          <React.Fragment>
+                            <Img
+                              {...img}
+                              sx={{
+                                width: ['4rem', null, '3rem'],
+                                height: ['4rem', null, '3rem'],
+                              }}
+                            />
+                            {head}
+                            {toBadge(pickBadgeName(tag, true), {
+                              whiteSpace: 'pre-wrap',
+                              overflow: 'hidden',
+                              display: '-webkit-box',
+                              '-webkit-box-orient': 'vertical',
+                              '-webkit-line-clamp': ' 2',
+                              margin: [0, '2px', '4px'],
+                            })}
+                          </React.Fragment>
+                        );
+                      }}
+                    </SkillContent>
+                  </Flex>
+                ))}
+              </Flex>
+              <hr />
+            </section>
+          </Flex>
         ))}
-    </div>
+    </Flex>
   );
 };
 
