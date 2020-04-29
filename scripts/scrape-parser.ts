@@ -18,6 +18,17 @@ const scrape = Object.keys(i18n).map(async lang => {
   const { education, positions, skills } = await import(
     `../src/data/scrape/scrape.${lang}.json`
   );
+
+  const { default: tagsMapper } = await import(
+    '../src/data/local/tags.local.json'
+  );
+
+  const mapNameToAbbreviation = (name: string): string | undefined => {
+    const key = toKeyFormat(name);
+    // @ts-ignore
+    return key in tagsMapper ? tagsMapper[key]['abbr'] : undefined;
+  };
+
   const transPositions = positions.experience.reduce(
     // @ts-ignore
     (acc, cur) => ({
@@ -39,6 +50,7 @@ const scrape = Object.keys(i18n).map(async lang => {
       key: toKeyFormat(name),
       name,
       count,
+      abbr: mapNameToAbbreviation(name),
     })),
     entities: skills.topSkills.skills.reduce(
       // @ts-ignore
@@ -48,6 +60,7 @@ const scrape = Object.keys(i18n).map(async lang => {
           key: toKeyFormat(name),
           name,
           count,
+          abbr: toKeyFormat(name),
         },
       }),
       {},
@@ -63,6 +76,7 @@ const scrape = Object.keys(i18n).map(async lang => {
         key: toKeyFormat(name),
         heading,
         name,
+        abbr: mapNameToAbbreviation(name),
         count: count != null ? Number(count) : 0 ?? 0,
       }));
 
@@ -133,9 +147,6 @@ const scrape = Object.keys(i18n).map(async lang => {
   );
 
   const localCompanies = await import('../src/data/local/companies.local.json');
-  const { default: tagsMapper } = await import(
-    '../src/data/local/tags.local.json'
-  );
 
   const mapToTagEntity = (
     tag: string,

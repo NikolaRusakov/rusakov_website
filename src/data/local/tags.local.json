@@ -4,8 +4,12 @@
   "graphql": { "key": "graphql", "name": "GraphQL" },
   "apollo": { "key": "apollo", "name": "Apollo" },
   "go": { "key": "go", "name": "Golang" },
-  "angular": { "key": "angular", "name": "Angular" },
-  "ionicFramework": { "key": "ionicFramework", "name": "Ionic" },
+  "angular": { "key": "angular", "name": "Angular", "abbr": "Angular" },
+  "ionicFramework": {
+    "key": "ionicFramework",
+    "name": "Ionic",
+    "abbr": "Ionic"
+  },
   "nx": { "key": "nx", "name": "Nx (Nrwl)" },
   "rxjs": { "key": "rxjs", "name": "RxJS" },
   "ngrx": { "key": "ngrx", "name": "NgRx" },
@@ -37,11 +41,12 @@
   "githubActions": { "key": "githubActions", "name": "Github Actions" },
   "androidStudio": { "key": "androidStudio", "name": "Android Studio" },
   "xcode": { "key": "xcode", "name": "Xcode" },
-  "serverless": { "key": "serverless", "name": "Serverless" },
+  "serverless": { "key": "serverless", "name": "Serverless", "abbr": "SLS" },
   "terraform": { "key": "terraform", "name": "Terraform" },
   "googleCloudPlatform": {
     "key": "googleCloudPlatform",
-    "name": "Google Cloud Platform"
+    "name": "Google Cloud Platform",
+    "abbr": "GCP"
   },
   "docker": { "key": "docker", "name": "Docker" },
   "kubernetes": { "key": "kubernetes", "name": "Kubernetes" },
@@ -53,7 +58,8 @@
   "networking": { "key": "networking", "name": "Networking" },
   "amazonWebServices": {
     "key": "amazonWebServices",
-    "name": "Amazon Web Services"
+    "name": "Amazon Web Services",
+    "abbr": "AWS"
   },
   "cloudformation": { "key": "cloudformation", "name": "CloudFormation" },
   "lambda": { "key": "lambda", "name": "Lambda" },
@@ -78,7 +84,8 @@
   "codeReview": { "key": "codeReview", "name": "Code Review" },
   "agileMethodologies": {
     "key": "agileMethodologies",
-    "name": "Agile Methodologies"
+    "name": "Agile Methodologies",
+    "abbr": "Agile"
   },
   "mentor": { "key": "mentor", "name": "Mentoring" },
   "scrum": { "key": "scrum", "name": "Scrum" },
@@ -95,6 +102,11 @@
   "hibernate": { "key": "hibernate", "name": "Hibernate" },
   "tomcat": { "key": "tomcat", "name": "Apache Tomcat" },
   "spring": { "key": "spring", "name": "Spring" },
+  "springFramework": {
+    "key": "springFramework",
+    "name": "Spring Framework",
+    "abbr": "Spring"
+  },
   "springBoot": { "key": "springBoot", "name": "Spring Boot" },
   "orikaMapper": { "key": "orikaMapper", "name": "Orika Mapper" },
   "freemarker": { "key": "freeMarker", "name": "FreeMarker" },
@@ -107,19 +119,20 @@
   "dockerSwarm": { "key": "dockerSwarm", "name": "Docker Swarm" },
   "jenkins": { "key": "jenkins", "name": "Jenkins" },
   "testcafe": { "key": "testcafe", "name": "TestCafe" },
-  "reactjs": { "key": "reactjs", "name": "ReactJS" },
+  "reactjs": { "key": "reactjs", "name": "ReactJS", "abbr": "React" },
   "redux": { "key": "redux", "name": "Redux" },
   "reduxForm": { "key": "reduxForm", "name": "Redux Form" },
   "webpack": { "key": "webpack", "name": "Webpack" },
   "flow": { "key": "flow", "name": "Flow" },
   "babel": { "key": "babel", "name": "Babel" },
   "html5": { "key": "html5", "name": "HTML5" },
+  "hmlt5": { "key": "hmtl5", "name": "HTML5", "abbr": "HTML5" },
   "jquery": { "key": "jquery", "name": "jQuery" },
   "vaadin": { "key": "vaadin", "name": "Vaadin" },
   "db": { "key": "db", "name": "Database" },
   "mysql": { "key": "mysql", "name": "MySQL" },
   "postgresql": { "key": "postgresql", "name": "PostgreSQL" },
-  "mssql": { "key": "mssql", "name": "Microsoft SQL Server" },
+  "mssql": { "key": "mssql", "name": "Microsoft SQL Server", "abbr": "MSSQL" },
   "sql": { "key": "sql", "name": "SQL" },
   "os": { "key": "os", "name": "Operating System" },
   "ubuntu": { "key": "ubuntu", "name": "Ubuntu" },
