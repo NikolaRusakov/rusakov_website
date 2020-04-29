@@ -45,9 +45,11 @@ const scrape = Object.keys(i18n).map(async lang => {
   );
 
   const transTopSkills = {
+    sections: [skills.topSkills.heading],
     // @ts-ignore
     skills: skills.topSkills.skills.map(({ name, count }) => ({
       key: toKeyFormat(name),
+      heading: skills.topSkills.heading,
       name,
       count,
       abbr: mapNameToAbbreviation(name),
@@ -135,7 +137,10 @@ const scrape = Object.keys(i18n).map(async lang => {
   fs.writeFile(
     `src/data/generated/parsed-skills.${lang}.json`,
     JSON.stringify({
-      topSkills: { skills: transTopSkills.skills },
+      topSkills: {
+        sections: transTopSkills.sections,
+        skills: transTopSkills.skills,
+      },
       otherSkills: {
         sections: transOtherSkills.sections,
         skills: transOtherSkills.skills.flat(),
