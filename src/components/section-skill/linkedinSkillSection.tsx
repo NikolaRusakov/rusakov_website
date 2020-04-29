@@ -235,6 +235,7 @@ const LinkedInSkillSection: React.FC = () => {
                 sx={{
                   color: '#000',
                   margin: theme => `${theme.space[2]}px auto`,
+                  textAlign: 'center',
                 }}>
                 {sectionName}
               </h2>
