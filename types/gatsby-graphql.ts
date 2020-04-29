@@ -4654,7 +4654,10 @@ export type LinkedInSkillsQueryVariables = {};
 
 export type LinkedInSkillsQuery = { linkedInSkills?: Maybe<{ skills?: Maybe<Array<Maybe<(
       Pick<LinkedInSkillsSection, 'locale'>
-      & { data?: Maybe<{ topSkills?: Maybe<{ skills?: Maybe<Array<Maybe<Pick<TagEntity, 'count' | 'heading' | 'key' | 'name' | 'abbr' | 'slug'>>>> }>, otherSkills?: Maybe<(
+      & { data?: Maybe<{ topSkills?: Maybe<(
+          Pick<OtherSkills, 'sections'>
+          & { skills?: Maybe<Array<Maybe<Pick<TagEntity, 'count' | 'heading' | 'key' | 'name' | 'abbr' | 'slug'>>>> }
+        )>, otherSkills?: Maybe<(
           Pick<OtherSkills, 'sections'>
           & { skills?: Maybe<Array<Maybe<Pick<TagEntity, 'abbr' | 'count' | 'heading' | 'key' | 'slug' | 'name'>>>> }
         )> }> }

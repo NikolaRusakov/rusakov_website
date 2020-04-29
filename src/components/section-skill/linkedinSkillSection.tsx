@@ -74,6 +74,7 @@ const LinkedInSkillSection: React.FC = () => {
           locale
           data {
             topSkills {
+              sections
               skills {
                 count
                 heading
@@ -161,45 +162,61 @@ const LinkedInSkillSection: React.FC = () => {
         flexWrap: 'wrap',
         justifyContent: 'center',
         height: '100%',
-        width: ['90vw', null, '40vw'],
+        // width: ['90vw', null, '40vw'],
         backgroundColor: 'white',
       }}>
-      <Flex sx={{ justifyContent: 'space-evenly', width: '90%' }}>
-        {linkedInskills?.topSkills?.skills?.map(
-          tag =>
-            exists(tag) && (
-              <Flex
-                sx={{
-                  position: 'relative',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}>
-                <SkillContent tag={tag} logoMap={logoMap}>
-                  {({ head, img }) => {
-                    return (
-                      <React.Fragment>
-                        {exists(img) && (
-                          <Img
-                            {...img}
-                            sx={{ width: ['5rem', null, '6rem'] }}
-                          />
-                        )}
-                        {head}
-                        {toBadge(pickBadgeName(tag, true), {
-                          whiteSpace: 'pre-wrap',
-                          overflow: 'hidden',
-                          display: '-webkit-box',
-                          '-webkit-box-orient': 'vertical',
-                          '-webkit-line-clamp': ' 2',
-                          margin: [0, '2px', '4px'],
-                        })}
-                      </React.Fragment>
-                    );
-                  }}
-                </SkillContent>
-              </Flex>
-            ),
-        )}
+      <Flex
+        sx={{
+          justifyContent: 'space-evenly',
+          width: '90%',
+          flexDirection: 'column',
+        }}>
+        <h2 sx={{ color: '#000', margin: theme => `${theme.space[2]}px auto` }}>
+          {linkedInskills?.topSkills?.sections?.join(',')}
+        </h2>
+        <Flex
+          sx={{
+            flexWrap: 'wrap',
+            alignItems: 'flex-end',
+            justifyContent: 'space-around',
+          }}>
+          {linkedInskills?.topSkills?.skills?.map(
+            tag =>
+              exists(tag) && (
+                <Flex
+                  sx={{
+                    position: 'relative',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}>
+                  <SkillContent tag={tag} logoMap={logoMap}>
+                    {({ head, img }) => {
+                      return (
+                        <React.Fragment>
+                          {exists(img) && (
+                            <Img
+                              {...img}
+                              sx={{ width: ['5rem', null, '6rem'] }}
+                            />
+                          )}
+                          {head}
+                          {toBadge(pickBadgeName(tag, true), {
+                            whiteSpace: 'pre-wrap',
+                            overflow: 'hidden',
+                            display: '-webkit-box',
+                            '-webkit-box-orient': 'vertical',
+                            '-webkit-line-clamp': ' 2',
+                            margin: [0, '2px', '4px'],
+                          })}
+                        </React.Fragment>
+                      );
+                    }}
+                  </SkillContent>
+                </Flex>
+              ),
+          )}
+        </Flex>
+        <hr />
       </Flex>
       {tagSortedByDesc &&
         tagSortedByDesc.map(([sectionName, value]) => (
@@ -214,9 +231,13 @@ const LinkedInSkillSection: React.FC = () => {
                 flexDirection: 'column',
                 display: 'flex',
               }}>
-              <h3 sx={{ margin: theme => `${theme.space[2]}px auto` }}>
+              <h2
+                sx={{
+                  color: '#000',
+                  margin: theme => `${theme.space[2]}px auto`,
+                }}>
                 {sectionName}
-              </h3>
+              </h2>
               <Flex
                 sx={{
                   flexWrap: 'wrap',

@@ -3,10 +3,13 @@ import { jsx, Flex } from 'theme-ui';
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image/withIEPolyfill';
+import { useTranslation } from 'react-i18next';
 
 import hardSkill from '../../data/generated/hard-skills.json';
 
 const SkillSection: React.FC = () => {
+  const { t } = useTranslation();
+
   const {
     logos: { edges },
   } = useStaticQuery(graphql`
@@ -56,87 +59,94 @@ const SkillSection: React.FC = () => {
   }));
 
   return (
-    <Flex sx={{ bg: 'secondary' }}>
-      <div sx={{ width: ['90vw', null, '40vw'], backgroundColor: 'white' }}>
-        {skills.map(({ section, items }) => (
-          <div sx={{ display: 'flex', flexDirection: 'column' }}>
-            <div
+    <div
+      sx={{
+        // width: ['90vw', null, '40vw'],
+        backgroundColor: 'white',
+        border: theme =>
+          `${theme.space[2]}px solid ${theme.colors.highlight ||
+            theme.colors.accent ||
+            theme.colors.muted}`,
+      }}>
+      {skills.map(({ section, items }) => (
+        <div sx={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            sx={{
+              bg: theme =>
+                theme.colors.highlight ||
+                theme.colors.accent ||
+                theme.colors.muted,
+            }}>
+            <h1
               sx={{
-                bg: theme =>
-                  theme.colors.highlight ||
-                  theme.colors.accent ||
-                  theme.colors.muted,
+                alignSelf: 'center',
+                margin: '0 !important',
+                display: 'flex',
+                justifyContent: 'center',
+                textTransform: 'uppercase',
               }}>
-              <h1
-                sx={{
-                  alignSelf: 'center',
-                  margin: '0 !important',
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}>
-                {section}
-              </h1>
-            </div>
-            <section
-              sx={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                border: theme => `1px solid ${theme.colors.background}`,
-              }}>
-              {Object.entries(items).map(([_, skillItems], index) => (
-                <Flex
-                  sx={{
-                    justifyContent: 'space-evenly',
-                    flexWrap: 'wrap',
-                  }}>
-                  {skillItems.map(({ name }, index, array) => {
-                    const nameId = name.toLowerCase().replace('.', '');
-                    return (
-                      <div
-                        sx={{
-                          display: 'flex',
-                          flex: 'auto',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          flexWrap: 'wrap-reverse',
-                          py: 1,
-                          ...(array.length === 1 && {
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            fontSize: 4,
-                          }),
-                        }}>
-                        <span sx={{ color: 'black' }}>{name}</span>
-                        {imageExists(nameId) && (
-                          <Img
-                            fluid={logoMap[nameId].childImageSharp.fluid}
-                            alt={logoMap[nameId]?.name}
-                            objectFit="contain"
-                            style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
-                            sx={{
-                              width: 28,
-                              height: 28,
-                              ...(array.length === 1 && {
-                                m: 1,
-                                width: 42,
-                                height: 42,
-                              }),
-                            }}
-                          />
-                        )}
-                      </div>
-                    );
-                  })}
-                  <hr
-                    sx={{ width: '80%', marginBottom: ['4px', '6px', '8px'] }}
-                  />
-                </Flex>
-              ))}
-            </section>
+              {t(`skills:${section}`)}
+            </h1>
           </div>
-        ))}
-      </div>
-    </Flex>
+          <section
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              border: theme => `1px solid ${theme.colors.background}`,
+            }}>
+            {Object.entries(items).map(([_, skillItems], index) => (
+              <Flex
+                sx={{
+                  justifyContent: 'space-evenly',
+                  flexWrap: 'wrap',
+                }}>
+                {skillItems.map(({ name }, index, array) => {
+                  const nameId = name.toLowerCase().replace('.', '');
+                  return (
+                    <div
+                      sx={{
+                        display: 'flex',
+                        flex: 'auto',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        flexWrap: 'wrap-reverse',
+                        py: 1,
+                        ...(array.length === 1 && {
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          fontSize: 4,
+                        }),
+                      }}>
+                      <span sx={{ color: 'black' }}>{name}</span>
+                      {imageExists(nameId) && (
+                        <Img
+                          fluid={logoMap[nameId].childImageSharp.fluid}
+                          alt={logoMap[nameId]?.name}
+                          objectFit="contain"
+                          style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
+                          sx={{
+                            width: 28,
+                            height: 28,
+                            ...(array.length === 1 && {
+                              m: 1,
+                              width: 42,
+                              height: 42,
+                            }),
+                          }}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+                <hr
+                  sx={{ width: '80%', marginBottom: ['4px', '6px', '8px'] }}
+                />
+              </Flex>
+            ))}
+          </section>
+        </div>
+      ))}
+    </div>
   );
 };
 export default SkillSection;
