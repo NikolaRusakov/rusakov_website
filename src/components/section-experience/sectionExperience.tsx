@@ -360,7 +360,7 @@ const SectionExperience: React.FC<{
                                 exists(tag) &&
                                 (exists(tag?.tags)
                                   ? badgeList(tag?.tags)
-                                  : toBadge(tag)),
+                                  : exists(tag.name) && toBadge(tag.name)),
                             )}
                           </Flex>
                         </Flex>
