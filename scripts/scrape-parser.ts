@@ -1,16 +1,34 @@
-import * as E from 'fp-ts/lib/Either';
 import merge from 'deepmerge';
+import * as E from 'fp-ts/lib/Either';
 import { pipe } from 'fp-ts/lib/pipeable';
+import { sortBy } from 'fp-ts/lib/Array';
+import { ord, ordNumber } from 'fp-ts/lib/Ord';
 
 import * as fs from 'fs';
 import i18n from '../config/i18n.js';
 import { toKeyFormat } from '../src/utils/transform';
-import { isTagEntity, LocalCompanies, TagEntity } from './scrape-types';
+import {
+  isTagEntity,
+  LocalCompanies,
+  TagEntity,
+  TagEntityCompare,
+} from './scrape-types';
 
 const scrape = Object.keys(i18n).map(async lang => {
   const { education, positions, skills } = await import(
     `../src/data/scrape/scrape.${lang}.json`
   );
+
+  const { default: tagsMapper } = await import(
+    '../src/data/local/tags.local.json'
+  );
+
+  const mapNameToAbbreviation = (name: string): string | undefined => {
+    const key = toKeyFormat(name);
+    // @ts-ignore
+    return key in tagsMapper ? tagsMapper[key]['abbr'] : undefined;
+  };
+
   const transPositions = positions.experience.reduce(
     // @ts-ignore
     (acc, cur) => ({
@@ -27,11 +45,14 @@ const scrape = Object.keys(i18n).map(async lang => {
   );
 
   const transTopSkills = {
+    sections: [skills.topSkills.heading],
     // @ts-ignore
     skills: skills.topSkills.skills.map(({ name, count }) => ({
       key: toKeyFormat(name),
+      heading: skills.topSkills.heading,
       name,
       count,
+      abbr: mapNameToAbbreviation(name),
     })),
     entities: skills.topSkills.skills.reduce(
       // @ts-ignore
@@ -41,6 +62,7 @@ const scrape = Object.keys(i18n).map(async lang => {
           key: toKeyFormat(name),
           name,
           count,
+          abbr: toKeyFormat(name),
         },
       }),
       {},
@@ -49,15 +71,29 @@ const scrape = Object.keys(i18n).map(async lang => {
   const transOtherSkills = {
     sections: skills.otherSkills.sections,
     // @ts-ignore
-    skills: skills.otherSkills.skills.map(({ skill, heading }) =>
-      // @ts-ignore
-      skill.map(({ name, count }) => ({
+    skills: skills.otherSkills.skills.map<TagEntity>(({ skill, heading }) => {
+      const formattedSkills: TagEntityCompare[] = (skill as TagEntity[]).map<
+        TagEntityCompare
+      >(({ name, count }) => ({
         key: toKeyFormat(name),
         heading,
         name,
-        count,
-      })),
-    ),
+        abbr: mapNameToAbbreviation(name),
+        count: count != null ? Number(count) : 0 ?? 0,
+      }));
+
+      const byCount = ord.contramap(ordNumber, (p: TagEntityCompare) => {
+        return p.count;
+      });
+      const sortByCount = sortBy([byCount]);
+
+      return sortByCount(formattedSkills)
+        .map<TagEntity>(sortedSkill => ({
+          ...sortedSkill,
+          count: sortedSkill.count.toLocaleString(),
+        }))
+        .reverse();
+    }),
     entities: {
       ...skills.otherSkills.skills
         .map(
@@ -97,10 +133,25 @@ const scrape = Object.keys(i18n).map(async lang => {
       if (e) throw e;
     },
   );
-  const localCompanies = await import('../src/data/local/companies.local.json');
-  const { default: tagsMapper } = await import(
-    '../src/data/local/tags.local.json'
+
+  fs.writeFile(
+    `src/data/generated/parsed-skills.${lang}.json`,
+    JSON.stringify({
+      topSkills: {
+        sections: transTopSkills.sections,
+        skills: transTopSkills.skills,
+      },
+      otherSkills: {
+        sections: transOtherSkills.sections,
+        skills: transOtherSkills.skills.flat(),
+      },
+    }),
+    e => {
+      if (e) throw e;
+    },
   );
+
+  const localCompanies = await import('../src/data/local/companies.local.json');
 
   const mapToTagEntity = (
     tag: string,

@@ -1738,6 +1738,704 @@ export type JsonQueryOperatorInput = {
   glob?: Maybe<Scalars['JSON']>;
 };
 
+export type LinkedInSkill = Node & {
+  topSkills?: Maybe<OtherSkills>;
+  otherSkills?: Maybe<OtherSkills>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type LinkedInSkillConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInSkillEdge>;
+  nodes: Array<LinkedInSkill>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<LinkedInSkillGroupConnection>;
+};
+
+
+export type LinkedInSkillConnectionDistinctArgs = {
+  field: LinkedInSkillFieldsEnum;
+};
+
+
+export type LinkedInSkillConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: LinkedInSkillFieldsEnum;
+};
+
+export type LinkedInSkillEdge = {
+  next?: Maybe<LinkedInSkill>;
+  node: LinkedInSkill;
+  previous?: Maybe<LinkedInSkill>;
+};
+
+export type LinkedInSkillFieldsEnum = 
+  'topSkills___sections' |
+  'topSkills___skills' |
+  'topSkills___skills___key' |
+  'topSkills___skills___name' |
+  'topSkills___skills___count' |
+  'topSkills___skills___heading' |
+  'topSkills___skills___abbr' |
+  'topSkills___skills___slug' |
+  'topSkills___skills___tags' |
+  'topSkills___skills___tags___key' |
+  'topSkills___skills___tags___name' |
+  'topSkills___skills___tags___count' |
+  'topSkills___skills___tags___heading' |
+  'topSkills___skills___tags___abbr' |
+  'topSkills___skills___tags___slug' |
+  'topSkills___skills___tags___tags' |
+  'topSkills___id' |
+  'topSkills___parent___id' |
+  'topSkills___parent___parent___id' |
+  'topSkills___parent___parent___children' |
+  'topSkills___parent___children' |
+  'topSkills___parent___children___id' |
+  'topSkills___parent___children___children' |
+  'topSkills___parent___internal___content' |
+  'topSkills___parent___internal___contentDigest' |
+  'topSkills___parent___internal___description' |
+  'topSkills___parent___internal___fieldOwners' |
+  'topSkills___parent___internal___ignoreType' |
+  'topSkills___parent___internal___mediaType' |
+  'topSkills___parent___internal___owner' |
+  'topSkills___parent___internal___type' |
+  'topSkills___children' |
+  'topSkills___children___id' |
+  'topSkills___children___parent___id' |
+  'topSkills___children___parent___children' |
+  'topSkills___children___children' |
+  'topSkills___children___children___id' |
+  'topSkills___children___children___children' |
+  'topSkills___children___internal___content' |
+  'topSkills___children___internal___contentDigest' |
+  'topSkills___children___internal___description' |
+  'topSkills___children___internal___fieldOwners' |
+  'topSkills___children___internal___ignoreType' |
+  'topSkills___children___internal___mediaType' |
+  'topSkills___children___internal___owner' |
+  'topSkills___children___internal___type' |
+  'topSkills___internal___content' |
+  'topSkills___internal___contentDigest' |
+  'topSkills___internal___description' |
+  'topSkills___internal___fieldOwners' |
+  'topSkills___internal___ignoreType' |
+  'topSkills___internal___mediaType' |
+  'topSkills___internal___owner' |
+  'topSkills___internal___type' |
+  'otherSkills___sections' |
+  'otherSkills___skills' |
+  'otherSkills___skills___key' |
+  'otherSkills___skills___name' |
+  'otherSkills___skills___count' |
+  'otherSkills___skills___heading' |
+  'otherSkills___skills___abbr' |
+  'otherSkills___skills___slug' |
+  'otherSkills___skills___tags' |
+  'otherSkills___skills___tags___key' |
+  'otherSkills___skills___tags___name' |
+  'otherSkills___skills___tags___count' |
+  'otherSkills___skills___tags___heading' |
+  'otherSkills___skills___tags___abbr' |
+  'otherSkills___skills___tags___slug' |
+  'otherSkills___skills___tags___tags' |
+  'otherSkills___id' |
+  'otherSkills___parent___id' |
+  'otherSkills___parent___parent___id' |
+  'otherSkills___parent___parent___children' |
+  'otherSkills___parent___children' |
+  'otherSkills___parent___children___id' |
+  'otherSkills___parent___children___children' |
+  'otherSkills___parent___internal___content' |
+  'otherSkills___parent___internal___contentDigest' |
+  'otherSkills___parent___internal___description' |
+  'otherSkills___parent___internal___fieldOwners' |
+  'otherSkills___parent___internal___ignoreType' |
+  'otherSkills___parent___internal___mediaType' |
+  'otherSkills___parent___internal___owner' |
+  'otherSkills___parent___internal___type' |
+  'otherSkills___children' |
+  'otherSkills___children___id' |
+  'otherSkills___children___parent___id' |
+  'otherSkills___children___parent___children' |
+  'otherSkills___children___children' |
+  'otherSkills___children___children___id' |
+  'otherSkills___children___children___children' |
+  'otherSkills___children___internal___content' |
+  'otherSkills___children___internal___contentDigest' |
+  'otherSkills___children___internal___description' |
+  'otherSkills___children___internal___fieldOwners' |
+  'otherSkills___children___internal___ignoreType' |
+  'otherSkills___children___internal___mediaType' |
+  'otherSkills___children___internal___owner' |
+  'otherSkills___children___internal___type' |
+  'otherSkills___internal___content' |
+  'otherSkills___internal___contentDigest' |
+  'otherSkills___internal___description' |
+  'otherSkills___internal___fieldOwners' |
+  'otherSkills___internal___ignoreType' |
+  'otherSkills___internal___mediaType' |
+  'otherSkills___internal___owner' |
+  'otherSkills___internal___type' |
+  'id' |
+  'parent___id' |
+  'parent___parent___id' |
+  'parent___parent___parent___id' |
+  'parent___parent___parent___children' |
+  'parent___parent___children' |
+  'parent___parent___children___id' |
+  'parent___parent___children___children' |
+  'parent___parent___internal___content' |
+  'parent___parent___internal___contentDigest' |
+  'parent___parent___internal___description' |
+  'parent___parent___internal___fieldOwners' |
+  'parent___parent___internal___ignoreType' |
+  'parent___parent___internal___mediaType' |
+  'parent___parent___internal___owner' |
+  'parent___parent___internal___type' |
+  'parent___children' |
+  'parent___children___id' |
+  'parent___children___parent___id' |
+  'parent___children___parent___children' |
+  'parent___children___children' |
+  'parent___children___children___id' |
+  'parent___children___children___children' |
+  'parent___children___internal___content' |
+  'parent___children___internal___contentDigest' |
+  'parent___children___internal___description' |
+  'parent___children___internal___fieldOwners' |
+  'parent___children___internal___ignoreType' |
+  'parent___children___internal___mediaType' |
+  'parent___children___internal___owner' |
+  'parent___children___internal___type' |
+  'parent___internal___content' |
+  'parent___internal___contentDigest' |
+  'parent___internal___description' |
+  'parent___internal___fieldOwners' |
+  'parent___internal___ignoreType' |
+  'parent___internal___mediaType' |
+  'parent___internal___owner' |
+  'parent___internal___type' |
+  'children' |
+  'children___id' |
+  'children___parent___id' |
+  'children___parent___parent___id' |
+  'children___parent___parent___children' |
+  'children___parent___children' |
+  'children___parent___children___id' |
+  'children___parent___children___children' |
+  'children___parent___internal___content' |
+  'children___parent___internal___contentDigest' |
+  'children___parent___internal___description' |
+  'children___parent___internal___fieldOwners' |
+  'children___parent___internal___ignoreType' |
+  'children___parent___internal___mediaType' |
+  'children___parent___internal___owner' |
+  'children___parent___internal___type' |
+  'children___children' |
+  'children___children___id' |
+  'children___children___parent___id' |
+  'children___children___parent___children' |
+  'children___children___children' |
+  'children___children___children___id' |
+  'children___children___children___children' |
+  'children___children___internal___content' |
+  'children___children___internal___contentDigest' |
+  'children___children___internal___description' |
+  'children___children___internal___fieldOwners' |
+  'children___children___internal___ignoreType' |
+  'children___children___internal___mediaType' |
+  'children___children___internal___owner' |
+  'children___children___internal___type' |
+  'children___internal___content' |
+  'children___internal___contentDigest' |
+  'children___internal___description' |
+  'children___internal___fieldOwners' |
+  'children___internal___ignoreType' |
+  'children___internal___mediaType' |
+  'children___internal___owner' |
+  'children___internal___type' |
+  'internal___content' |
+  'internal___contentDigest' |
+  'internal___description' |
+  'internal___fieldOwners' |
+  'internal___ignoreType' |
+  'internal___mediaType' |
+  'internal___owner' |
+  'internal___type';
+
+export type LinkedInSkillFilterInput = {
+  topSkills?: Maybe<OtherSkillsFilterInput>;
+  otherSkills?: Maybe<OtherSkillsFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type LinkedInSkillGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInSkillEdge>;
+  nodes: Array<LinkedInSkill>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type LinkedInSkills = Node & {
+  skills?: Maybe<Array<Maybe<LinkedInSkillsSection>>>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type LinkedInSkillsConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInSkillsEdge>;
+  nodes: Array<LinkedInSkills>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<LinkedInSkillsGroupConnection>;
+};
+
+
+export type LinkedInSkillsConnectionDistinctArgs = {
+  field: LinkedInSkillsFieldsEnum;
+};
+
+
+export type LinkedInSkillsConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: LinkedInSkillsFieldsEnum;
+};
+
+export type LinkedInSkillsEdge = {
+  next?: Maybe<LinkedInSkills>;
+  node: LinkedInSkills;
+  previous?: Maybe<LinkedInSkills>;
+};
+
+export type LinkedInSkillsFieldsEnum = 
+  'skills' |
+  'skills___locale' |
+  'skills___data___topSkills___sections' |
+  'skills___data___topSkills___skills' |
+  'skills___data___topSkills___id' |
+  'skills___data___topSkills___children' |
+  'skills___data___otherSkills___sections' |
+  'skills___data___otherSkills___skills' |
+  'skills___data___otherSkills___id' |
+  'skills___data___otherSkills___children' |
+  'skills___data___id' |
+  'skills___data___parent___id' |
+  'skills___data___parent___children' |
+  'skills___data___children' |
+  'skills___data___children___id' |
+  'skills___data___children___children' |
+  'skills___data___internal___content' |
+  'skills___data___internal___contentDigest' |
+  'skills___data___internal___description' |
+  'skills___data___internal___fieldOwners' |
+  'skills___data___internal___ignoreType' |
+  'skills___data___internal___mediaType' |
+  'skills___data___internal___owner' |
+  'skills___data___internal___type' |
+  'skills___id' |
+  'skills___parent___id' |
+  'skills___parent___parent___id' |
+  'skills___parent___parent___children' |
+  'skills___parent___children' |
+  'skills___parent___children___id' |
+  'skills___parent___children___children' |
+  'skills___parent___internal___content' |
+  'skills___parent___internal___contentDigest' |
+  'skills___parent___internal___description' |
+  'skills___parent___internal___fieldOwners' |
+  'skills___parent___internal___ignoreType' |
+  'skills___parent___internal___mediaType' |
+  'skills___parent___internal___owner' |
+  'skills___parent___internal___type' |
+  'skills___children' |
+  'skills___children___id' |
+  'skills___children___parent___id' |
+  'skills___children___parent___children' |
+  'skills___children___children' |
+  'skills___children___children___id' |
+  'skills___children___children___children' |
+  'skills___children___internal___content' |
+  'skills___children___internal___contentDigest' |
+  'skills___children___internal___description' |
+  'skills___children___internal___fieldOwners' |
+  'skills___children___internal___ignoreType' |
+  'skills___children___internal___mediaType' |
+  'skills___children___internal___owner' |
+  'skills___children___internal___type' |
+  'skills___internal___content' |
+  'skills___internal___contentDigest' |
+  'skills___internal___description' |
+  'skills___internal___fieldOwners' |
+  'skills___internal___ignoreType' |
+  'skills___internal___mediaType' |
+  'skills___internal___owner' |
+  'skills___internal___type' |
+  'id' |
+  'parent___id' |
+  'parent___parent___id' |
+  'parent___parent___parent___id' |
+  'parent___parent___parent___children' |
+  'parent___parent___children' |
+  'parent___parent___children___id' |
+  'parent___parent___children___children' |
+  'parent___parent___internal___content' |
+  'parent___parent___internal___contentDigest' |
+  'parent___parent___internal___description' |
+  'parent___parent___internal___fieldOwners' |
+  'parent___parent___internal___ignoreType' |
+  'parent___parent___internal___mediaType' |
+  'parent___parent___internal___owner' |
+  'parent___parent___internal___type' |
+  'parent___children' |
+  'parent___children___id' |
+  'parent___children___parent___id' |
+  'parent___children___parent___children' |
+  'parent___children___children' |
+  'parent___children___children___id' |
+  'parent___children___children___children' |
+  'parent___children___internal___content' |
+  'parent___children___internal___contentDigest' |
+  'parent___children___internal___description' |
+  'parent___children___internal___fieldOwners' |
+  'parent___children___internal___ignoreType' |
+  'parent___children___internal___mediaType' |
+  'parent___children___internal___owner' |
+  'parent___children___internal___type' |
+  'parent___internal___content' |
+  'parent___internal___contentDigest' |
+  'parent___internal___description' |
+  'parent___internal___fieldOwners' |
+  'parent___internal___ignoreType' |
+  'parent___internal___mediaType' |
+  'parent___internal___owner' |
+  'parent___internal___type' |
+  'children' |
+  'children___id' |
+  'children___parent___id' |
+  'children___parent___parent___id' |
+  'children___parent___parent___children' |
+  'children___parent___children' |
+  'children___parent___children___id' |
+  'children___parent___children___children' |
+  'children___parent___internal___content' |
+  'children___parent___internal___contentDigest' |
+  'children___parent___internal___description' |
+  'children___parent___internal___fieldOwners' |
+  'children___parent___internal___ignoreType' |
+  'children___parent___internal___mediaType' |
+  'children___parent___internal___owner' |
+  'children___parent___internal___type' |
+  'children___children' |
+  'children___children___id' |
+  'children___children___parent___id' |
+  'children___children___parent___children' |
+  'children___children___children' |
+  'children___children___children___id' |
+  'children___children___children___children' |
+  'children___children___internal___content' |
+  'children___children___internal___contentDigest' |
+  'children___children___internal___description' |
+  'children___children___internal___fieldOwners' |
+  'children___children___internal___ignoreType' |
+  'children___children___internal___mediaType' |
+  'children___children___internal___owner' |
+  'children___children___internal___type' |
+  'children___internal___content' |
+  'children___internal___contentDigest' |
+  'children___internal___description' |
+  'children___internal___fieldOwners' |
+  'children___internal___ignoreType' |
+  'children___internal___mediaType' |
+  'children___internal___owner' |
+  'children___internal___type' |
+  'internal___content' |
+  'internal___contentDigest' |
+  'internal___description' |
+  'internal___fieldOwners' |
+  'internal___ignoreType' |
+  'internal___mediaType' |
+  'internal___owner' |
+  'internal___type';
+
+export type LinkedInSkillsFilterInput = {
+  skills?: Maybe<LinkedInSkillsSectionFilterListInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type LinkedInSkillsGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInSkillsEdge>;
+  nodes: Array<LinkedInSkills>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type LinkedInSkillSortInput = {
+  fields?: Maybe<Array<Maybe<LinkedInSkillFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type LinkedInSkillsSection = Node & {
+  locale: Scalars['String'];
+  data?: Maybe<LinkedInSkill>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type LinkedInSkillsSectionConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInSkillsSectionEdge>;
+  nodes: Array<LinkedInSkillsSection>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<LinkedInSkillsSectionGroupConnection>;
+};
+
+
+export type LinkedInSkillsSectionConnectionDistinctArgs = {
+  field: LinkedInSkillsSectionFieldsEnum;
+};
+
+
+export type LinkedInSkillsSectionConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: LinkedInSkillsSectionFieldsEnum;
+};
+
+export type LinkedInSkillsSectionEdge = {
+  next?: Maybe<LinkedInSkillsSection>;
+  node: LinkedInSkillsSection;
+  previous?: Maybe<LinkedInSkillsSection>;
+};
+
+export type LinkedInSkillsSectionFieldsEnum = 
+  'locale' |
+  'data___topSkills___sections' |
+  'data___topSkills___skills' |
+  'data___topSkills___skills___key' |
+  'data___topSkills___skills___name' |
+  'data___topSkills___skills___count' |
+  'data___topSkills___skills___heading' |
+  'data___topSkills___skills___abbr' |
+  'data___topSkills___skills___slug' |
+  'data___topSkills___skills___tags' |
+  'data___topSkills___id' |
+  'data___topSkills___parent___id' |
+  'data___topSkills___parent___children' |
+  'data___topSkills___children' |
+  'data___topSkills___children___id' |
+  'data___topSkills___children___children' |
+  'data___topSkills___internal___content' |
+  'data___topSkills___internal___contentDigest' |
+  'data___topSkills___internal___description' |
+  'data___topSkills___internal___fieldOwners' |
+  'data___topSkills___internal___ignoreType' |
+  'data___topSkills___internal___mediaType' |
+  'data___topSkills___internal___owner' |
+  'data___topSkills___internal___type' |
+  'data___otherSkills___sections' |
+  'data___otherSkills___skills' |
+  'data___otherSkills___skills___key' |
+  'data___otherSkills___skills___name' |
+  'data___otherSkills___skills___count' |
+  'data___otherSkills___skills___heading' |
+  'data___otherSkills___skills___abbr' |
+  'data___otherSkills___skills___slug' |
+  'data___otherSkills___skills___tags' |
+  'data___otherSkills___id' |
+  'data___otherSkills___parent___id' |
+  'data___otherSkills___parent___children' |
+  'data___otherSkills___children' |
+  'data___otherSkills___children___id' |
+  'data___otherSkills___children___children' |
+  'data___otherSkills___internal___content' |
+  'data___otherSkills___internal___contentDigest' |
+  'data___otherSkills___internal___description' |
+  'data___otherSkills___internal___fieldOwners' |
+  'data___otherSkills___internal___ignoreType' |
+  'data___otherSkills___internal___mediaType' |
+  'data___otherSkills___internal___owner' |
+  'data___otherSkills___internal___type' |
+  'data___id' |
+  'data___parent___id' |
+  'data___parent___parent___id' |
+  'data___parent___parent___children' |
+  'data___parent___children' |
+  'data___parent___children___id' |
+  'data___parent___children___children' |
+  'data___parent___internal___content' |
+  'data___parent___internal___contentDigest' |
+  'data___parent___internal___description' |
+  'data___parent___internal___fieldOwners' |
+  'data___parent___internal___ignoreType' |
+  'data___parent___internal___mediaType' |
+  'data___parent___internal___owner' |
+  'data___parent___internal___type' |
+  'data___children' |
+  'data___children___id' |
+  'data___children___parent___id' |
+  'data___children___parent___children' |
+  'data___children___children' |
+  'data___children___children___id' |
+  'data___children___children___children' |
+  'data___children___internal___content' |
+  'data___children___internal___contentDigest' |
+  'data___children___internal___description' |
+  'data___children___internal___fieldOwners' |
+  'data___children___internal___ignoreType' |
+  'data___children___internal___mediaType' |
+  'data___children___internal___owner' |
+  'data___children___internal___type' |
+  'data___internal___content' |
+  'data___internal___contentDigest' |
+  'data___internal___description' |
+  'data___internal___fieldOwners' |
+  'data___internal___ignoreType' |
+  'data___internal___mediaType' |
+  'data___internal___owner' |
+  'data___internal___type' |
+  'id' |
+  'parent___id' |
+  'parent___parent___id' |
+  'parent___parent___parent___id' |
+  'parent___parent___parent___children' |
+  'parent___parent___children' |
+  'parent___parent___children___id' |
+  'parent___parent___children___children' |
+  'parent___parent___internal___content' |
+  'parent___parent___internal___contentDigest' |
+  'parent___parent___internal___description' |
+  'parent___parent___internal___fieldOwners' |
+  'parent___parent___internal___ignoreType' |
+  'parent___parent___internal___mediaType' |
+  'parent___parent___internal___owner' |
+  'parent___parent___internal___type' |
+  'parent___children' |
+  'parent___children___id' |
+  'parent___children___parent___id' |
+  'parent___children___parent___children' |
+  'parent___children___children' |
+  'parent___children___children___id' |
+  'parent___children___children___children' |
+  'parent___children___internal___content' |
+  'parent___children___internal___contentDigest' |
+  'parent___children___internal___description' |
+  'parent___children___internal___fieldOwners' |
+  'parent___children___internal___ignoreType' |
+  'parent___children___internal___mediaType' |
+  'parent___children___internal___owner' |
+  'parent___children___internal___type' |
+  'parent___internal___content' |
+  'parent___internal___contentDigest' |
+  'parent___internal___description' |
+  'parent___internal___fieldOwners' |
+  'parent___internal___ignoreType' |
+  'parent___internal___mediaType' |
+  'parent___internal___owner' |
+  'parent___internal___type' |
+  'children' |
+  'children___id' |
+  'children___parent___id' |
+  'children___parent___parent___id' |
+  'children___parent___parent___children' |
+  'children___parent___children' |
+  'children___parent___children___id' |
+  'children___parent___children___children' |
+  'children___parent___internal___content' |
+  'children___parent___internal___contentDigest' |
+  'children___parent___internal___description' |
+  'children___parent___internal___fieldOwners' |
+  'children___parent___internal___ignoreType' |
+  'children___parent___internal___mediaType' |
+  'children___parent___internal___owner' |
+  'children___parent___internal___type' |
+  'children___children' |
+  'children___children___id' |
+  'children___children___parent___id' |
+  'children___children___parent___children' |
+  'children___children___children' |
+  'children___children___children___id' |
+  'children___children___children___children' |
+  'children___children___internal___content' |
+  'children___children___internal___contentDigest' |
+  'children___children___internal___description' |
+  'children___children___internal___fieldOwners' |
+  'children___children___internal___ignoreType' |
+  'children___children___internal___mediaType' |
+  'children___children___internal___owner' |
+  'children___children___internal___type' |
+  'children___internal___content' |
+  'children___internal___contentDigest' |
+  'children___internal___description' |
+  'children___internal___fieldOwners' |
+  'children___internal___ignoreType' |
+  'children___internal___mediaType' |
+  'children___internal___owner' |
+  'children___internal___type' |
+  'internal___content' |
+  'internal___contentDigest' |
+  'internal___description' |
+  'internal___fieldOwners' |
+  'internal___ignoreType' |
+  'internal___mediaType' |
+  'internal___owner' |
+  'internal___type';
+
+export type LinkedInSkillsSectionFilterInput = {
+  locale?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<LinkedInSkillFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type LinkedInSkillsSectionFilterListInput = {
+  elemMatch?: Maybe<LinkedInSkillsSectionFilterInput>;
+};
+
+export type LinkedInSkillsSectionGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInSkillsSectionEdge>;
+  nodes: Array<LinkedInSkillsSection>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type LinkedInSkillsSectionSortInput = {
+  fields?: Maybe<Array<Maybe<LinkedInSkillsSectionFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type LinkedInSkillsSortInput = {
+  fields?: Maybe<Array<Maybe<LinkedInSkillsFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type Mdx = Node & {
   rawBody: Scalars['String'];
   fileAbsolutePath: Scalars['String'];
@@ -2007,6 +2705,176 @@ export type NodeFilterListInput = {
   elemMatch?: Maybe<NodeFilterInput>;
 };
 
+export type OtherSkills = Node & {
+  sections?: Maybe<Array<Maybe<Scalars['String']>>>;
+  skills?: Maybe<Array<Maybe<TagEntity>>>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type OtherSkillsConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<OtherSkillsEdge>;
+  nodes: Array<OtherSkills>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<OtherSkillsGroupConnection>;
+};
+
+
+export type OtherSkillsConnectionDistinctArgs = {
+  field: OtherSkillsFieldsEnum;
+};
+
+
+export type OtherSkillsConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: OtherSkillsFieldsEnum;
+};
+
+export type OtherSkillsEdge = {
+  next?: Maybe<OtherSkills>;
+  node: OtherSkills;
+  previous?: Maybe<OtherSkills>;
+};
+
+export type OtherSkillsFieldsEnum = 
+  'sections' |
+  'skills' |
+  'skills___key' |
+  'skills___name' |
+  'skills___count' |
+  'skills___heading' |
+  'skills___abbr' |
+  'skills___slug' |
+  'skills___tags' |
+  'skills___tags___key' |
+  'skills___tags___name' |
+  'skills___tags___count' |
+  'skills___tags___heading' |
+  'skills___tags___abbr' |
+  'skills___tags___slug' |
+  'skills___tags___tags' |
+  'skills___tags___tags___key' |
+  'skills___tags___tags___name' |
+  'skills___tags___tags___count' |
+  'skills___tags___tags___heading' |
+  'skills___tags___tags___abbr' |
+  'skills___tags___tags___slug' |
+  'skills___tags___tags___tags' |
+  'id' |
+  'parent___id' |
+  'parent___parent___id' |
+  'parent___parent___parent___id' |
+  'parent___parent___parent___children' |
+  'parent___parent___children' |
+  'parent___parent___children___id' |
+  'parent___parent___children___children' |
+  'parent___parent___internal___content' |
+  'parent___parent___internal___contentDigest' |
+  'parent___parent___internal___description' |
+  'parent___parent___internal___fieldOwners' |
+  'parent___parent___internal___ignoreType' |
+  'parent___parent___internal___mediaType' |
+  'parent___parent___internal___owner' |
+  'parent___parent___internal___type' |
+  'parent___children' |
+  'parent___children___id' |
+  'parent___children___parent___id' |
+  'parent___children___parent___children' |
+  'parent___children___children' |
+  'parent___children___children___id' |
+  'parent___children___children___children' |
+  'parent___children___internal___content' |
+  'parent___children___internal___contentDigest' |
+  'parent___children___internal___description' |
+  'parent___children___internal___fieldOwners' |
+  'parent___children___internal___ignoreType' |
+  'parent___children___internal___mediaType' |
+  'parent___children___internal___owner' |
+  'parent___children___internal___type' |
+  'parent___internal___content' |
+  'parent___internal___contentDigest' |
+  'parent___internal___description' |
+  'parent___internal___fieldOwners' |
+  'parent___internal___ignoreType' |
+  'parent___internal___mediaType' |
+  'parent___internal___owner' |
+  'parent___internal___type' |
+  'children' |
+  'children___id' |
+  'children___parent___id' |
+  'children___parent___parent___id' |
+  'children___parent___parent___children' |
+  'children___parent___children' |
+  'children___parent___children___id' |
+  'children___parent___children___children' |
+  'children___parent___internal___content' |
+  'children___parent___internal___contentDigest' |
+  'children___parent___internal___description' |
+  'children___parent___internal___fieldOwners' |
+  'children___parent___internal___ignoreType' |
+  'children___parent___internal___mediaType' |
+  'children___parent___internal___owner' |
+  'children___parent___internal___type' |
+  'children___children' |
+  'children___children___id' |
+  'children___children___parent___id' |
+  'children___children___parent___children' |
+  'children___children___children' |
+  'children___children___children___id' |
+  'children___children___children___children' |
+  'children___children___internal___content' |
+  'children___children___internal___contentDigest' |
+  'children___children___internal___description' |
+  'children___children___internal___fieldOwners' |
+  'children___children___internal___ignoreType' |
+  'children___children___internal___mediaType' |
+  'children___children___internal___owner' |
+  'children___children___internal___type' |
+  'children___internal___content' |
+  'children___internal___contentDigest' |
+  'children___internal___description' |
+  'children___internal___fieldOwners' |
+  'children___internal___ignoreType' |
+  'children___internal___mediaType' |
+  'children___internal___owner' |
+  'children___internal___type' |
+  'internal___content' |
+  'internal___contentDigest' |
+  'internal___description' |
+  'internal___fieldOwners' |
+  'internal___ignoreType' |
+  'internal___mediaType' |
+  'internal___owner' |
+  'internal___type';
+
+export type OtherSkillsFilterInput = {
+  sections?: Maybe<StringQueryOperatorInput>;
+  skills?: Maybe<TagEntityFilterListInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type OtherSkillsGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<OtherSkillsEdge>;
+  nodes: Array<OtherSkills>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type OtherSkillsSortInput = {
+  fields?: Maybe<Array<Maybe<OtherSkillsFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type PageInfo = {
   currentPage: Scalars['Int'];
   hasPreviousPage: Scalars['Boolean'];
@@ -2055,6 +2923,14 @@ export type Query = {
   allSkillCompanySection: SkillCompanySectionConnection;
   companySections?: Maybe<CompanySections>;
   allCompanySections: CompanySectionsConnection;
+  otherSkills?: Maybe<OtherSkills>;
+  allOtherSkills: OtherSkillsConnection;
+  linkedInSkill?: Maybe<LinkedInSkill>;
+  allLinkedInSkill: LinkedInSkillConnection;
+  linkedInSkillsSection?: Maybe<LinkedInSkillsSection>;
+  allLinkedInSkillsSection: LinkedInSkillsSectionConnection;
+  linkedInSkills?: Maybe<LinkedInSkills>;
+  allLinkedInSkills: LinkedInSkillsConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -2309,6 +3185,77 @@ export type QueryCompanySectionsArgs = {
 export type QueryAllCompanySectionsArgs = {
   filter?: Maybe<CompanySectionsFilterInput>;
   sort?: Maybe<CompanySectionsSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryOtherSkillsArgs = {
+  sections?: Maybe<StringQueryOperatorInput>;
+  skills?: Maybe<TagEntityFilterListInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllOtherSkillsArgs = {
+  filter?: Maybe<OtherSkillsFilterInput>;
+  sort?: Maybe<OtherSkillsSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLinkedInSkillArgs = {
+  topSkills?: Maybe<OtherSkillsFilterInput>;
+  otherSkills?: Maybe<OtherSkillsFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllLinkedInSkillArgs = {
+  filter?: Maybe<LinkedInSkillFilterInput>;
+  sort?: Maybe<LinkedInSkillSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLinkedInSkillsSectionArgs = {
+  locale?: Maybe<StringQueryOperatorInput>;
+  data?: Maybe<LinkedInSkillFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllLinkedInSkillsSectionArgs = {
+  filter?: Maybe<LinkedInSkillsSectionFilterInput>;
+  sort?: Maybe<LinkedInSkillsSectionSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLinkedInSkillsArgs = {
+  skills?: Maybe<LinkedInSkillsSectionFilterListInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllLinkedInSkillsArgs = {
+  filter?: Maybe<LinkedInSkillsFilterInput>;
+  sort?: Maybe<LinkedInSkillsSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -3013,8 +3960,8 @@ export type SitePageFieldsEnum =
   'pluginCreator___resolve' |
   'pluginCreator___name' |
   'pluginCreator___version' |
-  'pluginCreator___pluginOptions___precachePages' |
   'pluginCreator___pluginOptions___fileName' |
+  'pluginCreator___pluginOptions___precachePages' |
   'pluginCreator___pluginOptions___alias____mdx' |
   'pluginCreator___pluginOptions___alias____posts' |
   'pluginCreator___pluginOptions___extensions' |
@@ -3214,8 +4161,8 @@ export type SitePluginFieldsEnum =
   'resolve' |
   'name' |
   'version' |
-  'pluginOptions___precachePages' |
   'pluginOptions___fileName' |
+  'pluginOptions___precachePages' |
   'pluginOptions___alias____mdx' |
   'pluginOptions___alias____posts' |
   'pluginOptions___extensions' |
@@ -3341,8 +4288,8 @@ export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
 };
 
 export type SitePluginPluginOptions = {
-  precachePages?: Maybe<Array<Maybe<Scalars['String']>>>;
   fileName?: Maybe<Scalars['String']>;
+  precachePages?: Maybe<Array<Maybe<Scalars['String']>>>;
   alias?: Maybe<SitePluginPluginOptionsAlias>;
   extensions?: Maybe<Array<Maybe<Scalars['String']>>>;
   path?: Maybe<Scalars['String']>;
@@ -3375,8 +4322,8 @@ export type SitePluginPluginOptionsDefaultLayoutsFilterInput = {
 };
 
 export type SitePluginPluginOptionsFilterInput = {
-  precachePages?: Maybe<StringQueryOperatorInput>;
   fileName?: Maybe<StringQueryOperatorInput>;
+  precachePages?: Maybe<StringQueryOperatorInput>;
   alias?: Maybe<SitePluginPluginOptionsAliasFilterInput>;
   extensions?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
@@ -3701,6 +4648,31 @@ export type HighlightPerSectionQuery = { allHighlight: { nodes: Array<(
         )>>> }
       )>>> }
     )>>> }> };
+
+export type LinkedInSkillsQueryVariables = {};
+
+
+export type LinkedInSkillsQuery = { linkedInSkills?: Maybe<{ skills?: Maybe<Array<Maybe<(
+      Pick<LinkedInSkillsSection, 'locale'>
+      & { data?: Maybe<{ topSkills?: Maybe<(
+          Pick<OtherSkills, 'sections'>
+          & { skills?: Maybe<Array<Maybe<Pick<TagEntity, 'count' | 'heading' | 'key' | 'name' | 'abbr' | 'slug'>>>> }
+        )>, otherSkills?: Maybe<(
+          Pick<OtherSkills, 'sections'>
+          & { skills?: Maybe<Array<Maybe<Pick<TagEntity, 'abbr' | 'count' | 'heading' | 'key' | 'slug' | 'name'>>>> }
+        )> }> }
+    )>>> }>, logos: { edges: Array<{ node: (
+        Pick<File, 'base' | 'name'>
+        & { childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'aspectRatio' | 'sizes' | 'src' | 'srcSet' | 'srcWebp' | 'base64'>> }> }
+      ) }> } };
+
+export type Unnamed_1_QueryVariables = {};
+
+
+export type Unnamed_1_Query = { logos: { edges: Array<{ node: (
+        Pick<File, 'base' | 'name'>
+        & { childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'aspectRatio' | 'sizes' | 'src' | 'srcSet' | 'srcWebp' | 'base64'>> }> }
+      ) }> } };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

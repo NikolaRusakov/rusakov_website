@@ -168,6 +168,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             0.2,
             desaturate(0.3, theme.colors.primary),
           ),
+          indexZ: '2002',
           color: readableColor(theme.colors.text),
           fontFamily: state.typography?.options?.headerFontFamily?.toString(),
           fontSize: 20,

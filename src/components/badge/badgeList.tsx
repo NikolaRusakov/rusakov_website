@@ -2,7 +2,7 @@
 import { Badge, Box, jsx } from 'theme-ui';
 import { Maybe, TagEntity } from '../../../types/gatsby-graphql';
 
-import { exists, isNonEmptyArray } from '../../utils/utils';
+import {exists, isNonEmptyArray, pickBadgeName} from '../../utils/utils';
 import HiddenCheckbox from '../checkbox/hiddenCheckbox';
 import { Global } from '@emotion/core';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,8 +11,8 @@ import { readableColor } from 'polished';
 const calculatedWidth = (tags: TagEntity[]) =>
   tags.length / 10 <= 1 ? 2 : Math.ceil(tags.length / 10);
 
-export const toBadge = (tag: TagEntity, styles = {}) =>
-  tag.name && (
+export const toBadge = (tagName:string, styles = {}) =>
+  tagName && (
     <Badge
       key={`badge- ${uuidv4()}`}
       sx={{
@@ -22,7 +22,7 @@ export const toBadge = (tag: TagEntity, styles = {}) =>
       }}
       py={0}
       m={1}>
-      <span>{tag.name}</span>
+      <span sx={{ fontWeight: 'normal', color: 'background' }}>{tagName}</span>
     </Badge>
   );
 
@@ -48,7 +48,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                 transition: 'justify-content 0.15 ease-in-out 0.05s',
                 '& span': {
                   whiteSpace: 'normal',
-                  fontWeight: 'bold',
+                  fontWeight: 'bolder',
                 },
                 '& em': {
                   width: 0,
@@ -114,6 +114,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
                     wordWrap: 'break-word',
                     whiteSpace: 'nowrap',
                     maxWidth: '85%',
+                    fontWeight: 'bold',
                   }}>
                   {tags[0]?.name}
                 </span>
@@ -156,12 +157,12 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
             }}>
             {tags
               .slice(1)
-              .map(childTag => exists(childTag) && toBadge(childTag))}
+              .map(childTag => exists(childTag) && toBadge(pickBadgeName(childTag)))}
           </article>
         </Box>
       </div>
     ) : (
-      tags?.map(childTag => exists(childTag) && toBadge(childTag))
+      tags?.map(childTag => exists(childTag) && toBadge(pickBadgeName(childTag)))
     );
   }
   return <></>;

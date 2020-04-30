@@ -3,7 +3,6 @@ const locales = require(`./config/i18n`);
 const {
   localizedSlug,
   findKey,
-  removeTrailingSlash,
 } = require(`./src/utils/gatsby-node-helpers`);
 const i18nConfig = require('./config/i18n');
 
@@ -37,6 +36,25 @@ exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
     
     type CompanySections implements Node @dontInfer{
       skills: [SkillCompanySection]
+    }
+     
+    type OtherSkills implements Node @dontInfer{
+      sections:[String]
+      skills: [TagEntity]
+    }
+    
+    type LinkedInSkill implements Node @dontInfer{
+      topSkills: OtherSkills
+      otherSkills: OtherSkills
+    }
+    
+    type LinkedInSkillsSection implements Node @dontInfer{
+      locale: String!
+      data: LinkedInSkill
+    }
+    
+    type LinkedInSkills implements Node @dontInfer{
+    skills: [LinkedInSkillsSection]
     }
   `,
   ]);
@@ -97,8 +115,7 @@ exports.sourceNodes = async (
         })),
       }));
 
-      const skillCompanySection = { locale, data: companies };
-      return skillCompanySection;
+      return { locale, data: companies };
     }
   });
 
@@ -113,6 +130,27 @@ exports.sourceNodes = async (
   };
   createNode(nodes);
 
+  const linkedInSkills = Object.keys(i18nConfig).map(locale => {
+    const parsedLinkedInSkills = require('./src/data/generated/parsed-skills.' +
+      locale +
+      '.json');
+    if (parsedLinkedInSkills != null) {
+      const { topSkills, otherSkills } = parsedLinkedInSkills;
+      return { locale, data: { topSkills, otherSkills } };
+    }
+  });
+
+  const linkedInNode = {
+    ...{ skills: linkedInSkills },
+    id: createNodeId(`linkedin-skills`),
+    internal: {
+      content: JSON.stringify(linkedInSkills),
+      type: 'LinkedInSkills',
+      contentDigest: createContentDigest(linkedInSkills),
+    },
+  };
+
+  createNode(linkedInNode);
   return;
 };
 

@@ -29,6 +29,13 @@ export type TagEntity = {
   heading: string;
 };
 
+export type TagEntityCompare = {
+  key: string;
+  name: string;
+  count: number;
+  heading: string;
+};
+
 export const isTagEntity = (
   tag: string | TagEntity | { key: string; name: string },
 ): tag is TagEntity => typeof tag !== 'string';
