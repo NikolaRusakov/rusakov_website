@@ -176,7 +176,6 @@ export const theme = {
     root: {
       transitionDuration: '0.3s',
       transitionProperty: 'background-color, color',
-      // overflowX: 'hidden',
       '&::-webkit-scrollbar': {
         width: '0.8rem',
         height: '0.5em',
