@@ -31,6 +31,7 @@
     "@loadable/component": "^5.12.0",
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/react": "^1.5.7",
+    "@nivo/bump": "^0.61.1",
     "@saltit/typography-picker": "0.0.1",
     "@svgr/webpack": "^5.2.0",
     "@theme-ui/presets": "^0.3.0",
