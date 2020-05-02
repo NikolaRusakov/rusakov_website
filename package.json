@@ -76,6 +76,7 @@
     "prismjs": "^1.19.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-flip-toolkit": "^7.0.9",
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.3.4",
     "react-morph": "^0.4.0",

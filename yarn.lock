@@ -20830,6 +20830,13 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.0.1.tgz#884d339ce1341aad22392e7a88664c71da48600e"
   integrity sha512-C5vP0J644ofZGd54P8++O7AvrqMEbrGf8Ue0eAUJLJyw168dAX2aiYyX/zcY/eSNwO0IDjsKUaLE6n83D+TnEg==
 
+react-flip-toolkit@^7.0.9:
+  version "7.0.9"
+  resolved "https://registry.yarnpkg.com/react-flip-toolkit/-/react-flip-toolkit-7.0.9.tgz#d10cd1d3dea8e6d8d0cf90929cf70ccd2eba76f5"
+  integrity sha512-YQd/N9Bt0Kia3eOpO8R7XqHt0bNC8POzidkzM1ATnogKK4h08IwsBk8YmRaybpKbSHKIwgR/UVT0wTwoyNZUVw==
+  dependencies:
+    rematrix "0.2.2"
+
 react-focus-lock@^2.1.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-focus-lock/-/react-focus-lock-2.3.1.tgz#9d5d85899773609c7eefa4fc54fff6a0f5f2fc47"
@@ -21879,6 +21886,11 @@ remark@^11.0.1:
     remark-parse "^7.0.0"
     remark-stringify "^7.0.0"
     unified "^8.2.0"
+
+rematrix@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/rematrix/-/rematrix-0.2.2.tgz#c96a050260782db9908904885991256e23beda5d"
+  integrity sha512-agFFS3RzrLXJl5LY5xg/xYyXvUuVAnkhgKO7RaO9J1Ssth6yvbO+PIiV67V59MB5NCdAK2flvGvNT4mdKVniFA==
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
