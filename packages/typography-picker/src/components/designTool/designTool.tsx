@@ -160,7 +160,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           },
         }}
       />
-      <input className="designToolToggle" type="checkbox" />
+      <input className="designToolToggle" type="checkbox" checked={true} />
       <div
         className="designTool"
         css={theme => ({

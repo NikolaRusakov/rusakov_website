@@ -111,17 +111,31 @@ const AboutLayout: React.FC = children => {
         provideTypography,
         merge(
           {
-            useColorSchemeMediaQuery: true,
+            // useColorSchemeMediaQuery: true,
             ...presets[colorMode],
           },
           provideTypography,
         ),
       )}>
       <div>
-        <Helmet defer={false}>
-          {/*<meta charset="utf-8" />*/}
+        <Helmet>
+          <meta charSet="utf-8" />
           <title>Rusakov Website</title>
-          <link rel="canonical" href="http://rusakov.website/" />
+          {i18next.languages.map(locale => {
+            <link
+              rel="alternate"
+              href="https://rusakov-website.rusakov.now.sh/{locale}"
+              hrefLang={locale}
+              key={locale}
+            />;
+            <meta name="theme-color" content={themeSet?.colors?.primary} />;
+            // <link rel="alternate" href="http://rusakov.website/{locale}" hrefLang={locale} key={locale}/>
+          })}
+          i18next
+          <link
+            rel="canonical"
+            href="https://rusakov-website.rusakov.now.sh/"
+          />
           <style id="typography.js">{typography.toString()}</style>
           {injectRecentFont}
         </Helmet>

@@ -9,7 +9,7 @@ export default () => {
     .use(initReactI18next)
     .init({
       debug: process.env.NODE_ENV === 'development',
-      fallbackLng: 'en',
+      fallbackLng: ['en', 'cs'],
       keySeparator: false, // we do not use keys in form messages.welcome
       interpolation: {
         escapeValue: false, // react already safes from xss
