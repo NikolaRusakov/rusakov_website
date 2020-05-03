@@ -20,8 +20,10 @@ import {
 import { exists } from '../../utils/utils';
 import badgeList, { toBadge } from '../badge/badgeList';
 import { transparentize } from 'polished';
+import anime from 'animejs';
 
-import { Flipper, Flipped } from 'react-flip-toolkit';
+import { Flipper, Flipped, spring } from 'react-flip-toolkit';
+import { Global } from '@emotion/core';
 
 const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
@@ -277,13 +279,19 @@ export const SectionExperienceHOC = () => {
   return <SectionExperience experience={preparedData} />;
 };
 
-const HeaderSection: React.FC<{
+const ExpandedHeaderSection: React.FC<{
   header: SectionHeaderProps;
   index: number;
 }> = ({ index, header: { experience } }) => {
   return (
     <>
-      <Flex sx={{ gridColumn: 1, gridRow: 1, alignItems: 'center' }}>
+      <Flex
+        sx={{
+          gridColumn: 1,
+          gridRow: 1,
+          alignItems: ['flex-start', 'center', 'center'],
+          flexDirection: ['column', 'row', 'row'],
+        }}>
         <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
           <Flex sx={{ minWidth: '48px', m: 1 }}>
             <Image
@@ -321,6 +329,136 @@ const HeaderSection: React.FC<{
     </>
   );
 };
+
+const HiddenHeaderSection: React.FC<{
+  header: SectionHeaderProps;
+  index: number;
+}> = ({ index, header: { experience, externalProps } }) => (
+  <>
+    <Flex
+      sx={{
+        gridColumn: '2',
+        gridRow: '1',
+        flexDirection: 'column',
+        alignItems: 'center',
+        my: 3,
+      }}>
+      <Flipped flipId={`company-${index}-${experience.company}`}>
+        <h2>{experience.company}</h2>
+      </Flipped>
+      <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
+        <Image
+          src={experience.companyLogo}
+          variant="avatar"
+          sx={{
+            height: ['64px', null, '96px'],
+            width: ['64px', null, '96px'],
+          }}
+        />
+      </Flipped>
+      <Flex
+        sx={{
+          py: 1,
+          flexWrap: 'wrap',
+        }}>
+        {externalProps?.badges?.map?.((value, i) => (
+          <Flipped flipId={`badge-${index}-${experience.company}-${i}`}>
+            <Badge variant="primary" px={1} my={1} mr={1}>
+              {value}
+            </Badge>
+          </Flipped>
+        ))}
+      </Flex>
+      <Flipped flipId={`title-${index}-${experience.company}`}>
+        <h2>{experience.position}</h2>
+      </Flipped>
+      <Flipped flipId={`yoe-badge-${index}-${experience.company}`}>
+        <Badge variant="primary" sx={{ justifySelf: 'center' }}>
+          {experience.duration} <span> | YOE </span>
+        </Badge>
+      </Flipped>
+    </Flex>
+  </>
+);
+
+const HiddenSectionBody: React.FC<{
+  index: number;
+  children: SectionBodyProps<ReactNode>;
+  header: SectionHeaderProps;
+}> = ({
+  index,
+  children: {
+    children: { summary, highlight },
+  },
+  header: { experience },
+}) => (
+  <div>
+    <Flipped flipId={`summary-${index}-${experience.company}`}>
+      <div>
+        <SummaryArticle>{summary}</SummaryArticle>
+      </div>
+    </Flipped>
+    <Flipped
+      flipId={`detail-${index}-${experience.company}`}
+      stagger={`summary-${index}-${experience.company}`}
+      delayUntil={`summary-${index}-${experience.company}`}>
+      <div>
+        <SummaryArticle>{highlight}</SummaryArticle>
+      </div>
+    </Flipped>
+  </div>
+);
+
+const ExpandedSectionBody: React.FC<{
+  index: number;
+  children: SectionBodyProps<ReactNode>;
+  header: SectionHeaderProps;
+}> = ({ index, children: { children }, header }) => (
+  <Flex sx={{ flexDirection: 'column' }}>
+    <Flex
+      sx={{
+        flexDirection: 'column',
+        position: 'relative',
+      }}>
+      <Flipped flipId={`yoe-badge-${index}-${header.experience.company}`}>
+        <Badge variant="primary" sx={{ alignSelf: 'center' }}>
+          {header.experience.duration} <span> | YOE </span>
+        </Badge>
+      </Flipped>
+      <Flex
+        sx={{
+          // py: 1,
+          flexDirection: 'column',
+          position: 'absolute',
+          top: '100%',
+          zIndex: '1001',
+        }}>
+        {header.externalProps?.badges?.map?.((value, i) => (
+          <Flipped flipId={`badge-${index}-${header.experience.company}-${i}`}>
+            <Badge variant="primary" px={1} my={1} mr={1}>
+              {value}
+            </Badge>
+          </Flipped>
+        ))}
+      </Flex>
+      <Flipped flipId={`detail-${index}-${header.experience.company}`}>
+        <section>'## This is it'</section>
+      </Flipped>
+    </Flex>
+    <Flipped flipId={`summary-${index}-${header.experience.company}`}>
+      <div
+        sx={{
+          '& p, li ': { fontSize: 'smaller' },
+          '&  strong': {
+            fontWeight: 'bolder',
+            color: 'primary',
+          },
+        }}>
+        {children.detail}
+      </div>
+    </Flipped>
+  </Flex>
+);
 
 const SectionExperience: React.FC<{
   experience: {
@@ -372,121 +510,73 @@ const SectionExperience: React.FC<{
         padding: 2,
         margin: 'auto',
       }}>
-      {experience.map(
-        (
-          {
-            body: {
-              children: {
-                duration,
-                employment,
-                location,
-                projects,
-                skills,
-                summary,
-                highlight,
-                detail,
-                tags,
-                tagSections,
+      {experience.map(({ body: { children }, header }, index) => (
+        <Flipper
+          flipKey={hideDetail[expList[index]]}
+          spring={{ stiffness: 280, damping: 22 }}
+          // spring="veryGentle"
+        >
+          <Global
+            styles={theme => ({
+              '.hidden': {
+                margin: 'auto',
+                transition: 'all 0.3s ease-in-out',
               },
-            },
-            header: { experience, externalProps },
-          },
-          index,
-        ) => (
+              '.expanded': {
+                margin: 'auto',
+                width: '90vw !important',
+                transition: 'all 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6)',
+              },
+            })}
+          />
           <div
+            className={hideDetail[expList[index]] ? 'hidden' : 'expanded'}
             sx={{
               width: ['80vw', '80vw', '50vw'],
               margin: 'auto',
               bg: 'muted',
             }}>
-            <Flipper
-              flipKey={hideDetail[expList[index]]}
-              spring={{ stiffness: 280, damping: 22 }}
-              // spring="veryGentle"
-              // shouldFlip={shouldFlip(index)}
-            >
-              <header
+            <header
+              sx={{
+                display: 'grid',
+                gridGap: 1,
+                gridTemplateColumns: '1fr auto 1fr',
+                alignItems: 'center',
+                variant: 'styles.header',
+              }}>
+              <label
                 sx={{
-                  display: 'grid',
-                  gridGap: 1,
-                  gridTemplateColumns: '1fr auto 1fr',
-                  alignItems: 'center',
-                  variant: 'styles.header',
+                  gridColumn: '3',
+                  gridRow: '1',
+                  display: 'flex',
+                  alignSelf: 'self-start',
+                  flexDirection: 'row-reverse',
                 }}>
-                <label
-                  sx={{
-                    gridColumn: '3',
-                    gridRow: '1',
-                    display: 'flex',
-                    alignSelf: 'self-start',
-                    flexDirection: 'row-reverse',
-                  }}>
-                  <Checkbox
-                    onClick={() =>
-                      toggleDetail({
-                        ...hideDetail,
-                        [expList[index]]: !hideDetail[expList[index]],
-                      })
-                    }
-                  />
-                </label>
-                {hideDetail[expList[index]] ? (
-                  <>
-                    <Flex
-                      sx={{
-                        gridColumn: '2',
-                        gridRow: '1',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        my: 3,
-                      }}>
-                      <Flipped
-                        flipId={`company-${index}-${experience.company}`}>
-                        <h2>{experience.company}</h2>
-                      </Flipped>
-                      <Flipped
-                        flipId={`companyLogo-${index}-${experience.company}`}>
-                        <Image
-                          src={experience.companyLogo}
-                          variant="avatar"
-                          sx={{
-                            height: ['64px', null, '96px'],
-                            width: ['64px', null, '96px'],
-                          }}
-                        />
-                      </Flipped>
-                      <Flex
-                        sx={{
-                          py: 1,
-                          flexWrap: 'wrap',
-                        }}>
-                        {externalProps?.badges?.map?.((value, i) => (
-                          <Flipped
-                            flipId={`badge-${index}-${experience.company}-${i}`}>
-                            <Badge variant="primary" px={1} my={1} mr={1}>
-                              {value}
-                            </Badge>
-                          </Flipped>
-                        ))}
-                      </Flex>
-                      <Flipped flipId={`title-${index}-${experience.company}`}>
-                        <h2>{experience.position}</h2>
-                      </Flipped>
-                      <Flipped
-                        flipId={`yoe-badge-${index}-${experience.company}`}>
-                        <Badge variant="primary" sx={{ justifySelf: 'center' }}>
-                          {experience.duration} <span> | YOE </span>
-                        </Badge>
-                      </Flipped>
-                    </Flex>
-                  </>
-                ) : (
-                  <HeaderSection
-                    index={index}
-                    header={{ experience, externalProps }}
-                  />
-                )}
-              </header>
+                <Checkbox
+                  onClick={() =>
+                    toggleDetail({
+                      ...hideDetail,
+                      [expList[index]]: !hideDetail[expList[index]],
+                    })
+                  }
+                />
+              </label>
+              {hideDetail[expList[index]] ? (
+                <HiddenHeaderSection index={index} header={header} />
+              ) : (
+                <ExpandedHeaderSection index={index} header={header} />
+              )}
+            </header>
+            <div
+              sx={{
+                // width: theme =>
+                //   hideDetail[expList[index]]
+                //     ? ['80vw', '80vw', '50vw']
+                //     : '80vw',
+                maxWidth: hideDetail[expList[index]] ? '100%' : '80%',
+                margin: 'auto',
+                bg: 'muted',
+              }}>
               <Flex
                 sx={{
                   justifyContent: 'center',
@@ -512,300 +602,708 @@ const SectionExperience: React.FC<{
                     },
                   }}>
                   {hideDetail[expList[index]] ? (
-                    <div>
-                      <Flipped
-                        flipId={`summary-${index}-${experience.company}`}>
-                        <div>
-                          <SummaryArticle>{summary}</SummaryArticle>
-                        </div>
-                      </Flipped>
-                      <Flipped flipId={`detail-${index}-${experience.company}`}>
-                        <div>
-                          <SummaryArticle>{highlight}</SummaryArticle>
-                        </div>
-                      </Flipped>
-                    </div>
+                    <HiddenSectionBody
+                      index={index}
+                      children={{ children: children }}
+                      header={header}
+                    />
                   ) : (
-                    <Flex sx={{ flexDirection: 'column' }}>
-                      <Flex
-                        sx={{
-                          flexDirection: 'column',
-                          position: 'relative',
-                        }}>
-                        <Flipped
-                          flipId={`yoe-badge-${index}-${experience.company}`}>
-                          <Badge variant="primary" sx={{ alignSelf: 'center' }}>
-                            {experience.duration} <span> | YOE </span>
-                          </Badge>
-                        </Flipped>
-                        <Flex
-                          sx={{
-                            // py: 1,
-                            flexDirection: 'column',
-                            position: 'absolute',
-                            top: '100%',
-                            zIndex: '1001',
-                          }}>
-                          {externalProps?.badges?.map?.((value, i) => (
-                            <Flipped
-                              flipId={`badge-${index}-${experience.company}-${i}`}>
-                              <Badge variant="primary" px={1} my={1} mr={1}>
-                                {value}
-                              </Badge>
-                            </Flipped>
-                          ))}
-                        </Flex>
-                        <Flipped
-                          flipId={`summary-${index}-${experience.company}`}>
-                          <section>'## This is it'</section>
-                        </Flipped>
-                      </Flex>
-                      <Flipped flipId={`detail-${index}-${experience.company}`}>
-                        <div>{detail}</div>
-                      </Flipped>
-                    </Flex>
+                    <ExpandedSectionBody
+                      index={index}
+                      children={{ children: children }}
+                      header={header}
+                    />
                   )}
                 </section>
               </Flex>
-            </Flipper>
-
-            {/*<SectionHeader*/}
-            {/*  experience={experience}*/}
-            {/*  externalProps={externalProps}>*/}
-            {/*  {hideDetails[expList[index]] && (*/}
-            {/*    <Box sx={{ maxWidth: ['100%', '80%', '80%'] }}>*/}
-            {/*      {highlight}*/}
-            {/*    </Box>*/}
-            {/*  )}*/}
-            {/*  {!hideDetails[expList[index]] && (*/}
-            {/*    <div*/}
-            {/*      sx={theme => ({*/}
-            {/*        borderRadius: 2,*/}
-            {/*        maxWidth: ['100%', '100%', '90%'],*/}
-            {/*        bg: 'muted',*/}
-            {/*        boxShadow: `0 0 2px ${theme.colors.secondary} inset`,*/}
-            {/*        padding: '0.5em',*/}
-            {/*        display: 'flex',*/}
-            {/*        flexDirection: 'column',*/}
-            {/*        // borderRadius: '2%',*/}
-            {/*      })}>*/}
-            {/*      <h2*/}
-            {/*        sx={{*/}
-            {/*          alignSelf: 'center',*/}
-            {/*          padding: '0 5%',*/}
-            {/*          borderBottom: theme =>*/}
-            {/*            `3px solid ${theme.colors.primary}`,*/}
-            {/*        }}>*/}
-            {/*        {t('My opportunities')}*/}
-            {/*      </h2>*/}
-            {/*      {tagSections?.map(section => (*/}
-            {/*        <Flex*/}
-            {/*          sx={{*/}
-            {/*            flexDirection: 'column',*/}
-            {/*          }}>*/}
-            {/*          <header*/}
-            {/*            sx={{*/}
-            {/*              display: 'flex',*/}
-            {/*              width: '95%',*/}
-            {/*              alignSelf: 'center',*/}
-            {/*              borderBottom: theme =>*/}
-            {/*                `1px solid ${theme.colors.text}`,*/}
-            {/*            }}>*/}
-            {/*            <Box*/}
-            {/*              sx={{*/}
-            {/*                marginBottom: 0,*/}
-            {/*                px: 1,*/}
-            {/*                fontWeight: 'bold',*/}
-            {/*                color: 'background',*/}
-            {/*                bg: 'text',*/}
-            {/*                textTransform: 'uppercase',*/}
-            {/*                borderTopLeftRadius: 1,*/}
-            {/*                borderTopRightRadius: 1,*/}
-            {/*              }}*/}
-            {/*              px={1}*/}
-            {/*              my={1}*/}
-            {/*              mr={1}>*/}
-            {/*              {section?.section}*/}
-            {/*            </Box>*/}
-            {/*          </header>*/}
-            {/*          <Flex*/}
-            {/*            sx={{*/}
-            {/*              flexWrap: 'wrap',*/}
-            {/*              py: 1,*/}
-            {/*              alignItems: 'baseline',*/}
-            {/*            }}>*/}
-            {/*            {section?.tags?.map(*/}
-            {/*              tag =>*/}
-            {/*                exists(tag) &&*/}
-            {/*                (exists(tag?.tags)*/}
-            {/*                  ? badgeList(tag?.tags)*/}
-            {/*                  : exists(tag.name) && toBadge(tag.name)),*/}
-            {/*            )}*/}
-            {/*          </Flex>*/}
-            {/*        </Flex>*/}
-            {/*      ))}*/}
-            {/*      /!*<section*!/*/}
-            {/*      /!*  {...morphs[index]}*!/*/}
-            {/*      /!*  sx={{ maxWidth: ['100%', '70%', '70%'] }}>*!/*/}
-            {/*      /!*  {skills}*!/*/}
-            {/*      /!*</section>*!/*/}
-            {/*    </div>*/}
-            {/*  )}*/}
-            {/*</SectionHeader>*/}
-            {/*</Flex>*/}
-            {/*<Flex*/}
-            {/*  sx={{*/}
-            {/*    width: 'fit-content',*/}
-            {/*    flexDirection: 'column',*/}
-            {/*    alignSelf: 'flex-start',*/}
-            {/*    flexGrow: 1,*/}
-            {/*    '& > ol': {*/}
-            {/*      textOverflow: 'ellipsis',*/}
-            {/*      wordWrap: 'break-word',*/}
-            {/*      whiteSpace: 'pre-line',*/}
-            {/*    },*/}
-            {/*    '& > h1, & > h2': {*/}
-            {/*      textAlign: 'right',*/}
-            {/*    },*/}
-            {/*    '& > h3, & > h4, & > h5, & > h6': {*/}
-            {/*      textAlign: 'right',*/}
-            {/*      marginTop: '1ch',*/}
-            {/*      paddingLeft: '2ch',*/}
-            {/*    },*/}
-            {/*  }}>*/}
-            {/*  <Flex*/}
-            {/*    sx={{*/}
-            {/*      flexDirection: 'column',*/}
-            {/*      alignItems: 'flex-end',*/}
-            {/*      maxWidth: ['45%', '50%', '50%'],*/}
-            {/*      alignSelf: 'flex-end',*/}
-            {/*    }}>*/}
-            {/*    <Heading*/}
-            {/*      sx={{*/}
-            {/*        fontSize: [2, 2, 3],*/}
-            {/*        width: '14ch',*/}
-            {/*        textAlign: 'end',*/}
-            {/*        borderBottom: theme =>*/}
-            {/*          `2px solid ${theme.colors.primary}`,*/}
-            {/*      }}*/}
-            {/*      as="h3">*/}
-            {/*      {experience.company}*/}
-            {/*    </Heading>*/}
-            {/*  </Flex>*/}
-            {/*  <Flex sx={{ flexDirection: 'column' }}>*/}
-            {/*    <Flex sx={{ mt: 2, alignSelf: 'flex-end' }}>*/}
-            {/*      <label sx={{ display: 'flex' }}>*/}
-            {/*        <Flex*/}
-            {/*          sx={{*/}
-            {/*            flexDirection: 'column',*/}
-            {/*            mr: 2,*/}
-            {/*            alignItems: 'flex-end',*/}
-            {/*          }}>*/}
-            {/*          <Flex>*/}
-            {/*            {hideDetails[expList[index]] && (*/}
-            {/*              <span*/}
-            {/*                {...toggleMorphs[index]}*/}
-            {/*                sx={{*/}
-            {/*                  '&:before': {*/}
-            {/*                    content: "'\\21A0'",*/}
-            {/*                    color: 'primary',*/}
-            {/*                  },*/}
-            {/*                }}*/}
-            {/*              />*/}
-            {/*            )}*/}
-            {/*            <span>{t('about:Summary')}</span>*/}
-            {/*          </Flex>*/}
-
-            {/*          <Flex>*/}
-            {/*            {!hideDetails[expList[index]] && (*/}
-            {/*              <span*/}
-            {/*                {...toggleMorphs[index]}*/}
-            {/*                sx={{*/}
-            {/*                  '&:before': {*/}
-            {/*                    content: "'\\21A0'",*/}
-            {/*                    color: 'secondary',*/}
-            {/*                  },*/}
-            {/*                }}*/}
-            {/*              />*/}
-            {/*            )}*/}
-            {/*            <span>{t('about:Detailed Overview')}</span>*/}
-            {/*          </Flex>*/}
-            {/*        </Flex>*/}
-            {/*        <Flex>*/}
-            {/*          <Checkbox*/}
-            {/*            onClick={() =>*/}
-            {/*              setSummary({*/}
-            {/*                ...hideDetails,*/}
-            {/*                [expList[index]]: !hideDetails[expList[index]],*/}
-            {/*              })*/}
-            {/*            }*/}
-            {/*          />*/}
-            {/*        </Flex>*/}
-            {/*      </label>*/}
-            {/*    </Flex>*/}
-
-            {/*    <div*/}
-            {/*      sx={{*/}
-            {/*        transition:*/}
-            {/*          'all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6)',*/}
-            {/*        maxHeight: ['25em', '35em', '50em'],*/}
-            {/*        marginTop: 2,*/}
-            {/*        borderRadius: 2,*/}
-            {/*        padding: 1,*/}
-            {/*        overflowY: 'scroll',*/}
-            {/*        '&::-webkit-scrollbar': {*/}
-            {/*          width: '0.8rem',*/}
-            {/*          height: '0.5em',*/}
-            {/*        },*/}
-            {/*        '&::-webkit-scrollbar-thumb': {*/}
-            {/*          background: theme =>*/}
-            {/*            `linear-gradient(180deg,${theme.colors.primary},${theme.colors.secondary})`,*/}
-            {/*          borderRadius: '999px',*/}
-            {/*          boxShadow:*/}
-            {/*            'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',*/}
-            {/*        },*/}
-            {/*        bg: 'muted',*/}
-            {/*        boxShadow: theme =>*/}
-            {/*          `inset 2px 2px 2px ${theme.colors.primary}, inset -2px -2px 2px ${theme.colors.secondary}`,*/}
-            {/*        // border: theme =>*/}
-            {/*        //   `2px solid ${*/}
-            {/*        //     hideDetails[expList[index]]*/}
-            {/*        //       ? theme.colors.primary*/}
-            {/*        //       : theme.colors.secondary*/}
-            {/*        //   }`,*/}
-            {/*      }}>*/}
-            {/*      {hideDetails[expList[index]] ? summary : detail}*/}
-            {/*    </div>*/}
-            {/*  </Flex>*/}
-            {/*  /!*{skills && (*!/*/}
-            {/*  /!*  <Flex sx={{ flexDirection: 'column' }}>*!/*/}
-            {/*  /!*    {hideDetails[expList[index]] && (*!/*/}
-            {/*  /!*      // @ts-ignore*!/*/}
-            {/*  /!*      <section {...morphs[index]}>{skills}</section>*!/*/}
-            {/*  /!*    )}*!/*/}
-            {/*  /!*  </Flex>*!/*/}
-            {/*  /!*)}*!/*/}
-            {/*</Flex>*/}
-            <Divider
-              sx={{
-                marginTop: 3,
-                // bg: 'primary'
-              }}
-            />
-            {/*<SectionBody>*/}
-            {/*  {{*/}
-            {/*    location,*/}
-            {/*    duration,*/}
-            {/*    employment,*/}
-            {/*    projects,*/}
-            {/*    tags,*/}
-            {/*  }}*/}
-            {/*</SectionBody>*/}
+              <Divider
+                sx={{
+                  marginTop: 3,
+                  bg: 'primary',
+                }}
+              />
+            </div>
           </div>
-        ),
-      )}
+        </Flipper>
+      ))}
     </div>
   );
 };
 
 export default SectionExperience;
+
+{
+  /*<SectionHeader*/
+}
+{
+  /*  experience={experience}*/
+}
+{
+  /*  externalProps={externalProps}>*/
+}
+{
+  /*  {hideDetails[expList[index]] && (*/
+}
+{
+  /*    <Box sx={{ maxWidth: ['100%', '80%', '80%'] }}>*/
+}
+{
+  /*      {highlight}*/
+}
+{
+  /*    </Box>*/
+}
+{
+  /*  )}*/
+}
+{
+  /*  {!hideDetails[expList[index]] && (*/
+}
+{
+  /*    <div*/
+}
+{
+  /*      sx={theme => ({*/
+}
+{
+  /*        borderRadius: 2,*/
+}
+{
+  /*        maxWidth: ['100%', '100%', '90%'],*/
+}
+{
+  /*        bg: 'muted',*/
+}
+{
+  /*        boxShadow: `0 0 2px ${theme.colors.secondary} inset`,*/
+}
+{
+  /*        padding: '0.5em',*/
+}
+{
+  /*        display: 'flex',*/
+}
+{
+  /*        flexDirection: 'column',*/
+}
+{
+  /*        // borderRadius: '2%',*/
+}
+{
+  /*      })}>*/
+}
+{
+  /*      <h2*/
+}
+{
+  /*        sx={{*/
+}
+{
+  /*          alignSelf: 'center',*/
+}
+{
+  /*          padding: '0 5%',*/
+}
+{
+  /*          borderBottom: theme =>*/
+}
+{
+  /*            `3px solid ${theme.colors.primary}`,*/
+}
+{
+  /*        }}>*/
+}
+{
+  /*        {t('My opportunities')}*/
+}
+{
+  /*      </h2>*/
+}
+{
+  /*      {tagSections?.map(section => (*/
+}
+{
+  /*        <Flex*/
+}
+{
+  /*          sx={{*/
+}
+{
+  /*            flexDirection: 'column',*/
+}
+{
+  /*          }}>*/
+}
+{
+  /*          <header*/
+}
+{
+  /*            sx={{*/
+}
+{
+  /*              display: 'flex',*/
+}
+{
+  /*              width: '95%',*/
+}
+{
+  /*              alignSelf: 'center',*/
+}
+{
+  /*              borderBottom: theme =>*/
+}
+{
+  /*                `1px solid ${theme.colors.text}`,*/
+}
+{
+  /*            }}>*/
+}
+{
+  /*            <Box*/
+}
+{
+  /*              sx={{*/
+}
+{
+  /*                marginBottom: 0,*/
+}
+{
+  /*                px: 1,*/
+}
+{
+  /*                fontWeight: 'bold',*/
+}
+{
+  /*                color: 'background',*/
+}
+{
+  /*                bg: 'text',*/
+}
+{
+  /*                textTransform: 'uppercase',*/
+}
+{
+  /*                borderTopLeftRadius: 1,*/
+}
+{
+  /*                borderTopRightRadius: 1,*/
+}
+{
+  /*              }}*/
+}
+{
+  /*              px={1}*/
+}
+{
+  /*              my={1}*/
+}
+{
+  /*              mr={1}>*/
+}
+{
+  /*              {section?.section}*/
+}
+{
+  /*            </Box>*/
+}
+{
+  /*          </header>*/
+}
+{
+  /*          <Flex*/
+}
+{
+  /*            sx={{*/
+}
+{
+  /*              flexWrap: 'wrap',*/
+}
+{
+  /*              py: 1,*/
+}
+{
+  /*              alignItems: 'baseline',*/
+}
+{
+  /*            }}>*/
+}
+{
+  /*            {section?.tags?.map(*/
+}
+{
+  /*              tag =>*/
+}
+{
+  /*                exists(tag) &&*/
+}
+{
+  /*                (exists(tag?.tags)*/
+}
+{
+  /*                  ? badgeList(tag?.tags)*/
+}
+{
+  /*                  : exists(tag.name) && toBadge(tag.name)),*/
+}
+{
+  /*            )}*/
+}
+{
+  /*          </Flex>*/
+}
+{
+  /*        </Flex>*/
+}
+{
+  /*      ))}*/
+}
+{
+  /*      /!*<section*!/*/
+}
+{
+  /*      /!*  {...morphs[index]}*!/*/
+}
+{
+  /*      /!*  sx={{ maxWidth: ['100%', '70%', '70%'] }}>*!/*/
+}
+{
+  /*      /!*  {skills}*!/*/
+}
+{
+  /*      /!*</section>*!/*/
+}
+{
+  /*    </div>*/
+}
+{
+  /*  )}*/
+}
+{
+  /*</SectionHeader>*/
+}
+{
+  /*</Flex>*/
+}
+{
+  /*<Flex*/
+}
+{
+  /*  sx={{*/
+}
+{
+  /*    width: 'fit-content',*/
+}
+{
+  /*    flexDirection: 'column',*/
+}
+{
+  /*    alignSelf: 'flex-start',*/
+}
+{
+  /*    flexGrow: 1,*/
+}
+{
+  /*    '& > ol': {*/
+}
+{
+  /*      textOverflow: 'ellipsis',*/
+}
+{
+  /*      wordWrap: 'break-word',*/
+}
+{
+  /*      whiteSpace: 'pre-line',*/
+}
+{
+  /*    },*/
+}
+{
+  /*    '& > h1, & > h2': {*/
+}
+{
+  /*      textAlign: 'right',*/
+}
+{
+  /*    },*/
+}
+{
+  /*    '& > h3, & > h4, & > h5, & > h6': {*/
+}
+{
+  /*      textAlign: 'right',*/
+}
+{
+  /*      marginTop: '1ch',*/
+}
+{
+  /*      paddingLeft: '2ch',*/
+}
+{
+  /*    },*/
+}
+{
+  /*  }}>*/
+}
+{
+  /*  <Flex*/
+}
+{
+  /*    sx={{*/
+}
+{
+  /*      flexDirection: 'column',*/
+}
+{
+  /*      alignItems: 'flex-end',*/
+}
+{
+  /*      maxWidth: ['45%', '50%', '50%'],*/
+}
+{
+  /*      alignSelf: 'flex-end',*/
+}
+{
+  /*    }}>*/
+}
+{
+  /*    <Heading*/
+}
+{
+  /*      sx={{*/
+}
+{
+  /*        fontSize: [2, 2, 3],*/
+}
+{
+  /*        width: '14ch',*/
+}
+{
+  /*        textAlign: 'end',*/
+}
+{
+  /*        borderBottom: theme =>*/
+}
+{
+  /*          `2px solid ${theme.colors.primary}`,*/
+}
+{
+  /*      }}*/
+}
+{
+  /*      as="h3">*/
+}
+{
+  /*      {experience.company}*/
+}
+{
+  /*    </Heading>*/
+}
+{
+  /*  </Flex>*/
+}
+{
+  /*  <Flex sx={{ flexDirection: 'column' }}>*/
+}
+{
+  /*    <Flex sx={{ mt: 2, alignSelf: 'flex-end' }}>*/
+}
+{
+  /*      <label sx={{ display: 'flex' }}>*/
+}
+{
+  /*        <Flex*/
+}
+{
+  /*          sx={{*/
+}
+{
+  /*            flexDirection: 'column',*/
+}
+{
+  /*            mr: 2,*/
+}
+{
+  /*            alignItems: 'flex-end',*/
+}
+{
+  /*          }}>*/
+}
+{
+  /*          <Flex>*/
+}
+{
+  /*            {hideDetails[expList[index]] && (*/
+}
+{
+  /*              <span*/
+}
+{
+  /*                {...toggleMorphs[index]}*/
+}
+{
+  /*                sx={{*/
+}
+{
+  /*                  '&:before': {*/
+}
+{
+  /*                    content: "'\\21A0'",*/
+}
+{
+  /*                    color: 'primary',*/
+}
+{
+  /*                  },*/
+}
+{
+  /*                }}*/
+}
+{
+  /*              />*/
+}
+{
+  /*            )}*/
+}
+{
+  /*            <span>{t('about:Summary')}</span>*/
+}
+{
+  /*          </Flex>*/
+}
+
+{
+  /*          <Flex>*/
+}
+{
+  /*            {!hideDetails[expList[index]] && (*/
+}
+{
+  /*              <span*/
+}
+{
+  /*                {...toggleMorphs[index]}*/
+}
+{
+  /*                sx={{*/
+}
+{
+  /*                  '&:before': {*/
+}
+{
+  /*                    content: "'\\21A0'",*/
+}
+{
+  /*                    color: 'secondary',*/
+}
+{
+  /*                  },*/
+}
+{
+  /*                }}*/
+}
+{
+  /*              />*/
+}
+{
+  /*            )}*/
+}
+{
+  /*            <span>{t('about:Detailed Overview')}</span>*/
+}
+{
+  /*          </Flex>*/
+}
+{
+  /*        </Flex>*/
+}
+{
+  /*        <Flex>*/
+}
+{
+  /*          <Checkbox*/
+}
+{
+  /*            onClick={() =>*/
+}
+{
+  /*              setSummary({*/
+}
+{
+  /*                ...hideDetails,*/
+}
+{
+  /*                [expList[index]]: !hideDetails[expList[index]],*/
+}
+{
+  /*              })*/
+}
+{
+  /*            }*/
+}
+{
+  /*          />*/
+}
+{
+  /*        </Flex>*/
+}
+{
+  /*      </label>*/
+}
+{
+  /*    </Flex>*/
+}
+
+{
+  /*    <div*/
+}
+{
+  /*      sx={{*/
+}
+{
+  /*        transition:*/
+}
+{
+  /*          'all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6)',*/
+}
+{
+  /*        maxHeight: ['25em', '35em', '50em'],*/
+}
+{
+  /*        marginTop: 2,*/
+}
+{
+  /*        borderRadius: 2,*/
+}
+{
+  /*        padding: 1,*/
+}
+{
+  /*        overflowY: 'scroll',*/
+}
+{
+  /*        '&::-webkit-scrollbar': {*/
+}
+{
+  /*          width: '0.8rem',*/
+}
+{
+  /*          height: '0.5em',*/
+}
+{
+  /*        },*/
+}
+{
+  /*        '&::-webkit-scrollbar-thumb': {*/
+}
+{
+  /*          background: theme =>*/
+}
+{
+  /*            `linear-gradient(180deg,${theme.colors.primary},${theme.colors.secondary})`,*/
+}
+{
+  /*          borderRadius: '999px',*/
+}
+{
+  /*          boxShadow:*/
+}
+{
+  /*            'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',*/
+}
+{
+  /*        },*/
+}
+{
+  /*        bg: 'muted',*/
+}
+{
+  /*        boxShadow: theme =>*/
+}
+{
+  /*          `inset 2px 2px 2px ${theme.colors.primary}, inset -2px -2px 2px ${theme.colors.secondary}`,*/
+}
+{
+  /*        // border: theme =>*/
+}
+{
+  /*        //   `2px solid ${*/
+}
+{
+  /*        //     hideDetails[expList[index]]*/
+}
+{
+  /*        //       ? theme.colors.primary*/
+}
+{
+  /*        //       : theme.colors.secondary*/
+}
+{
+  /*        //   }`,*/
+}
+{
+  /*      }}>*/
+}
+{
+  /*      {hideDetails[expList[index]] ? summary : detail}*/
+}
+{
+  /*    </div>*/
+}
+{
+  /*  </Flex>*/
+}
+{
+  /*  /!*{skills && (*!/*/
+}
+{
+  /*  /!*  <Flex sx={{ flexDirection: 'column' }}>*!/*/
+}
+{
+  /*  /!*    {hideDetails[expList[index]] && (*!/*/
+}
+{
+  /*  /!*      // @ts-ignore*!/*/
+}
+{
+  /*  /!*      <section {...morphs[index]}>{skills}</section>*!/*/
+}
+{
+  /*  /!*    )}*!/*/
+}
+{
+  /*  /!*  </Flex>*!/*/
+}
+{
+  /*  /!*)}*!/*/
+}
+{
+  /*</Flex>*/
+}
+
+{
+  /*<SectionBody>*/
+}
+{
+  /*  {{*/
+}
+{
+  /*    location,*/
+}
+{
+  /*    duration,*/
+}
+{
+  /*    employment,*/
+}
+{
+  /*    projects,*/
+}
+{
+  /*    tags,*/
+}
+{
+  /*  }}*/
+}
+{
+  /*</SectionBody>*/
+}
