@@ -282,7 +282,7 @@ export const SectionExperienceHOC = () => {
 const ExpandedHeaderSection: React.FC<{
   header: SectionHeaderProps;
   index: number;
-}> = ({ index, header: { experience } }) => {
+}> = ({ index, header: { experience, externalProps } }) => {
   return (
     <>
       <Flex
@@ -290,7 +290,8 @@ const ExpandedHeaderSection: React.FC<{
           gridColumn: 1,
           gridRow: 1,
           alignItems: ['flex-start', 'center', 'center'],
-          flexDirection: ['column', 'row', 'row'],
+          flexDirection: ['column-reverse', 'row', 'row'],
+          position: 'relative',
         }}>
         <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
           <Flex sx={{ minWidth: '48px', m: 1 }}>
@@ -320,6 +321,22 @@ const ExpandedHeaderSection: React.FC<{
             </h3>
           </Flex>
         </Flipped>
+        <Flex
+          sx={{
+            // py: 1,
+            flexDirection: 'column',
+            position: 'absolute',
+            top: '100%',
+            zIndex: '1001',
+          }}>
+          {externalProps?.badges?.map?.((value, i) => (
+            <Flipped flipId={`badge-${index}-${experience.company}-${i}`}>
+              <Badge variant="primary" px={1} my={1} mr={1}>
+                {value}
+              </Badge>
+            </Flipped>
+          ))}
+        </Flex>
       </Flex>
       <Flex sx={{ gridColumn: 2, gridRow: 1 }}>
         <Flipped flipId={`title-${index}-${experience.company}`}>
@@ -433,16 +450,26 @@ const ExpandedSectionBody: React.FC<{
           top: '100%',
           zIndex: '1001',
         }}>
-        {header.externalProps?.badges?.map?.((value, i) => (
-          <Flipped flipId={`badge-${index}-${header.experience.company}-${i}`}>
-            <Badge variant="primary" px={1} my={1} mr={1}>
-              {value}
-            </Badge>
-          </Flipped>
-        ))}
+        {/*{children.tagSections?.map?.((value, i) => (*/}
+        {/*  <Flipped flipId={`badge-${index}-${header.experience.company}-${i}`}>*/}
+        {/*    <Badge variant="primary" px={1} my={1} mr={1}>*/}
+        {/*      {value?.section}*/}
+        {/*    </Badge>*/}
+        {/*  </Flipped>*/}
+        {/*))}*/}
       </Flex>
+      {/*{children.tagSections?.map(tags => {*/}
+      {/*  return tags?.section;*/}
+      {/*})}*/}
+      {/*{section?.tags?.map(*/}
+      {/*  tag =>*/}
+      {/*    exists(tag) &&*/}
+      {/*    (exists(tag?.tags)*/}
+      {/*      ? badgeList(tag?.tags)*/}
+      {/*      : exists(tag.name) && toBadge(tag.name)),*/}
+      {/*)}*/}
       <Flipped flipId={`detail-${index}-${header.experience.company}`}>
-        <section>'## This is it'</section>
+        <section />
       </Flipped>
     </Flex>
     <Flipped flipId={`summary-${index}-${header.experience.company}`}>
