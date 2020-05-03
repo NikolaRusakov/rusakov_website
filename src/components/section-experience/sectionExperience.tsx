@@ -27,7 +27,7 @@ const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
     sx={{
       mx: 2,
-      mt: 1,
+      mt: 2,
       // mb: 2,
       color: 'text',
       bg: 'background',
@@ -77,6 +77,7 @@ const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
     {children}
   </article>
 );
+
 const renderMdx = (content: string) => (
   <React.Fragment>
     <MDXRenderer>{content}</MDXRenderer>
@@ -275,60 +276,49 @@ export const SectionExperienceHOC = () => {
   });
   return <SectionExperience experience={preparedData} />;
 };
-const shouldFlip = (index: number) => (prev: number, current: number) =>
-  index === prev || index === current;
-
-const createCardFlipId = (index: number) => `listItem-${index}`;
 
 const HeaderSection: React.FC<{
-  // flip: boolean;
   header: SectionHeaderProps;
   index: number;
-}> = ({ index, header: { experience, externalProps } }) => {
+}> = ({ index, header: { experience } }) => {
   return (
-    <Flex
-      sx={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        my: 3,
-        position: 'relative',
-      }}>
-      <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
-        <Image
-          src={experience.companyLogo}
-          variant="avatar"
-          sx={{
-            height: ['48px', null, '64px'],
-            width: ['48px', null, '64px'],
-          }}
-        />
-      </Flipped>
-      <Flipped flipId={`company-${index}-${experience.company}`}>
-        <h2>{experience.company}</h2>
-      </Flipped>
-
-      <Flipped flipId={`badges-${index}-${experience.company}`}>
-        <Flex
-          sx={{
-            py: 1,
-            flexDirection: 'column',
-            position: 'absolute',
-            bottom: '0px',
-          }}>
-          {externalProps?.badges?.map?.((value, i) => (
-            <Flipped flipId={`badge-${index}-${experience.company}-${i}`}>
-              <Badge variant="primary" px={1} my={1} mr={1}>
-                {value}
-              </Badge>
-            </Flipped>
-          ))}
-        </Flex>
-      </Flipped>
-      <h2>{experience.position}</h2>
-      <Badge variant="primary" sx={{ justifySelf: 'center' }}>
-        {experience.duration} <span> | YOE </span>
-      </Badge>
-    </Flex>
+    <>
+      <Flex sx={{ gridColumn: 1, gridRow: 1, alignItems: 'center' }}>
+        <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
+          <Flex sx={{ minWidth: '48px', m: 1 }}>
+            <Image
+              src={experience.companyLogo}
+              variant="avatar"
+              sx={{
+                height: ['36px', null, '48px'],
+                width: ['36px', null, '48px'],
+              }}
+            />
+          </Flex>
+        </Flipped>
+        <Flipped flipId={`company-${index}-${experience.company}`}>
+          <Flex>
+            <h3
+              sx={{
+                ml: 1,
+                margin: '0px',
+                whiteSpace: 'pre-wrap',
+                overflow: 'hidden',
+                display: '-webkit-box',
+                '-webkit-box-orient': 'vertical',
+                '-webkit-line-clamp': ' 2',
+              }}>
+              {experience.company}
+            </h3>
+          </Flex>
+        </Flipped>
+      </Flex>
+      <Flex sx={{ gridColumn: 2, gridRow: 1 }}>
+        <Flipped flipId={`title-${index}-${experience.company}`}>
+          <h2>{experience.position}</h2>
+        </Flipped>
+      </Flex>
+    </>
   );
 };
 
@@ -355,7 +345,7 @@ const SectionExperience: React.FC<{
   }*/,
   );
 
-  const [showDetail, toggleDetail] = useState(
+  const [hideDetail, toggleDetail] = useState(
     expList.reduce(
       (acc, cur) => ({
         ...acc,
@@ -403,52 +393,68 @@ const SectionExperience: React.FC<{
           },
           index,
         ) => (
-          <div sx={{ width: ['80vw', '80vw', '50vw'], margin: 'auto' }}>
-            <Flex
-              sx={{
-                justifyContent: 'center',
-                flexDirection: 'column',
-                bg: 'muted',
-              }}>
-              <label sx={{ display: 'flex' }}>
-                <Checkbox
-                  onClick={() =>
-                    toggleDetail({
-                      ...showDetail,
-                      [expList[index]]: !showDetail[expList[index]],
-                    })
-                  }
-                />
-              </label>
-              <Flipper
-                flipKey={showDetail[expList[index]]}
-                spring={{ stiffness: 280, damping: 22 }}
-                // shouldFlip={shouldFlip(index)}
-              >
-                {showDetail[expList[index]] ? (
-                  <Flex
-                    sx={{
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      my: 3,
-                    }}>
-                    <Flipped
-                      flipId={`company-${index}-${experience.company}`}>
-                      <h2>{experience.company}</h2>
-                    </Flipped>
-                    <Flipped
-                      flipId={`companyLogo-${index}-${experience.company}`}>
-                      <Image
-                        src={experience.companyLogo}
-                        variant="avatar"
-                        sx={{
-                          height: ['64px', null, '96px'],
-                          width: ['64px', null, '96px'],
-                        }}
-                      />
-                    </Flipped>
-                    <Flipped
-                      flipId={`badges-${index}-${experience.company}`}>
+          <div
+            sx={{
+              width: ['80vw', '80vw', '50vw'],
+              margin: 'auto',
+              bg: 'muted',
+            }}>
+            <Flipper
+              flipKey={hideDetail[expList[index]]}
+              spring={{ stiffness: 280, damping: 22 }}
+              // spring="veryGentle"
+              // shouldFlip={shouldFlip(index)}
+            >
+              <header
+                sx={{
+                  display: 'grid',
+                  gridGap: 1,
+                  gridTemplateColumns: '1fr auto 1fr',
+                  alignItems: 'center',
+                  variant: 'styles.header',
+                }}>
+                <label
+                  sx={{
+                    gridColumn: '3',
+                    gridRow: '1',
+                    display: 'flex',
+                    alignSelf: 'self-start',
+                    flexDirection: 'row-reverse',
+                  }}>
+                  <Checkbox
+                    onClick={() =>
+                      toggleDetail({
+                        ...hideDetail,
+                        [expList[index]]: !hideDetail[expList[index]],
+                      })
+                    }
+                  />
+                </label>
+                {hideDetail[expList[index]] ? (
+                  <>
+                    <Flex
+                      sx={{
+                        gridColumn: '2',
+                        gridRow: '1',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        my: 3,
+                      }}>
+                      <Flipped
+                        flipId={`company-${index}-${experience.company}`}>
+                        <h2>{experience.company}</h2>
+                      </Flipped>
+                      <Flipped
+                        flipId={`companyLogo-${index}-${experience.company}`}>
+                        <Image
+                          src={experience.companyLogo}
+                          variant="avatar"
+                          sx={{
+                            height: ['64px', null, '96px'],
+                            width: ['64px', null, '96px'],
+                          }}
+                        />
+                      </Flipped>
                       <Flex
                         sx={{
                           py: 1,
@@ -463,41 +469,105 @@ const SectionExperience: React.FC<{
                           </Flipped>
                         ))}
                       </Flex>
-                    </Flipped>
-                    <h2>{experience.position}</h2>
-                    <Badge variant="primary" sx={{ justifySelf: 'center' }}>
-                      {experience.duration} <span> | YOE </span>
-                    </Badge>
-                  </Flex>
+                      <Flipped flipId={`title-${index}-${experience.company}`}>
+                        <h2>{experience.position}</h2>
+                      </Flipped>
+                      <Flipped
+                        flipId={`yoe-badge-${index}-${experience.company}`}>
+                        <Badge variant="primary" sx={{ justifySelf: 'center' }}>
+                          {experience.duration} <span> | YOE </span>
+                        </Badge>
+                      </Flipped>
+                    </Flex>
+                  </>
                 ) : (
                   <HeaderSection
                     index={index}
                     header={{ experience, externalProps }}
                   />
                 )}
-              </Flipper>
-              <section
+              </header>
+              <Flex
                 sx={{
-                  display: 'flex',
+                  justifyContent: 'center',
                   flexDirection: 'column',
-                  position: 'relative',
-                  '& article': {
-                    boxShadow: theme =>
-                      `0px 2px 2px 2px ${theme.colors.background}`,
-                  },
-                  '& article:not(:last-child)': {
-                    boxShadow: theme =>
-                      `0px 2px 2px 2px ${theme.colors.background}
-           ,0px 4px 2px 0px ${theme.colors.secondary}`,
-                  },
-                  '& article:last-child': {
-                    mb: 2,
-                  },
+                  bg: 'muted',
                 }}>
-                <SummaryArticle>{summary}</SummaryArticle>
-                <SummaryArticle>{highlight}</SummaryArticle>
-              </section>
-            </Flex>
+                <section
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative',
+                    //        '& article': {
+                    //          boxShadow: theme =>
+                    //            `0px 2px 2px 2px ${theme.colors.background}`,
+                    //        },
+                    //        '& article:not(:last-child)': {
+                    //          boxShadow: theme =>
+                    //            `0px 2px 2px 2px ${theme.colors.background}
+                    // ,0px 4px 2px 0px ${theme.colors.secondary}`,
+                    //        },
+                    '& article:last-child': {
+                      mb: 2,
+                    },
+                  }}>
+                  {hideDetail[expList[index]] ? (
+                    <div>
+                      <Flipped
+                        flipId={`summary-${index}-${experience.company}`}>
+                        <div>
+                          <SummaryArticle>{summary}</SummaryArticle>
+                        </div>
+                      </Flipped>
+                      <Flipped flipId={`detail-${index}-${experience.company}`}>
+                        <div>
+                          <SummaryArticle>{highlight}</SummaryArticle>
+                        </div>
+                      </Flipped>
+                    </div>
+                  ) : (
+                    <Flex sx={{ flexDirection: 'column' }}>
+                      <Flex
+                        sx={{
+                          flexDirection: 'column',
+                          position: 'relative',
+                        }}>
+                        <Flipped
+                          flipId={`yoe-badge-${index}-${experience.company}`}>
+                          <Badge variant="primary" sx={{ alignSelf: 'center' }}>
+                            {experience.duration} <span> | YOE </span>
+                          </Badge>
+                        </Flipped>
+                        <Flex
+                          sx={{
+                            // py: 1,
+                            flexDirection: 'column',
+                            position: 'absolute',
+                            top: '100%',
+                            zIndex: '1001',
+                          }}>
+                          {externalProps?.badges?.map?.((value, i) => (
+                            <Flipped
+                              flipId={`badge-${index}-${experience.company}-${i}`}>
+                              <Badge variant="primary" px={1} my={1} mr={1}>
+                                {value}
+                              </Badge>
+                            </Flipped>
+                          ))}
+                        </Flex>
+                        <Flipped
+                          flipId={`summary-${index}-${experience.company}`}>
+                          <section>'## This is it'</section>
+                        </Flipped>
+                      </Flex>
+                      <Flipped flipId={`detail-${index}-${experience.company}`}>
+                        <div>{detail}</div>
+                      </Flipped>
+                    </Flex>
+                  )}
+                </section>
+              </Flex>
+            </Flipper>
 
             {/*<SectionHeader*/}
             {/*  experience={experience}*/}
