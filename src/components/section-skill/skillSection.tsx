@@ -139,7 +139,14 @@ const SkillSection: React.FC = () => {
                   );
                 })}
                 <hr
-                  sx={{ width: '80%', marginBottom: ['4px', '6px', '8px'] }}
+                  sx={{
+                    width: '80%',
+                    bg: theme =>
+                      theme.colors.highlight ||
+                      theme.colors.accent ||
+                      theme.colors.muted,
+                    marginBottom: ['4px', '6px', '8px'],
+                  }}
                 />
               </Flex>
             ))}

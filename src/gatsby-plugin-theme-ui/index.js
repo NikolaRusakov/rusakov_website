@@ -110,8 +110,8 @@ export const theme = {
   transitionProperty: {
     default: 'transition 0.25ms',
   },
-  useCustomProperties: true,
-  initialColorMode: 'system',
+  // useCustomProperties: true,
+  // initialColorModeName: 'light',
   colors: {
     text: '#000',
     background: '#fff',
