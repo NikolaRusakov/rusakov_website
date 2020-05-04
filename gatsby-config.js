@@ -1,3 +1,12 @@
+const fetch = require('node-fetch');
+
+const activeEnv =
+  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development';
+console.log(`Using environment config: '${activeEnv}'`);
+require('dotenv').config({
+  path: `.env.${activeEnv}`,
+});
+
 module.exports = {
   siteMetadata: {
     title: 'Nikola Rusakov',
@@ -32,6 +41,28 @@ module.exports = {
     //   },
     // },
     'gatsby-plugin-theme-ui',
+    {
+      resolve: 'gatsby-source-github-repo',
+      options: {
+        repoUrl: 'https://github.com/NikolaRusakov/rusakov_website',
+      },
+    },
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'GitHub',
+        fieldName: 'github',
+        url: 'https://api.github.com/graphql',
+        headers: {
+          // Learn about environment variables: https://gatsby.dev/env-vars
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+        },
+        // A `fetch`-compatible API to use when making requests.
+        fetch: (uri, options = {}) => {
+          return fetch(uri, { ...options, headers: options.headers });
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
