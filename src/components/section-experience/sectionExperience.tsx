@@ -289,45 +289,97 @@ const ExpandedHeaderSection: React.FC<{
         sx={{
           gridColumn: 1,
           gridRow: 1,
-          alignItems: ['flex-start', 'center', 'center'],
-          flexDirection: ['column-reverse', 'row', 'row'],
+          alignItems: ['center', 'center', 'flex-start'],
+          flexDirection: 'column',
           position: 'relative',
+          p: 2,
         }}>
-        <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
-          <Flex sx={{ minWidth: '48px', m: 1 }}>
-            <Image
-              src={experience.companyLogo}
-              variant="avatar"
+        <Flex
+          sx={{
+            alignItems: ['flex-start', 'center', 'center'],
+            flexDirection: ['column', 'row', 'row'],
+          }}>
+          <Flex sx={{ minWidth: '48px', m: 1, position: 'relative' }}>
+            <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
+              <Image
+                src={experience.companyLogo}
+                variant="avatar"
+                sx={{
+                  height: ['48px', null, '64px'],
+                  width: ['48px', null, '64px'],
+                }}
+              />
+            </Flipped>
+            <div
               sx={{
-                height: ['36px', null, '48px'],
-                width: ['36px', null, '48px'],
-              }}
-            />
-          </Flex>
-        </Flipped>
-        <Flipped flipId={`company-${index}-${experience.company}`}>
-          <Flex>
-            <h3
-              sx={{
-                ml: 1,
-                margin: '0px',
-                whiteSpace: 'pre-wrap',
-                overflow: 'hidden',
-                display: '-webkit-box',
-                '-webkit-box-orient': 'vertical',
-                '-webkit-line-clamp': ' 2',
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+                right: '0',
+                margin: '0 auto',
+                width: ['48px', null, '64px'],
               }}>
-              {experience.company}
-            </h3>
+              <Flipped flipId={`yoe-badge-${index}-${experience.company}`}>
+                <Badge
+                  sx={{
+                    position: 'absolute',
+                    bottom: '0',
+                    left: '0',
+                    right: '0',
+                    maxWidth: ['48px', null, '64px'],
+                    textAlign: 'center',
+                    p: 0,
+                    fontSize: theme => `calc(${theme.fontSizes[0]}px *0.7)`,
+                  }}
+                  variant="primary">
+                  {experience.duration}
+                </Badge>
+              </Flipped>
+            </div>
           </Flex>
+          <Flipped flipId={`company-${index}-${experience.company}`}>
+            <Flex sx={{ alignSelf: 'center' }}>
+              <h4
+                sx={{
+                  ml: 1,
+                  margin: '0px',
+                  whiteSpace: 'pre-wrap',
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  '-webkit-box-orient': 'vertical',
+                  '-webkit-line-clamp': ['1', '2', '2'],
+                }}>
+                {experience.company}
+              </h4>
+            </Flex>
+          </Flipped>
+        </Flex>
+        {/*<Flex*/}
+        {/*  sx={{*/}
+        {/*    // py: 1,*/}
+        {/*    flexDirection: 'column',*/}
+        {/*    position: 'absolute',*/}
+        {/*    top: '100%',*/}
+        {/*    zIndex: '1001',*/}
+        {/*  }}>*/}
+        {/*  {externalProps?.badges?.map?.((value, i) => (*/}
+        {/*    <Flipped flipId={`badge-${index}-${experience.company}-${i}`}>*/}
+        {/*      <Badge variant="primary" px={1} my={1} mr={1}>*/}
+        {/*        {value}*/}
+        {/*      </Badge>*/}
+        {/*    </Flipped>*/}
+        {/*  ))}*/}
+        {/*</Flex>*/}
+      </Flex>
+      <Flex sx={{ gridColumn: 2, gridRow: 1, flexDirection: 'column' }}>
+        <Flipped flipId={`title-${index}-${experience.company}`}>
+          <h2 sx={{ mb: 1 }}>{experience.position}</h2>
         </Flipped>
         <Flex
           sx={{
-            // py: 1,
-            flexDirection: 'column',
-            position: 'absolute',
             top: '100%',
             zIndex: '1001',
+            justifyContent: 'center',
           }}>
           {externalProps?.badges?.map?.((value, i) => (
             <Flipped flipId={`badge-${index}-${experience.company}-${i}`}>
@@ -337,11 +389,6 @@ const ExpandedHeaderSection: React.FC<{
             </Flipped>
           ))}
         </Flex>
-      </Flex>
-      <Flex sx={{ gridColumn: 2, gridRow: 1 }}>
-        <Flipped flipId={`title-${index}-${experience.company}`}>
-          <h2>{experience.position}</h2>
-        </Flipped>
       </Flex>
     </>
   );
@@ -437,27 +484,28 @@ const ExpandedSectionBody: React.FC<{
         flexDirection: 'column',
         position: 'relative',
       }}>
-      <Flipped flipId={`yoe-badge-${index}-${header.experience.company}`}>
-        <Badge variant="primary" sx={{ alignSelf: 'center' }}>
-          {header.experience.duration} <span> | YOE </span>
-        </Badge>
-      </Flipped>
-      <Flex
-        sx={{
-          // py: 1,
-          flexDirection: 'column',
-          position: 'absolute',
-          top: '100%',
-          zIndex: '1001',
-        }}>
-        {/*{children.tagSections?.map?.((value, i) => (*/}
-        {/*  <Flipped flipId={`badge-${index}-${header.experience.company}-${i}`}>*/}
-        {/*    <Badge variant="primary" px={1} my={1} mr={1}>*/}
-        {/*      {value?.section}*/}
-        {/*    </Badge>*/}
-        {/*  </Flipped>*/}
-        {/*))}*/}
-      </Flex>
+      {/*<Flipped flipId={`yoe-badge-${index}-${header.experience.company}`}>*/}
+      {/*  <Badge variant="primary" sx={{ alignSelf: 'center', mb: 3 }}>*/}
+      {/*    {header.experience.duration} <span> | YOE </span>*/}
+      {/*  </Badge>*/}
+      {/*</Flipped>*/}
+
+      {/*<Flex*/}
+      {/*  sx={{*/}
+      {/*    // py: 1,*/}
+      {/*    flexDirection: 'column',*/}
+      {/*    position: 'absolute',*/}
+      {/*    top: '100%',*/}
+      {/*    zIndex: '1001',*/}
+      {/*  }}>*/}
+      {/*{children.tagSections?.map?.((value, i) => (*/}
+      {/*  <Flipped flipId={`badge-${index}-${header.experience.company}-${i}`}>*/}
+      {/*    <Badge variant="primary" px={1} my={1} mr={1}>*/}
+      {/*      {value?.section}*/}
+      {/*    </Badge>*/}
+      {/*  </Flipped>*/}
+      {/*))}*/}
+      {/*</Flex>*/}
       {/*{children.tagSections?.map(tags => {*/}
       {/*  return tags?.section;*/}
       {/*})}*/}
