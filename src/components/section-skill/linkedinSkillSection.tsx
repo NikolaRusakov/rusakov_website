@@ -8,7 +8,12 @@ import {
   Maybe,
   TagEntity,
 } from '../../../types/gatsby-graphql';
-import { exists, isNonEmptyArray, pickBadgeName } from '../../utils/utils';
+import {
+  exists,
+  isNonEmptyArray,
+  lineClamp,
+  pickBadgeName,
+} from '../../utils/utils';
 import { toBadge } from '../badge/badgeList';
 import Img, {
   GatsbyImageWithIEPolyfillProps,
@@ -211,11 +216,7 @@ const LinkedInSkillSection: React.FC = () => {
                           )}
                           {head}
                           {toBadge(pickBadgeName(tag, true), {
-                            whiteSpace: 'pre-wrap',
-                            overflow: 'hidden',
-                            display: '-webkit-box',
-                            '-webkit-box-orient': 'vertical',
-                            '-webkit-line-clamp': ' 2',
+                            ...lineClamp('2'),
                             margin: [0, '2px', '4px'],
                           })}
                         </React.Fragment>
@@ -278,11 +279,7 @@ const LinkedInSkillSection: React.FC = () => {
                             />
                             {head}
                             {toBadge(pickBadgeName(tag, true), {
-                              whiteSpace: 'pre-wrap',
-                              overflow: 'hidden',
-                              display: '-webkit-box',
-                              '-webkit-box-orient': 'vertical',
-                              '-webkit-line-clamp': ' 2',
+                              ...lineClamp('2'),
                               margin: [0, '2px', '4px'],
                             })}
                           </React.Fragment>
