@@ -300,7 +300,12 @@ const ExpandedHeaderSection: React.FC<{
             alignItems: ['flex-start', 'center', 'center'],
             flexDirection: ['column', 'row', 'row'],
           }}>
-          <Flex sx={{ minWidth: '48px', m: 1, position: 'relative' }}>
+          <Flex
+            sx={{
+              minWidth: ['48px', null, '64px'],
+              m: 1,
+              position: 'relative',
+            }}>
             <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
               <Image
                 src={experience.companyLogo}
