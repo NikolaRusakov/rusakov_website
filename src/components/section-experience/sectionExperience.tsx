@@ -28,6 +28,7 @@ import { Global } from '@emotion/core';
 const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
     sx={{
+      p: 1,
       mx: 2,
       mt: 2,
       // mb: 2,
