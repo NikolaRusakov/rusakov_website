@@ -20996,6 +20996,7 @@ export type SitePageFieldsEnum =
   'pluginCreator___pluginOptions___name' |
   'pluginCreator___pluginOptions___pathToConfigModule' |
   'pluginCreator___pluginOptions___defaultLayouts___about' |
+  'pluginCreator___pluginOptions___defaultLayouts___resume' |
   'pluginCreator___pluginOptions___fonts' |
   'pluginCreator___pluginOptions___prettier' |
   'pluginCreator___pluginOptions___svgo' |
@@ -21201,6 +21202,7 @@ export type SitePluginFieldsEnum =
   'pluginOptions___name' |
   'pluginOptions___pathToConfigModule' |
   'pluginOptions___defaultLayouts___about' |
+  'pluginOptions___defaultLayouts___resume' |
   'pluginOptions___fonts' |
   'pluginOptions___prettier' |
   'pluginOptions___svgo' |
@@ -21350,10 +21352,12 @@ export type SitePluginPluginOptionsAliasFilterInput = {
 
 export type SitePluginPluginOptionsDefaultLayouts = {
   about?: Maybe<Scalars['String']>;
+  resume?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsDefaultLayoutsFilterInput = {
   about?: Maybe<StringQueryOperatorInput>;
+  resume?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsFilterInput = {
