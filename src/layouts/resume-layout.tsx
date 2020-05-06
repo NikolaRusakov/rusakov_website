@@ -30,6 +30,7 @@ import {
 import withI18next from '../i18n/withI18Next';
 const presets = {
   light: bulma,
+  default: bulma,
   base,
   system,
   funk,
@@ -59,7 +60,7 @@ const AboutLayout: React.FC = children => {
   return (
     <ThemeProvider
       theme={{
-        ...presets[colorMode],
+        ...(presets[colorMode] ?? presets[0]),
         fonts: { ...presets[colorMode]?.fonts, body: 'JetBrains Mono, normal' },
       }}>
       <Button

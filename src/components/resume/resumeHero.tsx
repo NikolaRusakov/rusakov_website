@@ -13,8 +13,8 @@ import { ReactComponent as Email } from '../../../static/svg/email.svg';
 import { ReactComponent as Mobile } from '../../../static/svg/mobile.svg';
 import { ReactComponent as Website } from '../../../static/svg/website.svg';
 import { ReactComponent as Marker } from '../../../static/svg/marker.svg';
+import { ReactComponent as Portfolio } from '../../../static/svg/portfolio.svg';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { readableColor } from 'polished';
 dayjs.extend(relativeTime);
 
 const diffDaysInYears = (start: Date) => dayjs().from(start, true);
@@ -36,7 +36,7 @@ const ContactItem: React.FC<{
         gridTemplateColumns: 'minmax(36px, auto) 1fr',
         width: '100%',
       }}
-      {...href}>
+      href={href}>
       <div sx={{ display: 'flex', justifyContent: 'center' }}>{icon}</div>
       <div
         sx={{
@@ -77,7 +77,7 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
           width: ['100%', null, null],
           margin: ['auto', null, 0],
         }}>
-        <Grid sx={{gridGap:['0.25rem','0.375rem','1rem']}}>
+        <Grid sx={{ gridGap: ['0.25rem', '0.375rem', '1rem'] }}>
           {about.basics.phone && (
             <ContactItem
               Cmp={Link}
@@ -101,6 +101,22 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
               content={about.basics.website}
               icon={
                 <Website
+                  sx={{
+                    color: 'primary',
+                    width: '1.5rem',
+                    alignSelf: 'center',
+                  }}
+                />
+              }
+            />
+          )}
+          {about.basics.website && (
+            <ContactItem
+              Cmp={Link}
+              href={about.basics.portfolio}
+              content={about.basics.portfolio}
+              icon={
+                <Portfolio
                   sx={{
                     color: 'primary',
                     width: '1.5rem',
@@ -151,21 +167,23 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
           sx={{
             py: 1,
             flexDirection: 'row',
-            width: ['50%', '100%', '100%'],
+            width: 'max-content',
             justifyContent: ['space-between', null, 'space-evenly'],
           }}>
-          <Badge variant="primary" sx={{ justifySelf: 'center' }}>
+          <Badge
+            variant="primary"
+            sx={{ justifySelf: 'center', mx: [1, '0', '0'] }}>
             <p sx={{ textAlign: 'center' }}>Practical</p>
-            {diffDaysInYears(new Date('1.10.2011'))} <span> | YOE </span>
+            <span>{diffDaysInYears(new Date('1.10.2011'))} | YOE </span>
           </Badge>
           <Badge
             variant="secondary"
             sx={{
               justifySelf: 'center',
-              color: theme => readableColor(theme.colors.primary),
+              mx: 1,
             }}>
             <p sx={{ textAlign: 'center' }}>Professional</p>
-            {diffDaysInYears(new Date('1.7.2017'))} <span> | YOE </span>
+            <span>{diffDaysInYears(new Date('1.7.2017'))} | YOE </span>
           </Badge>
         </Flex>
       </Flex>
