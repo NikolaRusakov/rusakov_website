@@ -82,7 +82,7 @@
             "hosting",
             "storage",
             "cloudFunctions",
-            "authentication",
+            "auth",
             "mlKit",
             "remoteConfig",
             "extensions"

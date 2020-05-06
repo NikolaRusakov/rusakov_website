@@ -77,7 +77,7 @@
   "hosting": { "key": "hosting", "name": "Hosting" },
   "storage": { "key": "storage", "name": "Storage" },
   "cloudFunctions": { "key": "cloudFunctions", "name": "Cloud Functions" },
-  "authentication": { "key": "authentication", "name": "Authentication" },
+  "auth": { "key": "auth", "name": "AuthN/Z" },
   "mlKit": { "key": "mlKit", "name": "ML Kit" },
   "remoteConfig": { "key": "remoteConfig", "name": "Remote Config" },
   "extensions": { "key": "extensions", "name": "Extensions" },

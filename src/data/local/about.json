@@ -4,7 +4,8 @@
     "label": "Software developer",
     "email": "nikola.rusakov@rusakov.cz",
     "phone": "+420 605 463 322",
-    "website": "https://rusakov.website/about",
+    "website": "https://rusakov.website",
+    "portfolio": "https://rusakov.website/en/about",
     "location": {
       "postalCode": "664 48",
       "city": "Moravany",
