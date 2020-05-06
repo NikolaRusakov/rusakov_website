@@ -49,7 +49,7 @@ export const theme = {
       //   `0 0 3px 0 grey inset, 0 0 3px 0 ${theme.colors.primary}`,
     },
     muted: {
-      color: theme => readableColor(theme.colors.primary),
+      color: theme => theme.colors.text,
       fontSize: theme => `calc(${theme.fontSizes[0]}px * 0.9)`,
       bg: 'primary',
       fontWeight: 'normal',
@@ -222,6 +222,9 @@ export const theme = {
       '&:first-child': {
         textAlign: 'center',
       },
+    },
+    li: {
+      listStylePosition: 'inside',
     },
     navlink: {
       textAlign: 'left',
