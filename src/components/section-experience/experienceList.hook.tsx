@@ -1,7 +1,7 @@
 import { CompanySections } from '../../../types/gatsby-graphql';
 import i18next from 'i18next';
 import data from '../../data/linkedin';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 
 export const useExperienceList = (sectionName: string) => {
   const locale = i18next.language;
@@ -23,11 +23,13 @@ export const useExperienceList = (sectionName: string) => {
                 key
                 count
                 heading
+                color
                 tags {
                   name
                   key
                   count
                   heading
+                  color
                 }
               }
             }
@@ -53,9 +55,7 @@ export const useExperienceList = (sectionName: string) => {
     }
     return;
   });
-  const filteredSections = localizedSections?.find(section => {
+  return localizedSections?.find(section => {
     return section?.shortKey == sectionName;
   });
-  console.log(filteredSections);
-  return filteredSections;
 };

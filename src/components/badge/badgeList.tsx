@@ -1,19 +1,22 @@
 /** @jsx jsx */
 import { Badge, Box, jsx } from 'theme-ui';
 import { Maybe, TagEntity } from '../../../types/gatsby-graphql';
+import { SystemStyleObject } from '@styled-system/css';
 
-import { exists, isNonEmptyArray, pickBadgeName } from '../../utils/utils';
+import {
+  calculatedWidth,
+  exists,
+  isNonEmptyArray,
+  pickBadgeName,
+} from '../../utils/utils';
 import HiddenCheckbox from '../checkbox/hiddenCheckbox';
 import { Global } from '@emotion/core';
 import { v4 as uuidv4 } from 'uuid';
 
-const calculatedWidth = (tags: TagEntity[]) =>
-  tags.length / 10 <= 1 ? 2 : Math.ceil(tags.length / 10);
-
-export const toBadge = (tagName: string, styles = {}) =>
+export const toBadge = (tagName: string, styles: SystemStyleObject = {}) =>
   tagName && (
     <Badge
-      key={`badge- ${uuidv4()}`}
+      key={`badge-${uuidv4()}`}
       sx={{
         color: 'background',
         whiteSpace: 'normal',
@@ -21,7 +24,13 @@ export const toBadge = (tagName: string, styles = {}) =>
       }}
       py={0}
       m={1}>
-      <span sx={{ fontWeight: 'normal', color: 'background' }}>{tagName}</span>
+      <span
+        sx={{
+          fontWeight: 'normal',
+          color: exists(styles?.color) ? styles.color : 'background',
+        }}>
+        {tagName}
+      </span>
     </Badge>
   );
 
