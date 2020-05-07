@@ -27,11 +27,13 @@ import {
   polaris,
   // @ts-ignore
 } from '@theme-ui/presets';
+import merge from 'deepmerge';
+
 import withI18next from '../i18n/withI18Next';
 const presets = {
-  light: bulma,
-  default: bulma,
-  base,
+  default: base,
+  light: base,
+  dark,
   system,
   funk,
   future,
@@ -40,11 +42,15 @@ const presets = {
   swiss,
   tosh,
   bootstrap,
-  bulma,
-  dark,
   tailwind,
   polaris,
+  bulma,
 };
+// @ts-ignore
+import { toTheme } from '@theme-ui/typography';
+import typography from 'typography-theme-alton';
+
+typography.baseFontSize = '16px';
 
 const preset = (v: string) => ({
   value: v,
@@ -59,11 +65,15 @@ const AboutLayout: React.FC = children => {
   const { t } = useTranslation();
   return (
     <ThemeProvider
-      theme={{
-        ...(presets[colorMode] ?? presets[0]),
-        fonts: { ...presets[colorMode]?.fonts, body: 'JetBrains Mono, normal' },
-      }}>
+      theme={merge(presets[colorMode] ?? presets[0], {
+        ...toTheme(typography),
+        fonts: {
+          ...toTheme(typography).fonts,
+          body: 'JetBrains Mono, normal',
+        },
+      })}>
       <Button
+        sx={{ height: '2em' }}
         onClick={() => {
           const keyPresets = Object.keys(presets);
           const colorModeIndex =
@@ -78,9 +88,16 @@ const AboutLayout: React.FC = children => {
           //TODO only set new Theme Color which is patched with preset color styles on init.
           setMode(newThemeColor);
         }}>
-        {colorMode}
+        <span sx={{ p: 1 }}>{colorMode}</span>
       </Button>
-      <Styled.root sx={{ width: ['100vw', '80vw', '66.7vw'], margin: 'auto' }}>
+      <Styled.root
+        sx={{
+          width: ['100vw', '80vw', '66.7vw'],
+          margin: '3rem auto',
+          '* h1': {
+            textAlign: 'center',
+          },
+        }}>
         {children.pageContext.children ? (
           <MDXRenderer>{children.pageContext.children}</MDXRenderer>
         ) : (
