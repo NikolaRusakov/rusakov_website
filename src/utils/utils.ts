@@ -20,3 +20,6 @@ export const lineClamp = (count: string | (number | string[])) => ({
   '-webkit-box-orient': 'vertical',
   '-webkit-line-clamp': count,
 });
+
+export const calculatedWidth = (tags: TagEntity[]) =>
+  tags.length / 10 <= 1 ? 2 : Math.ceil(tags.length / 10);

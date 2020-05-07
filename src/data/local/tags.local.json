@@ -4,7 +4,12 @@
   "graphql": { "key": "graphql", "name": "GraphQL" },
   "apollo": { "key": "apollo", "name": "Apollo" },
   "go": { "key": "go", "name": "Golang" },
-  "angular": { "key": "angular", "name": "Angular", "abbr": "Angular" },
+  "angular": {
+    "key": "angular",
+    "name": "Angular",
+    "abbr": "Angular",
+    "color": "#DD0031"
+  },
   "ionicFramework": {
     "key": "ionicFramework",
     "name": "Ionic",
@@ -46,7 +51,8 @@
   "googleCloudPlatform": {
     "key": "googleCloudPlatform",
     "name": "Google Cloud Platform",
-    "abbr": "GCP"
+    "abbr": "GCP",
+    "color": "#4485F5"
   },
   "docker": { "key": "docker", "name": "Docker" },
   "kubernetes": { "key": "kubernetes", "name": "Kubernetes" },
@@ -59,7 +65,8 @@
   "amazonWebServices": {
     "key": "amazonWebServices",
     "name": "Amazon Web Services",
-    "abbr": "AWS"
+    "abbr": "AWS",
+    "color": "#F8981C"
   },
   "cloudformation": { "key": "cloudformation", "name": "CloudFormation" },
   "lambda": { "key": "lambda", "name": "Lambda" },
@@ -72,7 +79,7 @@
   "apiGateway": { "key": "apiGateway", "name": "API Gateway" },
   "route53": { "key": "route53", "name": "Route 53" },
   "sqs": { "key": "sqs", "name": "Simple Queue Service" },
-  "firebase": { "key": "firebase", "name": "Firebase" },
+  "firebase": { "key": "firebase", "name": "Firebase", "color": "#FFCB2A" },
   "firestore": { "key": "firestore", "name": "Firestore" },
   "hosting": { "key": "hosting", "name": "Hosting" },
   "storage": { "key": "storage", "name": "Storage" },
@@ -98,7 +105,7 @@
   "seo": { "key": "seo", "name": "Search Engine Optimization" },
   "smo": { "key": "smo", "name": "Social Media Optimization" },
   "gitlabcicd": { "key": "gitlabcicd", "name": "Gitlab CI/CD" },
-  "java": { "key": "java", "name": "Java" },
+  "java": { "key": "java", "name": "Java", "color": "#0173BC" },
   "hibernate": { "key": "hibernate", "name": "Hibernate" },
   "tomcat": { "key": "tomcat", "name": "Apache Tomcat" },
   "spring": { "key": "spring", "name": "Spring" },

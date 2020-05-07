@@ -197,11 +197,13 @@ export const SectionExperienceHOC = () => {
                 key
                 count
                 heading
+                color
                 tags {
                   name
                   key
                   count
                   heading
+                    color
                 }
               }
             }
