@@ -321,7 +321,7 @@ const ExperienceList: React.FC<{ company: string }> = ({
   const totalWithCount = expCount - tagsCount;
 
   return (
-    <details>
+    <details sx={{ py: 2 }}>
       <summary>
         <span>
           <h6 style={{ display: 'inline', textTransform: 'uppercase' }}>
@@ -335,7 +335,7 @@ const ExperienceList: React.FC<{ company: string }> = ({
       </summary>
       <Flex
         sx={{
-          width: 'fit-content',
+          width: '100%',
           flexFlow: 'row wrap',
         }}>
         <Global
@@ -351,7 +351,8 @@ const ExperienceList: React.FC<{ company: string }> = ({
           experience?.sections.map((section, sectionIndex) => (
             <section
               sx={{
-                width: 'fit-content',
+                width: '80%',
+                p: 2,
                 flex: ['1 0 100%', '1 0 50%', '1 0 50%'],
               }}>
               <header
@@ -389,7 +390,7 @@ const ExperienceList: React.FC<{ company: string }> = ({
                     my={1}
                     mr={1}>
                     <Flex>
-                      <h4 sx={{ alignSelf: 'center' }}> {section?.section}</h4>
+                      <h3 sx={{ alignSelf: 'center' }}> {section?.section}</h3>
                     </Flex>
                     <div
                       sx={{
@@ -429,21 +430,26 @@ const ExperienceList: React.FC<{ company: string }> = ({
                         <Flex
                           sx={{
                             ml: 2,
-                            width: theme => theme.fontSizes[1],
-                            height: theme => theme.fontSizes[1] * 1.2,
+                            alignSelf: 'center',
+                            width: theme => theme.fontSizes[1] * 1.5,
+                            height: theme => theme.fontSizes[1] * 1.5,
                           }}>
                           {sections?.[section?.section ?? ''] === true ? (
                             <Expand
+                              width={24}
+                              height={24}
                               sx={{
-                                width: theme => theme.fontSizes[1],
-                                height: theme => theme.fontSizes[1],
+                                width: theme => theme.fontSizes[3],
+                                height: theme => theme.fontSizes[3],
                               }}
                             />
                           ) : (
                             <Compress
+                              width={24}
+                              height={24}
                               sx={{
-                                width: theme => theme.fontSizes[1],
-                                height: theme => theme.fontSizes[1],
+                                width: theme => theme.fontSizes[3],
+                                height: theme => theme.fontSizes[3],
                               }}
                             />
                           )}

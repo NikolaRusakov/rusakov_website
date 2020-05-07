@@ -61,9 +61,11 @@ const AboutLayout: React.FC = children => {
     <ThemeProvider
       theme={{
         ...(presets[colorMode] ?? presets[0]),
+        baseFontSize:'19px',
         fonts: { ...presets[colorMode]?.fonts, body: 'JetBrains Mono, normal' },
       }}>
       <Button
+        sx={{ height: '2em' }}
         onClick={() => {
           const keyPresets = Object.keys(presets);
           const colorModeIndex =
@@ -78,9 +80,9 @@ const AboutLayout: React.FC = children => {
           //TODO only set new Theme Color which is patched with preset color styles on init.
           setMode(newThemeColor);
         }}>
-        {colorMode}
+        <span sx={{ p: 1 }}>{colorMode}</span>
       </Button>
-      <Styled.root sx={{ width: ['100vw', '80vw', '66.7vw'], margin: 'auto' }}>
+      <Styled.root sx={{ width: ['100vw', '80vw', '66.7vw'], margin: '3rem auto' }}>
         {children.pageContext.children ? (
           <MDXRenderer>{children.pageContext.children}</MDXRenderer>
         ) : (

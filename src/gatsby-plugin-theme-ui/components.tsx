@@ -1,5 +1,15 @@
 /** @jsx jsx */
-import { jsx, Card, Button, Grid, Box, Flex, Badge, Container } from 'theme-ui';
+import {
+  jsx,
+  Card,
+  Button,
+  Grid,
+  Box,
+  Flex,
+  Badge,
+  Container,
+  Message,
+} from 'theme-ui';
 import Codeblock from './codeblock';
 import { Section } from '../components/section';
 import { SectionExperienceHOC } from '../components/section-experience/sectionExperience';
@@ -18,6 +28,7 @@ export default {
   Box: Box,
   Flex: Flex,
   code: Codeblock,
+  Message: Message,
   SkillSection: SkillSection,
   PortfolioSection: PortfolioSection,
   ResumeHero: ResumeHero,

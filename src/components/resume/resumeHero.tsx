@@ -1,5 +1,14 @@
 /** @jsx jsx */
-import { Badge, Flex, jsx, Link, Styled, Grid, Divider } from 'theme-ui';
+import {
+  Badge,
+  Flex,
+  jsx,
+  Link,
+  Styled,
+  Grid,
+  Divider,
+  useThemeUI,
+} from 'theme-ui';
 import Img from 'gatsby-image/withIEPolyfill';
 import React from 'react';
 import dayjs from 'dayjs';
@@ -78,7 +87,30 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
   role,
 }) => {
   const avatar: Maybe<FluidObject> = resumeProvider();
+  const { theme: themeSet } = useThemeUI();
 
+  const socialIcon = (icon: string) => {
+    switch (icon) {
+      case 'github':
+        return <Github width={24} height={24} fill={themeSet?.colors?.text} />;
+        break;
+      case 'linkedin':
+        return (
+          <LinkedIn width={24} height={24} />
+        );
+        break;
+      case 'twitter':
+        return <Twitter width={24} height={24} fill={themeSet?.colors?.text} />;
+        break;
+      case 'stackblitz':
+        return (
+          <StackBlitz width={24} height={24} fill={themeSet?.colors?.text} />
+        );
+      default:
+        <> </>;
+        return <> </>;
+    }
+  };
   return (
     <section
       sx={{
@@ -134,7 +166,7 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
                 <ContactItem
                   Cmp={Link}
                   href={about.basics.portfolio}
-                  content={about.basics.portfolio}
+                  content={`${about.basics.portfolio} (🚧)`}
                   icon={
                     <Portfolio
                       sx={{
@@ -178,12 +210,7 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
                     gridTemplateColumns: 'minmax(36px, auto) 1fr',
                     position: 'relative',
                   }}>
-                  <img
-                    sx={{ width: '1.5rem' }}
-                    src={socialsMap[network.toLowerCase()]}
-                    alt={`${username} - ${network} profile`}
-                  />
-                  {/*<span sx={{ position: 'absolute' }}>{username}</span>*/}
+                  {socialIcon(network.toLowerCase())}
                 </a>
               </Flex>
             ))}
