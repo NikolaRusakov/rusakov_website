@@ -14,11 +14,6 @@
     },
     "profiles": [
       {
-        "network": "Twitter",
-        "username": "@rusakov_nikola",
-        "url": "http://twitter.com/rusakov_nikola"
-      },
-      {
         "network": "Github",
         "username": "NikolaRusakov",
         "url": "https://github.com/NikolaRusakov"
@@ -27,6 +22,11 @@
         "network": "LinkedIn",
         "username": "Nikola Rusakov",
         "url": "https://www.linkedin.com/in/nikola-rusakov-94856115b/"
+      },
+      {
+        "network": "Twitter",
+        "username": "@rusakov_nikola",
+        "url": "http://twitter.com/rusakov_nikola"
       },
       {
         "network": "StackBlitz",

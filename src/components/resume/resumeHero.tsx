@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Badge, Flex, jsx, Link, Styled, Grid } from 'theme-ui';
+import { Badge, Flex, jsx, Link, Styled, Grid, Divider } from 'theme-ui';
 import Img from 'gatsby-image/withIEPolyfill';
 import React from 'react';
 import dayjs from 'dayjs';
@@ -14,11 +14,29 @@ import { ReactComponent as Mobile } from '../../../static/svg/mobile.svg';
 import { ReactComponent as Website } from '../../../static/svg/website.svg';
 import { ReactComponent as Marker } from '../../../static/svg/marker.svg';
 import { ReactComponent as Portfolio } from '../../../static/svg/portfolio.svg';
+import github, {
+  ReactComponent as Github,
+} from '../../../static/svg/github.svg';
+import linkedin, {
+  ReactComponent as LinkedIn,
+} from '../../../static/svg/linkedin.svg';
+import twitter, {
+  ReactComponent as Twitter,
+} from '../../../static/svg/twitter.svg';
+import stackblitz, {
+  ReactComponent as StackBlitz,
+} from '../../../static/svg/stackblitz.svg';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 const diffDaysInYears = (start: Date) => dayjs().from(start, true);
 
+const socialsMap = {
+  github: github,
+  linkedin: linkedin,
+  twitter: twitter,
+  stackblitz: stackblitz,
+};
 const ContactItem: React.FC<{
   Cmp?: React.ComponentType<any>;
   href?: string;
@@ -69,71 +87,109 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
         flexDirection: ['column-reverse', 'row', 'row'],
         position: 'relative',
       }}>
-      <address
-        sx={{
-          display: ['grid', 'flex', 'flex'],
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: ['100%', null, null],
-          margin: ['auto', null, 0],
-        }}>
-        <Grid sx={{ gridGap: ['0.25rem', '0.375rem', '1rem'] }}>
-          {about.basics.phone && (
-            <ContactItem
-              Cmp={Link}
-              href={`tel:${about.basics.phone}`}
-              content={about.basics.phone}
-              icon={<Mobile sx={{ width: '1.5rem', color: 'primary' }} />}
-            />
-          )}
-          {about.basics.email && (
-            <ContactItem
-              Cmp={Link}
-              href={`mailto:${about.basics.email}`}
-              content={about.basics.email}
-              icon={<Email sx={{ width: '1.5rem', color: 'primary' }} />}
-            />
-          )}
-          {about.basics.website && (
-            <ContactItem
-              Cmp={Link}
-              href={about.basics.website}
-              content={about.basics.website}
-              icon={
-                <Website
-                  sx={{
-                    color: 'primary',
-                    width: '1.5rem',
-                    alignSelf: 'center',
-                  }}
+      <Flex sx={{ flexDirection: 'column', width: '100%' }}>
+        <Flex sx={{ flexDirection: 'column' }}>
+          <address
+            sx={{
+              display: ['grid', 'flex', 'flex'],
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: ['100%', null, null],
+              margin: ['auto', null, 0],
+            }}>
+            <Grid sx={{ gridGap: ['0.25rem', '0.375rem', '1rem'] }}>
+              {about.basics.phone && (
+                <ContactItem
+                  Cmp={Link}
+                  href={`tel:${about.basics.phone}`}
+                  content={about.basics.phone}
+                  icon={<Mobile sx={{ width: '1.5rem', color: 'primary' }} />}
                 />
-              }
-            />
-          )}
-          {about.basics.website && (
-            <ContactItem
-              Cmp={Link}
-              href={about.basics.portfolio}
-              content={about.basics.portfolio}
-              icon={
-                <Portfolio
-                  sx={{
-                    color: 'primary',
-                    width: '1.5rem',
-                    alignSelf: 'center',
-                  }}
+              )}
+              {about.basics.email && (
+                <ContactItem
+                  Cmp={Link}
+                  href={`mailto:${about.basics.email}`}
+                  content={about.basics.email}
+                  icon={<Email sx={{ width: '1.5rem', color: 'primary' }} />}
                 />
-              }
-            />
-          )}
-          {about.basics.location.city && (
-            <ContactItem
-              icon={<Marker sx={{ width: '1rem', color: 'primary' }} />}
-              content={`${about.basics.location.city}, ${about.basics.location.region}`}
-            />
-          )}
-        </Grid>
-      </address>
+              )}
+              {about.basics.website && (
+                <ContactItem
+                  Cmp={Link}
+                  href={about.basics.website}
+                  content={about.basics.website}
+                  icon={
+                    <Website
+                      sx={{
+                        color: 'primary',
+                        width: '1.5rem',
+                        alignSelf: 'center',
+                      }}
+                    />
+                  }
+                />
+              )}
+              {about.basics.website && (
+                <ContactItem
+                  Cmp={Link}
+                  href={about.basics.portfolio}
+                  content={about.basics.portfolio}
+                  icon={
+                    <Portfolio
+                      sx={{
+                        color: 'primary',
+                        width: '1.5rem',
+                        alignSelf: 'center',
+                      }}
+                    />
+                  }
+                />
+              )}
+              {about.basics.location.city && (
+                <ContactItem
+                  icon={<Marker sx={{ width: '1rem', color: 'primary' }} />}
+                  content={`${about.basics.location.city}, ${about.basics.location.region}`}
+                />
+              )}
+            </Grid>
+          </address>
+          <Divider sx={{ alignSelf: 'center', width: '80%' }} />
+          <article
+            sx={{
+              justifyItems: 'center',
+              gridTemplateColumns: '1fr 1fr',
+              // gridTemplateColumns: 'repeat(auto-fill, 1fr)',
+              display: 'grid',
+              alignSelf: 'center',
+              // width: '80%',
+            }}>
+            {about.basics.profiles.map(({ network, url, username }) => (
+              <Flex sx={{ width: '100%' }}>
+                <a
+                  href={url}
+                  sx={{
+                    textAlign: 'center',
+                    my: 1,
+                    flexDirection: ['column', 'row', 'row'],
+                    alignItems: ['center', null, null],
+                    justifyContent: 'flex-start',
+                    display: 'grid',
+                    gridTemplateColumns: 'minmax(36px, auto) 1fr',
+                    position: 'relative',
+                  }}>
+                  <img
+                    sx={{ width: '1.5rem' }}
+                    src={socialsMap[network.toLowerCase()]}
+                    alt={`${username} - ${network} profile`}
+                  />
+                  {/*<span sx={{ position: 'absolute' }}>{username}</span>*/}
+                </a>
+              </Flex>
+            ))}
+          </article>
+        </Flex>
+      </Flex>
       <div
         sx={{
           bg: 'primary',
@@ -161,7 +217,7 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
         <h2 sx={{ mb: 2, fontSize: 5, textAlign: 'center' }}>
           {about.basics.name}
         </h2>
-        <h3 sx={{ mb: 2 }}>{about.basics.label}</h3>
+        <h3 sx={{ mb: 2, textAlign: 'center' }}>{about.basics.label}</h3>
 
         <Flex
           sx={{

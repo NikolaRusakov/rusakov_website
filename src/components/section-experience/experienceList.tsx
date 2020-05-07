@@ -328,7 +328,9 @@ const ExperienceList: React.FC<{ company: string }> = ({
             {'Highlight: '}
           </h6>
           <p style={{ display: 'inline' }}>{children}</p>
-          <em>{` + ${totalWithCount > 0 && totalWithCount}`}</em>
+          <em>
+            {totalWithCount > 0 && ` + ${totalWithCount > 0 && totalWithCount}`}
+          </em>
         </span>
       </summary>
       <Flex
@@ -387,7 +389,7 @@ const ExperienceList: React.FC<{ company: string }> = ({
                     my={1}
                     mr={1}>
                     <Flex>
-                      <h4> {section?.section}</h4>
+                      <h4 sx={{ alignSelf: 'center' }}> {section?.section}</h4>
                     </Flex>
                     <div
                       sx={{
@@ -457,7 +459,7 @@ const ExperienceList: React.FC<{ company: string }> = ({
                         sections?.[section?.section ?? ''] === true ? '1' : '0'
                       })`,
                       transition: 'transform 0.1s ease-in-out',
-                      alignSelf: 'end',
+                      alignSelf: 'center',
                     }}>
                     {' '}
                     <em>{`+ ${section?.tags?.length - 3}`}</em>
