@@ -47,22 +47,24 @@ const scrape = Object.keys(i18n).map(async lang => {
   const transTopSkills = {
     sections: [skills.topSkills.heading],
     // @ts-ignore
-    skills: skills.topSkills.skills.map(({ name, count }) => ({
+    skills: skills.topSkills.skills.map(({ name, count, color }) => ({
       key: toKeyFormat(name),
       heading: skills.topSkills.heading,
       name,
       count,
       abbr: mapNameToAbbreviation(name),
+      color,
     })),
     entities: skills.topSkills.skills.reduce(
       // @ts-ignore
-      (acc, { name, count }) => ({
+      (acc, { name, count, color }) => ({
         ...acc,
         [toKeyFormat(name)]: {
           key: toKeyFormat(name),
           name,
           count,
           abbr: toKeyFormat(name),
+          color,
         },
       }),
       {},
@@ -74,12 +76,13 @@ const scrape = Object.keys(i18n).map(async lang => {
     skills: skills.otherSkills.skills.map<TagEntity>(({ skill, heading }) => {
       const formattedSkills: TagEntityCompare[] = (skill as TagEntity[]).map<
         TagEntityCompare
-      >(({ name, count }) => ({
+      >(({ name, count, color }) => ({
         key: toKeyFormat(name),
         heading,
         name,
         abbr: mapNameToAbbreviation(name),
         count: count != null ? Number(count) : 0 ?? 0,
+        color,
       }));
 
       const byCount = ord.contramap(ordNumber, (p: TagEntityCompare) => {
@@ -100,11 +103,12 @@ const scrape = Object.keys(i18n).map(async lang => {
           // @ts-ignore
           ({ skill, heading }) =>
             // @ts-ignore
-            skill.map(({ name, count }) => ({
+            skill.map(({ name, count, color }) => ({
               key: toKeyFormat(name),
               heading,
               name,
               count,
+              color,
             })),
         )
         .flat()
@@ -155,7 +159,7 @@ const scrape = Object.keys(i18n).map(async lang => {
 
   const mapToTagEntity = (
     tag: string,
-    tagsKeyMapper: [string[], { key: string; name: string }[]],
+    tagsKeyMapper: [string[], { key: string; name: string; color?: string }[]],
   ) =>
     tagsKeyMapper[0].includes(tag)
       ? tagsKeyMapper[1][tagsKeyMapper[0].indexOf(tag)]
@@ -167,9 +171,8 @@ const scrape = Object.keys(i18n).map(async lang => {
     tag: TagEntity,
     scrapedTags: [string[], TagEntity[]],
   ): TagEntity => {
-    scrapedTags[0].includes(tag.key);
     return scrapedTags[0].includes(tag.key)
-      ? merge(tag, scrapedTags[1][scrapedTags[0].indexOf(tag.key)])
+      ? merge(scrapedTags[1][scrapedTags[0].indexOf(tag.key)], tag)
       : tag;
   };
 
@@ -192,9 +195,10 @@ const scrape = Object.keys(i18n).map(async lang => {
               tagsValueMapper,
             ]);
 
-            return isTagEntity(mapped)
+            const returnEntity = isTagEntity(mapped)
               ? mergeWithScraped(mapped, [scrapedKeyTags, scrapedValueTags])
               : null;
+            return returnEntity;
           };
 
           return Array.isArray(tagEntity)

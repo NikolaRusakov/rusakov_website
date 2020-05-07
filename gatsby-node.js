@@ -16,6 +16,7 @@ exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
       heading: String
       abbr: String
       slug: String
+      color: String
       tags : [TagEntity]
     }
    

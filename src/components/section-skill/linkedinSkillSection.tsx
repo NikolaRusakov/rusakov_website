@@ -3,8 +3,17 @@ import { jsx, Flex } from 'theme-ui';
 import React, { ReactNode } from 'react';
 import i18next from 'i18next';
 import { graphql, useStaticQuery } from 'gatsby';
-import { LinkedInSkillsQuery, TagEntity } from '../../../types/gatsby-graphql';
-import { exists, isNonEmptyArray, pickBadgeName } from '../../utils/utils';
+import {
+  LinkedInSkillsQuery,
+  Maybe,
+  TagEntity,
+} from '../../../types/gatsby-graphql';
+import {
+  exists,
+  isNonEmptyArray,
+  lineClamp,
+  pickBadgeName,
+} from '../../utils/utils';
 import { toBadge } from '../badge/badgeList';
 import Img, {
   GatsbyImageWithIEPolyfillProps,
@@ -17,10 +26,14 @@ const imageByKeyOrAbbr = (keys: string[]) => (logoMap: any) => {
   return keys.map(key => nameId(key) in logoMap && logoMap[nameId(key)])[0];
 };
 
-const toGatsbyImageProps = (tag: TagEntity) => (
-  logoMap: any,
-): GatsbyImageWithIEPolyfillProps | undefined => {
-  const searchIndexes = [tag?.abbr, tag?.key].filter(exists);
+export const toGatsbyImageProps = ({
+  name,
+  tags,
+}: {
+  tags: Maybe<string | undefined>[];
+  name?: Maybe<string>;
+}) => (logoMap: any): GatsbyImageWithIEPolyfillProps | undefined => {
+  const searchIndexes = tags?.filter(exists);
   const image = imageByKeyOrAbbr(searchIndexes)(logoMap);
   //fixme Types
   // @ts-ignore
@@ -28,7 +41,7 @@ const toGatsbyImageProps = (tag: TagEntity) => (
     ? {
         fluid: image.childImageSharp.fluid,
         objectFit: 'contain',
-        alt: nameId(tag.name ?? ''),
+        alt: nameId(name ?? ''),
       }
     : undefined;
 };
@@ -44,7 +57,9 @@ const SkillContent: React.FC<{
   children: (args: Arguments) => JSX.Element;
 }> = ({ tag, logoMap, children }) =>
   children({
-    img: toGatsbyImageProps(tag)(logoMap),
+    img: toGatsbyImageProps({ tags: [tag?.abbr, tag?.key], name: tag?.name })(
+      logoMap,
+    ),
     head: (
       <React.Fragment>
         {Number(tag?.count) > 0 && (
@@ -201,11 +216,7 @@ const LinkedInSkillSection: React.FC = () => {
                           )}
                           {head}
                           {toBadge(pickBadgeName(tag, true), {
-                            whiteSpace: 'pre-wrap',
-                            overflow: 'hidden',
-                            display: '-webkit-box',
-                            '-webkit-box-orient': 'vertical',
-                            '-webkit-line-clamp': ' 2',
+                            ...lineClamp('2'),
                             margin: [0, '2px', '4px'],
                           })}
                         </React.Fragment>
@@ -268,11 +279,7 @@ const LinkedInSkillSection: React.FC = () => {
                             />
                             {head}
                             {toBadge(pickBadgeName(tag, true), {
-                              whiteSpace: 'pre-wrap',
-                              overflow: 'hidden',
-                              display: '-webkit-box',
-                              '-webkit-box-orient': 'vertical',
-                              '-webkit-line-clamp': ' 2',
+                              ...lineClamp('2'),
                               margin: [0, '2px', '4px'],
                             })}
                           </React.Fragment>

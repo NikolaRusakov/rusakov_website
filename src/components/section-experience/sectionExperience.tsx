@@ -17,7 +17,7 @@ import {
   FileConnection,
   TagEntity,
 } from '../../../types/gatsby-graphql';
-import { exists } from '../../utils/utils';
+import { exists, lineClamp } from '../../utils/utils';
 import badgeList, { toBadge } from '../badge/badgeList';
 import { transparentize } from 'polished';
 import anime from 'animejs';
@@ -28,6 +28,7 @@ import { Global } from '@emotion/core';
 const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
     sx={{
+      p: 1,
       mx: 2,
       mt: 2,
       // mb: 2,
@@ -196,11 +197,13 @@ export const SectionExperienceHOC = () => {
                 key
                 count
                 heading
+                color
                 tags {
                   name
                   key
                   count
                   heading
+                    color
                 }
               }
             }
@@ -299,7 +302,12 @@ const ExpandedHeaderSection: React.FC<{
             alignItems: ['flex-start', 'center', 'center'],
             flexDirection: ['column', 'row', 'row'],
           }}>
-          <Flex sx={{ minWidth: '48px', m: 1, position: 'relative' }}>
+          <Flex
+            sx={{
+              minWidth: ['48px', null, '64px'],
+              m: 1,
+              position: 'relative',
+            }}>
             <Flipped flipId={`companyLogo-${index}-${experience.company}`}>
               <Image
                 src={experience.companyLogo}
@@ -343,11 +351,7 @@ const ExpandedHeaderSection: React.FC<{
                 sx={{
                   ml: 1,
                   margin: '0px',
-                  whiteSpace: 'pre-wrap',
-                  overflow: 'hidden',
-                  display: '-webkit-box',
-                  '-webkit-box-orient': 'vertical',
-                  '-webkit-line-clamp': ['1', '2', '2'],
+                  ...lineClamp(['1', '2', '2']),
                 }}>
                 {experience.company}
               </h4>
@@ -394,7 +398,7 @@ const ExpandedHeaderSection: React.FC<{
   );
 };
 
-const HiddenHeaderSection: React.FC<{
+export const HiddenHeaderSection: React.FC<{
   header: SectionHeaderProps;
   index: number;
 }> = ({ index, header: { experience, externalProps } }) => (

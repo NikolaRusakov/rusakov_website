@@ -1,36 +1,44 @@
 /** @jsx jsx */
 import { Badge, Box, jsx } from 'theme-ui';
 import { Maybe, TagEntity } from '../../../types/gatsby-graphql';
+import { SystemStyleObject } from '@styled-system/css';
 
-import {exists, isNonEmptyArray, pickBadgeName} from '../../utils/utils';
+import {
+  calculatedWidth,
+  exists,
+  isNonEmptyArray,
+  pickBadgeName,
+} from '../../utils/utils';
 import HiddenCheckbox from '../checkbox/hiddenCheckbox';
 import { Global } from '@emotion/core';
 import { v4 as uuidv4 } from 'uuid';
-import { readableColor } from 'polished';
 
-const calculatedWidth = (tags: TagEntity[]) =>
-  tags.length / 10 <= 1 ? 2 : Math.ceil(tags.length / 10);
-
-export const toBadge = (tagName:string, styles = {}) =>
+export const toBadge = (tagName: string, styles: SystemStyleObject = {}) =>
   tagName && (
     <Badge
-      key={`badge- ${uuidv4()}`}
+      key={`badge-${uuidv4()}`}
       sx={{
-        ...styles,
-        color: theme => readableColor(theme.colors.primary),
+        color: 'background',
         whiteSpace: 'normal',
+        ...styles,
       }}
       py={0}
       m={1}>
-      <span sx={{ fontWeight: 'normal', color: 'background' }}>{tagName}</span>
+      <span
+        sx={{
+          fontWeight: 'normal',
+          color: exists(styles?.color) ? styles.color : 'background',
+        }}>
+        {tagName}
+      </span>
     </Badge>
   );
 
-const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
+const badgeList = (tags: Maybe<Maybe<TagEntity>[]>, styles = {}) => {
   const sectionId = uuidv4();
   if (exists(tags)) {
     return tags?.length > 3 ? (
-      <div sx={{ m: 1, maxWidth: '97%', position: 'relative' }}>
+      <div sx={{ m: 1, maxWidth: '97%', position: 'relative', ...styles }}>
         <Global
           styles={theme => ({
             'input[type=checkbox]:checked + section': {
@@ -91,6 +99,7 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
           sx={{
             position: 'relative',
             borderRadius: 3,
+            color: theme => `${theme.colors.background} !important`,
             // borderRadius: theme => theme.space[2] * 1.5,
             transition:
               'border 0.15s ease-in-out 0.1s, border-radius 0.15s ease-in-out 0.1s, max-height 0.15s ease-in-out, max-width 0.20s ease-in-out',
@@ -157,12 +166,18 @@ const badgeList = (tags: Maybe<Maybe<TagEntity>[]>) => {
             }}>
             {tags
               .slice(1)
-              .map(childTag => exists(childTag) && toBadge(pickBadgeName(childTag)))}
+              .map(
+                childTag =>
+                  exists(childTag) && toBadge(pickBadgeName(childTag), styles),
+              )}
           </article>
         </Box>
       </div>
     ) : (
-      tags?.map(childTag => exists(childTag) && toBadge(pickBadgeName(childTag)))
+      tags?.map(
+        childTag =>
+          exists(childTag) && toBadge(pickBadgeName(childTag), styles),
+      )
     );
   }
   return <></>;

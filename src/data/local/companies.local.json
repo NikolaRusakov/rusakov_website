@@ -3,10 +3,6 @@
     "shortKey": "flowup",
     "sections": [
       {
-        "section": "be",
-        "tags": ["nodejs", "typescript", "graphql", "apollo", "go"]
-      },
-      {
         "section": "fe",
         "tags": [
           [
@@ -28,6 +24,10 @@
           "capacitor",
           "flutter"
         ]
+      },
+      {
+        "section": "be",
+        "tags": ["nodejs", "typescript", "graphql", "apollo", "go"]
       },
       {
         "section": "dx",
@@ -82,7 +82,7 @@
             "hosting",
             "storage",
             "cloudFunctions",
-            "authentication",
+            "auth",
             "mlKit",
             "remoteConfig",
             "extensions"
