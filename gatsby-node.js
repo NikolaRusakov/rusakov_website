@@ -157,7 +157,7 @@ exports.sourceNodes = async (
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
-  console.log(node.internal.type);
+  // console.log(node.internal.type);
   // Check for "Mdx" type so that other files (e.g. images) are exluded
   if (node.internal.type === `Mdx`) {
     // Use path.basename
@@ -253,7 +253,7 @@ exports.createPages = async ({ page, graphql, actions }, pluginOptions) => {
     locale: pl.fields.locale,
     templateKey: pl.frontmatter.templateKey,
   }));
-  console.log(paths);
+
   postList.forEach(async node => {
     const { node: post } = node;
     const locale = post.childMdx.fields.locale;

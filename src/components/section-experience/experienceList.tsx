@@ -10,12 +10,20 @@ import { toBadge } from '../badge/badgeList';
 import { Flex, Box, jsx, useThemeUI } from 'theme-ui';
 
 import { Flipper, Flipped } from 'react-flip-toolkit';
-import { Maybe, TagEntity } from '../../../types/gatsby-graphql';
+import {
+  CompanySections,
+  Maybe,
+  TagEntity,
+} from '../../../types/gatsby-graphql';
 import { Global } from '@emotion/core';
 import { motion } from 'framer-motion';
 import { readableColor } from 'polished';
 import { ReactComponent as Compress } from '../../../static/svg/compress.svg';
 import { ReactComponent as Expand } from '../../../static/svg/expand.svg';
+import data from '../../data/linkedin';
+import i18next from 'i18next';
+import { useStaticQuery, graphql } from 'gatsby';
+import { useExperienceList } from './experienceList.hook';
 
 const button = {
   rest: {
@@ -127,6 +135,8 @@ const badgeBlockList = (
       borderWidth: '2px',
       borderStyle: 'solid',
       background: 'transparent',
+      display: 'flex',
+      alignItems: 'center',
       // textShadow: `0px 0px ${getReadableColor(themeSet?.colors?.background)}`,
       color: exists(tags?.[0]?.color)
         ? tags?.[0]?.color
@@ -211,6 +221,7 @@ const badgeBlockList = (
               letterSpacing: '-1px',
               whiteSpace: 'nowrap',
               textAlign: 'center',
+              cursor: 'pointer',
             }}>{`+ ${tags.length - 1}`}</em>
         </header>
       </motion.button>
@@ -270,7 +281,12 @@ const badgeOrList = (tag: Maybe<TagEntity>, sectionIndex: string) =>
       <React.Fragment>{badgeBlockList(tag?.tags, sectionIndex)}</React.Fragment>
     ) : (
       exists(tag.name) &&
-      toBadge(tag.name, { borderRadius: 0, width: 'fit-content' })
+      toBadge(tag.name, {
+        display: 'flex',
+        alignItems: 'center',
+        borderRadius: 0,
+        width: 'fit-content',
+      })
     ))) || <></>;
 
 const toggles = {
@@ -296,9 +312,10 @@ const ExperienceList: React.FC<{ company: string }> = ({
   children,
 }) => {
   const experience = useExperienceList(company);
+
   const expSections = experience?.sections
-    .filter(exists)
-    .map<string>(({ section }) => section);
+    ?.filter(exists)
+    .map(({ section }) => section);
 
   const [sections, toggleSection] = useState(
     expSections?.reduce(
@@ -324,9 +341,9 @@ const ExperienceList: React.FC<{ company: string }> = ({
     <details sx={{ py: 2 }}>
       <summary>
         <span>
-          <h6 style={{ display: 'inline', textTransform: 'uppercase' }}>
+          <h4 style={{ display: 'inline', textTransform: 'uppercase' }}>
             {'Highlight: '}
-          </h6>
+          </h4>
           <p style={{ display: 'inline' }}>{children}</p>
           <em>
             {totalWithCount > 0 && ` + ${totalWithCount > 0 && totalWithCount}`}
@@ -372,6 +389,7 @@ const ExperienceList: React.FC<{ company: string }> = ({
                     '&:active': {
                       outline: theme => `2px solid ${theme.colors.secondary}`,
                     },
+                    cursor: 'pointer',
                   }}>
                   <Box
                     sx={{

@@ -24,6 +24,7 @@ import anime from 'animejs';
 
 import { Flipper, Flipped, spring } from 'react-flip-toolkit';
 import { Global } from '@emotion/core';
+import { useCompanySections, useExperienceList } from './experienceList.hook';
 
 const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
@@ -105,16 +106,15 @@ const renderBadges = ({
 //TODO: data fetching will be combined with StaticQuery from automated JSON
 export const SectionExperienceHOC = () => {
   const locale = i18next.language;
+  const companySections = useCompanySections();
   const {
     allHighlight: { nodes: highlight },
     allSummary: { nodes: summary },
     allDetails: { nodes: details },
-    companySections,
   }: {
     allHighlight: FileConnection;
     allSummary: FileConnection;
     allDetails: FileConnection;
-    companySections: CompanySections;
   } = useStaticQuery(graphql`
     query HighlightPerSection {
       allHighlight: allFile(
@@ -185,31 +185,31 @@ export const SectionExperienceHOC = () => {
         }
       }
 
-      companySections {
-        skills {
-          locale
-          data {
-            shortKey
-            sections {
-              section
-              tags {
-                name
-                key
-                count
-                heading
-                color
-                tags {
-                  name
-                  key
-                  count
-                  heading
-                    color
-                }
-              }
-            }
-          }
-        }
-      }
+      #      companySections {
+      #        skills {
+      #          locale
+      #          data {
+      #            shortKey
+      #            sections {
+      #              section
+      #              tags {
+      #                name
+      #                key
+      #                count
+      #                heading
+      #                color
+      #                tags {
+      #                  name
+      #                  key
+      #                  count
+      #                  heading
+      #                    color
+      #                }
+      #              }
+      #            }
+      #          }
+      #        }
+      #      }
     }
   `);
 

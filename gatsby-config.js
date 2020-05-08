@@ -194,18 +194,6 @@ module.exports = {
         path: `${__dirname}/src/pages/resume`,
       },
     },
-    // {
-    //   resolve: 'gatsby-plugin-page-creator',
-    //   options: {
-    //     path: `${__dirname}/src/pages/about`,
-    //   },
-    // },
-    {
-      resolve: 'gatsby-plugin-page-creator',
-      options: {
-        path: `${__dirname}/src/pages/resume`,
-      },
-    },
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
