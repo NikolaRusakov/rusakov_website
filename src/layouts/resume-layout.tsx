@@ -49,6 +49,7 @@ const presets = {
 // @ts-ignore
 import { toTheme } from '@theme-ui/typography';
 import typography from 'typography-theme-alton';
+import { Helmet } from 'react-helmet';
 
 typography.baseFontSize = '16px';
 
@@ -72,6 +73,15 @@ const AboutLayout: React.FC = children => {
           body: 'JetBrains Mono, normal',
         },
       })}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>🔥 Rusakov Resume 🔥</title>
+        <link rel="canonical" href="http://rusakov.website/about" />
+        <meta
+          name="description"
+          content="Semi-automated resume, welcome to the 21. century of digital era!"
+        />
+      </Helmet>
       <Button
         sx={{ height: '2em' }}
         onClick={() => {

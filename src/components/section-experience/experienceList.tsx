@@ -8,7 +8,7 @@ import {
 } from '../../utils/utils';
 import { toBadge } from '../badge/badgeList';
 import { Flex, Box, jsx, useThemeUI } from 'theme-ui';
-import { useExperienceList } from './experienceList.hook';
+
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import { Maybe, TagEntity } from '../../../types/gatsby-graphql';
 import { Global } from '@emotion/core';
