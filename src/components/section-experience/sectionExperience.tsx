@@ -25,6 +25,7 @@ import anime from 'animejs';
 import { Flipper, Flipped, spring } from 'react-flip-toolkit';
 import { Global } from '@emotion/core';
 import { useCompanySections, useExperienceList } from './experienceList.hook';
+import ExperienceList from './experienceList';
 
 const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
@@ -536,6 +537,10 @@ const ExpandedSectionBody: React.FC<{
         {children.detail}
       </div>
     </Flipped>
+    <ExperienceList
+      company={header?.experience?.company?.split(' ')[0].toLowerCase() ?? ''}>
+      typescript, support, is, a , good ,thing
+    </ExperienceList>
   </Flex>
 );
 
