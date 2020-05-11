@@ -4138,6 +4138,11 @@
   resolved "https://registry.yarnpkg.com/@theme-ui/css/-/css-0.3.1.tgz#b85c7e8fae948dc0de65aa30b853368993e25cb3"
   integrity sha512-QB2/fZBpo4inaLHL3OrB8NOBgNfwnj8GtHzXWHb9iQSRjmtNX8zPXBe32jLT7qQP0+y8JxPT4YChZIkm5ZyIdg==
 
+"@theme-ui/match-media@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@theme-ui/match-media/-/match-media-0.3.1.tgz#05af6a71cf14368e1b3bd7180fc382c72d5ba53b"
+  integrity sha512-PHvSRB1vqUgDnPkGlXLa+qadmOMOy3LKSOzovwpTi+wzCUyyOGAsUY/fJQ7nufBrmU3vdYeUTrKplLn5VIEmlg==
+
 "@theme-ui/mdx@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@theme-ui/mdx/-/mdx-0.3.0.tgz#8bb1342204acfaa69914d6b6567c5c49d9a8c1e6"
@@ -11387,6 +11392,11 @@ framer-motion@1.10.3, framer-motion@^1.10.3:
     tslib "^1.10.0"
   optionalDependencies:
     "@emotion/is-prop-valid" "^0.8.2"
+
+framer@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.1.7.tgz#ae2bf61d5a07100410a26bcede8bb61c65866b58"
+  integrity sha512-NsvReaS6oqrsmmyRUXkNm6/5+qEO1U/1WVX7m66hu6nD8/QQfhAjay9VclV7XoW+77NUyR16P6Nr+tEgQOGjbw==
 
 framesync@^4.0.0, framesync@^4.0.1, framesync@^4.0.4:
   version "4.0.4"

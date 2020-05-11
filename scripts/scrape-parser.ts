@@ -13,6 +13,7 @@ import {
   TagEntity,
   TagEntityCompare,
 } from './scrape-types';
+import { exists } from '../src/utils/utils';
 
 const scrape = Object.keys(i18n).map(async lang => {
   const { education, positions, skills } = await import(
@@ -200,12 +201,13 @@ const scrape = Object.keys(i18n).map(async lang => {
               : null;
             return returnEntity;
           };
-
-          return Array.isArray(tagEntity)
-            ? tagEntity.map(tag => mapAndMergeTags(tag)).filter(i => i != null)
+          const tagEntities = Array.isArray(tagEntity)
+            ? tagEntity.map(tag => mapAndMergeTags(tag)).filter(exists)
             : mapAndMergeTags(tagEntity);
+          return tagEntities;
         });
-        return { section, tags: mappers.filter(i => i != null) };
+        console.log(mappers);
+        return { section, tags: mappers.filter(exists) };
       }),
     }));
   };

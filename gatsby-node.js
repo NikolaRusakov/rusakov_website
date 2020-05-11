@@ -1,9 +1,6 @@
 const path = require(`path`);
 const locales = require(`./config/i18n`);
-const {
-  localizedSlug,
-  findKey,
-} = require(`./src/utils/gatsby-node-helpers`);
+const { localizedSlug, findKey } = require(`./src/utils/gatsby-node-helpers`);
 const i18nConfig = require('./config/i18n');
 
 exports.createSchemaCustomization = ({ actions: { createTypes }, schema }) => {
@@ -112,10 +109,12 @@ exports.sourceNodes = async (
         shortKey,
         sections: sections.map(({ section, tags }) => ({
           section,
-          tags: tags.map(tag => (Array.isArray(tag) ? { tags: tag } : tag)),
+          tags: tags.map(tag =>
+            Array.isArray(tag) ? { ...tag[0], tags: tag } : tag,
+          ),
         })),
       }));
-
+      console.log(companies);
       return { locale, data: companies };
     }
   });
