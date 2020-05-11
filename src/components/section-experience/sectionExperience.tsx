@@ -233,7 +233,7 @@ export const SectionExperienceHOC = () => {
       summary => summary.name == `${tmpCompanyKey}.${i18next.language}`,
     )[0];
 
-    const companySection = companySections?.skills
+    const companySection = companySections?.companySections?.skills
       ?.filter(skill => skill?.locale == locale)[0]
       ?.data?.filter(section => section?.shortKey == tmpCompanyKey)[0];
 
@@ -539,7 +539,10 @@ const ExpandedSectionBody: React.FC<{
     </Flipped>
     <ExperienceList
       company={header?.experience?.company?.split(' ')[0].toLowerCase() ?? ''}>
-      typescript, support, is, a , good ,thing
+      {children?.tagSections
+        ?.slice(0, 5)
+        ?.map(sections => sections?.tags?.[0]?.name)
+        ?.join(', ')}
     </ExperienceList>
   </Flex>
 );
