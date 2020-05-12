@@ -1,4 +1,7 @@
 import { Maybe, TagEntity } from '../../types/gatsby-graphql';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 export type Unwrap<T> = T extends Maybe<infer U> ? U : T;
 
@@ -23,3 +26,5 @@ export const lineClamp = (count: string | (number | string[])) => ({
 
 export const calculatedWidth = (tags: TagEntity[]) =>
   tags.length / 10 <= 1 ? 2 : Math.ceil(tags.length / 10);
+
+export const diffDaysInYears = (start: Date) => dayjs().from(start, true);

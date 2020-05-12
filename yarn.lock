@@ -4138,6 +4138,11 @@
   resolved "https://registry.yarnpkg.com/@theme-ui/css/-/css-0.3.1.tgz#b85c7e8fae948dc0de65aa30b853368993e25cb3"
   integrity sha512-QB2/fZBpo4inaLHL3OrB8NOBgNfwnj8GtHzXWHb9iQSRjmtNX8zPXBe32jLT7qQP0+y8JxPT4YChZIkm5ZyIdg==
 
+"@theme-ui/match-media@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@theme-ui/match-media/-/match-media-0.3.1.tgz#05af6a71cf14368e1b3bd7180fc382c72d5ba53b"
+  integrity sha512-PHvSRB1vqUgDnPkGlXLa+qadmOMOy3LKSOzovwpTi+wzCUyyOGAsUY/fJQ7nufBrmU3vdYeUTrKplLn5VIEmlg==
+
 "@theme-ui/mdx@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@theme-ui/mdx/-/mdx-0.3.0.tgz#8bb1342204acfaa69914d6b6567c5c49d9a8c1e6"
@@ -9224,6 +9229,11 @@ deep-equal@^1.0.1, deep-equal@^1.1.0, deep-equal@^1.1.1:
     object-keys "^1.1.1"
     regexp.prototype.flags "^1.2.0"
 
+deep-extend@^0.5.0:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.5.1.tgz#b894a9dd90d3023fbf1c55a394fb858eb2066f1f"
+  integrity sha512-N8vBdOa+DF7zkRrDCsaOXoCs/E2fJfx9B9MrKnnSiHNh4ws7eSys6YQE4KvT1cecKmOASYQBhbKjeuDD9lT81w==
+
 deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
@@ -11383,6 +11393,11 @@ framer-motion@1.10.3, framer-motion@^1.10.3:
   optionalDependencies:
     "@emotion/is-prop-valid" "^0.8.2"
 
+framer@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.1.7.tgz#ae2bf61d5a07100410a26bcede8bb61c65866b58"
+  integrity sha512-NsvReaS6oqrsmmyRUXkNm6/5+qEO1U/1WVX7m66hu6nD8/QQfhAjay9VclV7XoW+77NUyR16P6Nr+tEgQOGjbw==
+
 framesync@^4.0.0, framesync@^4.0.1, framesync@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/framesync/-/framesync-4.0.4.tgz#79c42c0118f26821c078570db0ff81fb863516a2"
@@ -11603,6 +11618,15 @@ gatsby-core-utils@^1.0.34, gatsby-core-utils@^1.1.2:
     configstore "^5.0.1"
     node-object-hash "^2.0.0"
 
+gatsby-core-utils@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-1.2.1.tgz#9d5e89d0cf7b9e5d7d77a9dcb47071684f68ffd5"
+  integrity sha512-uyXgjvKdzfJ0yB8oTYmBjMUqM0AACx7aA8Ioubn6k/51C4tE5+LzrG/iG42di2UaTIbcBj6vcwrvRosNKWeeBQ==
+  dependencies:
+    ci-info "2.0.0"
+    configstore "^5.0.1"
+    node-object-hash "^2.0.0"
+
 gatsby-graphiql-explorer@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/gatsby-graphiql-explorer/-/gatsby-graphiql-explorer-0.3.2.tgz#b4b78fc17eea3532b8e99f034a3cec160c833e2c"
@@ -11657,6 +11681,14 @@ gatsby-plugin-emotion@^4.1.24:
     "@babel/runtime" "^7.8.7"
     "@emotion/babel-preset-css-prop" "^10.0.27"
 
+gatsby-plugin-google-analytics@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.3.1.tgz#c86a4c9c31a3ad51123cbf1508e629072a7e1c5a"
+  integrity sha512-2dfaWVxAScwMMs00g5QJ4vHHOmj9i/3MWeC273zjpC8IW35IXw/ypcDg+O7Kh+Q/Xwok1pS+c+LREic8E08iYQ==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    minimatch "3.0.4"
+
 gatsby-plugin-google-fonts@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-google-fonts/-/gatsby-plugin-google-fonts-1.0.1.tgz#d71054f7bf207b9a8da227380369e18e6f4e0201"
@@ -11703,6 +11735,16 @@ gatsby-plugin-loadable-components-ssr@^1.0.8:
     "@loadable/server" "^5.11.0"
     "@loadable/webpack-plugin" "^5.7.1"
     react-dom "^16.12.0"
+
+gatsby-plugin-manifest@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.4.2.tgz#0a9605a778a8e30ce047b9b3701031b9bde61d6b"
+  integrity sha512-G6MB1/Me4waG/z3Aj1GEqXCfY/yftyMLKp8g83uGvuBDtgLGN5unVgYqdmKAyBFQTvczsUghZ7jBrApHeaTn4w==
+  dependencies:
+    "@babel/runtime" "^7.9.6"
+    gatsby-core-utils "^1.2.1"
+    semver "^5.7.1"
+    sharp "^0.25.1"
 
 gatsby-plugin-mdx@^1.0.82:
   version "1.1.8"
@@ -12012,6 +12054,13 @@ gatsby-source-graphql@^2.5.0:
     invariant "^2.2.4"
     node-fetch "^1.7.3"
     uuid "^3.4.0"
+
+gatsby-source-twitter@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/gatsby-source-twitter/-/gatsby-source-twitter-3.2.1.tgz#84564945fc0ffe33492c8f07d47b0b8fe554cdb4"
+  integrity sha512-N/AyCUGxZj5VKoXqVHxs+grHj012gdTVeLit8mheScnIlCg8fDt7ViFIFXIOO7msqS4VA17Q1xC6Ii8mSaHK2w==
+  dependencies:
+    twitter "^1.7.1"
 
 gatsby-telemetry@^1.2.4:
   version "1.2.4"
@@ -22037,7 +22086,7 @@ request-promise@^4.1.1:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.75.0, request@^2.83.0, request@^2.87.0, request@^2.88.0:
+request@^2.72.0, request@^2.75.0, request@^2.83.0, request@^2.87.0, request@^2.88.0:
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==
@@ -24539,6 +24588,14 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
+
+twitter@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/twitter/-/twitter-1.7.1.tgz#0762378f1dc1c050e48f666aca904e24b1a962f4"
+  integrity sha1-B2I3jx3BwFDkj2ZqypBOJLGpYvQ=
+  dependencies:
+    deep-extend "^0.5.0"
+    request "^2.72.0"
 
 type-check@~0.3.2:
   version "0.3.2"

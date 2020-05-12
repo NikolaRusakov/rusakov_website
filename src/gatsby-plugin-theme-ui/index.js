@@ -175,6 +175,8 @@ export const theme = {
   styles: {
     root: {
       transitionDuration: '0.3s',
+      m: '0px',
+      width: '100vw',
       transitionProperty: 'background-color, color',
       '&::-webkit-scrollbar': {
         width: '0.8rem',

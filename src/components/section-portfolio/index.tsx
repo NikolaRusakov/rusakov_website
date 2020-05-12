@@ -91,8 +91,7 @@ const PortfolioSection: React.FC = () => {
     }),
     {},
   );
-  console.log(logoMap['hartvannederland']);
-  // return <>{JSON.stringify(req, null, 2)}</>;
+
   const imageProps = toGatsbyImageProps({
     tags: ['hartvannederland'],
     name: 'Hart Van Nederland',

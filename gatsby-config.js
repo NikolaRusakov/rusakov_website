@@ -22,6 +22,32 @@ module.exports = {
     //     fileName: `./types/gatsby-graphql.ts`,
     //   },
     // },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Nikola Rusakov Digital garden`,
+        short_name: `NR`,
+        start_url: `/`,
+        description: `Nikola Rusakov Digital garden and knowledge sharing platform.`,
+        display: `standalone`,
+        cache_busting_mode: `name`,
+        theme_color_in_head: false,
+        icon: `static/svg/nr.svg`,
+        icon_options: {
+          purpose: `maskable`,
+        },
+        lang: `en`,
+        localize: [
+          {
+            start_url: `/cs/`,
+            lang: `cs`,
+            name: `Nikola Rusakov Digitální záhrada`,
+            short_name: `NR`,
+            description: `Nikola Rusakov digitální zahrada a platforma na sdílení vědomostí v jednom.`,
+          },
+        ],
+      },
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-typescript`,
     {
@@ -38,9 +64,13 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-offline`,
-      // options: {
-      //   precachePages: [`/en/*`, `/cs/*`],
-      // },
+      options: {
+        workboxConfig: {
+          maximumFileSizeToCacheInBytes: 5000000,
+          globPatterns: ['**/*'],
+        },
+        precachePages: [`/en/*`, `/cs/*`, `/resume`],
+      },
     },
     // {
     //   resolve: `gatsby-plugin-intl`,
@@ -161,18 +191,6 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `resume`,
-        path: `${__dirname}/src/pages/resume`,
-      },
-    },
-    // {
-    //   resolve: 'gatsby-plugin-page-creator',
-    //   options: {
-    //     path: `${__dirname}/src/pages/about`,
-    //   },
-    // },
-    {
-      resolve: 'gatsby-plugin-page-creator',
-      options: {
         path: `${__dirname}/src/pages/resume`,
       },
     },

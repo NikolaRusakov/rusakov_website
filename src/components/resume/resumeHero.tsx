@@ -7,14 +7,12 @@ import {
   Styled,
   Grid,
   Divider,
-  useThemeUI,
 } from 'theme-ui';
 import Img from 'gatsby-image/withIEPolyfill';
 import React from 'react';
-import dayjs from 'dayjs';
 
 import resumeProvider from './resumeProvider';
-import { exists, lineClamp } from '../../utils/utils';
+import { exists, lineClamp, diffDaysInYears } from '../../utils/utils';
 import { FluidObject } from 'gatsby-image';
 import { Maybe } from '../../../types/gatsby-graphql';
 import about from '../../data/local/about.json';
@@ -23,22 +21,11 @@ import { ReactComponent as Mobile } from '../../../static/svg/mobile.svg';
 import { ReactComponent as Website } from '../../../static/svg/website.svg';
 import { ReactComponent as Marker } from '../../../static/svg/marker.svg';
 import { ReactComponent as Portfolio } from '../../../static/svg/portfolio.svg';
-import github, {
-  ReactComponent as Github,
-} from '../../../static/svg/github.svg';
-import linkedin, {
-  ReactComponent as LinkedIn,
-} from '../../../static/svg/linkedin.svg';
-import twitter, {
-  ReactComponent as Twitter,
-} from '../../../static/svg/twitter.svg';
-import stackblitz, {
-  ReactComponent as StackBlitz,
-} from '../../../static/svg/stackblitz.svg';
-import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime);
-
-const diffDaysInYears = (start: Date) => dayjs().from(start, true);
+import github from '../../../static/svg/github.svg';
+import linkedin from '../../../static/svg/linkedin.svg';
+import twitter from '../../../static/svg/twitter.svg';
+import stackblitz from '../../../static/svg/stackblitz.svg';
+import SocialSection from './socialSection';
 
 const socialsMap = {
   github: github,
@@ -46,6 +33,7 @@ const socialsMap = {
   twitter: twitter,
   stackblitz: stackblitz,
 };
+
 const ContactItem: React.FC<{
   Cmp?: React.ComponentType<any>;
   href?: string;
@@ -87,30 +75,7 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
   role,
 }) => {
   const avatar: Maybe<FluidObject> = resumeProvider();
-  const { theme: themeSet } = useThemeUI();
 
-  const socialIcon = (icon: string) => {
-    switch (icon) {
-      case 'github':
-        return <Github width={24} height={24} fill={themeSet?.colors?.text} />;
-        break;
-      case 'linkedin':
-        return (
-          <LinkedIn width={24} height={24} />
-        );
-        break;
-      case 'twitter':
-        return <Twitter width={24} height={24} fill={themeSet?.colors?.text} />;
-        break;
-      case 'stackblitz':
-        return (
-          <StackBlitz width={24} height={24} fill={themeSet?.colors?.text} />
-        );
-      default:
-        <> </>;
-        return <> </>;
-    }
-  };
   return (
     <section
       sx={{
@@ -196,24 +161,7 @@ export const ResumeHero: React.FC<ResumeHeroProps> = ({
               alignSelf: 'center',
               // width: '80%',
             }}>
-            {about.basics.profiles.map(({ network, url, username }) => (
-              <Flex sx={{ width: '100%' }}>
-                <a
-                  href={url}
-                  sx={{
-                    textAlign: 'center',
-                    my: 1,
-                    flexDirection: ['column', 'row', 'row'],
-                    alignItems: ['center', null, null],
-                    justifyContent: 'flex-start',
-                    display: 'grid',
-                    gridTemplateColumns: 'minmax(36px, auto) 1fr',
-                    position: 'relative',
-                  }}>
-                  {socialIcon(network.toLowerCase())}
-                </a>
-              </Flex>
-            ))}
+            <SocialSection />
           </article>
         </Flex>
       </Flex>

@@ -1,29 +1,21 @@
 /** @jsx jsx */
-import { Badge, Box, Divider, Flex, Heading, Image, jsx } from 'theme-ui';
+import { Badge, Divider, Flex, Image, jsx } from 'theme-ui';
 import React, { ReactNode, useState } from 'react';
-import { useMorphList } from 'react-morph';
 import i18next from 'i18next';
 import { Lens } from 'monocle-ts';
-import { SectionHeader } from '../section-header';
 import { SectionHeaderProps } from '../section-header/sectionHeader';
 import { SectionBodyProps } from '../section-body/sectionBody';
 import data from '../../data/linkedin';
 import Checkbox from '../checkbox/checkbox';
 import { graphql, useStaticQuery } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { useTranslation } from 'react-i18next';
-import {
-  CompanySections,
-  FileConnection,
-  TagEntity,
-} from '../../../types/gatsby-graphql';
-import { exists, lineClamp } from '../../utils/utils';
-import badgeList, { toBadge } from '../badge/badgeList';
-import { transparentize } from 'polished';
-import anime from 'animejs';
+import { FileConnection, TagEntity } from '../../../types/gatsby-graphql';
+import { lineClamp } from '../../utils/utils';
 
-import { Flipper, Flipped, spring } from 'react-flip-toolkit';
+import { Flipped, Flipper } from 'react-flip-toolkit';
 import { Global } from '@emotion/core';
+import { useCompanySections } from './experienceList.hook';
+import ExperienceList from './experienceList';
 
 const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
@@ -105,16 +97,16 @@ const renderBadges = ({
 //TODO: data fetching will be combined with StaticQuery from automated JSON
 export const SectionExperienceHOC = () => {
   const locale = i18next.language;
+  const companySections = useCompanySections();
+
   const {
     allHighlight: { nodes: highlight },
     allSummary: { nodes: summary },
     allDetails: { nodes: details },
-    companySections,
   }: {
     allHighlight: FileConnection;
     allSummary: FileConnection;
     allDetails: FileConnection;
-    companySections: CompanySections;
   } = useStaticQuery(graphql`
     query HighlightPerSection {
       allHighlight: allFile(
@@ -184,32 +176,6 @@ export const SectionExperienceHOC = () => {
           }
         }
       }
-
-      companySections {
-        skills {
-          locale
-          data {
-            shortKey
-            sections {
-              section
-              tags {
-                name
-                key
-                count
-                heading
-                color
-                tags {
-                  name
-                  key
-                  count
-                  heading
-                    color
-                }
-              }
-            }
-          }
-        }
-      }
     }
   `);
 
@@ -232,7 +198,7 @@ export const SectionExperienceHOC = () => {
       summary => summary.name == `${tmpCompanyKey}.${i18next.language}`,
     )[0];
 
-    const companySection = companySections?.skills
+    const companySection = companySections?.companySections?.skills
       ?.filter(skill => skill?.locale == locale)[0]
       ?.data?.filter(section => section?.shortKey == tmpCompanyKey)[0];
 
@@ -488,38 +454,6 @@ const ExpandedSectionBody: React.FC<{
         flexDirection: 'column',
         position: 'relative',
       }}>
-      {/*<Flipped flipId={`yoe-badge-${index}-${header.experience.company}`}>*/}
-      {/*  <Badge variant="primary" sx={{ alignSelf: 'center', mb: 3 }}>*/}
-      {/*    {header.experience.duration} <span> | YOE </span>*/}
-      {/*  </Badge>*/}
-      {/*</Flipped>*/}
-
-      {/*<Flex*/}
-      {/*  sx={{*/}
-      {/*    // py: 1,*/}
-      {/*    flexDirection: 'column',*/}
-      {/*    position: 'absolute',*/}
-      {/*    top: '100%',*/}
-      {/*    zIndex: '1001',*/}
-      {/*  }}>*/}
-      {/*{children.tagSections?.map?.((value, i) => (*/}
-      {/*  <Flipped flipId={`badge-${index}-${header.experience.company}-${i}`}>*/}
-      {/*    <Badge variant="primary" px={1} my={1} mr={1}>*/}
-      {/*      {value?.section}*/}
-      {/*    </Badge>*/}
-      {/*  </Flipped>*/}
-      {/*))}*/}
-      {/*</Flex>*/}
-      {/*{children.tagSections?.map(tags => {*/}
-      {/*  return tags?.section;*/}
-      {/*})}*/}
-      {/*{section?.tags?.map(*/}
-      {/*  tag =>*/}
-      {/*    exists(tag) &&*/}
-      {/*    (exists(tag?.tags)*/}
-      {/*      ? badgeList(tag?.tags)*/}
-      {/*      : exists(tag.name) && toBadge(tag.name)),*/}
-      {/*)}*/}
       <Flipped flipId={`detail-${index}-${header.experience.company}`}>
         <section />
       </Flipped>
@@ -536,6 +470,13 @@ const ExpandedSectionBody: React.FC<{
         {children.detail}
       </div>
     </Flipped>
+    <ExperienceList
+      company={header?.experience?.company?.split(' ')[0].toLowerCase() ?? ''}>
+      {children?.tagSections
+        ?.slice(0, 5)
+        ?.map(sections => sections?.tags?.[0]?.name)
+        ?.join(', ')}
+    </ExperienceList>
   </Flex>
 );
 
@@ -545,33 +486,10 @@ const SectionExperience: React.FC<{
     body: SectionBodyProps<ReactNode>;
   }[];
 }> = ({ experience }) => {
-  const { t } = useTranslation();
-
   const expUUID = 'experience-section';
   const expList = experience.map((_, index) => `${expUUID}-${index}`);
-  const toggleList = experience.map((_, index) => `${expUUID}-toggle-${index}`);
-
-  const toggleMorphs = useMorphList(toggleList);
-
-  const morphs = useMorphList(
-    expList /*, {
-    spring: {
-      restDisplacementThreshold: 0.05,
-      overshootClamping: false,
-    },
-  }*/,
-  );
 
   const [hideDetail, toggleDetail] = useState(
-    expList.reduce(
-      (acc, cur) => ({
-        ...acc,
-        [cur]: true,
-      }),
-      {},
-    ),
-  );
-  const [hideDetails, setSummary] = useState(
     expList.reduce(
       (acc, cur) => ({
         ...acc,
@@ -585,7 +503,6 @@ const SectionExperience: React.FC<{
     <div
       sx={{
         width: '100vw',
-        // border: theme => `2px solid ${theme.colors.secondary}`,
         padding: 2,
         margin: 'auto',
       }}>
@@ -648,10 +565,6 @@ const SectionExperience: React.FC<{
             </header>
             <div
               sx={{
-                // width: theme =>
-                //   hideDetail[expList[index]]
-                //     ? ['80vw', '80vw', '50vw']
-                //     : '80vw',
                 maxWidth: hideDetail[expList[index]] ? '100%' : '80%',
                 margin: 'auto',
                 bg: 'muted',
@@ -667,15 +580,6 @@ const SectionExperience: React.FC<{
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
-                    //        '& article': {
-                    //          boxShadow: theme =>
-                    //            `0px 2px 2px 2px ${theme.colors.background}`,
-                    //        },
-                    //        '& article:not(:last-child)': {
-                    //          boxShadow: theme =>
-                    //            `0px 2px 2px 2px ${theme.colors.background}
-                    // ,0px 4px 2px 0px ${theme.colors.secondary}`,
-                    //        },
                     '& article:last-child': {
                       mb: 2,
                     },
@@ -710,679 +614,3 @@ const SectionExperience: React.FC<{
 };
 
 export default SectionExperience;
-
-{
-  /*<SectionHeader*/
-}
-{
-  /*  experience={experience}*/
-}
-{
-  /*  externalProps={externalProps}>*/
-}
-{
-  /*  {hideDetails[expList[index]] && (*/
-}
-{
-  /*    <Box sx={{ maxWidth: ['100%', '80%', '80%'] }}>*/
-}
-{
-  /*      {highlight}*/
-}
-{
-  /*    </Box>*/
-}
-{
-  /*  )}*/
-}
-{
-  /*  {!hideDetails[expList[index]] && (*/
-}
-{
-  /*    <div*/
-}
-{
-  /*      sx={theme => ({*/
-}
-{
-  /*        borderRadius: 2,*/
-}
-{
-  /*        maxWidth: ['100%', '100%', '90%'],*/
-}
-{
-  /*        bg: 'muted',*/
-}
-{
-  /*        boxShadow: `0 0 2px ${theme.colors.secondary} inset`,*/
-}
-{
-  /*        padding: '0.5em',*/
-}
-{
-  /*        display: 'flex',*/
-}
-{
-  /*        flexDirection: 'column',*/
-}
-{
-  /*        // borderRadius: '2%',*/
-}
-{
-  /*      })}>*/
-}
-{
-  /*      <h2*/
-}
-{
-  /*        sx={{*/
-}
-{
-  /*          alignSelf: 'center',*/
-}
-{
-  /*          padding: '0 5%',*/
-}
-{
-  /*          borderBottom: theme =>*/
-}
-{
-  /*            `3px solid ${theme.colors.primary}`,*/
-}
-{
-  /*        }}>*/
-}
-{
-  /*        {t('My opportunities')}*/
-}
-{
-  /*      </h2>*/
-}
-{
-  /*      {tagSections?.map(section => (*/
-}
-{
-  /*        <Flex*/
-}
-{
-  /*          sx={{*/
-}
-{
-  /*            flexDirection: 'column',*/
-}
-{
-  /*          }}>*/
-}
-{
-  /*          <header*/
-}
-{
-  /*            sx={{*/
-}
-{
-  /*              display: 'flex',*/
-}
-{
-  /*              width: '95%',*/
-}
-{
-  /*              alignSelf: 'center',*/
-}
-{
-  /*              borderBottom: theme =>*/
-}
-{
-  /*                `1px solid ${theme.colors.text}`,*/
-}
-{
-  /*            }}>*/
-}
-{
-  /*            <Box*/
-}
-{
-  /*              sx={{*/
-}
-{
-  /*                marginBottom: 0,*/
-}
-{
-  /*                px: 1,*/
-}
-{
-  /*                fontWeight: 'bold',*/
-}
-{
-  /*                color: 'background',*/
-}
-{
-  /*                bg: 'text',*/
-}
-{
-  /*                textTransform: 'uppercase',*/
-}
-{
-  /*                borderTopLeftRadius: 1,*/
-}
-{
-  /*                borderTopRightRadius: 1,*/
-}
-{
-  /*              }}*/
-}
-{
-  /*              px={1}*/
-}
-{
-  /*              my={1}*/
-}
-{
-  /*              mr={1}>*/
-}
-{
-  /*              {section?.section}*/
-}
-{
-  /*            </Box>*/
-}
-{
-  /*          </header>*/
-}
-{
-  /*          <Flex*/
-}
-{
-  /*            sx={{*/
-}
-{
-  /*              flexWrap: 'wrap',*/
-}
-{
-  /*              py: 1,*/
-}
-{
-  /*              alignItems: 'baseline',*/
-}
-{
-  /*            }}>*/
-}
-{
-  /*            {section?.tags?.map(*/
-}
-{
-  /*              tag =>*/
-}
-{
-  /*                exists(tag) &&*/
-}
-{
-  /*                (exists(tag?.tags)*/
-}
-{
-  /*                  ? badgeList(tag?.tags)*/
-}
-{
-  /*                  : exists(tag.name) && toBadge(tag.name)),*/
-}
-{
-  /*            )}*/
-}
-{
-  /*          </Flex>*/
-}
-{
-  /*        </Flex>*/
-}
-{
-  /*      ))}*/
-}
-{
-  /*      /!*<section*!/*/
-}
-{
-  /*      /!*  {...morphs[index]}*!/*/
-}
-{
-  /*      /!*  sx={{ maxWidth: ['100%', '70%', '70%'] }}>*!/*/
-}
-{
-  /*      /!*  {skills}*!/*/
-}
-{
-  /*      /!*</section>*!/*/
-}
-{
-  /*    </div>*/
-}
-{
-  /*  )}*/
-}
-{
-  /*</SectionHeader>*/
-}
-{
-  /*</Flex>*/
-}
-{
-  /*<Flex*/
-}
-{
-  /*  sx={{*/
-}
-{
-  /*    width: 'fit-content',*/
-}
-{
-  /*    flexDirection: 'column',*/
-}
-{
-  /*    alignSelf: 'flex-start',*/
-}
-{
-  /*    flexGrow: 1,*/
-}
-{
-  /*    '& > ol': {*/
-}
-{
-  /*      textOverflow: 'ellipsis',*/
-}
-{
-  /*      wordWrap: 'break-word',*/
-}
-{
-  /*      whiteSpace: 'pre-line',*/
-}
-{
-  /*    },*/
-}
-{
-  /*    '& > h1, & > h2': {*/
-}
-{
-  /*      textAlign: 'right',*/
-}
-{
-  /*    },*/
-}
-{
-  /*    '& > h3, & > h4, & > h5, & > h6': {*/
-}
-{
-  /*      textAlign: 'right',*/
-}
-{
-  /*      marginTop: '1ch',*/
-}
-{
-  /*      paddingLeft: '2ch',*/
-}
-{
-  /*    },*/
-}
-{
-  /*  }}>*/
-}
-{
-  /*  <Flex*/
-}
-{
-  /*    sx={{*/
-}
-{
-  /*      flexDirection: 'column',*/
-}
-{
-  /*      alignItems: 'flex-end',*/
-}
-{
-  /*      maxWidth: ['45%', '50%', '50%'],*/
-}
-{
-  /*      alignSelf: 'flex-end',*/
-}
-{
-  /*    }}>*/
-}
-{
-  /*    <Heading*/
-}
-{
-  /*      sx={{*/
-}
-{
-  /*        fontSize: [2, 2, 3],*/
-}
-{
-  /*        width: '14ch',*/
-}
-{
-  /*        textAlign: 'end',*/
-}
-{
-  /*        borderBottom: theme =>*/
-}
-{
-  /*          `2px solid ${theme.colors.primary}`,*/
-}
-{
-  /*      }}*/
-}
-{
-  /*      as="h3">*/
-}
-{
-  /*      {experience.company}*/
-}
-{
-  /*    </Heading>*/
-}
-{
-  /*  </Flex>*/
-}
-{
-  /*  <Flex sx={{ flexDirection: 'column' }}>*/
-}
-{
-  /*    <Flex sx={{ mt: 2, alignSelf: 'flex-end' }}>*/
-}
-{
-  /*      <label sx={{ display: 'flex' }}>*/
-}
-{
-  /*        <Flex*/
-}
-{
-  /*          sx={{*/
-}
-{
-  /*            flexDirection: 'column',*/
-}
-{
-  /*            mr: 2,*/
-}
-{
-  /*            alignItems: 'flex-end',*/
-}
-{
-  /*          }}>*/
-}
-{
-  /*          <Flex>*/
-}
-{
-  /*            {hideDetails[expList[index]] && (*/
-}
-{
-  /*              <span*/
-}
-{
-  /*                {...toggleMorphs[index]}*/
-}
-{
-  /*                sx={{*/
-}
-{
-  /*                  '&:before': {*/
-}
-{
-  /*                    content: "'\\21A0'",*/
-}
-{
-  /*                    color: 'primary',*/
-}
-{
-  /*                  },*/
-}
-{
-  /*                }}*/
-}
-{
-  /*              />*/
-}
-{
-  /*            )}*/
-}
-{
-  /*            <span>{t('about:Summary')}</span>*/
-}
-{
-  /*          </Flex>*/
-}
-
-{
-  /*          <Flex>*/
-}
-{
-  /*            {!hideDetails[expList[index]] && (*/
-}
-{
-  /*              <span*/
-}
-{
-  /*                {...toggleMorphs[index]}*/
-}
-{
-  /*                sx={{*/
-}
-{
-  /*                  '&:before': {*/
-}
-{
-  /*                    content: "'\\21A0'",*/
-}
-{
-  /*                    color: 'secondary',*/
-}
-{
-  /*                  },*/
-}
-{
-  /*                }}*/
-}
-{
-  /*              />*/
-}
-{
-  /*            )}*/
-}
-{
-  /*            <span>{t('about:Detailed Overview')}</span>*/
-}
-{
-  /*          </Flex>*/
-}
-{
-  /*        </Flex>*/
-}
-{
-  /*        <Flex>*/
-}
-{
-  /*          <Checkbox*/
-}
-{
-  /*            onClick={() =>*/
-}
-{
-  /*              setSummary({*/
-}
-{
-  /*                ...hideDetails,*/
-}
-{
-  /*                [expList[index]]: !hideDetails[expList[index]],*/
-}
-{
-  /*              })*/
-}
-{
-  /*            }*/
-}
-{
-  /*          />*/
-}
-{
-  /*        </Flex>*/
-}
-{
-  /*      </label>*/
-}
-{
-  /*    </Flex>*/
-}
-
-{
-  /*    <div*/
-}
-{
-  /*      sx={{*/
-}
-{
-  /*        transition:*/
-}
-{
-  /*          'all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6)',*/
-}
-{
-  /*        maxHeight: ['25em', '35em', '50em'],*/
-}
-{
-  /*        marginTop: 2,*/
-}
-{
-  /*        borderRadius: 2,*/
-}
-{
-  /*        padding: 1,*/
-}
-{
-  /*        overflowY: 'scroll',*/
-}
-{
-  /*        '&::-webkit-scrollbar': {*/
-}
-{
-  /*          width: '0.8rem',*/
-}
-{
-  /*          height: '0.5em',*/
-}
-{
-  /*        },*/
-}
-{
-  /*        '&::-webkit-scrollbar-thumb': {*/
-}
-{
-  /*          background: theme =>*/
-}
-{
-  /*            `linear-gradient(180deg,${theme.colors.primary},${theme.colors.secondary})`,*/
-}
-{
-  /*          borderRadius: '999px',*/
-}
-{
-  /*          boxShadow:*/
-}
-{
-  /*            'inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25)',*/
-}
-{
-  /*        },*/
-}
-{
-  /*        bg: 'muted',*/
-}
-{
-  /*        boxShadow: theme =>*/
-}
-{
-  /*          `inset 2px 2px 2px ${theme.colors.primary}, inset -2px -2px 2px ${theme.colors.secondary}`,*/
-}
-{
-  /*        // border: theme =>*/
-}
-{
-  /*        //   `2px solid ${*/
-}
-{
-  /*        //     hideDetails[expList[index]]*/
-}
-{
-  /*        //       ? theme.colors.primary*/
-}
-{
-  /*        //       : theme.colors.secondary*/
-}
-{
-  /*        //   }`,*/
-}
-{
-  /*      }}>*/
-}
-{
-  /*      {hideDetails[expList[index]] ? summary : detail}*/
-}
-{
-  /*    </div>*/
-}
-{
-  /*  </Flex>*/
-}
-{
-  /*  /!*{skills && (*!/*/
-}
-{
-  /*  /!*  <Flex sx={{ flexDirection: 'column' }}>*!/*/
-}
-{
-  /*  /!*    {hideDetails[expList[index]] && (*!/*/
-}
-{
-  /*  /!*      // @ts-ignore*!/*/
-}
-{
-  /*  /!*      <section {...morphs[index]}>{skills}</section>*!/*/
-}
-{
-  /*  /!*    )}*!/*/
-}
-{
-  /*  /!*  </Flex>*!/*/
-}
-{
-  /*  /!*)}*!/*/
-}
-{
-  /*</Flex>*/
-}
-
-{
-  /*<SectionBody>*/
-}
-{
-  /*  {{*/
-}
-{
-  /*    location,*/
-}
-{
-  /*    duration,*/
-}
-{
-  /*    employment,*/
-}
-{
-  /*    projects,*/
-}
-{
-  /*    tags,*/
-}
-{
-  /*  }}*/
-}
-{
-  /*</SectionBody>*/
-}
