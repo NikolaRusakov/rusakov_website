@@ -103,8 +103,8 @@ export const CoverHeader: React.FC = () => (
           p: 2,
           width: '90%',
           boxShadow:
-            '-10px -10px 30px 0 #00B0F0,' +
-            '10px 10px 30px 0 #2200bb,' +
+            '-5px -5px 30px 0 #00B0F0,' +
+            '5px 5px 30px 0 #2200bb,' +
             'inset -1px -1px 9px 0px #00B0F0,' +
             'inset 3px 7px 20px 0 #2200BB',
           // 'inset 10px 10px 30px 0 #00B0F0,' +
