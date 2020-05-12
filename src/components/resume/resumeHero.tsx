@@ -21,18 +21,10 @@ import { ReactComponent as Mobile } from '../../../static/svg/mobile.svg';
 import { ReactComponent as Website } from '../../../static/svg/website.svg';
 import { ReactComponent as Marker } from '../../../static/svg/marker.svg';
 import { ReactComponent as Portfolio } from '../../../static/svg/portfolio.svg';
-import github, {
-  ReactComponent as Github,
-} from '../../../static/svg/github.svg';
-import linkedin, {
-  ReactComponent as LinkedIn,
-} from '../../../static/svg/linkedin.svg';
-import twitter, {
-  ReactComponent as Twitter,
-} from '../../../static/svg/twitter.svg';
-import stackblitz, {
-  ReactComponent as StackBlitz,
-} from '../../../static/svg/stackblitz.svg';
+import github from '../../../static/svg/github.svg';
+import linkedin from '../../../static/svg/linkedin.svg';
+import twitter from '../../../static/svg/twitter.svg';
+import stackblitz from '../../../static/svg/stackblitz.svg';
 import SocialSection from './socialSection';
 
 const socialsMap = {
