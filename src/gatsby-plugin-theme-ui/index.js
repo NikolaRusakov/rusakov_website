@@ -205,7 +205,7 @@ export const theme = {
       borderCollapse: 'separate',
       borderSpacing: 0,
       margin: '0 !important',
-      display: 'block',
+      display: ['block', 'table', 'table'],
       overflowX: 'auto',
     },
     tr: {
