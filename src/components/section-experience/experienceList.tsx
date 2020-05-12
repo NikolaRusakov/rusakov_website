@@ -408,7 +408,14 @@ const ExperienceList: React.FC<{ company: string }> = ({
                     my={1}
                     mr={1}>
                     <Flex>
-                      <h3 sx={{ alignSelf: 'center' }}> {section?.section}</h3>
+                      <h3
+                        sx={{
+                          alignSelf: 'center',
+                          color: 'background',
+                          m: '0',
+                        }}>
+                        {section?.section}
+                      </h3>
                     </Flex>
                     <div
                       sx={{
