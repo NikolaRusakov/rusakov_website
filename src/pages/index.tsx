@@ -26,6 +26,7 @@ export const CoverHeader: React.FC = () => (
         alignItems: 'center',
         my: 3,
         p: [2, 4, 4],
+        transform: [null, 'scale(0.9)', 'scale(0.9)'],
         display: 'flex',
         boxShadow: [
           null,
@@ -100,6 +101,7 @@ export const CoverHeader: React.FC = () => (
           background: 'transparent',
           borderRadius: '12px',
           p: 2,
+          width: '90%',
           boxShadow:
             '-10px -10px 30px 0 #00B0F0,' +
             '10px 10px 30px 0 #2200bb,' +
