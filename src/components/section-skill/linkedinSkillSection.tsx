@@ -270,13 +270,15 @@ const LinkedInSkillSection: React.FC = () => {
                       {({ head, img }) => {
                         return (
                           <React.Fragment>
-                            <Img
-                              {...img}
-                              sx={{
-                                width: ['4rem', null, '3rem'],
-                                height: ['4rem', null, '3rem'],
-                              }}
-                            />
+                            {img && (
+                              <Img
+                                {...img}
+                                sx={{
+                                  width: ['4rem', null, '3rem'],
+                                  height: ['4rem', null, '3rem'],
+                                }}
+                              />
+                            )}
                             {head}
                             {toBadge(pickBadgeName(tag, true), {
                               ...lineClamp('2'),
