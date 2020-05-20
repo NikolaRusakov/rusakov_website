@@ -636,7 +636,12 @@ const SectionExperience: React.FC<{
                   <label
                     htmlFor={`experienceToggle-${header.experience.company}`}
                   />
-                  <span sx={{ textAlign: 'end' }}>
+                  <span
+                    sx={{
+                      textAlign: 'end',
+                      left: '40%',
+                      position: 'relative',
+                    }}>
                     {hideDetail[expList[index]]
                       ? t('typography: show')
                       : t('typography: hide')}
