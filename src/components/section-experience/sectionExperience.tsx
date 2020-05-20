@@ -16,6 +16,7 @@ import { Flipped, Flipper } from 'react-flip-toolkit';
 import { Global } from '@emotion/core';
 import { useCompanySections } from './experienceList.hook';
 import ExperienceList from './experienceList';
+import { useTranslation } from 'react-i18next';
 
 const SummaryArticle: React.FC<{ children: ReactNode }> = ({ children }) => (
   <article
@@ -488,6 +489,7 @@ const SectionExperience: React.FC<{
 }> = ({ experience }) => {
   const expUUID = 'experience-section';
   const expList = experience.map((_, index) => `${expUUID}-${index}`);
+  const { t } = useTranslation();
 
   const [hideDetail, toggleDetail] = useState(
     expList.reduce(
@@ -523,6 +525,48 @@ const SectionExperience: React.FC<{
                 width: '90vw !important',
                 transition: 'all 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6)',
               },
+              //todo refactor to a component
+              '.checkbox > input[type=checkbox]': {
+                visibility: 'hidden',
+                width: '100px',
+              },
+              '.checkbox': {
+                position: 'relative',
+                display: 'block',
+                width: '60px',
+                height: '26px',
+                margin: '0 auto',
+                background: '#FFF',
+                border: '1px solid #2E2E2E',
+                borderRadius: '2px',
+                '&:after': {
+                  opacity: 0,
+                },
+                transition: 'opacity 0.2s ease-in-out 0.1s',
+              },
+              '.checkbox label': {
+                position: 'absolute',
+                display: 'block',
+                top: '2px',
+                left: '2px',
+                width: '20px',
+                height: '20px',
+                background: '#2E2E2E',
+                transition: 'all 0.2s ease-in-out',
+                borderRadius: '2px',
+                zIndex: 1,
+              },
+              '.checkbox input[type=checkbox]:checked': {
+                transition: 'opacity 0.2s ease-in-out 0.1s',
+
+                '&:before': {
+                  opacity: 0,
+                },
+                '&:after': {
+                  opacity: 1,
+                },
+                '& + label': { left: '36px' },
+              },
             })}
           />
           <div
@@ -540,23 +584,74 @@ const SectionExperience: React.FC<{
                 alignItems: 'center',
                 variant: 'styles.header',
               }}>
-              <label
+              <div
                 sx={{
                   gridColumn: '3',
                   gridRow: '1',
                   display: 'flex',
                   alignSelf: 'self-start',
                   flexDirection: 'row-reverse',
+                  justifySelf: 'flex-end',
+                  m: 2,
                 }}>
-                <Checkbox
-                  onClick={() =>
-                    toggleDetail({
-                      ...hideDetail,
-                      [expList[index]]: !hideDetail[expList[index]],
-                    })
-                  }
-                />
-              </label>
+                <label
+                  className="checkbox"
+                  css={theme => ({
+                    cursor: 'pointer',
+                    '&:after': {
+                      position: 'absolute',
+                      right: '0',
+                      display: 'contents',
+                      // content: `"${naming.show}"`,
+                      color: theme.colors.primary,
+                      font: '12px/26px Arial, sans-serif',
+                      fontWeight: 'bold',
+                      textTransform: 'capitalize',
+                      zIndex: 0,
+                    },
+                    '&:before': {
+                      position: 'absolute',
+                      top: '3px',
+                      left: '0',
+                      // content: `"${naming.hide}"`,
+                      color: theme.colors.secondary,
+                      font: '12px/26px Arial, sans-serif',
+                      fontWeight: 'bold',
+                      textTransform: 'capitalize',
+                      zIndex: 0,
+                    },
+                  })}>
+                  <input
+                    id={`experienceToggle-${header.experience.company}`}
+                    type="checkbox"
+                    value={expList[index] ? 0 : 1}
+                    checked={!hideDetail[expList[index]]}
+                    onClick={() =>
+                      toggleDetail({
+                        ...hideDetail,
+                        [expList[index]]: !hideDetail[expList[index]],
+                      })
+                    }
+                  />
+                  <label
+                    htmlFor={`experienceToggle-${header.experience.company}`}
+                  />
+                  <span sx={{ textAlign: 'end' }}>
+                    {hideDetail[expList[index]]
+                      ? t('typography: show')
+                      : t('typography: hide')}
+                  </span>
+                </label>
+
+                {/*<Checkbox*/}
+                {/*  onClick={() =>*/}
+                {/*    toggleDetail({*/}
+                {/*      ...hideDetail,*/}
+                {/*      [expList[index]]: !hideDetail[expList[index]],*/}
+                {/*    })*/}
+                {/*  }*/}
+                {/*/>*/}
+              </div>
               {hideDetail[expList[index]] ? (
                 <HiddenHeaderSection index={index} header={header} />
               ) : (

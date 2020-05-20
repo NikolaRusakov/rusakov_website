@@ -270,6 +270,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           WebkitFontSmoothing: 'auto',
           display: 'flex',
           flexWrap: 'wrap',
+          overflowY: 'auto',
         })}>
         <button
           onClick={e => toggleToolbox(!isShown)}
