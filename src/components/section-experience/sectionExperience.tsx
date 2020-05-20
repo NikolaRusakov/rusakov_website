@@ -582,6 +582,7 @@ const SectionExperience: React.FC<{
                 gridGap: 1,
                 gridTemplateColumns: '1fr auto 1fr',
                 alignItems: 'center',
+                position: 'relative',
                 variant: 'styles.header',
               }}>
               <div
@@ -597,6 +598,7 @@ const SectionExperience: React.FC<{
                 <label
                   className="checkbox"
                   css={theme => ({
+                    position: 'absolute',
                     cursor: 'pointer',
                     '&:after': {
                       position: 'absolute',
@@ -639,12 +641,12 @@ const SectionExperience: React.FC<{
                   <span
                     sx={{
                       textAlign: 'end',
-                      left: '40%',
+                      left: '10%',
                       position: 'relative',
                     }}>
                     {hideDetail[expList[index]]
-                      ? t('typography: show')
-                      : t('typography: hide')}
+                      ? t('typography:show')
+                      : t('typography:hide')}
                   </span>
                 </label>
 
