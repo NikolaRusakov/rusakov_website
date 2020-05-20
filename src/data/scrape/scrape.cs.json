@@ -4,10 +4,10 @@
     "experience": [
       {
         "employedDuration": "Data pro zaměstnání 2/2019 – do současnosti",
-        "duration": "1 rok 3 měsíce",
+        "duration": "1 rok 4 měsíce",
         "company": "FlowUp Na plný úvazek",
         "employment": "Na plný úvazek",
-        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQE7e-hDDBtsWQ/company-logo_100_100/0?e=1594857600&v=beta&t=KAEV5mZqkKnmmX-ySwPDgZgZGmqX2ENBjin19NqiIqU",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQE7e-hDDBtsWQ/company-logo_100_100/0?e=1597881600&v=beta&t=x-8K6cgFbMeO7D-5hFPNyoxtAF0liX1_w4_xHEjYQ64",
         "position": "Frontend Engineer",
         "location": "Lokalita District Brno-City, Czech Republic"
       },
@@ -16,7 +16,7 @@
         "duration": "6 měsíců",
         "company": "Sprint Innovations Na plný úvazek",
         "employment": "Na plný úvazek",
-        "companyLogo": "https://media-exp1.licdn.com/dms/image/C4E0BAQGacPkigH-l8A/company-logo_100_100/0?e=1594857600&v=beta&t=BlWLdwYXMKKfA5tZdtMFG6No0OEB4IxjHcrmDbCMtGI",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C4E0BAQGacPkigH-l8A/company-logo_100_100/0?e=1597881600&v=beta&t=RGHvRehf3uTH76xJ9yRjdsoaklykkQXnF96JAppg1F0",
         "position": "Frontend Developer",
         "location": "Lokalita District Brno-City, Czech Republic"
       },
@@ -24,7 +24,7 @@
         "employedDuration": "Data pro zaměstnání 1/2018 – 7/2018",
         "duration": "7 měsíců",
         "company": "MARBES CONSULTING s.r.o.",
-        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQGmERye2lTt9Q/company-logo_100_100/0?e=1594857600&v=beta&t=lKH1VNvKK8YeYxgduR-9pOlEXQixJg_uQWTwutHK47A",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQGmERye2lTt9Q/company-logo_100_100/0?e=1597881600&v=beta&t=XmIL9UdVy3evMVhzXhxHDGuYnGx9X3nC9pWbqEQuLCw",
         "position": "Full-stack Developer",
         "location": "Lokalita Plzeň-město, Plzeňský, Česká republika"
       },
@@ -33,10 +33,9 @@
         "duration": "5 měsíců",
         "company": "FutureTek Solutions Ltd. Na plný úvazek",
         "employment": "Na plný úvazek",
-        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQEeZdp3-MUVBg/company-logo_100_100/0?e=1594857600&v=beta&t=70B6nLC_SwgVqWtvXC7i9W_3XZ2o52-1HIjYShEogrE",
+        "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQEeZdp3-MUVBg/company-logo_100_100/0?e=1597881600&v=beta&t=XdvOFuekLF2CNI-mrlKRiPH9zd4fOxVyeyEVHa2pbSo",
         "position": "Full-stack Developer",
-        "location": "Lokalita Okres Plzeň-město, Česká republika",
-        "details": "Iternship"
+        "location": "Lokalita Okres Plzeň-město, Česká republika"
       }
     ]
   },
@@ -61,15 +60,18 @@
       "skills": [
         {
           "name": "Angular",
-          "count": "11"
+          "count": "14",
+          "highlight": "Jakub Švehla a 13 dalších spojení"
         },
         {
           "name": "ReactJS",
-          "count": "4"
+          "count": "6",
+          "highlight": "Jakub Švehla a 5 dalších spojení"
         },
         {
           "name": "Git",
-          "count": "7"
+          "count": "10",
+          "highlight": "7 z kolegů uživatele Nikola ze společnosti FlowUp"
         }
       ]
     },
@@ -86,7 +88,7 @@
           "skill": [
             {
               "name": "Agile Methodologies",
-              "count": "2"
+              "count": "4"
             }
           ]
         },
@@ -95,21 +97,22 @@
           "skill": [
             {
               "name": "JavaScript",
-              "count": "5"
+              "count": "7"
             },
             {
-              "name": "Java"
+              "name": "Java",
+              "count": "1"
             },
             {
               "name": "Maven"
             },
             {
               "name": "CSS",
-              "count": "5"
+              "count": "9"
             },
             {
               "name": "Docker",
-              "count": "1"
+              "count": "2"
             },
             {
               "name": "Spring Framework"
@@ -128,14 +131,15 @@
             },
             {
               "name": "Linux",
-              "count": "2"
+              "count": "5"
             },
             {
               "name": "IntelliJ IDEA",
               "count": "1"
             },
             {
-              "name": "Amazon Web Services (AWS)"
+              "name": "Amazon Web Services (AWS)",
+              "count": "3"
             }
           ]
         },
@@ -144,7 +148,7 @@
           "skill": [
             {
               "name": "Problem Solving",
-              "count": "4"
+              "count": "5"
             }
           ]
         },
@@ -153,41 +157,47 @@
           "skill": [
             {
               "name": "HMLT5",
-              "count": "5"
+              "count": "7"
             },
             {
               "name": "Redux",
-              "count": "2"
+              "count": "3"
             },
             {
               "name": "Swagger"
             },
             {
               "name": "TypeScript",
-              "count": "5"
+              "count": "8"
             },
             {
               "name": "RxJS",
-              "count": "3"
+              "count": "6"
             },
             {
               "name": "Neo4j"
             },
             {
               "name": "Ionic Framework",
-              "count": "6"
+              "count": "9"
             },
             {
               "name": "GraphQL",
-              "count": "3"
+              "count": "6"
             },
             {
               "name": "Flutter",
-              "count": "2"
+              "count": "3"
             },
             {
               "name": "Firebase",
-              "count": "1"
+              "count": "2"
+            },
+            {
+              "name": "GatsbyJS"
+            },
+            {
+              "name": "Google Cloud Platform (GCP)"
             }
           ]
         }
