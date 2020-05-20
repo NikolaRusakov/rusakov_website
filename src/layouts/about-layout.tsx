@@ -45,6 +45,8 @@ import withI18next from '../i18n/withI18Next';
 import { Link } from 'gatsby';
 import i18next from 'i18next';
 import { TypographyOptions } from '@saltit/typography-picker';
+// @ts-ignore
+import { ReactComponent as CloseIcon } from '../../static/svg/close.svg';
 
 const presets = {
   light: bulma,
@@ -139,83 +141,100 @@ const AboutLayout: React.FC = children => {
           <style id="typography.js">{typography.toString()}</style>
           {injectRecentFont}
         </Helmet>
-        <Flex sx={{ position: 'sticky', top: 0, zIndex: '2002' }}>
-          <label>
-            <Checkbox
+        <nav
+          sx={{
+            position: 'sticky',
+            top: 0,
+            zIndex: 2002,
+            display: 'flex',
+            justifyContent: 'space-between',
+            px: 2,
+          }}>
+          <Flex css={{ flexDirection: 'row', alignItems: 'center' }}>
+            <label>
+              <Checkbox
+                onClick={() => {
+                  const next = mode === 'dark' ? 'light' : 'dark';
+                  setMode(next);
+                }}
+              />
+              {mode}
+            </label>
+            <Flex css={{ flexDirection: 'column' }}>
+              <span>{t('typography:show typography toolbox')}</span>
+              <DesignTool
+                // @ts-ignore
+                theme={{
+                  defaultTheme: usStandards,
+                  themeName: 'typography-theme-us-web-design-standards',
+                }}
+                themeNames={themes.map(({ name }) => name)}
+                themes={[...themes]}
+                trigger={mode}
+                naming={typographyNaming}
+                // @ts-ignore
+                closeIcon={() => (
+                  <CloseIcon width={24} height={24} viewBox="0 0 48 48" />
+                )}
+                onChange={changes => {
+                  const bodyColor =
+                    colorMode === 'default' || colorMode === 'light'
+                      ? themeSet.colors?.text
+                      : themeSet.colors?.modes?.[colorMode]?.text;
+
+                  setTypography(
+                    new Typography({
+                      ...changes,
+                      bodyColor,
+                      headerColor: bodyColor,
+                    }),
+                  );
+                }}
+              />
+            </Flex>
+          </Flex>
+          <Flex css={{ flexDirection: 'column' }}>
+            <Button
               onClick={() => {
-                const next = mode === 'dark' ? 'light' : 'dark';
-                setMode(next);
-              }}
-            />
-            {mode}
-          </label>
+                const keyPresets = Object.keys(presets);
+                const colorModeIndex =
+                  keyPresets.indexOf(colorMode) >= 0
+                    ? keyPresets.indexOf(colorMode) + 1
+                    : 0;
+                const newThemeColor =
+                  keyPresets[
+                    colorModeIndex == keyPresets.length ? 0 : colorModeIndex
+                  ];
 
-          <DesignTool
-            // @ts-ignore
-
-            theme={{
-              defaultTheme: usStandards,
-              themeName: 'typography-theme-us-web-design-standards',
-            }}
-            themeNames={themes.map(({ name }) => name)}
-            themes={[...themes]}
-            trigger={mode}
-            naming={typographyNaming}
-            onChange={changes => {
-              const bodyColor =
-                colorMode === 'default' || colorMode === 'light'
-                  ? themeSet.colors?.text
-                  : themeSet.colors?.modes?.[colorMode]?.text;
-
-              setTypography(
-                new Typography({
-                  ...changes,
-                  bodyColor,
-                  headerColor: bodyColor,
-                }),
-              );
-            }}
-          />
-          <Button
-            onClick={() => {
-              const keyPresets = Object.keys(presets);
-              const colorModeIndex =
-                keyPresets.indexOf(colorMode) >= 0
-                  ? keyPresets.indexOf(colorMode) + 1
-                  : 0;
-              const newThemeColor =
-                keyPresets[
-                  colorModeIndex == keyPresets.length ? 0 : colorModeIndex
-                ];
-
-              //TODO only set new Theme Color which is patched with preset color styles on init.
-              setMode(newThemeColor);
-            }}>
-            {colorMode}
-          </Button>
-          <nav
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <div>
-              {children.pageContext.paths?.map(
-                ({ locale, templateKey }, index, array) => (
-                  <React.Fragment>
-                    <Link
-                      key={`${locale}-${templateKey}`}
-                      to={`/${locale}/${templateKey}`}
-                      hrefLang={locale}>
-                      {t(`${locale}`)}
-                    </Link>
-                    {index < array.length - 1 && '|'}
-                  </React.Fragment>
-                ),
-              )}
-            </div>
-          </nav>
-        </Flex>
+                //TODO only set new Theme Color which is patched with preset color styles on init.
+                setMode(newThemeColor);
+              }}>
+              {colorMode}
+            </Button>
+            <article
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <div>
+                {children.pageContext.paths?.map(
+                  ({ locale, templateKey }, index, array) => (
+                    <React.Fragment>
+                      <Link
+                        key={`${locale}-${templateKey}`}
+                        to={`/${locale}/${templateKey}`}
+                        hrefLang={locale}>
+                        {t(`${locale}`)}
+                      </Link>
+                      {index < array.length - 1 && '|'}
+                    </React.Fragment>
+                  ),
+                )}
+              </div>
+            </article>
+          </Flex>
+        </nav>
         <Styled.root>
           {children.pageContext.children ? (
             <MDXRenderer>{children.pageContext.children}</MDXRenderer>

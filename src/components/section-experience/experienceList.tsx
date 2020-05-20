@@ -340,7 +340,7 @@ const ExperienceList: React.FC<{ company: string }> = ({
   return (
     <details sx={{ py: 2 }}>
       <summary>
-        <span>
+        <span css={{ cursor: 'pointer' }}>
           <h4 style={{ display: 'inline', textTransform: 'uppercase' }}>
             {'Highlight: '}
           </h4>

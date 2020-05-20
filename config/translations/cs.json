@@ -16,5 +16,8 @@
   "pickTheme": "Vyberte náměť písma",
   "body": "Tělo",
   "bodyWeight": "Tloušťka Těla",
-  "boldWeight": "Tloušťka duktus"
+  "boldWeight": "Tloušťka duktus",
+  "show typography toolbox": "Zobrazit nástroj typografie",
+  "show": "Zobrazit",
+  "hide": "Skrýt"
 }

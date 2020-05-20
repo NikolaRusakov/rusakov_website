@@ -16,5 +16,9 @@
   "pickTheme": "Pick Theme",
   "body": "Body",
   "bodyWeight": "Body Weight",
-  "boldWeight": "Bold Weight"
+  "boldWeight": "Bold Weight",
+  "show typography toolbox": "Show Typography Toolbox",
+  "hide typography toolbox": "Hide Typography Toolbox",
+  "show": "Show",
+  "hide": "Hide"
 }

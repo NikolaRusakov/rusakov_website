@@ -97,6 +97,7 @@
     "react-i18next": "^11.3.4",
     "react-morph": "^0.4.0",
     "react-typography": "^0.16.19",
+    "react-use": "^15.1.0",
     "reaviz": "^8.1.0",
     "refractor": "^2.10.1",
     "slugify": "^1.4.0",

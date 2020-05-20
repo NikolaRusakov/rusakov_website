@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { useReducer, useEffect, useRef } from 'react';
+import { useToggle } from 'react-use';
 import Typography from 'typography';
 import { Lens } from 'monocle-ts';
 import fontList from '../../fontList.json';
@@ -10,7 +11,7 @@ import { parseUnit } from '../..';
 import ModularScaleTool from '../modularScaleTool/modularScaleTool';
 import FontSelectTool from '../fontSelectTool/fontSelectTool';
 import FontWeightTool from '../fontWeightTool/fontWeightTool';
-import { Global, jsx } from '@emotion/core';
+import { jsx, Global } from '@emotion/core';
 import { desaturate, readableColor, transparentize } from 'polished';
 import namingDefault from '../../naming.json';
 import {
@@ -26,6 +27,7 @@ export interface DesignToolProps {
   onChange: (options: TypographyOptions) => void;
   trigger: string;
   naming?: typeof namingDefault;
+  closeIcon: () => React.ComponentType<any>;
 }
 
 type ActionThemeType = {
@@ -123,6 +125,7 @@ export const DesignTool: React.FC<DesignToolProps> = ({
   onChange,
   trigger,
   naming = namingDefault,
+  closeIcon,
 }) => {
   const typography = new Typography(defaultTheme);
 
@@ -146,21 +149,104 @@ export const DesignTool: React.FC<DesignToolProps> = ({
     }
   }, [trigger]);
 
+  const [isShown, toggleToolbox] = useToggle(false);
   return (
     <React.Fragment>
+      {/*<Global*/}
+      {/*  styles={{*/}
+      {/*    '.designToolToggle:checked + .designTool': {*/}
+      {/*      display: 'none !important',*/}
+      {/*    },*/}
+      {/*    '.designToolToggle': {*/}
+      {/*      display: 'block',*/}
+      {/*      height: '24px',*/}
+      {/*      width: '24px',*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*/>*/}
+
       <Global
         styles={{
-          '.designToolToggle:checked + .designTool': {
-            display: 'none !important',
+          '.checkbox > input[type=checkbox]': {
+            visibility: 'hidden',
+            width: '100px',
           },
-          '.designToolToggle': {
+          '.checkbox': {
+            position: 'relative',
             display: 'block',
-            height: '24px',
-            width: '24px',
+            width: '60px',
+            height: '26px',
+            margin: '0 auto',
+            background: '#FFF',
+            border: '1px solid #2E2E2E',
+            borderRadius: '2px',
+            '&:after': {
+              opacity: 0,
+            },
+            transition: 'opacity 0.2s ease-in-out 0.1s',
+          },
+          '.checkbox label': {
+            position: 'absolute',
+            display: 'block',
+            top: '2px',
+            left: '2px',
+            width: '20px',
+            height: '20px',
+            background: '#2E2E2E',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease-in-out',
+            borderRadius: '2px',
+            zIndex: 1,
+          },
+          '.checkbox input[type=checkbox]:checked': {
+            transition: 'opacity 0.2s ease-in-out 0.1s',
+
+            '&:before': {
+              opacity: 0,
+            },
+            '&:after': {
+              opacity: 1,
+            },
+            '& + label': { left: '36px' },
           },
         }}
       />
-      <input className="designToolToggle" type="checkbox" />
+      {/*<input className="designToolToggle" type="checkbox" />*/}
+      <div
+        className="checkbox"
+        css={theme => ({
+          '&:after': {
+            position: 'absolute',
+            right: '0',
+            display: 'contents',
+            // content: `"${naming.show}"`,
+            color: theme.colors.primary,
+            font: '12px/26px Arial, sans-serif',
+            fontWeight: 'bold',
+            textTransform: 'capitalize',
+            zIndex: 0,
+          },
+          '&:before': {
+            position: 'absolute',
+            top: '3px',
+            left: '0',
+            // content: `"${naming.hide}"`,
+            color: theme.colors.secondary,
+            font: '12px/26px Arial, sans-serif',
+            fontWeight: 'bold',
+            textTransform: 'capitalize',
+            zIndex: 0,
+          },
+        })}>
+        <input
+          id="toolboxCheckbox"
+          type="checkbox"
+          value={isShown ? 1 : 0}
+          checked={isShown}
+          onClick={e => toggleToolbox(!isShown)}
+        />
+        <label htmlFor="toolboxCheckbox" />
+      </div>
       <div
         className="designTool"
         css={theme => ({
@@ -168,7 +254,8 @@ export const DesignTool: React.FC<DesignToolProps> = ({
             0.2,
             desaturate(0.3, theme.colors.primary),
           ),
-          indexZ: '2002',
+          visibility: isShown ? 'visible' : 'hidden',
+          zIndex: 2002,
           color: readableColor(theme.colors.text),
           fontFamily: state.typography?.options?.headerFontFamily?.toString(),
           fontSize: 20,
@@ -184,6 +271,29 @@ export const DesignTool: React.FC<DesignToolProps> = ({
           display: 'flex',
           flexWrap: 'wrap',
         })}>
+        <button
+          onClick={e => toggleToolbox(!isShown)}
+          css={theme => ({
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            zIndex: 2003,
+            background: 'transparent',
+            borderRadius: '50%',
+            border: 'none',
+            '&:hover': {
+              transform: 'scale(1.15)',
+              transition: 'all 0.1s ease-in-out',
+              cursor: 'pointer',
+            },
+            '&:focus': {
+              transform: 'scale(0.9)',
+              transition: 'all 0.1s ease-in-out',
+              cursor: 'pointer',
+            },
+          })}>
+          {closeIcon()}
+        </button>
         <Section css={{ display: 'flex', maxWidth: '15ch' }}>
           <span
             css={theme => ({
