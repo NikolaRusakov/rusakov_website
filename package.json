@@ -60,7 +60,7 @@
     "gatsby-plugin-intl": "^0.3.3",
     "gatsby-plugin-loadable-components-ssr": "^1.0.8",
     "gatsby-plugin-manifest": "^2.4.2",
-    "gatsby-plugin-mdx": "^1.0.82",
+    "gatsby-plugin-mdx": "^2.14.1",
     "gatsby-plugin-offline": "^3.1.2",
     "gatsby-plugin-page-creator": "^2.1.45",
     "gatsby-plugin-react-axe": "^0.4.0",
